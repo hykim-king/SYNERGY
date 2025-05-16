@@ -3,8 +3,8 @@ package test;
 public class Test {
 
 	public static void main(String[] args) {
-		System.out.println("È®ÀÎ Å×½ºÆ® Áß");
-		System.out.println("Ãß°¡ È®ÀÎ");
+		System.out.println("í™•ì¸ í…ŒìŠ¤íŠ¸ ì¤‘");
+		System.out.println("ì¶”ê°€ í™•ì¸");
 	}
 
 }
