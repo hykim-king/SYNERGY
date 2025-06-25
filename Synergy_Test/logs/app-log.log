@@ -1,0 +1,1118 @@
+[2025-06-25 08:58:19] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 08:58:19] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@27adc16e, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@b83a9be, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@2609b277, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1fd14d74, org.springframework.test.context.support.DirtiesContextTestExecutionListener@563e4951, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4066c471, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2b175c00, org.springframework.test.context.event.EventPublishingTestExecutionListener@3eb81efb]
+[2025-06-25 08:58:20] [ERROR] org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1fd14d74] to prepare test instance [com.pcwk.ehr.member.MemberTest@6014a9ba]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.pcwk.ehr.member.MemberTest': Unsatisfied dependency expressed through field 'dao'; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:713) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:693) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:408) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:417) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:119) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$2$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.copyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.evaluate(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.Optional.orElseGet(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:94) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:52) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:70) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210) [.cp/:?]
+Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveNotUnique(DependencyDescriptor.java:220) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1369) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:710) ~[spring-beans-5.3.37.jar:5.3.37]
+	... 78 more
+[2025-06-25 09:06:33] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 09:06:33] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@67b9b51a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1205bd62, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7ef27d7f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6337c201, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5c669da8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@31920ade, org.springframework.test.context.event.EventPublishingTestExecutionListener@1d483de4]
+[2025-06-25 09:06:34] [ERROR] org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f] to prepare test instance [com.pcwk.ehr.member.MemberTest@7397c6]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.pcwk.ehr.member.MemberTest': Unsatisfied dependency expressed through field 'dao'; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:713) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:693) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:408) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:417) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:119) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$2$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.copyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.evaluate(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.Optional.orElseGet(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:94) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:52) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:70) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210) [.cp/:?]
+Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveNotUnique(DependencyDescriptor.java:220) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1369) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:710) ~[spring-beans-5.3.37.jar:5.3.37]
+	... 78 more
+[2025-06-25 09:17:07] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 09:17:07] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@67b9b51a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1205bd62, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7ef27d7f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6337c201, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5c669da8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@31920ade, org.springframework.test.context.event.EventPublishingTestExecutionListener@1d483de4]
+[2025-06-25 09:17:08] [ERROR] org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f] to prepare test instance [com.pcwk.ehr.member.MemberTest@7397c6]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.pcwk.ehr.member.MemberTest': Unsatisfied dependency expressed through field 'dao'; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:713) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:693) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:408) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:417) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:119) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$2$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.copyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.evaluate(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.Optional.orElseGet(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:94) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:52) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:70) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210) [.cp/:?]
+Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveNotUnique(DependencyDescriptor.java:220) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1369) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:710) ~[spring-beans-5.3.37.jar:5.3.37]
+	... 78 more
+[2025-06-25 09:17:17] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 09:17:17] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@6cdba6dc, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7d3d101b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@30c8681, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@5cdec700, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6d026701, org.springframework.test.context.transaction.TransactionalTestExecutionListener@78aa1f72, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1f75a668, org.springframework.test.context.event.EventPublishingTestExecutionListener@35399441]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - context:org.springframework.context.support.GenericApplicationContext@609db546, started on Wed Jun 25 09:17:17 GMT+09:00 2025
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+ delete from member 
+
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - count:502
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+SELECT A.*,B.*                                                     
+ FROM(                                                             
+SELECT tt3.RNUM as no,                                                   
+       tt3.user_id,                                                
+       tt3.name,                                                   
+       tt3.password,                                               
+       tt3.login,                                                  
+       tt3.recommand,                                              
+       tt3.grade,                                                  
+       tt3.email,                                                  
+       TO_CHAR(tt3.reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str   
+ FROM                                                              
+(                                                                  
+SELECT ROWNUM AS RNUM,                                             
+       tt2.*                                                       
+    FROM(                                                          
+        SELECT t1.*                                                
+          FROM member t1                                           
+        ORDER BY t1.reg_dt desc                                    
+)tt2                                                               
+WHERE ROWNUM <= 10                                                 
+)tt3                                                               
+WHERE RNUM >=1                                                     
+)A                                                                 
+CROSS JOIN                                                         
+(SELECT COUNT(*) AS total_cnt                                      
+ FROM member)B                                                     
+
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol1, name=이상무1, password=4321_1, regDt=2025/06/24 09:17:18, Login=1, Recommand=1, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=1, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol2, name=이상무2, password=4321_2, regDt=2025/06/23 09:17:18, Login=2, Recommand=0, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=2, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol3, name=이상무3, password=4321_3, regDt=2025/06/22 09:17:18, Login=3, Recommand=1, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=3, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol4, name=이상무4, password=4321_4, regDt=2025/06/21 09:17:18, Login=4, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=4, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol5, name=이상무5, password=4321_5, regDt=2025/06/20 09:17:18, Login=5, Recommand=1, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=5, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol6, name=이상무6, password=4321_6, regDt=2025/06/19 09:17:18, Login=6, Recommand=0, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=6, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol7, name=이상무7, password=4321_7, regDt=2025/06/18 09:17:18, Login=7, Recommand=1, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=7, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol8, name=이상무8, password=4321_8, regDt=2025/06/17 09:17:18, Login=8, Recommand=0, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=8, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol9, name=이상무9, password=4321_9, regDt=2025/06/16 09:17:18, Login=9, Recommand=1, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=9, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=jamesol10, name=이상무10, password=4321_10, regDt=2025/06/15 09:17:18, Login=0, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=10, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol1, name=이상무1, password=4321_1, regDt=2025/06/24 09:17:18, Login=1, Recommand=1, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=1, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol2, name=이상무2, password=4321_2, regDt=2025/06/23 09:17:18, Login=2, Recommand=0, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=2, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol3, name=이상무3, password=4321_3, regDt=2025/06/22 09:17:18, Login=3, Recommand=1, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=3, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol4, name=이상무4, password=4321_4, regDt=2025/06/21 09:17:18, Login=4, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=4, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol5, name=이상무5, password=4321_5, regDt=2025/06/20 09:17:18, Login=5, Recommand=1, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=5, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol6, name=이상무6, password=4321_6, regDt=2025/06/19 09:17:18, Login=6, Recommand=0, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=6, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol7, name=이상무7, password=4321_7, regDt=2025/06/18 09:17:18, Login=7, Recommand=1, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=7, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol8, name=이상무8, password=4321_8, regDt=2025/06/17 09:17:18, Login=8, Recommand=0, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=8, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol9, name=이상무9, password=4321_9, regDt=2025/06/16 09:17:18, Login=9, Recommand=1, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=9, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=jamesol10, name=이상무10, password=4321_10, regDt=2025/06/15 09:17:18, Login=0, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=10, totalCnt=502]]
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - @After
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.UserDaoTest - context:org.springframework.context.support.GenericApplicationContext@609db546, started on Wed Jun 25 09:17:17 GMT+09:00 2025
+[2025-06-25 09:17:18] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+ delete from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321a
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk02
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무02
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321b
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 55
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 10
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:2
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk03
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무03
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321c
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 100
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 40
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:3
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+SELECT                                                    
+    user_id,                                              
+    name,                                                 
+    password,                                             
+    login,                                                
+    recommand,                                            
+    grade,                                                
+    email,                                                
+    TO_CHAR(reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str 
+FROM                                                      
+    member                                                
+ORDER BY user_id                                          
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk01, name=이상무01, password=4321a, regDt=2025/06/25 09:17:19, Login=0, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk02, name=이상무02, password=4321b, regDt=2025/06/25 09:17:19, Login=55, Recommand=10, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk03, name=이상무03, password=4321c, regDt=2025/06/25 09:17:19, Login=100, Recommand=40, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=pcwk01, name=이상무01, password=4321a, regDt=2025/06/25 09:17:19, Login=0, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=pcwk02, name=이상무02, password=4321b, regDt=2025/06/25 09:17:19, Login=55, Recommand=10, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - UserDTO [userId=pcwk03, name=이상무03, password=4321c, regDt=2025/06/25 09:17:19, Login=100, Recommand=40, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - @After
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - context:org.springframework.context.support.GenericApplicationContext@609db546, started on Wed Jun 25 09:17:17 GMT+09:00 2025
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+ delete from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321a
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk02
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무02
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321b
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 55
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 10
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:2
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk03
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무03
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321c
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 100
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 40
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:3
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2. sql:
+SELECT                                                    
+    user_id,                                              
+    name,                                                 
+    password,                                             
+    login,                                                
+    recommand,                                            
+    grade,                                                
+    email,                                                
+    TO_CHAR(reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str 
+FROM                                                      
+    member                                                
+WHERE user_id = ?                                         
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk01, name=이상무01, password=4321a, regDt=2025/06/25 09:17:19, Login=0, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2. sql:
+SELECT                                                    
+    user_id,                                              
+    name,                                                 
+    password,                                             
+    login,                                                
+    recommand,                                            
+    grade,                                                
+    email,                                                
+    TO_CHAR(reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str 
+FROM                                                      
+    member                                                
+WHERE user_id = ?                                         
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk02
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk02, name=이상무02, password=4321b, regDt=2025/06/25 09:17:19, Login=55, Recommand=10, Grade=SILVER, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2. sql:
+SELECT                                                    
+    user_id,                                              
+    name,                                                 
+    password,                                             
+    login,                                                
+    recommand,                                            
+    grade,                                                
+    email,                                                
+    TO_CHAR(reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str 
+FROM                                                      
+    member                                                
+WHERE user_id = ?                                         
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk03
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk03, name=이상무03, password=4321c, regDt=2025/06/25 09:17:19, Login=100, Recommand=40, Grade=GOLD, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - @After
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - context:org.springframework.context.support.GenericApplicationContext@609db546, started on Wed Jun 25 09:17:17 GMT+09:00 2025
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+ delete from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321a
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2. sql:
+SELECT                                                    
+    user_id,                                              
+    name,                                                 
+    password,                                             
+    login,                                                
+    recommand,                                            
+    grade,                                                
+    email,                                                
+    TO_CHAR(reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str 
+FROM                                                      
+    member                                                
+WHERE user_id = ?                                         
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01_99
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - @After
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - context:org.springframework.context.support.GenericApplicationContext@609db546, started on Wed Jun 25 09:17:17 GMT+09:00 2025
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+ delete from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321a
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2. sql:
+SELECT                                                    
+    user_id,                                              
+    name,                                                 
+    password,                                             
+    login,                                                
+    recommand,                                            
+    grade,                                                
+    email,                                                
+    TO_CHAR(reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str 
+FROM                                                      
+    member                                                
+WHERE user_id = ?                                         
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk01, name=이상무01, password=4321a, regDt=2025/06/25 09:17:19, Login=0, Recommand=0, Grade=BASIC, Email=dlwhd0614@naver.com, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - outVO:UserDTO [userId=pcwk01, name=이상무01_U, password=4321a_U, regDt=2025/06/25 09:17:19, Login=999, Recommand=999, Grade=GOLD, Email=dlwhd0614@naver.com_U, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무01_U
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321a_U
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 999
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 999
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com_U
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2. sql:
+SELECT                                                    
+    user_id,                                              
+    name,                                                 
+    password,                                             
+    login,                                                
+    recommand,                                            
+    grade,                                                
+    email,                                                
+    TO_CHAR(reg_dt,'YYYY/MM/DD HH24:MI:SS') AS reg_dt_str 
+FROM                                                      
+    member                                                
+WHERE user_id = ?                                         
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 3 outVO:UserDTO [userId=pcwk01, name=이상무01_U, password=4321a_U, regDt=2025/06/25 09:17:19, Login=999, Recommand=999, Grade=GOLD, Email=dlwhd0614@naver.com_U, toString()=DTO [no=0, totalCnt=0]]
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - @After
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - context:org.springframework.context.support.GenericApplicationContext@609db546, started on Wed Jun 25 09:17:17 GMT+09:00 2025
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+ delete from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql
+INSERT INTO member (  
+    user_id,          
+    name,             
+    password,         
+    login,            
+    recommand,        
+    grade,            
+    email,            
+    reg_dt            
+) VALUES ( ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           ?,         
+           SYSDATE )  
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - param:
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - pcwk01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 이상무01
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 4321a
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - dlwhd0614@naver.com
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:1
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.sql:
+ delete from member 
+WHERE                    
+   user_id  = ?          
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 1.sql:
+select count(*) total_cnt from member 
+
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.dao.UserDaoImpl - 2.count:0
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - @After
+[2025-06-25 09:17:19] [DEBUG] com.pcwk.ehr.user.UserDaoTest - ***************************
+[2025-06-25 09:31:14] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 09:31:14] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@67b9b51a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1205bd62, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7ef27d7f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6337c201, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5c669da8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@31920ade, org.springframework.test.context.event.EventPublishingTestExecutionListener@1d483de4]
+[2025-06-25 09:31:15] [ERROR] org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f] to prepare test instance [com.pcwk.ehr.member.MemberTest@27b2faa6]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.pcwk.ehr.member.MemberTest': Unsatisfied dependency expressed through field 'dao'; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:713) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:693) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:408) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:417) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:119) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$2$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.copyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.evaluate(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.Optional.orElseGet(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:94) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:52) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:70) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210) [.cp/:?]
+Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveNotUnique(DependencyDescriptor.java:220) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1369) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:710) ~[spring-beans-5.3.37.jar:5.3.37]
+	... 78 more
+[2025-06-25 09:32:53] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 09:32:53] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@67b9b51a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1205bd62, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7ef27d7f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6337c201, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5c669da8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@31920ade, org.springframework.test.context.event.EventPublishingTestExecutionListener@1d483de4]
+[2025-06-25 09:32:54] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@20435c40, started on Wed Jun 25 09:32:53 GMT+09:00 2025
+[2025-06-25 09:32:54] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@67fc2aad
+[2025-06-25 09:36:16] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 09:36:16] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@67b9b51a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@1205bd62, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7ef27d7f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@490caf5f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6337c201, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5c669da8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@31920ade, org.springframework.test.context.event.EventPublishingTestExecutionListener@1d483de4]
+[2025-06-25 09:36:17] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@20435c40, started on Wed Jun 25 09:36:16 GMT+09:00 2025
+[2025-06-25 09:36:17] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@671facee
+[2025-06-25 10:11:50] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:11:50] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:11:51] [ERROR] org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201] to prepare test instance [com.pcwk.ehr.member.MemberTest@61d84e08]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.pcwk.ehr.member.MemberTest': Unsatisfied dependency expressed through field 'dao'; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:713) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:693) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:408) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:417) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:119) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$2$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.copyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.evaluate(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.Optional.orElseGet(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:94) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:52) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:70) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210) [.cp/:?]
+Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveNotUnique(DependencyDescriptor.java:220) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1369) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:710) ~[spring-beans-5.3.37.jar:5.3.37]
+	... 78 more
+[2025-06-25 10:11:51] [ERROR] org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201] to prepare test instance [com.pcwk.ehr.member.MemberTest@6c518474]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'com.pcwk.ehr.member.MemberTest': Unsatisfied dependency expressed through field 'dao'; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:713) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:693) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:408) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireBeanProperties(AbstractAutowireCapableBeanFactory.java:417) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:119) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:138) ~[spring-test-5.3.37.jar:5.3.37]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$2$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline$3$1.accept(Unknown Source) ~[?:1.8.0_202]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.copyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.AbstractPipeline.evaluate(Unknown Source) ~[?:1.8.0_202]
+	at java.util.stream.ReferencePipeline.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at java.util.Optional.orElseGet(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68) ~[junit-jupiter-engine-5.11.0.jar:5.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:123) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:90) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at java.util.ArrayList.forEach(Unknown Source) ~[?:1.8.0_202]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:94) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:52) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:70) [junit-platform-launcher-1.11.0.jar:1.11.0]
+	at org.eclipse.jdt.internal.junit5.runner.JUnit5TestReference.run(JUnit5TestReference.java:98) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:41) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:542) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:770) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:464) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210) [.cp/:?]
+Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'com.pcwk.ehr.member.dao.MemberDao' available: expected single matching bean but found 2: memberDaoImpl,memberDao
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveNotUnique(DependencyDescriptor.java:220) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1369) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.37.jar:5.3.37]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:710) ~[spring-beans-5.3.37.jar:5.3.37]
+	... 78 more
+[2025-06-25 10:26:26] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:26:26] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:26:28] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:26:27 GMT+09:00 2025
+[2025-06-25 10:26:28] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@6c42f2a1
+[2025-06-25 10:30:19] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:30:19] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:30:21] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, role=1]
+[2025-06-25 10:30:21] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:30:21] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:30:20 GMT+09:00 2025
+[2025-06-25 10:30:21] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@3901f6af
+[2025-06-25 10:44:42] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:44:42] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:44:43] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, role=1]
+[2025-06-25 10:44:43] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:44:43] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==>  Preparing: INSERT INTO MEMBER ( ID, PASSWORD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, role ) VALUES ( ?, ?, ?, ?, ?, ?, SYSDATE, ?, ? )
+[2025-06-25 10:44:43] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==> Parameters: hong1(String), 1234a(String), hong(String), 홍길동(String), 010-1111-2222(String), hong1@naver.com(String), ADMIN(String), 1(Integer)
+[2025-06-25 10:44:43] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:44:42 GMT+09:00 2025
+[2025-06-25 10:44:43] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@30ca0779
+[2025-06-25 10:49:10] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:49:10] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:49:10] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, adminRole=1]
+[2025-06-25 10:49:10] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:49:11] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==>  Preparing: INSERT INTO MEMBER ( ID, PASSWORD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, ADMIN_ROLE ) VALUES ( ?, ?, ?, ?, ?, ?, SYSDATE, ?, ? )
+[2025-06-25 10:49:11] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==> Parameters: hong1(String), 1234a(String), hong(String), 홍길동(String), 010-1111-2222(String), hong1@naver.com(String), ADMIN(String), 1(Integer)
+[2025-06-25 10:49:11] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:49:10 GMT+09:00 2025
+[2025-06-25 10:49:11] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@30ca0779
+[2025-06-25 10:50:23] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:50:24] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:50:24] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, adminRole=1]
+[2025-06-25 10:50:24] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:50:25] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==>  Preparing: INSERT INTO MEMBER ( ID, PASSWORD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, ADMINROLE ) VALUES ( ?, ?, ?, ?, ?, ?, SYSDATE, ?, ? )
+[2025-06-25 10:50:25] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==> Parameters: hong1(String), 1234a(String), hong(String), 홍길동(String), 010-1111-2222(String), hong1@naver.com(String), ADMIN(String), 1(Integer)
+[2025-06-25 10:50:25] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:50:24 GMT+09:00 2025
+[2025-06-25 10:50:25] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@30ca0779
+[2025-06-25 10:52:38] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:52:38] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:52:39] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, adminRole=1]
+[2025-06-25 10:52:39] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:52:39] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==>  Preparing: INSERT INTO MEMBER ( ID, PASSWORD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, ADMIN_ROLE ) VALUES ( ?, ?, ?, ?, ?, ?, SYSDATE, ?, ? )
+[2025-06-25 10:52:39] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==> Parameters: hong1(String), 1234a(String), hong(String), 홍길동(String), 010-1111-2222(String), hong1@naver.com(String), ADMIN(String), 1(Integer)
+[2025-06-25 10:52:39] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:52:38 GMT+09:00 2025
+[2025-06-25 10:52:39] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@30ca0779
+[2025-06-25 10:53:47] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:53:47] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:53:48] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, adminRole=1]
+[2025-06-25 10:53:48] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:53:48] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==>  Preparing: INSERT INTO member ( id, pwd, nickname, name, phone, email, reg_dt, reg_id, mod_dt, mod_id, admin_role ) VALUES ( ?, ?, ?, ?, ?, ?, SYSDATE, ?, ? )
+[2025-06-25 10:53:48] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==> Parameters: hong1(String), 1234a(String), hong(String), 홍길동(String), 010-1111-2222(String), hong1@naver.com(String), ADMIN(String), 1(Integer)
+[2025-06-25 10:53:48] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:53:47 GMT+09:00 2025
+[2025-06-25 10:53:48] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@30ca0779
+[2025-06-25 10:56:46] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:56:46] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:56:46] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, adminRole=1]
+[2025-06-25 10:56:46] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:56:47] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==>  Preparing: INSERT INTO MEMBER ( ID, PWD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, ADMIN_ROLE ) VALUES ( ?, ?, ?, ?, ?, ?, SYSDATE, ?, ? )
+[2025-06-25 10:56:47] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==> Parameters: hong1(String), 1234a(String), hong(String), 홍길동(String), 010-1111-2222(String), hong1@naver.com(String), ADMIN(String), 1(Integer)
+[2025-06-25 10:56:47] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:56:46 GMT+09:00 2025
+[2025-06-25 10:56:47] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@30ca0779
+[2025-06-25 10:59:26] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-25 10:59:26] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1205bd62, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7ef27d7f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@490caf5f, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@6337c201, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5c669da8, org.springframework.test.context.transaction.TransactionalTestExecutionListener@31920ade, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1d483de4, org.springframework.test.context.event.EventPublishingTestExecutionListener@4032d386]
+[2025-06-25 10:59:27] [DEBUG] com.pcwk.ehr.cmn.PLog - 1.param: MemberDTO [id=hong1, password=1234a, nickname=hong, name=홍길동, phone=010-1111-2222, email=hong1@naver.com, regDt=null, regId=ADMIN, modDt=null, modId=ADMIN, adminRole=1]
+[2025-06-25 10:59:27] [DEBUG] com.pcwk.ehr.cmn.PLog - 2.statement:com.pcwk.ehr.member.dao.MemberDao.doSave
+[2025-06-25 10:59:27] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==>  Preparing: INSERT INTO MEMBER ( ID, PWD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, ADMIN_ROLE ) VALUES ( ?, ?, ?, ?, ?, ?, SYSDATE, ?, ? )
+[2025-06-25 10:59:27] [DEBUG] com.pcwk.ehr.member.dao.MemberDao.doSave - ==> Parameters: hong1(String), 1234a(String), hong(String), 홍길동(String), 010-1111-2222(String), hong1@naver.com(String), ADMIN(String), 1(Integer)
+[2025-06-25 10:59:27] [DEBUG] com.pcwk.ehr.cmn.PLog - org.springframework.context.support.GenericApplicationContext@573906eb, started on Wed Jun 25 10:59:26 GMT+09:00 2025
+[2025-06-25 10:59:27] [DEBUG] com.pcwk.ehr.cmn.PLog - com.pcwk.ehr.member.dao.MemberDao@30ca0779
