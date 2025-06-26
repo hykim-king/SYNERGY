@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pcwk.ehr.mapper.RepairResMapper">
+
+  <!-- 1) 저장 DB에 REPAIR_RES_SEQ시퀀스 -->
+  <insert id="doSave" parameterType="com.pcwk.ehr.repair.RepairResDTO">
+    <selectKey keyProperty="repairNo"
+               resultType="int"
+               order="BEFORE">
+      SELECT REPAIR_RES_SEQ.NEXTVAL
+      FROM DUAL
+    </selectKey>
+    INSERT INTO repair_res (
+      repair_no, id, name, phone,
+      car_code, retailer_code, repair_date, repair_desc,
+      reg_dt, reg_id, mod_dt, mod_id
+    ) VALUES (
+      #{repairNo}, #{id}, #{name}, #{phone},
+      #{carCode}, #{retailerCode}, #{repairDate}, #{repairDesc},
+      SYSDATE, #{regId}, SYSDATE, #{modId}
+    )
+  </insert>
+
+  <!-- 2) 수정 -->
+  <update id="doUpdate" parameterType="com.pcwk.ehr.repair.RepairResDTO">
+    UPDATE repair_res
+       SET name           = #{name},
+           phone          = #{phone},
+           car_code       = #{carCode},
+           retailer_code  = #{retailerCode},
+           repair_date    = #{repairDate},
+           repair_desc    = #{repairDesc},
+           mod_dt         = SYSDATE,
+           mod_id         = #{modId}
+     WHERE repair_no = #{repairNo}
+  </update>
+
+  <!-- 3) 삭제 -->
+  <delete id="doDelete" parameterType="com.pcwk.ehr.repair.RepairResDTO">
+    DELETE FROM repair_res
+     WHERE repair_no = #{repairNo}
+  </delete>
+
+  <!-- 4) 결과 매핑 -->
+  <resultMap id="RepairResResult" type="com.pcwk.ehr.repair.RepairResDTO">
+    <id     column="repair_no"        property="repairNo"/>
+    <result column="id"               property="id"/>
+    <result column="name"             property="name"/>
+    <result column="phone"            property="phone"/>
+    <result column="car_code"         property="carCode"/>
+    <result column="retailer_code"    property="retailerCode"/>
+    <result column="repair_date"      property="repairDate"/>
+    <result column="repair_desc"      property="repairDesc"/>
+    <result column="reg_dt"           property="regDt"/>
+    <result column="reg_id"           property="regId"/>
+    <result column="mod_dt"           property="modDt"/>
+    <result column="mod_id"           property="modId"/>
+  </resultMap>
+
+  <!-- 5) 단건 조회 -->
+  <select id="doSelectOne"
+          parameterType="com.pcwk.ehr.repair.RepairResDTO"
+          resultMap="RepairResResult">
+    SELECT *
+      FROM repair_res
+     WHERE repair_no = #{repairNo}
+  </select>
+
+  <!-- 6) 목록 조회 -->
+  <select id="doRetrieve"
+          parameterType="com.pcwk.ehr.cmn.DTO"
+          resultMap="RepairResResult">
+    SELECT *
+      FROM repair_res
+     ORDER BY reg_dt DESC
+  </select>
+
+</mapper>
