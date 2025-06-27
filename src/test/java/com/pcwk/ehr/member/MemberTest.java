@@ -3,6 +3,7 @@ package com.pcwk.ehr.member;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -44,11 +45,11 @@ Logger log = LogManager.getLogger(getClass());
 	}
 	
 	
-	@Disabled
+	//@Disabled
 	@Test
 	void doRetrieve() throws Exception{
 		
-		memberMapper.doDelete(dto01);
+		memberMapper.deleteAll();
 		
 		for (int i = 1; i <= 3; i++) {
 	        MemberDTO member = new MemberDTO(
@@ -96,11 +97,11 @@ Logger log = LogManager.getLogger(getClass());
 		
 	}
 	
-	@Disabled
+	//@Disabled
 	@Test
 	void doUpdate() throws Exception{
 		
-		memberMapper.doDelete(dto01);
+		memberMapper.deleteAll();
 		memberMapper.doSave(dto01);
 		
 		MemberDTO updateDto = new MemberDTO();
@@ -144,7 +145,7 @@ Logger log = LogManager.getLogger(getClass());
 	@Test
 	void doSelectOne() throws Exception{
 		
-		memberMapper.doDelete(dto01);
+		memberMapper.deleteAll();
 		memberMapper.doSave(dto01);
 		
 		log.debug("┌───────────────────────────────────────────┐");
@@ -164,11 +165,11 @@ Logger log = LogManager.getLogger(getClass());
 	    log.debug("└───────────────────────────────────────────┘");
 	}
 
-	@Disabled
+	//@Disabled
 	@Test
-	void doDelete() {
+	void doDelete() throws SQLException {
 		
-		memberMapper.doDelete(dto01);
+		memberMapper.deleteAll();
 		memberMapper.doSave(dto01);
 		
 		log.debug("┌───────────────────────────────────────────┐");
@@ -187,20 +188,20 @@ Logger log = LogManager.getLogger(getClass());
 	}
 	
 
-	@Disabled
+	//@Disabled
 	@Test
-	void doSave() {
+	void doSave() throws SQLException {
 		
-		memberMapper.doDelete(dto01);
+		memberMapper.deleteAll();
 		int result = memberMapper.doSave(dto01);
 		assertEquals(1, result);
 		
 	}
-	@Disabled
+	//@Disabled
 	@Test
-	void isIdExists() {
+	void isIdExists() throws SQLException {
 		
-		memberMapper.doDelete(dto01);
+		memberMapper.deleteAll();
 		memberMapper.doSave(dto01);
 		
 		String existId = "test01";
@@ -212,12 +213,12 @@ Logger log = LogManager.getLogger(getClass());
 		log.debug("ID '{}' 존재 여부 count: {}", existId, result1);
 		log.debug("ID '{}' 존재 여부 count: {}", nonExistId, result2);
 		
-		
+		//1 이면 id가 등록되어 있음, 0은 id가 등록되어 있지 않음
 		assertEquals(1, result1);
 		assertEquals(0, result2);
 	}
 	
-	@Disabled
+	//@Disabled
 	@Test
 	void bean() {
 		assertNotNull(context);

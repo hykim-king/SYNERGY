@@ -3,6 +3,8 @@ package com.pcwk.ehr.member.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import com.pcwk.ehr.member.MemberDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+	
+	Logger log = LogManager.getLogger(getClass());
 	
 	@Autowired
 	private MemberMapper memberMapper;
@@ -31,6 +35,10 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 			return "데이터 베이스 오류가 발생했습니다.";
 		}
+		
+		log.debug("login(): user = {}", user);
+	    log.debug("login(): adminRole = {}", (user != null ? user.getAdminRole() : "null"));
+	    log.debug("login(): nickname = {}", (user != null ? user.getNickname() : "null"));
 		
 		if(user == null) {
             return "등록된 ID는 존재 하지 않습니다.";
@@ -78,11 +86,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberDTO> doRetrieve(MemberDTO param) {
+	public List<MemberDTO> doRetrieve(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberMapper.doRetrieve(dto);
 	}
-
-
 
 }

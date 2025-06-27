@@ -50,8 +50,11 @@ Logger log = LogManager.getLogger(getClass());
 	void tearDown() throws Exception {
 	}
 	
+	//@Disabled
 	@Test
 	void login() throws SQLException{
+		
+		memberMapper.deleteAll();
 		
 		adminLogin = new MemberDTO(
 		        "admin01", "adminpw", "관리자", "관리자이름", "010-0000-1111", "admin@site.com",
@@ -80,10 +83,10 @@ Logger log = LogManager.getLogger(getClass());
 
 	}
 	
-	@Disabled
+	//@Disabled
 	@Test
 	void doSelectOneTest() throws SQLException {
-	    memberService.doDelete(dto01); 
+		memberMapper.deleteAll(); 
 	    memberService.doSave(dto01);
 
 	    MemberDTO searchDto = new MemberDTO();
@@ -96,11 +99,11 @@ Logger log = LogManager.getLogger(getClass());
 	    assertEquals(dto01.getId(), outDto.getId());
 	}
 	
-	@Disabled
+	//@Disabled
 	@Test
 	void doUpdateTest() throws SQLException {
 
-	    memberService.doDelete(dto01);
+		memberMapper.deleteAll();
 	    memberService.doSave(dto01);
 
 
@@ -120,11 +123,11 @@ Logger log = LogManager.getLogger(getClass());
 	    assertEquals("hongsoo@example.com", updatedDto.getEmail());
 	}
 	
-	@Disabled
+	//@Disabled
 	@Test
 	void doDeleteTest() throws SQLException {
 
-	    memberService.doDelete(dto01);
+		memberMapper.deleteAll();
 	    memberService.doSave(dto01);
 
 	    int deleteCount = memberService.doDelete(dto01);
@@ -136,10 +139,10 @@ Logger log = LogManager.getLogger(getClass());
 	    assertEquals(0, existCount);
 	}
 
-	@Disabled
+	//@Disabled
 	@Test
 	void doRetrieveTest() throws SQLException {
-	    memberService.doDelete(dto01);
+		memberMapper.deleteAll();
 	    memberService.doSave(dto01);
 
 	    dto01.setSearchDiv("10");      
@@ -158,17 +161,22 @@ Logger log = LogManager.getLogger(getClass());
 	    }
 	}
 	
-	@Disabled
+	//@Disabled
 	@Test
 	void doSave() throws SQLException {
+		memberMapper.deleteAll();
+		
 		int saveResult = memberService.doSave(dto01);
 		log.debug("1. 저장 결과 : {}", saveResult);
 	    assertEquals(1, saveResult, "회원 저장 실패");
 		
 	}
-	@Disabled
+	//@Disabled
 	@Test
-	void IsIdExistsTest() {
+	void IsIdExistsTest() throws SQLException {
+		memberMapper.deleteAll();
+		memberMapper.doSave(dto01);
+		
 		int existsResult = memberService.isIdExists(dto01.getId());
 		log.debug("2. 중복 확인 결과 : {}", existsResult);
         assertEquals(1, existsResult, "ID 중복 확인 실패");

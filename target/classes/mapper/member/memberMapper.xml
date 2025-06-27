@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pcwk.ehr.mapper.MemberMapper">
 
-<insert id="doSave" parameterType="MemberDTO">
+<resultMap id="memberResultMap" type="com.pcwk.ehr.member.MemberDTO">
+  <result property="id" column="id"/>
+  <result property="pwd" column="pwd"/>
+  <result property="nickname" column="nickname"/>
+  <result property="name" column="name"/>
+  <result property="phone" column="phone"/>
+  <result property="email" column="email"/>
+  <result property="regDt" column="reg_dt"/>
+  <result property="regId" column="reg_id"/>
+  <result property="modDt" column="mod_dt"/>
+  <result property="modId" column="mod_id"/>
+  <result property="adminRole" column="admin_role"/>  <!-- 이 부분 반드시 필요 -->
+</resultMap>
+
+ <insert id="doSave" parameterType="MemberDTO">
     INSERT INTO MEMBER (
                 ID, PWD, NICKNAME, NAME, PHONE, EMAIL,
                 REG_DT, REG_ID, ADMIN_ROLE
@@ -10,23 +24,23 @@
                 #{id}, #{pwd}, #{nickname}, #{name}, #{phone}, #{email},
                 SYSDATE, #{regId}, #{adminRole}
         )
-</insert>
+ </insert>
 <!-- 아이디 중복 확인 -->
-<select id="isIdExists" parameterType="java.lang.String" resultType="int">
+ <select id="isIdExists" parameterType="java.lang.String" resultType="int">
     SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
-</select>
+ </select>
 
-<delete id="doDelete" parameterType="MemberDTO">
+ <delete id="doDelete" parameterType="MemberDTO">
     DELETE FROM MEMBER WHERE ID = #{id}
-</delete>
+ </delete>
 
-<select id="doSelectOne" parameterType="MemberDTO" resultType="MemberDTO">
+ <select id="doSelectOne" parameterType="MemberDTO" resultMap="memberResultMap">
   SELECT ID, PWD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, MOD_DT, MOD_ID, ADMIN_ROLE
   FROM MEMBER
   WHERE ID = #{id}
-</select>
+ </select>
 
-<update id="doUpdate" parameterType="MemberDTO">
+ <update id="doUpdate" parameterType="MemberDTO">
     UPDATE MEMBER
     SET
         PWD = #{pwd},
@@ -38,9 +52,9 @@
         MOD_ID = #{modId},
         ADMIN_ROLE = #{adminRole}
     WHERE ID = #{id}
-</update>
+ </update>
 
-<select id="doRetrieve" parameterType="MemberDTO" resultType="MemberDTO">
+ <select id="doRetrieve" parameterType="MemberDTO" resultType="MemberDTO">
     <![CDATA[
     SELECT *
     FROM (
@@ -71,14 +85,10 @@
     )
     WHERE rnum >= #{startRow}
     ]]>
-</select>
+ </select>
 
-<delete id="deleteAll" parameterType="MemberDTO">
+ <delete id="deleteAll" parameterType="MemberDTO">
     DELETE FROM member
-</delete>
-
-
-
-
+ </delete>
 
 </mapper>

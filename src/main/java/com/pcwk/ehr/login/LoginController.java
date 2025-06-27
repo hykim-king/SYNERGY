@@ -1,4 +1,4 @@
-package com.pcwk.ehr.loginController;
+package com.pcwk.ehr.login;
 
 import javax.servlet.http.HttpSession;
 
