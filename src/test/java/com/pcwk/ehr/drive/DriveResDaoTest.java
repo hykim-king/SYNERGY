@@ -65,7 +65,7 @@ public class DriveResDaoTest {
     }
     
     
-    @Disabled
+  //  @Disabled
     @Test
 
     void doSave() throws Exception {
@@ -76,7 +76,7 @@ public class DriveResDaoTest {
         assertTrue(dto01.getResNo() > 0, "시퀀스로 채번된 resNo는 0보다 커야 함");
     }
 
- //   @Disabled
+    @Disabled
     @Test
     void doSelectOne() throws Exception {
         // 1) 사전 저장 (조회용 데이터)
@@ -130,7 +130,7 @@ public class DriveResDaoTest {
         assertNull(out, "삭제 후 doSelectOne은 null이어야 함");
     }
 
-   // @Disabled
+  @Disabled
     @Test
     void doRetrieve() throws Exception {
         // 1) 다건 저장
