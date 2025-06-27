@@ -55,8 +55,8 @@ public class RetailerTest {
         }
     }
     
-//    ffs
-
+    
+    
     @Test
     void testGetCount() throws SQLException {
         int count = retailerMapper.getCount();
