@@ -53,13 +53,13 @@ public class RepairResDaoTest {
         // 테스트용 DTO 준비 (repairDate 고정)
         Date repairDate = sdf.parse("2025-07-02");
         repair_dto01 = new RepairResDTO("user01", "초보운전자", "010-1111-2222",
-            1, 1, repairDate, "엔진 소음 점검",   // repairDesc
+        		10, 35, repairDate, "엔진 소음 점검",   // repairDesc
             "admin", "admin" );
         repair_dto02 = new RepairResDTO("user02", "운전자", "010-1111-2222",
-                1, 1, repairDate, "모름",   // repairDesc
+        		10, 35, repairDate, "모름",   // repairDesc
                 "admin", "admin" );
         repair_dto03 = new RepairResDTO("user03", "나야나", "010-1111-2222",
-                1, 1, repairDate, "점검",   // repairDesc
+        		10, 35, repairDate, "점검",   // repairDesc
                 "admin", "admin" );
         log.debug("--------- ! 정비신청 준비완료 ! ---------");
     }
@@ -69,7 +69,7 @@ public class RepairResDaoTest {
         log.debug("--------- @AfterEach ---------");
     }
 
-    @Disabled
+    // @Disabled
     @Test
     void doSave() throws Exception {
         // 단건 저장 (selectKey로 repairNo 자동 채번)
@@ -78,7 +78,7 @@ public class RepairResDaoTest {
         assertTrue(repair_dto01.getRepairNo() > 0, "시퀀스 repairNo가 0보다 커야 함");
     }
     
-    @Disabled
+    //@Disabled
     @Test
     void doSelectOne() throws Exception {
         // 사전 저장
@@ -92,7 +92,7 @@ public class RepairResDaoTest {
     }
     
     
-     @Disabled
+    // @Disabled
     @Test
     void doUpdate() throws Exception {
         mapper.doSave(repair_dto01);
@@ -110,7 +110,7 @@ public class RepairResDaoTest {
     }
     
     
-    @Disabled
+   // @Disabled
     @Test
     void doDelete() throws Exception {
         // 1) 사전 저장

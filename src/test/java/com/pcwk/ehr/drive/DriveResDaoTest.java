@@ -51,11 +51,11 @@ public class DriveResDaoTest {
         // 2) 테스트 데이터 준비 (driveDate 고정) :contentReference[oaicite:1]{index=1}
         Date driveDate = sdf.parse("2025-07-01");
         dto01 = new DriveResDTO("user01", "가민경", "010-1111-2222",
-                101, 201, driveDate,  "admin",  "admin");
+                10, 35, driveDate,  "admin",  "admin");
         dto02 = new DriveResDTO("user02", "나민경", "010-2222-3333",
-                102, 202, driveDate,  "tester",  "tester");
+        		10, 35, driveDate,  "tester",  "tester");
         dto03 = new DriveResDTO("user03", "다민경", "010-3333-4444",
-                103, 203, driveDate,  "demo",  "demo");
+        		10, 35, driveDate,  "demo",  "demo");
         log.debug("데이터 준비왈료왈왈");
     }
 
@@ -76,7 +76,7 @@ public class DriveResDaoTest {
         assertTrue(dto01.getResNo() > 0, "시퀀스로 채번된 resNo는 0보다 커야 함");
     }
 
-    @Disabled
+    //@Disabled
     @Test
     void doSelectOne() throws Exception {
         // 1) 사전 저장 (조회용 데이터)
@@ -91,7 +91,7 @@ public class DriveResDaoTest {
 
     
     
-    @Disabled
+    //@Disabled
     @Test
     void doUpdate() throws Exception {
         // 1) 사전 저장
@@ -99,8 +99,8 @@ public class DriveResDaoTest {
         // 2) 변경
         dto01.setName("홍길동_U");
         dto01.setPhone("010-9999-8888");
-        dto01.setCarCode(999);
-        dto01.setRetailerCode(888);
+        dto01.setCarCode(11);
+        dto01.setRetailerCode(37);
         dto01.setModId("upd");
         // 3) 업데이트
         int flag = mapper.doUpdate(dto01);
@@ -111,12 +111,12 @@ public class DriveResDaoTest {
         assertNotNull(up);
         assertEquals("홍길동_U", up.getName());
         assertEquals("010-9999-8888", up.getPhone());
-        assertEquals(999, up.getCarCode());
-        assertEquals(888, up.getRetailerCode());
+        assertEquals(11, up.getCarCode());
+        assertEquals(37, up.getRetailerCode());
         assertEquals("upd", up.getModId());
     }
 
-    @Disabled
+   // @Disabled
     @Test
     void doDelete() throws Exception {
         // 1) 사전 저장
@@ -130,7 +130,7 @@ public class DriveResDaoTest {
         assertNull(out, "삭제 후 doSelectOne은 null이어야 함");
     }
 
-  @Disabled
+ // @Disabled
     @Test
     void doRetrieve() throws Exception {
         // 1) 다건 저장
