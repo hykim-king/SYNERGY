@@ -106,7 +106,7 @@ public class UserDaoTest {
 		assertEquals(502, count);
 		
 		search.setPageSize(10);
-		search.setPageNo(1);
+		search.setPageNum(1);
 		
 		search.setSearchDiv("10");
 		search.setSearchWord("jamesol");

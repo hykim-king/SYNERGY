@@ -5,90 +5,68 @@
 package com.pcwk.ehr.cmn;
 
 public class DTO {
-	private int no;
-	private int totalCnt;
-	
-	private int pageSize;
-	private int pageNo;
-	
-	
-	public DTO() {}
-	
-	
-
+	private String searchDiv; // 검색구분 (ex: 제목, 작성자 등)
+	private String searchWord; // 검색어
+	private int pageSize = 20; // 한 페이지당 게시글 수
+	private int pageNum = 1; // 현재 페이지 번호
+	// 페이징 계산용
+	public int getStartRow() {
+		return (pageNum - 1) * pageSize + 1;
+	}
+	public int getEndRow() {
+		return pageNum * pageSize;
+	}
+	/**
+	 * @return the searchDiv
+	 */
+	public String getSearchDiv() {
+		return searchDiv;
+	}
+	/**
+	 * @param searchDiv the searchDiv to set
+	 */
+	public void setSearchDiv(String searchDiv) {
+		this.searchDiv = searchDiv;
+	}
+	/**
+	 * @return the searchWord
+	 */
+	public String getSearchWord() {
+		return searchWord;
+	}
+	/**
+	 * @param searchWord the searchWord to set
+	 */
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
 	/**
 	 * @return the pageSize
 	 */
 	public int getPageSize() {
 		return pageSize;
 	}
-
-
-
 	/**
 	 * @param pageSize the pageSize to set
 	 */
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-
-
-
 	/**
-	 * @return the pageNo
+	 * @return the pageNum
 	 */
-	public int getPageNo() {
-		return pageNo;
+	public int getPageNum() {
+		return pageNum;
 	}
-
-
-
 	/**
-	 * @param pageNo the pageNo to set
+	 * @param pageNum the pageNum to set
 	 */
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
-
-
-
-	/**
-	 * @return the totalCnt
-	 */
-	public int getTotalCnt() {
-		return totalCnt;
-	}
-
-	/**
-	 * @param totalCnt the totalCnt to set
-	 */
-	public void setTotalCnt(int totalCnt) {
-		this.totalCnt = totalCnt;
-	}
-
-	/**
-	 * @return the no
-	 */
-	public int getNo() {
-		return no;
-	}
-
-	/**
-	 * @param no the no to set
-	 */
-	public void setNo(int no) {
-		this.no = no;
-	}
-
-
-
 	@Override
 	public String toString() {
-		return "DTO [no=" + no + ", totalCnt=" + totalCnt + ", pageSize=" + pageSize + ", pageNo=" + pageNo + "]";
+		return "DTO [searchDiv=" + searchDiv + ", searchWord=" + searchWord + ", pageSize=" + pageSize + ", pageNum="
+				+ pageNum + "]";
 	}
-
-
-	
-	
-
 }

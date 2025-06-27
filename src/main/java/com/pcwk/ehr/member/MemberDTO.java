@@ -2,7 +2,9 @@ package com.pcwk.ehr.member;
 
 import java.util.Date;
 
-public class MemberDTO {
+import com.pcwk.ehr.cmn.DTO;
+
+public class MemberDTO extends DTO{
 	
 	private String id;
 	private String pwd;

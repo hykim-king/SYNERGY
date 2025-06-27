@@ -11,11 +11,71 @@
                 SYSDATE, #{regId}, #{adminRole}
         )
 </insert>
-
-<select id="isIdExists" parameterType="string" resultType="int">
+<!-- 아이디 중복 확인 -->
+<select id="isIdExists" parameterType="java.lang.String" resultType="int">
     SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}
 </select>
 
+<delete id="doDelete" parameterType="MemberDTO">
+    DELETE FROM MEMBER WHERE ID = #{id}
+</delete>
+
+<select id="doSelectOne" parameterType="MemberDTO" resultType="MemberDTO">
+  SELECT ID, PWD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, MOD_DT, MOD_ID, ADMIN_ROLE
+  FROM MEMBER
+  WHERE ID = #{id}
+</select>
+
+<update id="doUpdate" parameterType="MemberDTO">
+    UPDATE MEMBER
+    SET
+        PWD = #{pwd},
+        NICKNAME = #{nickname},
+        NAME = #{name},
+        PHONE = #{phone},
+        EMAIL = #{email},
+        MOD_DT = SYSDATE,
+        MOD_ID = #{modId},
+        ADMIN_ROLE = #{adminRole}
+    WHERE ID = #{id}
+</update>
+
+<select id="doRetrieve" parameterType="MemberDTO" resultType="MemberDTO">
+    <![CDATA[
+    SELECT *
+    FROM (
+        SELECT ROWNUM rnum, a.*
+        FROM (
+            SELECT *
+            FROM MEMBER
+            WHERE 1=1
+    ]]>
+        <if test="searchDiv != null and searchDiv != ''">
+            <choose>
+                <when test="searchDiv == '10'">
+                    <![CDATA[
+                        AND NAME LIKE '%' || #{searchWord} || '%'
+                    ]]>
+                </when>
+                <when test="searchDiv == '20'">
+                    <![CDATA[
+                        AND ID LIKE '%' || #{searchWord} || '%'
+                    ]]>
+                </when>
+            </choose>
+        </if>
+    <![CDATA[
+            ORDER BY REG_DT DESC
+        ) a
+        WHERE ROWNUM <= #{endRow}
+    )
+    WHERE rnum >= #{startRow}
+    ]]>
+</select>
+
+<delete id="deleteAll" parameterType="MemberDTO">
+    DELETE FROM member
+</delete>
 
 
 
