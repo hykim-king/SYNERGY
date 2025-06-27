@@ -26,4 +26,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.isIdExists(id);
 	}
 
+	@Override
+	public MemberDTO doSelectOne(MemberDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

@@ -7,5 +7,7 @@ public interface MemberService {
 	int doSave(MemberDTO dto);
 
 	int isIdExists(String id);
+	
+	MemberDTO doSelectOne(MemberDTO dto);
 
 }
