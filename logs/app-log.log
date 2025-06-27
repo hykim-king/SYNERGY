@@ -13837,3 +13837,103 @@ Caused by: java.lang.ClassNotFoundException: Cannot find class: com.pcwk.ehr.rep
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:141) ~[spring-test-5.3.37.jar:5.3.37]
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:90) ~[spring-test-5.3.37.jar:5.3.37]
 	... 74 more
+[2025-06-27 15:55:09] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+[2025-06-27 15:55:09] [INFO ] org.springframework.test.context.support.DefaultTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5170bcf4, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2812b107, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@df6620a, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@4e31276e, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1a72a540, org.springframework.test.context.transaction.TransactionalTestExecutionListener@27d5a580, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@198d6542, org.springframework.test.context.event.EventPublishingTestExecutionListener@5e403b4a]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - drive_res 테이블 초기화
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user01, name=가민경, phone=010-1111-2222, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=admin, modDt=null, modId=admin]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user02, name=나민경, phone=010-2222-3333, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=tester, modDt=null, modId=tester]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user03, name=다민경, phone=010-3333-4444, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=demo, modDt=null, modId=demo]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - 데이터 준비왈료왈왈
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==>  Preparing: SELECT DRIVE_RES_SEQ.NEXTVAL FROM DUAL
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==>  Preparing: INSERT INTO drive_res ( res_no, id, name, phone, car_code, retailer_code, drive_date, reg_dt, reg_id, mod_dt, mod_id ) VALUES ( ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ? )
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==> Parameters: 41(Integer), user01(String), 가민경(String), 010-1111-2222(String), 10(Integer), 35(Integer), 2025-07-01 00:00:00.0(Timestamp), admin(String), admin(String)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==>  Preparing: SELECT DRIVE_RES_SEQ.NEXTVAL FROM DUAL
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==>  Preparing: INSERT INTO drive_res ( res_no, id, name, phone, car_code, retailer_code, drive_date, reg_dt, reg_id, mod_dt, mod_id ) VALUES ( ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ? )
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==> Parameters: 42(Integer), user02(String), 나민경(String), 010-2222-3333(String), 10(Integer), 35(Integer), 2025-07-01 00:00:00.0(Timestamp), tester(String), tester(String)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==>  Preparing: SELECT DRIVE_RES_SEQ.NEXTVAL FROM DUAL
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==>  Preparing: INSERT INTO drive_res ( res_no, id, name, phone, car_code, retailer_code, drive_date, reg_dt, reg_id, mod_dt, mod_id ) VALUES ( ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ? )
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==> Parameters: 43(Integer), user03(String), 다민경(String), 010-3333-4444(String), 10(Integer), 35(Integer), 2025-07-01 00:00:00.0(Timestamp), demo(String), demo(String)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doRetrieve - ==>  Preparing: SELECT * FROM drive_res ORDER BY reg_dt DESC
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doRetrieve - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO() 생성
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO() 생성
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO() 생성
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doRetrieve - <==      Total: 3
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - DriveResDTO [resNo=41, id=user01, name=가민경, phone=010-1111-2222, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=Fri Jun 27 15:55:11 GMT+09:00 2025, regId=admin, modDt=Fri Jun 27 15:55:11 GMT+09:00 2025, modId=admin]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - DriveResDTO [resNo=43, id=user03, name=다민경, phone=010-3333-4444, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=Fri Jun 27 15:55:11 GMT+09:00 2025, regId=demo, modDt=Fri Jun 27 15:55:11 GMT+09:00 2025, modId=demo]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - DriveResDTO [resNo=42, id=user02, name=나민경, phone=010-2222-3333, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=Fri Jun 27 15:55:11 GMT+09:00 2025, regId=tester, modDt=Fri Jun 27 15:55:11 GMT+09:00 2025, modId=tester]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - --------- @AfterEach ---------
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - drive_res 테이블 초기화
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user01, name=가민경, phone=010-1111-2222, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=admin, modDt=null, modId=admin]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user02, name=나민경, phone=010-2222-3333, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=tester, modDt=null, modId=tester]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user03, name=다민경, phone=010-3333-4444, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=demo, modDt=null, modId=demo]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - 데이터 준비왈료왈왈
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==>  Preparing: SELECT DRIVE_RES_SEQ.NEXTVAL FROM DUAL
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==>  Preparing: INSERT INTO drive_res ( res_no, id, name, phone, car_code, retailer_code, drive_date, reg_dt, reg_id, mod_dt, mod_id ) VALUES ( ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ? )
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==> Parameters: 44(Integer), user01(String), 가민경(String), 010-1111-2222(String), 10(Integer), 35(Integer), 2025-07-01 00:00:00.0(Timestamp), admin(String), admin(String)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - --------- @AfterEach ---------
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - drive_res 테이블 초기화
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user01, name=가민경, phone=010-1111-2222, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=admin, modDt=null, modId=admin]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user02, name=나민경, phone=010-2222-3333, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=tester, modDt=null, modId=tester]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user03, name=다민경, phone=010-3333-4444, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=demo, modDt=null, modId=demo]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - 데이터 준비왈료왈왈
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==>  Preparing: SELECT DRIVE_RES_SEQ.NEXTVAL FROM DUAL
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==>  Preparing: INSERT INTO drive_res ( res_no, id, name, phone, car_code, retailer_code, drive_date, reg_dt, reg_id, mod_dt, mod_id ) VALUES ( ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ? )
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==> Parameters: 45(Integer), user01(String), 가민경(String), 010-1111-2222(String), 10(Integer), 35(Integer), 2025-07-01 00:00:00.0(Timestamp), admin(String), admin(String)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doDelete - ==>  Preparing: DELETE FROM drive_res WHERE res_no = ?
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doDelete - ==> Parameters: 45(Integer)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doDelete - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - ==>  Preparing: SELECT * FROM drive_res WHERE res_no = ?
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - ==> Parameters: 45(Integer)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - <==      Total: 0
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - --------- @AfterEach ---------
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - drive_res 테이블 초기화
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user01, name=가민경, phone=010-1111-2222, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=admin, modDt=null, modId=admin]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user02, name=나민경, phone=010-2222-3333, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=tester, modDt=null, modId=tester]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user03, name=다민경, phone=010-3333-4444, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=demo, modDt=null, modId=demo]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - 데이터 준비왈료왈왈
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==>  Preparing: SELECT DRIVE_RES_SEQ.NEXTVAL FROM DUAL
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==>  Preparing: INSERT INTO drive_res ( res_no, id, name, phone, car_code, retailer_code, drive_date, reg_dt, reg_id, mod_dt, mod_id ) VALUES ( ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ? )
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==> Parameters: 46(Integer), user01(String), 가민경(String), 010-1111-2222(String), 10(Integer), 35(Integer), 2025-07-01 00:00:00.0(Timestamp), admin(String), admin(String)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doUpdate - ==>  Preparing: UPDATE drive_res SET name = ?, phone = ?, car_code = ?, retailer_code = ?, drive_date = ?, mod_dt = SYSDATE, mod_id = ? WHERE res_no = ?
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doUpdate - ==> Parameters: 홍길동_U(String), 010-9999-8888(String), 11(Integer), 37(Integer), 2025-07-01 00:00:00.0(Timestamp), upd(String), 46(Integer)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doUpdate - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - ==>  Preparing: SELECT * FROM drive_res WHERE res_no = ?
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - ==> Parameters: 46(Integer)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO() 생성
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - --------- @AfterEach ---------
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - drive_res 테이블 초기화
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user01, name=가민경, phone=010-1111-2222, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=admin, modDt=null, modId=admin]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user02, name=나민경, phone=010-2222-3333, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=tester, modDt=null, modId=tester]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO 생성: DriveResDTO [resNo=0, id=user03, name=다민경, phone=010-3333-4444, carCode=10, retailerCode=35, driveDate=Tue Jul 01 00:00:00 GMT+09:00 2025, regDt=null, regId=demo, modDt=null, modId=demo]
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - 데이터 준비왈료왈왈
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==>  Preparing: SELECT DRIVE_RES_SEQ.NEXTVAL FROM DUAL
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - ==> Parameters: 
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave!selectKey - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==>  Preparing: INSERT INTO drive_res ( res_no, id, name, phone, car_code, retailer_code, drive_date, reg_dt, reg_id, mod_dt, mod_id ) VALUES ( ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?, SYSDATE, ? )
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - ==> Parameters: 47(Integer), user01(String), 가민경(String), 010-1111-2222(String), 10(Integer), 35(Integer), 2025-07-01 00:00:00.0(Timestamp), admin(String), admin(String)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSave - <==    Updates: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - ==>  Preparing: SELECT * FROM drive_res WHERE res_no = ?
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - ==> Parameters: 47(Integer)
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.cmn.PLog - DriveResDTO() 생성
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.mapper.DriveResMapper.doSelectOne - <==      Total: 1
+[2025-06-27 15:55:11] [DEBUG] com.pcwk.ehr.drive.DriveResDaoTest - --------- @AfterEach ---------
