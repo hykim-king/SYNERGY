@@ -1,11 +1,9 @@
-//package com.pcwk.ehr.car;
-//
-//import java.sql.SQLException;
-//import java.util.List;
-//
-//import com.pcwk.ehr.car.CarDTO;
-//
-//public interface CarMapper {
+package com.pcwk.ehr.car;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface CarMapper {
 //	//검색 조건을 기준으로 데이터를 조회
 //		List<CarDTO> doRetrieve(CarDTO param);
 //		
@@ -33,5 +31,5 @@
 //		
 ////		//테이블 내 모든 데이터 삭제
 ////		void deleteAll() throws SQLException;
-//		
-//}
+		
+}
