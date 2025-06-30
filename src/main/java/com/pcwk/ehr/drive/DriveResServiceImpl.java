@@ -1,19 +1,38 @@
 package com.pcwk.ehr.drive;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pcwk.ehr.drive.DriveResDTO;
 import com.pcwk.ehr.mapper.DriveResMapper;
 
-@Service  // ↖ Component-scan으로 빈 등록
+@Service
 public class DriveResServiceImpl implements DriveResService {
 
     @Autowired
-    private DriveResMapper driveResMapper;
+    DriveResMapper mapper;
 
     @Override
-    public int doSave(DriveResDTO dto) throws Exception {
-        // (추후 트랜잭션 처리나 다른 로직이 추가되더라도 여기서 관리)
-        return driveResMapper.doSave(dto);
+    public int doSave(DriveResDTO dto) {
+
+        return mapper.doSave(dto);
     }
+
+    @Override
+    public DriveResDTO doSelectOne(DriveResDTO dto) {
+        return mapper.doSelectOne(dto);
+    }
+
+    @Override
+    public int doUpdate(DriveResDTO dto) {
+        return mapper.doUpdate(dto);
+    }
+
+    @Override
+    public int doDelete(DriveResDTO dto) {
+        return mapper.doDelete(dto);
+    }
+
 }
