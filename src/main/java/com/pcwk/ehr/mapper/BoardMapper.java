@@ -1,10 +1,10 @@
-package com.pcwk.ehr.board;
+package com.pcwk.ehr.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
+import com.pcwk.ehr.board.BoardDTO;
 import com.pcwk.ehr.cmn.WorkDiv;
 
 
@@ -21,7 +21,7 @@ public interface BoardMapper extends WorkDiv<BoardDTO> {
 
 	List<BoardDTO> doRetrieve();
 
-	List<BoardDTO> doRetrieve(BoardMapperDTO dto);
+	List<BoardDTO> doRetrieve(BoardDTO dto);
 
 	int getCount();
 
