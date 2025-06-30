@@ -1,11 +1,12 @@
 package com.pcwk.ehr.drive;
 
+import com.pcwk.ehr.drive.DriveResDTO;
+import java.util.List;
+
 public interface DriveResService {
-    /**
-     * 시승 신청 저장
-     * @param dto 신청 정보 DTO
-     * @return 저장 성공 시 1
-     * @throws Exception
-     */
-    int doSave(DriveResDTO dto) throws Exception;
+    int doSave(DriveResDTO dto);
+    DriveResDTO doSelectOne(DriveResDTO dto);
+    int doUpdate(DriveResDTO dto);
+    int doDelete(DriveResDTO dto);
+
 }
