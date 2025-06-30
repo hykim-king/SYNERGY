@@ -47,11 +47,16 @@ public class DriveResDaoTest {
         // 1) 테이블 초기화
         jdbcTemplate.update("DELETE FROM drive_res");
         log.debug("drive_res 테이블 초기화");
+        int carCode = jdbcTemplate.queryForObject(
+        	    "SELECT car_code FROM car WHERE ROWNUM = 1", Integer.class);
+        
+        int retailerCode = jdbcTemplate.queryForObject(
+        	    "SELECT retailer_code FROM retailer WHERE ROWNUM = 1", Integer.class);
 
         // 2) 테스트 데이터 준비 (driveDate 고정) :contentReference[oaicite:1]{index=1}
         Date driveDate = sdf.parse("2025-07-01");
         dto01 = new DriveResDTO("user01", "가민경", "010-1111-2222",
-                10, 35, driveDate,  "admin",  "admin");
+        		carCode, retailerCode, driveDate,  "admin",  "admin");
         dto02 = new DriveResDTO("user02", "나민경", "010-2222-3333",
         		10, 35, driveDate,  "tester",  "tester");
         dto03 = new DriveResDTO("user03", "다민경", "010-3333-4444",
