@@ -1,6 +1,7 @@
 package com.pcwk.ehr.car;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,40 +27,44 @@ public class CarTest {
     Logger log = LogManager.getLogger(CarTest.class);
 
     @Autowired
-    CarMapper carMapper;
+    CarMapper carMapper;  //
 
     @Test
-    void getAllTest() {
-        List<CarDTO> carList = carMapper.getAll();
-        assertNotNull(carList, "전체 리스트 조회 결과가 null 입니다.");
-        log.info("전체 차량 수 : {}", carList.size());
-        for (CarDTO dto : carList) {
-            log.info("차량 정보 : {}", dto);
+    void carAll() {
+        List<CarDTO> list = carMapper.getAll();
+        assertNotNull(list);
+        for (CarDTO dto : list) {
+            log.info("차량: {}", dto);
         }
-    }
-
-    @Test
-    void getOneTest() {
-        int carCode = 1; 
-        CarDTO car = carMapper.getOne(carCode);
-        assertNotNull(car, "단건 조회 결과가 null 입니다. carCode=" + carCode);
-        log.info("단건 조회 결과 : {}", car);
     }
 
     @Test
     void doRetrieveByCarMfListTest() {
-        List<String> carMfs = Arrays.asList("현대", "기아", "벤츠");
+        List<String> carMfs = Arrays.asList(
+            "랜드로버", "르노", "렉서스", "폭스바겐", "푸조", "캐딜락", "링컨",
+            "현대", "벤츠", "비엠더블유", "도요타", "포르쉐", "람보르기니",
+            "쉐보레", "쌍용", "아우디", "볼보", "지프", "벤틀리", "혼다",
+            "기아", "테슬라", "페라리", "포드", "미니"
+        );
         List<CarDTO> list = carMapper.doRetrieveByCarMfList(carMfs);
-        assertNotNull(list, "제조사 목록 조건조회 결과가 null 입니다.");
+        assertNotNull(list);
         for (CarDTO dto : list) {
-            log.info("제조사 조건조회 결과 : {}", dto);
+            log.info("조건조회 결과: {}", dto);
         }
     }
 
     @Test
-    void getCountTest() {
+    void carCount() {
         int count = carMapper.getCount();
-        log.info("전체 레코드 개수: {}", count);
+        System.out.println("count: " + count);
         assertTrue(count >= 0);
+    }
+
+    @Test
+    void carOne() {
+    	int pk = 6; // 또는 7, 8 등 실제 DB에 있는 값으로!
+    	CarDTO dto = carMapper.getOne(pk);
+    	assertNotNull(dto); // 이제 NullPointerException 발생 안함!
+        log.info("단건 조회 결과: {}", dto);
     }
 }
