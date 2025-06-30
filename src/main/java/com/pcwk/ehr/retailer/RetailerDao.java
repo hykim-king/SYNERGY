@@ -30,17 +30,17 @@ public interface RetailerDao  {
 //	//전체 데이터를 일괄 저장
 //	int saveAll();   
 
-//	//특정 리테일러 정보 삭제
-//	int doDelete(RetailerDTO param);
+	//특정 리테일러 정보 삭제
+	int doDelete(RetailerDTO param);
 	
 	
-//	//특정 리테일러 정보 수정
-//	int doUpdate(RetailerDTO param);
+	//특정 리테일러 정보 수정
+	int doUpdate(RetailerDTO param);
 	
 	
 	
-//	//테이블 내 모든 데이터 삭제
-//	void deleteAll() throws SQLException;
+	//테이블 내 모든 데이터 삭제
+	void deleteAll() throws SQLException;
 	
 	
 

@@ -18,6 +18,40 @@ public class RetailerDTO {
 	    private String regId;
 	    private Date modDt;
 	    private String modId;
+	    
+	    public RetailerDTO() {}
+	    
+	    
+		/**
+		 * @param retailerCode
+		 * @param productName
+		 * @param retailerName
+		 * @param carMf
+		 * @param area
+		 * @param address
+		 * @param telephone
+		 * @param regDt
+		 * @param regId
+		 * @param modDt
+		 * @param modId
+		 */
+		public RetailerDTO(int retailerCode, String productName, String retailerName, String carMf, String area,
+				String address, String telephone, Date regDt, String regId, Date modDt, String modId) {
+			super();
+			this.retailerCode = retailerCode;
+			this.productName = productName;
+			this.retailerName = retailerName;
+			this.carMf = carMf;
+			this.area = area;
+			this.address = address;
+			this.telephone = telephone;
+			this.regDt = regDt;
+			this.regId = regId;
+			this.modDt = modDt;
+			this.modId = modId;
+		}
+
+
 		/**
 		 * @return the retailerCode
 		 */

@@ -12,11 +12,14 @@ import com.pcwk.ehr.retailer.RetailerDTO;
 
 
 @Mapper
-public interface Retailermapper {
+public interface Retailermapper extends WorkDiv<RetailerDTO>{
     List<RetailerDTO> getAll();
     RetailerDTO getOne(int retailer_code);
 
     List<RetailerDTO> doRetrieveByCarMfList(@Param("carMfList") List<String> carMfList);
 
     int getCount();
+    
+    void deleteAll() throws SQLException;
+    
 }
