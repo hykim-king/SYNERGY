@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.pcwk.ehr.cmn.DTO;
 import com.pcwk.ehr.mapper.DriveResMapper;
+import com.pcwk.ehr.member.MemberDTO;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/drive")
@@ -18,14 +21,47 @@ public class DriveResController {
 
     @Autowired
     private DriveResMapper driveResMapper;
-
+    
     /**
-     * 시승 신청 화면 보여주기
+     * 시승 신청 화면 보여주기 (테스트용 세션 포함)
      */
     @GetMapping("/form.do")
-    public String showForm() {
-        return "drive/driveForm"; // JSP 또는 HTML 페이지 이름
+    public String showForm(HttpSession session, Model model) {
+        //  테스트용 임시 로그인 세션 삽입
+//        if (session.getAttribute("login") == null) {
+//            MemberDTO dummyLogin = new MemberDTO();
+//            dummyLogin.setId("testUser");
+//            dummyLogin.setName("테스트유저");
+//            session.setAttribute("login", dummyLogin);
+//        }
+
+        //  로그인 검사
+        MemberDTO login = (MemberDTO) session.getAttribute("login");
+        if (login == null) {
+            return "redirect:/member/loginView.do";
+        }
+
+        // 로그인한 사용자 정보 뷰로 전달
+        model.addAttribute("loginId", login.getId());
+        return "drive/driveForm"; // → /WEB-INF/views/drive/driveForm.jsp
     }
+
+    // 추후 실서비스 시
+    // (위의 세션 삽입 코드 제거)
+    /*
+    @GetMapping("/form.do")
+    public String showForm(HttpSession session, Model model) {
+        MemberDTO login = (MemberDTO) session.getAttribute("login");
+        if (login == null) {
+            return "redirect:/member/login.do";
+        }
+        model.addAttribute("loginId", login.getId());
+        return "drive/driveForm";
+    }
+    */
+
+    // 시승 신청 처리 메서드도 여기에 추가 가능
+
 
     /** 시승 신청 처리 → 결과 페이지로 이동 **/
     @PostMapping("/apply.do")
@@ -41,8 +77,6 @@ public class DriveResController {
     @Autowired
     private DriveResService driveResService;
 
-    // ← 기존에 apply.do를 처리하시던 메서드가 있을 겁니다.
-    //    그 메서드 바로 아래에 붙여 넣으시면 돼요.
 
     @PostMapping("/reserve")  // 또는 .do를 유지하고 싶으면 "/apply.do"
     @ResponseBody
