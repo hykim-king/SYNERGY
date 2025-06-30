@@ -66,7 +66,7 @@ public class RetailerTest {
 
     @Test
     void retailerOne() {
-        int pk = 1;
+        int pk = 117;
         RetailerDTO dto = retailerMapper.getOne(pk);
         assertNotNull(dto);
         log.info("단건 조회 결과: {}", dto);

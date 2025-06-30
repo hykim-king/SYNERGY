@@ -61,7 +61,7 @@ class BoardTest {
 		}
 	}
 
-	@Disabled
+//	@Disabled
 	@AfterEach
 	void tearDown() throws Exception {
 		log.debug("┌───────────────────────────┐");
@@ -81,7 +81,7 @@ class BoardTest {
 
 	}
 
-	@Disabled
+//	@Disabled
 	@Test
 	void doSave() {
 		BoardDTO dto = new BoardDTO(10, "새글", "새 내용", "newUser", "새작성자", 0, new Date(), "admin", new Date(), "admin");
@@ -94,7 +94,7 @@ class BoardTest {
 		assertEquals("새작성자", result.getNickname());
 	}
 
-	@Disabled
+//	@Disabled
 	@Test
 	void doUpdate() {
 		BoardDTO dto = boards.get(0);
@@ -119,7 +119,7 @@ class BoardTest {
 //		assertEquals("제목2", result.get(0).getTitle());
 //	}
 
-	@Disabled
+//	@Disabled
 	@Test
 	void doDelete() {
 		BoardDTO dto = boards.get(0);
