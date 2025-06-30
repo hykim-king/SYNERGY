@@ -26,6 +26,58 @@ public class CarDTO extends DTO{
 
     public CarDTO() {}
 
+    
+    
+    
+    
+	/**
+	 * @param carCode
+	 * @param productName
+	 * @param carMf
+	 * @param cartype
+	 * @param orgFn
+	 * @param modFn
+	 * @param path
+	 * @param price
+	 * @param fuel
+	 * @param ef
+	 * @param engine
+	 * @param dpm
+	 * @param battery
+	 * @param mfDt
+	 * @param regDt
+	 * @param regId
+	 * @param modDt
+	 * @param modId
+	 */
+	public CarDTO(int carCode, String productName, String carMf, String cartype, String orgFn, String modFn,
+			String path, int price, String fuel, double ef, String engine, Integer dpm, Double battery, int mfDt,
+			Date regDt, String regId, Date modDt, String modId) {
+		super();
+		this.carCode = carCode;
+		this.productName = productName;
+		this.carMf = carMf;
+		this.cartype = cartype;
+		this.orgFn = orgFn;
+		this.modFn = modFn;
+		this.path = path;
+		this.price = price;
+		this.fuel = fuel;
+		this.ef = ef;
+		this.engine = engine;
+		this.dpm = dpm;
+		this.battery = battery;
+		this.mfDt = mfDt;
+		this.regDt = regDt;
+		this.regId = regId;
+		this.modDt = modDt;
+		this.modId = modId;
+	}
+
+
+
+
+
 	/**
 	 * @return the carCode
 	 */
