@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
 <html>
@@ -11,23 +10,32 @@
 <body>
     <h2>🚗 시승 신청 약식</h2>
     <form action="<c:url value='/drive/apply.do'/>" method="post">
-        <label for="id">아이디:</label><br>
-        <input type="text" id="id" name="id" ><br><br>
+       <!-- 아이디 -->
+<input type="text" name="id" value="${loginId}" readonly />
 
-        <label for="name">이름:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+<!-- 이름 -->
+<input type="text" name="name" maxlength="30" />
 
-        <label for="phone">휴대폰 번호:</label><br>
-        <input type="text" id="phone" name="phone" required><br><br>
+<!-- 연락처 -->
+<input type="text" name="phone" pattern="\\d{3}-\\d{4}-\\d{4}" required />
 
-        <label for="carCode">차량 코드:</label><br>
-        <input type="number" id="carCode" name="carCode" required><br><br>
+<!-- 시승 날짜 -->
+<input type="date" name="driveDate" required />
 
-        <label for="retailerCode">리테일러 코드:</label><br>
-        <input type="number" id="retailerCode" name="retailerCode" required><br><br>
+<!-- 제조사 선택 -->
+<select id="carMf" name="carMf">
+   <option value="">제조사 선택</option>
+</select>
 
-        <label for="driveDate">시승 희망 날짜:</label><br>
-        <input type="date" id="driveDate" name="driveDate" required><br><br>
+<!-- 차량 선택 -->
+<select id="carCode" name="carCode">
+   <option value="">차량 선택</option>
+</select>
+
+<!-- 업체 선택 -->
+<select id="retailerCode" name="retailerCode">
+   <option value="">업체 선택</option>
+</select>
 
         <button type="submit">시승 신청</button>
     </form>
