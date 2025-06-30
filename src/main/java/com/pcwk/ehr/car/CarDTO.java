@@ -1,88 +1,72 @@
 package com.pcwk.ehr.car;
 
-import java.sql.Date;
+import java.util.Date;
 
-public class CarDTO {
-	private int car_code;
-	private String product_name;
-	private String car_mf;
-	private String cartype;
-	private String org_fn;
-	private String mod_fn;
-	private String path;
-	private int price;
-	private String fuel;
-	private int ef;
-	private String engine;
-	private int dpm;
-	private int battery;
-	private int mf_dt;
-	private Date regDt;
-	private String regId;
-	private Date modDt;
-	private String modId;
-	
-	
-	
-	public CarDTO() {
-		
-	}
+import com.pcwk.ehr.cmn.DTO;
 
+public class CarDTO extends DTO{
+    private int carCode;           // CAR_CODE
+    private String productName;    // PRODUCT_NAME
+    private String carMf;          // CAR_MF
+    private String cartype;        // CARTYPE
+    private String orgFn;          // ORG_FN
+    private String modFn;          // MOD_FN
+    private String path;           // PATH
+    private int price;             // PRICE
+    private String fuel;           // FUEL
+    private double ef;             // EF
+    private String engine;         // ENGINE
+    private Integer dpm;           // DPM (nullable)
+    private Double battery;        // BATTERY (nullable)
+    private int mfDt;              // MF_DT
+    private Date regDt;            // REG_DT
+    private String regId;          // REG_ID
+    private Date modDt;            // MOD_DT
+    private String modId;          // MOD_ID
 
+    public CarDTO() {}
 
 	/**
-	 * @return the car_code
+	 * @return the carCode
 	 */
-	public int getCar_code() {
-		return car_code;
+	public int getCarCode() {
+		return carCode;
 	}
-
-
 
 	/**
-	 * @param car_code the car_code to set
+	 * @param carCode the carCode to set
 	 */
-	public void setCar_code(int car_code) {
-		this.car_code = car_code;
+	public void setCarCode(int carCode) {
+		this.carCode = carCode;
 	}
-
-
 
 	/**
-	 * @return the product_name
+	 * @return the productName
 	 */
-	public String getProduct_name() {
-		return product_name;
+	public String getProductName() {
+		return productName;
 	}
-
-
 
 	/**
-	 * @param product_name the product_name to set
+	 * @param productName the productName to set
 	 */
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
-
-
 
 	/**
-	 * @return the car_mf
+	 * @return the carMf
 	 */
-	public String getCar_mf() {
-		return car_mf;
+	public String getCarMf() {
+		return carMf;
 	}
-
-
 
 	/**
-	 * @param car_mf the car_mf to set
+	 * @param carMf the carMf to set
 	 */
-	public void setCar_mf(String car_mf) {
-		this.car_mf = car_mf;
+	public void setCarMf(String carMf) {
+		this.carMf = carMf;
 	}
-
-
 
 	/**
 	 * @return the cartype
@@ -91,8 +75,6 @@ public class CarDTO {
 		return cartype;
 	}
 
-
-
 	/**
 	 * @param cartype the cartype to set
 	 */
@@ -100,43 +82,33 @@ public class CarDTO {
 		this.cartype = cartype;
 	}
 
-
-
 	/**
-	 * @return the org_fn
+	 * @return the orgFn
 	 */
-	public String getOrg_fn() {
-		return org_fn;
+	public String getOrgFn() {
+		return orgFn;
 	}
 
-
-
 	/**
-	 * @param org_fn the org_fn to set
+	 * @param orgFn the orgFn to set
 	 */
-	public void setOrg_fn(String org_fn) {
-		this.org_fn = org_fn;
+	public void setOrgFn(String orgFn) {
+		this.orgFn = orgFn;
 	}
 
-
-
 	/**
-	 * @return the mod_fn
+	 * @return the modFn
 	 */
-	public String getMod_fn() {
-		return mod_fn;
+	public String getModFn() {
+		return modFn;
 	}
 
-
-
 	/**
-	 * @param mod_fn the mod_fn to set
+	 * @param modFn the modFn to set
 	 */
-	public void setMod_fn(String mod_fn) {
-		this.mod_fn = mod_fn;
+	public void setModFn(String modFn) {
+		this.modFn = modFn;
 	}
-
-
 
 	/**
 	 * @return the path
@@ -145,16 +117,12 @@ public class CarDTO {
 		return path;
 	}
 
-
-
 	/**
 	 * @param path the path to set
 	 */
 	public void setPath(String path) {
 		this.path = path;
 	}
-
-
 
 	/**
 	 * @return the price
@@ -163,16 +131,12 @@ public class CarDTO {
 		return price;
 	}
 
-
-
 	/**
 	 * @param price the price to set
 	 */
 	public void setPrice(int price) {
 		this.price = price;
 	}
-
-
 
 	/**
 	 * @return the fuel
@@ -181,8 +145,6 @@ public class CarDTO {
 		return fuel;
 	}
 
-
-
 	/**
 	 * @param fuel the fuel to set
 	 */
@@ -190,25 +152,19 @@ public class CarDTO {
 		this.fuel = fuel;
 	}
 
-
-
 	/**
 	 * @return the ef
 	 */
-	public int getEf() {
+	public double getEf() {
 		return ef;
 	}
-
-
 
 	/**
 	 * @param ef the ef to set
 	 */
-	public void setEf(int ef) {
+	public void setEf(double ef) {
 		this.ef = ef;
 	}
-
-
 
 	/**
 	 * @return the engine
@@ -217,8 +173,6 @@ public class CarDTO {
 		return engine;
 	}
 
-
-
 	/**
 	 * @param engine the engine to set
 	 */
@@ -226,61 +180,47 @@ public class CarDTO {
 		this.engine = engine;
 	}
 
-
-
 	/**
 	 * @return the dpm
 	 */
-	public int getDpm() {
+	public Integer getDpm() {
 		return dpm;
 	}
-
-
 
 	/**
 	 * @param dpm the dpm to set
 	 */
-	public void setDpm(int dpm) {
+	public void setDpm(Integer dpm) {
 		this.dpm = dpm;
 	}
-
-
 
 	/**
 	 * @return the battery
 	 */
-	public int getBattery() {
+	public Double getBattery() {
 		return battery;
 	}
-
-
 
 	/**
 	 * @param battery the battery to set
 	 */
-	public void setBattery(int battery) {
+	public void setBattery(Double battery) {
 		this.battery = battery;
 	}
 
-
-
 	/**
-	 * @return the mf_dt
+	 * @return the mfDt
 	 */
-	public int getMf_dt() {
-		return mf_dt;
+	public int getMfDt() {
+		return mfDt;
 	}
 
-
-
 	/**
-	 * @param mf_dt the mf_dt to set
+	 * @param mfDt the mfDt to set
 	 */
-	public void setMf_dt(int mf_dt) {
-		this.mf_dt = mf_dt;
+	public void setMfDt(int mfDt) {
+		this.mfDt = mfDt;
 	}
-
-
 
 	/**
 	 * @return the regDt
@@ -289,16 +229,12 @@ public class CarDTO {
 		return regDt;
 	}
 
-
-
 	/**
 	 * @param regDt the regDt to set
 	 */
 	public void setRegDt(Date regDt) {
 		this.regDt = regDt;
 	}
-
-
 
 	/**
 	 * @return the regId
@@ -307,16 +243,12 @@ public class CarDTO {
 		return regId;
 	}
 
-
-
 	/**
 	 * @param regId the regId to set
 	 */
 	public void setRegId(String regId) {
 		this.regId = regId;
 	}
-
-
 
 	/**
 	 * @return the modDt
@@ -325,16 +257,12 @@ public class CarDTO {
 		return modDt;
 	}
 
-
-
 	/**
 	 * @param modDt the modDt to set
 	 */
 	public void setModDt(Date modDt) {
 		this.modDt = modDt;
 	}
-
-
 
 	/**
 	 * @return the modId
@@ -343,8 +271,6 @@ public class CarDTO {
 		return modId;
 	}
 
-
-
 	/**
 	 * @param modId the modId to set
 	 */
@@ -352,17 +278,16 @@ public class CarDTO {
 		this.modId = modId;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "CarDTO [car_code=" + car_code + ", product_name=" + product_name + ", car_mf=" + car_mf + ", cartype="
-				+ cartype + ", org_fn=" + org_fn + ", mod_fn=" + mod_fn + ", path=" + path + ", price=" + price
-				+ ", fuel=" + fuel + ", ef=" + ef + ", engine=" + engine + ", dpm=" + dpm + ", battery=" + battery
-				+ ", mf_dt=" + mf_dt + ", regDt=" + regDt + ", regId=" + regId + ", modDt=" + modDt + ", modId=" + modId
-				+ "]";
+		return "CarDTO [carCode=" + carCode + ", productName=" + productName + ", carMf=" + carMf + ", cartype="
+				+ cartype + ", orgFn=" + orgFn + ", modFn=" + modFn + ", path=" + path + ", price=" + price + ", fuel="
+				+ fuel + ", ef=" + ef + ", engine=" + engine + ", dpm=" + dpm + ", battery=" + battery + ", mfDt="
+				+ mfDt + ", regDt=" + regDt + ", regId=" + regId + ", modDt=" + modDt + ", modId=" + modId + "]";
 	}
-	
-	
-	
+    
+    
+    
+    
+    
 }

@@ -1,9 +1,7 @@
 package com.pcwk.ehr.car;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,58 +14,52 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.pcwk.ehr.mapper.Retailermapper;
-import com.pcwk.ehr.retailer.RetailerDTO;
-import com.pcwk.ehr.retailer.RetailerTest;
+import com.pcwk.ehr.mapper.CarMapper;
 
-@WebAppConfiguration // 가상 서블릿 컨텍스트 설정 명령어
+@WebAppConfiguration
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
-
+@ContextConfiguration(locations = {
+    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+    "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
 })
 public class CarTest {
-//	Logger log = LogManager.getLogger(CarTest.class);
-//
-//    @Autowired
-//    CarMapper carMapper;
-//
-//    @Test
-//    void retailerall() {
-//        List<RetailerDTO> list = carMapper.getAll();
-//        assertNotNull(list);
-//        for (RetailerDTO dto : list) {
-//            log.info("리테일러: {}", dto);
-//        }
-//    }
-//
-//    @Test
-//    void doRetrieveByCarMfListTest() {
-//        List<String> carMfs = Arrays.asList(
-//            "랜드로버", "르노", "렉서스", "폭스바겐", "푸조", "캐딜락", "링컨",
-//            "현대", "벤츠", "비엠더블유", "도요타", "포르쉐", "람보르기니",
-//            "쉐보레", "쌍용", "아우디", "볼보", "지프", "벤틀리", "혼다",
-//            "기아", "테슬라", "페라리", "포드", "미니"
-//        );
-//        List<RetailerDTO> list = retailerMapper.doRetrieveByCarMfList(carMfs);
-//        assertNotNull(list);
-//        for (RetailerDTO dto : list) {
-//            log.info("조건조회 결과: {}", dto);
-//        }
-//    }
-//
-//    @Test
-//    void testGetCount() throws SQLException {
-//        int count = retailerMapper.getCount();
-//        log.info("전체 레코드 개수: {}", count);
-//        assertTrue(count >= 0);
-//    }
-//
-//    @Test
-//    void retailerOne() {
-//        int pk = 1;
-//        RetailerDTO dto = retailerMapper.getOne(pk);
-//        assertNotNull(dto);
-//        log.info("단건 조회 결과: {}", dto);
-//    }
+    Logger log = LogManager.getLogger(CarTest.class);
+
+    @Autowired
+    CarMapper carMapper;
+
+    @Test
+    void getAllTest() {
+        List<CarDTO> carList = carMapper.getAll();
+        assertNotNull(carList, "전체 리스트 조회 결과가 null 입니다.");
+        log.info("전체 차량 수 : {}", carList.size());
+        for (CarDTO dto : carList) {
+            log.info("차량 정보 : {}", dto);
+        }
+    }
+
+    @Test
+    void getOneTest() {
+        int carCode = 1; 
+        CarDTO car = carMapper.getOne(carCode);
+        assertNotNull(car, "단건 조회 결과가 null 입니다. carCode=" + carCode);
+        log.info("단건 조회 결과 : {}", car);
+    }
+
+    @Test
+    void doRetrieveByCarMfListTest() {
+        List<String> carMfs = Arrays.asList("현대", "기아", "벤츠");
+        List<CarDTO> list = carMapper.doRetrieveByCarMfList(carMfs);
+        assertNotNull(list, "제조사 목록 조건조회 결과가 null 입니다.");
+        for (CarDTO dto : list) {
+            log.info("제조사 조건조회 결과 : {}", dto);
+        }
+    }
+
+    @Test
+    void getCountTest() {
+        int count = carMapper.getCount();
+        log.info("전체 레코드 개수: {}", count);
+        assertTrue(count >= 0);
+    }
 }
