@@ -1,28 +1,33 @@
 package com.pcwk.ehr.mapper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.pcwk.ehr.board.BoardDTO;
+import com.pcwk.ehr.cmn.DTO;
 import com.pcwk.ehr.cmn.WorkDiv;
 
 @Mapper
 public interface BoardMapper extends WorkDiv<BoardDTO> {
 
-	int doSave(BoardDTO inVO);
+	int saveAll();
 
-	int doUpdate(BoardDTO inVO);
+	List<BoardDTO> getAll();
 
-	int doDelete(int boardCode);
+	void deleteAll() throws SQLException;
 
-	BoardDTO doSelectOne(int boardCode);
+	int getCount() throws SQLException;
 
-	List<BoardDTO> doRetrieve();
+	BoardDTO doSelectOne(List<BoardDTO> param);
 
-	List<BoardDTO> doRetrieve(BoardDTO search);
+	List<BoardDTO> doRetrieve(DTO param);
 
-	int getCount();
+	int doInsert(BoardDTO dto);
 
-	void deleteAll();
+	List<BoardDTO> doRetrieve(BoardDTO dto);
+	
+	int doUpdate(BoardDTO dto);
+
 }

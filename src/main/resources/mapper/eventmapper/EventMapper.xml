@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pcwk.ehr.mapper.EventMapper">
+
+    <!-- 전체 조회 -->
+    <select id="selectAll" resultType="com.pcwk.ehr.event.EventDTO">
+        SELECT 
+            ECODE,
+            EMAIL,
+            TITLE,
+            CONTENTS,
+            READ_CNT,
+            REG_DT,
+            REG_ID,
+            MOD_DT,
+            MOD_ID
+        FROM EVENT
+        ORDER BY REG_DT DESC
+    </select>
+
+    <!-- 단건 조회 -->
+    <select id="selectOne" parameterType="String" resultType="com.pcwk.ehr.event.EventDTO">
+        SELECT 
+            ECODE,
+            EMAIL,
+            TITLE,
+            CONTENTS,
+            READ_CNT,
+            REG_DT,
+            REG_ID,
+            MOD_DT,
+            MOD_ID
+        FROM EVENT
+        WHERE ECODE = #{ecode}
+    </select>
+
+    <!-- 검색 조건 조회 -->
+    <select id="doRetrieve" parameterType="com.pcwk.ehr.event.EventDTO"
+            resultType="com.pcwk.ehr.event.EventDTO">
+        SELECT 
+            ECODE,
+            EMAIL,
+            TITLE,
+            CONTENTS,
+            READ_CNT,
+            REG_DT,
+            REG_ID,
+            MOD_DT,
+            MOD_ID
+        FROM EVENT
+        WHERE 1=1
+
+        <if test="searchDiv != null and searchDiv != ''">
+            <choose>
+                <when test="searchDiv == '10'">
+                    AND TITLE LIKE '%' || #{searchWord} || '%'
+                </when>
+                <when test="searchDiv == '20'">
+                    AND EMAIL LIKE '%' || #{searchWord} || '%'
+                </when>
+                <when test="searchDiv == '30'">
+                    AND CONTENTS LIKE '%' || #{searchWord} || '%'
+                </when>
+            </choose>
+        </if>
+
+        ORDER BY REG_DT DESC
+    </select>
+
+    <!-- 등록 -->
+    <insert id="doInsert" parameterType="com.pcwk.ehr.event.EventDTO">
+        INSERT INTO EVENT (
+            ECODE,
+            EMAIL,
+            TITLE,
+            CONTENTS,
+            READ_CNT,
+            REG_DT,
+            REG_ID,
+            MOD_DT,
+            MOD_ID
+        ) VALUES (
+            #{ecode},
+            #{email},
+            #{title},
+            #{contents},
+            0,
+            SYSDATE,
+            #{regId},
+            SYSDATE,
+            #{modId}
+        )
+    </insert>
+
+    <!-- 수정 -->
+    <update id="doUpdate" parameterType="com.pcwk.ehr.event.EventDTO">
+        UPDATE EVENT
+        SET 
+            EMAIL = #{email},
+            TITLE = #{title},
+            CONTENTS = #{contents},
+            MOD_DT = SYSDATE,
+            MOD_ID = #{modId}
+        WHERE ECODE = #{ecode}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="doDelete" parameterType="com.pcwk.ehr.event.EventDTO">
+        DELETE FROM EVENT
+        WHERE ECODE = #{ecode}
+    </delete>
+
+</mapper>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.pcwk.ehr.mapper.BoardMapper">
+
     <!-- 게시글 검색 (페이징 포함) -->
-    <select id="doRetrieve" parameterType="SearchDTO" resultType="BoardDTO">
+    <select id="doRetrieve" parameterType="com.pcwk.ehr.cmn.SearchDTO" resultType="com.pcwk.ehr.board.BoardDTO">
         SELECT A.*, B.*
         FROM (
             SELECT tt3.rnum AS no,
@@ -67,74 +69,83 @@
             </where>
         ) B
     </select>
+
     <!-- 게시글 등록 -->
     <insert id="doSave" parameterType="BoardDTO">
-        INSERT INTO BOARD (
-            BOARD_CODE,
-            TITLE,
-            CONTENTS,
-            ID,
-            NICKNAME,
-            READ_CNT,
-            REG_DT,
-            REG_ID,
-            MOD_DT,
-            MOD_ID
-        ) VALUES (
-            BOARD_SEQ.NEXTVAL,
-            #{title},
-            #{contents},
-            #{id},
-            #{nickname},
-            0,
-            SYSDATE,
-            #{regId},
-            SYSDATE,
-            #{modId}
-        )
-    </insert>
-    <!-- 게시글 수정 -->
-    <update id="doUpdate" parameterType="BoardDTO">
-        UPDATE BOARD
-        SET title = #{title},
-            contents = #{contents},
-            mod_dt = SYSDATE,
-            mod_id = #{modId}
-        WHERE board_code = #{boardCode}
-    </update>
+    <selectKey keyProperty="boardCode" resultType="java.lang.Integer" order="BEFORE">
+        SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO BOARD (
+        BOARD_CODE,
+        TITLE,
+        CONTENTS,
+        ID,
+        NICKNAME,
+        READ_CNT,
+        REG_DT,
+        REG_ID,
+        MOD_DT,
+        MOD_ID
+    ) VALUES (
+        #{boardCode},
+        #{title},
+        #{contents},
+        #{id},
+        #{nickname},
+        0,
+        SYSDATE,
+        #{regId},
+        SYSDATE,
+        #{modId}
+    )
+</insert>
+<update id="doUpdate" parameterType="com.pcwk.ehr.board.BoardDTO">
+    UPDATE BOARD
+    SET title = #{title},
+        contents = #{contents},
+        mod_dt = SYSDATE,
+        mod_id = #{modId}
+    WHERE board_code = #{boardCode}
+</update>
+
     <!-- 게시글 삭제 -->
-    <delete id="doDelete" parameterType="BoardDTO">
+    <delete id="doDelete" parameterType="com.pcwk.ehr.board.BoardDTO">
         DELETE FROM BOARD
         WHERE board_code = #{boardCode}
     </delete>
+
     <!-- 게시글 단건 조회 -->
-  <resultMap type="com.pcwk.ehr.board.BoardDTO" id="boardMap">
-    <id column="board_code" property="boardCode"/>
-    <result column="title" property="title"/>
-    <result column="contents" property="contents"/>
-    <result column="id" property="id"/>
-    <result column="nickname" property="nickname"/>
-    <result column="read_cnt" property="readCnt"/>
-    <result column="reg_dt" property="regDt"/>
-    <result column="reg_id" property="regId"/>
-    <result column="mod_dt" property="modDt"/>
-    <result column="mod_id" property="modId"/>
-</resultMap>
-<select id="doSelectOne" parameterType="com.pcwk.ehr.board.BoardDTO" resultMap="boardMap">
-    SELECT *
-    FROM BOARD
-    WHERE board_code = #{boardCode}
-</select>
+    <resultMap type="com.pcwk.ehr.board.BoardDTO" id="boardMap">
+        <id column="board_code" property="boardCode"/>
+        <result column="title" property="title"/>
+        <result column="contents" property="contents"/>
+        <result column="id" property="id"/>
+        <result column="nickname" property="nickname"/>
+        <result column="read_cnt" property="readCnt"/>
+        <result column="reg_dt" property="regDt"/>
+        <result column="reg_id" property="regId"/>
+        <result column="mod_dt" property="modDt"/>
+        <result column="mod_id" property="modId"/>
+    </resultMap>
+
+    <select id="doSelectOne" parameterType="com.pcwk.ehr.board.BoardDTO" resultMap="boardMap">
+        SELECT *
+        FROM BOARD
+        WHERE board_code = #{boardCode}
+    </select>
+
     <!-- 게시글 전체 조회 -->
-    <select id="getAll" resultType="BoardDTO">
+    <select id="getAll" resultType="com.pcwk.ehr.board.BoardDTO">
         SELECT *
         FROM BOARD
         ORDER BY board_code DESC
     </select>
+
     <!-- 전체 게시글 수 -->
-    <select id="getCount" resultType="int">
+    <select id="getCount" resultType="java.lang.Integer">
         SELECT COUNT(*) AS totalCnt FROM BOARD
     </select>
+
     <!-- 테스트용 샘플 데이터 저장 -->
     <insert id="saveAll">
         INSERT INTO BOARD (
@@ -160,10 +171,12 @@
                SYSDATE,
                'modUser'
         FROM DUAL
-        <![CDATA[CONNECT BY LEVEL <= 10]]>
+       <![CDATA[ CONNECT BY LEVEL <= 10]]>
     </insert>
+
     <!-- 전체 게시글 삭제 -->
     <delete id="deleteAll">
         DELETE FROM BOARD
     </delete>
+
 </mapper>
