@@ -84,6 +84,10 @@ public class RepairResDaoTest {
         int flag = mapper.doSave(repair_dto01);
         assertEquals(1, flag, "doSave 성공 여부 확인");
         assertTrue(repair_dto01.getRepairNo() > 0, "시퀀스 repairNo가 0보다 커야 함");
+       
+        //수정 확인
+        RepairResDTO saved = mapper.doSelectOne(repair_dto01); // resNo로 조회
+        isSameRepairRes(saved, repair_dto01); // 입력값과 DB조회값 비교
     }
     
     //@Disabled
