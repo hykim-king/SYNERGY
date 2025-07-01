@@ -36,7 +36,7 @@
 
  <select id="doSelectOne" parameterType="MemberDTO" resultMap="memberResultMap">
   SELECT ID, PWD, NICKNAME, NAME, PHONE, EMAIL, REG_DT, REG_ID, MOD_DT, MOD_ID, ADMIN_ROLE
-  FROM MEMBER
+    FROM MEMBER
   WHERE ID = #{id}
  </select>
 
@@ -90,5 +90,9 @@
  <delete id="deleteAll" parameterType="MemberDTO">
     DELETE FROM member
  </delete>
+ 
+ <select id="getCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM member
+ </select>
 
 </mapper>
