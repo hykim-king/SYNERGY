@@ -21,7 +21,7 @@ import com.pcwk.ehr.mapper.MemberMapper;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
-class MemberTest {
+class MemberDaoTest {
 Logger log = LogManager.getLogger(getClass());
 	
 	

@@ -23,7 +23,7 @@ import com.pcwk.ehr.member.service.MemberService;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
-class memberServiceTest {
+class MemberServiceTest {
 Logger log = LogManager.getLogger(getClass());
 	
 	@Autowired
