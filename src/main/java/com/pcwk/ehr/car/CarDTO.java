@@ -4,32 +4,30 @@ import java.util.Date;
 
 import com.pcwk.ehr.cmn.DTO;
 
-public class CarDTO extends DTO{
-    private int carCode;           // CAR_CODE
-    private String productName;    // PRODUCT_NAME
-    private String carMf;          // CAR_MF
-    private String cartype;        // CARTYPE
-    private String orgFn;          // ORG_FN
-    private String modFn;          // MOD_FN
-    private String path;           // PATH
-    private int price;             // PRICE
-    private String fuel;           // FUEL
-    private double ef;             // EF
-    private String engine;         // ENGINE
-    private Integer dpm;           // DPM (nullable)
-    private Double battery;        // BATTERY (nullable)
-    private int mfDt;              // MF_DT
-    private Date regDt;            // REG_DT
-    private String regId;          // REG_ID
-    private Date modDt;            // MOD_DT
-    private String modId;          // MOD_ID
+public class CarDTO extends DTO {
+	private int carCode;
+	private String productName;
+	private String carMf;
+	private String cartype;
+	private String orgFn;
+	private String modFn;
+	private String path;
+	private int price;
+	private String fuel;
+	private double ef;
+	private String engine;
+	private Integer dpm;    // null 가능
+	private Double battery; // null 가능
+	private int mfDt;
+	private java.util.Date regDt;
+	private String regId;
+	private java.util.Date modDt;
+	private String modId;
+	// + getter, setter 모두 필수!
 
-    public CarDTO() {}
+	public CarDTO() {
+	}
 
-    
-    
-    
-    
 	/**
 	 * @param carCode
 	 * @param productName
@@ -73,10 +71,6 @@ public class CarDTO extends DTO{
 		this.modDt = modDt;
 		this.modId = modId;
 	}
-
-
-
-
 
 	/**
 	 * @return the carCode
@@ -337,9 +331,5 @@ public class CarDTO extends DTO{
 				+ fuel + ", ef=" + ef + ", engine=" + engine + ", dpm=" + dpm + ", battery=" + battery + ", mfDt="
 				+ mfDt + ", regDt=" + regDt + ", regId=" + regId + ", modDt=" + modDt + ", modId=" + modId + "]";
 	}
-    
-    
-    
-    
-    
+
 }

@@ -3,12 +3,14 @@ package com.pcwk.ehr.retailer;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +20,33 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.pcwk.ehr.mapper.Retailermapper;
 
-@WebAppConfiguration // 가상 서블릿 컨텍스트 설정 명령어
+@WebAppConfiguration
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
-
+@ContextConfiguration(locations = { 
+    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+    "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
 })
 public class RetailerTest {
     Logger log = LogManager.getLogger(RetailerTest.class);
 
     @Autowired
     Retailermapper retailerMapper;
+
+    int retailerCode; // 시퀀스 값 저장용
+
+    @BeforeEach
+    void setUp() throws SQLException {
+        retailerMapper.deleteAll();
+
+        // 1. 시퀀스 값 얻기
+        retailerCode = retailerMapper.getRetailerSeq();
+
+        // 2. retailerCode를 활용하여 데이터 insert
+        retailerMapper.doSave(
+            new RetailerDTO(retailerCode, "K9", "카모터스", "Kia", "서울", "서울특별시 강남구", "02-1111-1111",
+                new Date(System.currentTimeMillis()), "admin", new Date(System.currentTimeMillis()), "admin")
+        );
+    }
 
     @Test
     void retailerall() {
@@ -54,10 +72,8 @@ public class RetailerTest {
         }
     }
     
-    
-    
     @Test
-    void testGetCount() throws SQLException {
+    void GetCount() throws SQLException {
         int count = retailerMapper.getCount();
         log.info("전체 레코드 개수: {}", count);
         assertTrue(count >= 0);
@@ -65,8 +81,8 @@ public class RetailerTest {
 
     @Test
     void retailerOne() {
-        int pk = 117;
-        RetailerDTO dto = retailerMapper.getOne(pk);
+        // 위 setUp()에서 시퀀스 값 retailerCode로 저장했으므로, 이 값을 그대로 조회
+        RetailerDTO dto = retailerMapper.getOne(retailerCode);
         assertNotNull(dto);
         log.info("단건 조회 결과: {}", dto);
     }
