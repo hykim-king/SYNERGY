@@ -19,7 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.pcwk.ehr.board.BoardDTO;
-import com.pcwk.ehr.boardservice.BoardService;
+import com.pcwk.ehr.board.BoardService;
 import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.mapper.BoardMapper;
 

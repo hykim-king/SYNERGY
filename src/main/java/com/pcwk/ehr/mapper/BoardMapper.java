@@ -26,4 +26,8 @@ public interface BoardMapper extends WorkDiv<BoardDTO> {
 
 	int doInsert(BoardDTO dto);
 
+	List<BoardDTO> doRetrieve(BoardDTO dto);
+	
+	int doUpdate(BoardDTO dto);
+
 }

@@ -72,7 +72,7 @@
 
     <!-- 게시글 등록 -->
     <insert id="doSave" parameterType="BoardDTO">
-    <selectKey keyProperty="boardCode" resultType="int" order="BEFORE">
+    <selectKey keyProperty="boardCode" resultType="java.lang.Integer" order="BEFORE">
         SELECT BOARD_SEQ.NEXTVAL FROM DUAL
     </selectKey>
     INSERT INTO BOARD (
@@ -99,6 +99,15 @@
         #{modId}
     )
 </insert>
+<update id="doUpdate" parameterType="com.pcwk.ehr.board.BoardDTO">
+    UPDATE BOARD
+    SET title = #{title},
+        contents = #{contents},
+        mod_dt = SYSDATE,
+        mod_id = #{modId}
+    WHERE board_code = #{boardCode}
+</update>
+
     <!-- 게시글 삭제 -->
     <delete id="doDelete" parameterType="com.pcwk.ehr.board.BoardDTO">
         DELETE FROM BOARD
@@ -133,7 +142,7 @@
     </select>
 
     <!-- 전체 게시글 수 -->
-    <select id="getCount" resultType="int">
+    <select id="getCount" resultType="java.lang.Integer">
         SELECT COUNT(*) AS totalCnt FROM BOARD
     </select>
 

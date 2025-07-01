@@ -42,6 +42,10 @@ public class BoardDTO {
 		this.modId = modId;
 	}
 
+	public BoardDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * @return the boardCode
 	 */
