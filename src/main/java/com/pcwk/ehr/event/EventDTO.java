@@ -5,7 +5,10 @@ package com.pcwk.ehr.event;
 
 import java.util.Date;
 
-public class EventDTO {
+import com.pcwk.ehr.cmn.DTO;
+
+public class EventDTO extends DTO {
+
 	private String ecode;
 	private String email;
 	private String title;
@@ -174,7 +177,8 @@ public class EventDTO {
 	@Override
 	public String toString() {
 		return "EventDTO [ecode=" + ecode + ", email=" + email + ", title=" + title + ", contents=" + contents
-				+ ", readCnt=" + readCnt + ", regId=" + regId + ", modId=" + modId + "]";
+				+ ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId=" + regId + ", modDt=" + modDt + ", modId="
+				+ modId + "]";
 	}
 
 }

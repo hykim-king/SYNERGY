@@ -1,4 +1,7 @@
-package com.pcwk.ehr.event;
+/**
+ * 
+ */
+package com.pcwk.ehr.eventService;
 
 import java.util.List;
 
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pcwk.ehr.cmn.DTO;
+import com.pcwk.ehr.event.EventDTO;
+import com.pcwk.ehr.mapper.EventMapper;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -15,7 +20,7 @@ public class EventServiceImpl implements EventService {
 	Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
-	private EventMapper mapper;
+	EventMapper mapper;
 
 	public EventServiceImpl() {
 	}
@@ -48,11 +53,6 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public void doDelete(EventDTO param) {
 		mapper.doDelete(param);
-	}
-
-	public List<EventDTO> doRetrieve(EventDTO param) {
-		// 아직 구현되지 않은 오버로딩 메서드 (필요에 따라 구현)
-		return null;
 	}
 
 }

@@ -1,8 +1,9 @@
-package com.pcwk.ehr.event;
+package com.pcwk.ehr.eventService;
 
 import java.util.List;
 
 import com.pcwk.ehr.cmn.DTO;
+import com.pcwk.ehr.event.EventDTO;
 
 public interface EventService {
 
@@ -35,5 +36,4 @@ public interface EventService {
 	 * 이벤트 삭제
 	 */
 	void doDelete(EventDTO param);
-
 }
