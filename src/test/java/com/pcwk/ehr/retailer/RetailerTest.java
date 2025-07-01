@@ -54,7 +54,9 @@ public class RetailerTest {
             log.info("조건조회 결과: {}", dto);
         }
     }
-
+    
+    
+    
     @Test
     void testGetCount() throws SQLException {
         int count = retailerMapper.getCount();

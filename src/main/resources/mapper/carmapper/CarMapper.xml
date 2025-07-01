@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.carmapper.CarMapper">
+   <!-- 전체조회 -->
+  <select id="getAll" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT
+      CAR_CODE AS carCode,
+      PRODUCT_NAME AS productName,
+      CAR_MF AS carMf,
+      CARTYPE AS cartype,
+      ORG_FN AS orgFn,
+      MOD_FN AS modFn,
+      PATH AS path,
+      PRICE AS price,
+      FUEL AS fuel,
+      EF AS ef,
+      ENGINE AS engine,
+      DPM AS dpm,
+      BATTERY AS battery,
+      MF_DT AS mfDt,
+      REG_DT AS regDt,
+      REG_ID AS regId,
+      MOD_DT AS modDt,
+      MOD_ID AS modId
+    FROM CAR
+  </select>
+
+  <!-- 단건조회 -->
+  <select id="getOne" parameterType="int" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT
+      CAR_CODE AS carCode,
+      PRODUCT_NAME AS productName,
+      CAR_MF AS carMf,
+      CARTYPE AS cartype,
+      ORG_FN AS orgFn,
+      MOD_FN AS modFn,
+      PATH AS path,
+      PRICE AS price,
+      FUEL AS fuel,
+      EF AS ef,
+      ENGINE AS engine,
+      DPM AS dpm,
+      BATTERY AS battery,
+      MF_DT AS mfDt,
+      REG_DT AS regDt,
+      REG_ID AS regId,
+      MOD_DT AS modDt,
+      MOD_ID AS modId
+    FROM CAR
+    WHERE CAR_CODE = #{car_code}
+  </select>
+
+  <!-- 제조사 리스트 조건조회 (IN) -->
+  <select id="doRetrieveByCarMfList"
+          parameterType="java.util.List"
+          resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT
+      CAR_CODE AS carCode,
+      PRODUCT_NAME AS productName,
+      CAR_MF AS carMf,
+      CARTYPE AS cartype,
+      ORG_FN AS orgFn,
+      MOD_FN AS modFn,
+      PATH AS path,
+      PRICE AS price,
+      FUEL AS fuel,
+      EF AS ef,
+      ENGINE AS engine,
+      DPM AS dpm,
+      BATTERY AS battery,
+      MF_DT AS mfDt,
+      REG_DT AS regDt,
+      REG_ID AS regId,
+      MOD_DT AS modDt,
+      MOD_ID AS modId
+    FROM CAR
+    <where>
+      <if test="list != null and list.size > 0">
+        CAR_MF IN
+        <foreach collection="list" item="mf" open="(" separator="," close=")">
+          #{mf}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <!-- 전체 행 수 -->
+  <select id="getCount" resultType="int">
+    SELECT COUNT(*) FROM CAR
+  </select>
+
+</mapper>
