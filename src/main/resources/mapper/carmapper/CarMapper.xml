@@ -4,28 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pcwk.ehr.mapper.CarMapper">
    <!-- 전체조회 -->
-  <select id="getAll" resultType="com.pcwk.ehr.car.CarDTO">
-    SELECT
-      CAR_CODE AS carCode,
-      PRODUCT_NAME AS productName,
-      CAR_MF AS carMf,
-      CARTYPE AS cartype,
-      ORG_FN AS orgFn,
-      MOD_FN AS modFn,
-      PATH AS path,
-      PRICE AS price,
-      FUEL AS fuel,
-      EF AS ef,
-      ENGINE AS engine,
-      DPM AS dpm,
-      BATTERY AS battery,
-      MF_DT AS mfDt,
-      REG_DT AS regDt,
-      REG_ID AS regId,
-      MOD_DT AS modDt,
-      MOD_ID AS modId
-    FROM CAR
-  </select>
+<select id="getAll" resultType="com.pcwk.ehr.car.CarDTO">
+  SELECT
+    CAR_CODE AS carCode,
+    PRODUCT_NAME AS productName,
+    CAR_MF AS carMf,
+    CARTYPE AS cartype,
+    ORG_FN AS orgFn,
+    MOD_FN AS modFn,
+    PATH AS path,
+    PRICE AS price,
+    FUEL AS fuel,
+    EF AS ef,
+    ENGINE AS engine,
+    DPM AS dpm,
+    BATTERY AS battery,
+    MF_DT AS mfDt,
+    REG_DT AS regDt,
+    REG_ID AS regId,
+    MOD_DT AS modDt,
+    MOD_ID AS modId
+  FROM CAR
+</select>
+
+
 
   <!-- 단건조회 -->
   <select id="getOne" parameterType="int" resultType="com.pcwk.ehr.car.CarDTO">
@@ -90,5 +92,48 @@
   <select id="getCount" resultType="int">
     SELECT COUNT(*) FROM CAR
   </select>
+
+
+<insert id="add" parameterType="com.pcwk.ehr.car.CarDTO">
+    INSERT INTO CAR (
+        CAR_CODE,
+        PRODUCT_NAME,
+        CAR_MF,
+        CARTYPE,
+        ORG_FN,
+        MOD_FN,
+        PATH,
+        PRICE,
+        FUEL,
+        EF,
+        ENGINE,
+        DPM,
+        BATTERY,
+        MF_DT,
+        REG_DT,
+        REG_ID,
+        MOD_DT,
+        MOD_ID
+    ) VALUES (
+        #{carCode},
+        #{productName},
+        #{carMf},
+        #{cartype},
+        #{orgFn},
+        #{modFn},
+        #{path},
+        #{price},
+        #{fuel},
+        #{ef},
+        #{engine},
+        #{dpm},
+        #{battery},
+        #{mfDt},
+        #{regDt},
+        #{regId},
+        #{modDt},
+        #{modId}
+    )
+</insert>
 
 </mapper>

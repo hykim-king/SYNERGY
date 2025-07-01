@@ -12,10 +12,10 @@ import com.pcwk.ehr.drive.DriveResDTO;
 
 
 @Mapper
-public interface CarMapper extends WorkDiv<CarDTO>{
-	List<CarDTO> getAll();
+public interface CarMapper {
+    int add(CarDTO car);                 // INSERT
+    List<CarDTO> getAll();
     CarDTO getOne(int carCode);
     List<CarDTO> doRetrieveByCarMfList(List<String> carMfs);
     int getCount();
-
 }
