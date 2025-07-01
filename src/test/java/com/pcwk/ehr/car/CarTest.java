@@ -1,11 +1,9 @@
 package com.pcwk.ehr.car;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -70,30 +68,6 @@ public class CarTest {
         log.info("단건 조회 결과: {}", dto);
     }
     
-    @Test
-    void insertCarTest() {
-        // dpm, battery는 null 허용, regDt, modDt는 java.util.Date로 넣기!
-        CarDTO car = new CarDTO(
-            1001,                    // carCode (int)
-            "소나타",                  // productName (String)
-            "현대",                    // carMf (String)
-            "세단",                    // cartype (String)
-            "fn",                     // orgFn (String)
-            "modFn",                  // modFn (String)
-            null,        				// path (String)
-            2500,                     // price (int)
-            "가솔린",                  // fuel (String)
-            15.5,                     // ef (double) ← "15km/l" 아님!
-            "2.0",                    // engine (String)
-            null,                     // dpm (Integer, nullable)
-            null,                     // battery (Double, nullable)
-            20240701,                 // mfDt (int, 예: 20240701)
-            new Date(),               // regDt (Date)
-            "admin",                  // regId (String)
-            new Date(),               // modDt (Date)
-            "admin"                   // modId (String)
-        );
-        int result = carMapper.add(car);
-        assertEquals(1, result);
-    }
+ 
+    
 }

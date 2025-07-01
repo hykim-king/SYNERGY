@@ -16,7 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.pcwk.ehr.cmn.PLog;
 import com.pcwk.ehr.mapper.Retailermapper;
 
 @WebAppConfiguration // 가상 서블릿 컨텍스트 설정 명령어
