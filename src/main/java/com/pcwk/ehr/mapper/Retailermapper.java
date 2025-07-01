@@ -13,4 +13,5 @@ public interface Retailermapper extends WorkDiv<RetailerDTO>{
     List<RetailerDTO> doRetrieveByCarMfList(@Param("carMfList") List<String> carMfList);
     int getCount();
     int deleteAll() throws SQLException;
+    
 }

@@ -127,9 +127,6 @@ class BoardTest {
 	}
 
 //	@Disabled
-
-
-=======
 	@Test
 	void doRetrieve() {
 	    BoardDTO search = new BoardDTO();

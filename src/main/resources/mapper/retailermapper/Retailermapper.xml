@@ -74,7 +74,7 @@
   </select>
   <select id="getCount" resultType="int">
     SELECT COUNT(*) FROM RETAILER
-  </select>
+</select>
    <insert id="doSave" parameterType="com.pcwk.ehr.retailer.RetailerDTO">
         INSERT INTO retailer (
             retailer_code, product_name, retailer_name, car_mf, area,

@@ -27,7 +27,7 @@ public class CarTest {
     Logger log = LogManager.getLogger(CarTest.class);
 
     @Autowired
-    CarMapper carMapper;  //
+    CarMapper carMapper;  
 
     @Test
     void carAll() {
