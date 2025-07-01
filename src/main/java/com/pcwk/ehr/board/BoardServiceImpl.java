@@ -1,5 +1,6 @@
 package com.pcwk.ehr.board;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,11 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.doRetrieve(dto);
 	}
 
-	public int getCount() {
+	public int getCount() throws SQLException {
 		return boardMapper.getCount();
 	}
 
-	public void deleteAll() {
+	public void deleteAll() throws SQLException {
 		boardMapper.deleteAll();
 	}
 
