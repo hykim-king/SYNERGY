@@ -127,6 +127,9 @@ class BoardTest {
 	}
 
 //	@Disabled
+
+
+=======
 	@Test
 	void doRetrieve() {
 	    BoardDTO search = new BoardDTO();
@@ -145,6 +148,7 @@ class BoardTest {
 	    assertEquals(1, result.size());
 	    assertEquals("제목2", result.get(0).getTitle());
 	}
+
 //	@Disabled
 	@Test
 	void doDelete() {

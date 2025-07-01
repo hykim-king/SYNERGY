@@ -27,13 +27,13 @@ public class DriveResController {
      */
     @GetMapping("/form.do")
     public String showForm(HttpSession session, Model model) {
-        //  테스트용 임시 로그인 세션 삽입
-//        if (session.getAttribute("login") == null) {
-//            MemberDTO dummyLogin = new MemberDTO();
-//            dummyLogin.setId("testUser");
-//            dummyLogin.setName("테스트유저");
-//            session.setAttribute("login", dummyLogin);
-//        }
+       //   테스트용 임시 로그인 세션 삽입
+        if (session.getAttribute("login") == null) {
+            MemberDTO dummyLogin = new MemberDTO();
+            dummyLogin.setId("testUser");
+            dummyLogin.setName("테스트유저");
+            session.setAttribute("login", dummyLogin);
+        }
 
         //  로그인 검사
         MemberDTO login = (MemberDTO) session.getAttribute("login");
@@ -60,7 +60,6 @@ public class DriveResController {
     }
     */
 
-    // 시승 신청 처리 메서드도 여기에 추가 가능
 
 
     /** 시승 신청 처리 → 결과 페이지로 이동 **/
@@ -77,7 +76,7 @@ public class DriveResController {
     @Autowired
     private DriveResService driveResService;
 
-
+    // 시승신청정보를 DB에 저장
     @PostMapping("/reserve")  // 또는 .do를 유지하고 싶으면 "/apply.do"
     @ResponseBody
     public Map<String, Object> reserve(DriveResDTO dto) throws Exception {
