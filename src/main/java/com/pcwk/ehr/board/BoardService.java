@@ -1,5 +1,6 @@
 package com.pcwk.ehr.board;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BoardService {
@@ -13,7 +14,7 @@ public interface BoardService {
 
 	List<BoardDTO> doRetrieve(BoardDTO search);
 
-	int getCount();
+	int getCount() throws SQLException;
 
-	void deleteAll();
+	void deleteAll() throws SQLException;
 }
