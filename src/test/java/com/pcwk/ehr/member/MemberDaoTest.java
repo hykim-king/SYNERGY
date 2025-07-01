@@ -21,7 +21,7 @@ import com.pcwk.ehr.mapper.MemberMapper;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
-class MemberTest {
+class MemberDaoTest {
 Logger log = LogManager.getLogger(getClass());
 	
 	
@@ -110,7 +110,7 @@ Logger log = LogManager.getLogger(getClass());
 	    updateDto.setName("박길동");
 	    updateDto.setPhone("010-9999-8888");
 	    updateDto.setEmail("park99@naver.com");
-	    updateDto.setModId("admin"); // 수정자
+	    updateDto.setModId("admin12"); // 수정자
 	    updateDto.setAdminRole(0);
 
 	    log.debug("┌───────────────────────────────────────────┐");

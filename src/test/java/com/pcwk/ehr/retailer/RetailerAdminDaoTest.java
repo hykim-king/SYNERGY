@@ -27,7 +27,7 @@ import com.pcwk.ehr.mapper.Retailermapper;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
-class retailerAdminTest {
+class RetailerAdminDaoTest {
 
 	Logger log = LogManager.getLogger(RetailerTest.class);
 

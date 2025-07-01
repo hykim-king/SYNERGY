@@ -19,10 +19,10 @@
  <insert id="doSave" parameterType="MemberDTO">
     INSERT INTO MEMBER (
                 ID, PWD, NICKNAME, NAME, PHONE, EMAIL,
-                REG_DT, REG_ID, ADMIN_ROLE
+                REG_DT, REG_ID, MOD_DT, MOD_ID, ADMIN_ROLE
             ) VALUES (
                 #{id}, #{pwd}, #{nickname}, #{name}, #{phone}, #{email},
-                SYSDATE, #{regId}, #{adminRole}
+                SYSDATE, #{regId},SYSDATE,#{regId}, #{adminRole}
         )
  </insert>
 <!-- 아이디 중복 확인 -->
