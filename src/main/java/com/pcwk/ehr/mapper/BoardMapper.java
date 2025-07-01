@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pcwk.ehr.board.BoardDTO;
 import com.pcwk.ehr.cmn.WorkDiv;
 
-
 @Mapper
 public interface BoardMapper extends WorkDiv<BoardDTO> {
 
@@ -21,7 +20,7 @@ public interface BoardMapper extends WorkDiv<BoardDTO> {
 
 	List<BoardDTO> doRetrieve();
 
-	List<BoardDTO> doRetrieve(BoardDTO dto);
+	List<BoardDTO> doRetrieve(BoardDTO search);
 
 	int getCount();
 

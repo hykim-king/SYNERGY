@@ -1,0 +1,93 @@
+/* css/styles.css */
+.slider {
+  width: 200%;
+  max-width: 2000px;
+  margin: 0 auto;
+  /* overflow 설정은 그냥 놔두셔도 크게 문제 없습니다. */
+}
+
+/* 숨길 때 */
+.slide {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+/* 보일 때 */
+.slide.active {
+  display: block;
+}
+
+/* 네비게이션 바 기본 */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__logo-img {
+  width: 100px;
+  height: auto;
+  padding: 0.9rem 1rem;
+}
+
+.navbar__menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__menu > li {
+  margin-left: 1rem;
+}
+
+.navbar__menu a,
+.dropdown__btn {
+  text-decoration: none;
+  color: #333;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* 드롭다운 컨테이너 */
+.navbar__item--dropdown {
+  position: relative;
+}
+
+/* 드롭다운 메뉴 숨김 */
+.dropdown__content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%; /* 버튼 바로 아래 */
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+/* 드롭다운 항목 스타일 */
+.dropdown__content li {
+  white-space: nowrap;
+}
+
+.dropdown__content a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #333;
+}
+
+/* 활성화 시 보이기 */
+.navbar__item--dropdown.open .dropdown__content {
+  display: block;
+}
