@@ -3,7 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pcwk.ehr.mapper.CarMapper">
-
+<select id="getCarCode" resultType="java.lang.Integer">
+        SELECT CAR_CODE.NEXTVAL FROM dual
+    </select>
   <!-- doSave -->
 <insert id="doSave" parameterType="com.pcwk.ehr.car.CarDTO">
   INSERT INTO CAR (

@@ -8,7 +8,7 @@ import com.pcwk.ehr.cmn.WorkDiv;
 
 @Mapper
 public interface CarMapper extends WorkDiv<CarDTO>{
-
+	int getCarCode();
 	Integer getCount();
 
 	void deleteAll();

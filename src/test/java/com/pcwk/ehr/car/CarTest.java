@@ -25,107 +25,160 @@ import com.pcwk.ehr.mapper.CarMapper;
 
 @WebAppConfiguration
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = { 
-    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-    "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
-})
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 
-@Transactional
+
+@Transactional //롤백
 class CarTest {
-    Logger log = LogManager.getLogger(getClass());
+	Logger log = LogManager.getLogger(getClass());
 
-    @Autowired
-    ApplicationContext context;
+	@Autowired
+	ApplicationContext context;
 
-    @Autowired
-    CarMapper carMapper;
+	@Autowired
+	CarMapper carMapper;
 
-    List<CarDTO> cars;
+	List<CarDTO> cars;
 
-    @BeforeEach
-    void setUp() throws Exception {
-        carMapper.deleteAll();
+	@BeforeEach
+	void setUp() throws Exception {
+		carMapper.deleteAll();
 
-        cars = Arrays.asList(
-            new CarDTO(1001, "K5", "Kia", "세단", "org1.jpg", "mod1.jpg", "/img/k5.png",
-                3500, "G", 13.5, "2.0", 2000, 0.0, 2022, new Date(), "admin", new Date(), "admin"),
-            new CarDTO(1002, "Sonata", "Hyundai", "세단", "org2.jpg", "mod2.jpg", "/img/sonata.png",
-                3200, "G", 15.0, "1.6", 1600, 0.0, 2021, new Date(), "admin", new Date(), "admin"),
-            new CarDTO(1003, "520i", "BMW", "세단", "org3.jpg", "mod3.jpg", "/img/520i.png",
-                5500, "D", 14.2, "2.0", 2000, 0.0, 2023, new Date(), "admin", new Date(), "admin")
-        );
+		// 각 샘플 데이터마다 시퀀스 값을 받아서 carCode 부여
+		CarDTO car1 = new CarDTO();
+		car1.setCarCode(carMapper.getCarCode());
+		car1.setProductName("K5");
+		car1.setCarMf("Kia");
+		car1.setCartype("세단");
+		car1.setOrgFn("org1.jpg");
+		car1.setModFn("mod1.jpg");
+		car1.setPath("/img/k5.png");
+		car1.setPrice(3500);
+		car1.setFuel("G");
+		car1.setEf(13.5);
+		car1.setEngine("2.0");
+		car1.setDpm(2000);
+		car1.setBattery(0.0);
+		car1.setMfDt(2022);
+		car1.setRegDt(new Date());
+		car1.setRegId("admin");
+		car1.setModDt(new Date());
+		car1.setModId("admin");
 
-        for (CarDTO dto : cars) {
-            carMapper.doSave(dto);
-        }
-    }
+		CarDTO car2 = new CarDTO();
+		car2.setCarCode(carMapper.getCarCode());
+		car2.setProductName("Sonata");
+		car2.setCarMf("Hyundai");
+		car2.setCartype("세단");
+		car2.setOrgFn("org2.jpg");
+		car2.setModFn("mod2.jpg");
+		car2.setPath("/img/sonata.png");
+		car2.setPrice(3200);
+		car2.setFuel("G");
+		car2.setEf(15.0);
+		car2.setEngine("1.6");
+		car2.setDpm(1600);
+		car2.setBattery(0.0);
+		car2.setMfDt(2021);
+		car2.setRegDt(new Date());
+		car2.setRegId("admin");
+		car2.setModDt(new Date());
+		car2.setModId("admin");
 
-    @AfterEach
-    void tearDown() throws Exception {
-//        carMapper.deleteAll();
-    }
+		CarDTO car3 = new CarDTO();
+		car3.setCarCode(carMapper.getCarCode());
+		car3.setProductName("520i");
+		car3.setCarMf("BMW");
+		car3.setCartype("세단");
+		car3.setOrgFn("org3.jpg");
+		car3.setModFn("mod3.jpg");
+		car3.setPath("/img/520i.png");
+		car3.setPrice(5500);
+		car3.setFuel("D");
+		car3.setEf(14.2);
+		car3.setEngine("2.0");
+		car3.setDpm(2000);
+		car3.setBattery(0.0);
+		car3.setMfDt(2023);
+		car3.setRegDt(new Date());
+		car3.setRegId("admin");
+		car3.setModDt(new Date());
+		car3.setModId("admin");
 
-    @Test
-    @Commit
-    void doSave() {
-        CarDTO dto = new CarDTO();
-        dto.setCarCode(2001);
-        dto.setProductName("그랜저");
-        dto.setCarMf("Hyundai");
-        dto.setCartype("세단");
-        dto.setOrgFn("org_grandeur.jpg");
-        dto.setModFn("mod_grandeur.jpg");
-        dto.setPath("/img/grandeur.png");
-        dto.setPrice(4100);
-        dto.setFuel("G");
-        dto.setEf(12.5);
-        dto.setEngine("2.5");
-        dto.setDpm(2500);
-        dto.setBattery(0.0);
-        dto.setMfDt(2024);
-        dto.setRegDt(new Date());
-        dto.setRegId("admin");
-        dto.setModDt(new Date());
-        dto.setModId("admin");
+		cars = Arrays.asList(car1, car2, car3);
 
-        int flag = carMapper.doSave(dto);
-        assertEquals(1, flag);
+		for (CarDTO dto : cars) {
+			carMapper.doSave(dto);
+		}
+	}
 
-        CarDTO result = carMapper.doSelectOne(dto);
-        assertEquals("그랜저", result.getProductName());
-        assertEquals("Hyundai", result.getCarMf());
-    }
+	@AfterEach
+	void tearDown() throws Exception {
+		// carMapper.deleteAll();
+	}
 
-    @Test
-    void doUpdate() {
-        CarDTO dto = cars.get(0);
-        dto.setProductName("K5");
-        dto.setPrice(3700);
+	@Test
+	@Commit
+	void doSave() {
+		CarDTO dto = new CarDTO();
+		dto.setCarCode(carMapper.getCarCode()); // 시퀀스 사용!
+		dto.setProductName("그랜저");
+		dto.setCarMf("Hyundai");
+		dto.setCartype("세단");
+		dto.setOrgFn("org_grandeur.jpg");
+		dto.setModFn("mod_grandeur.jpg");
+		dto.setPath("/img/grandeur.png");
+		dto.setPrice(4100);
+		dto.setFuel("G");
+		dto.setEf(12.5);
+		dto.setEngine("2.5");
+		dto.setDpm(2500);
+		dto.setBattery(0.0);
+		dto.setMfDt(2024);
+		dto.setRegDt(new Date());
+		dto.setRegId("admin");
+		dto.setModDt(new Date());
+		dto.setModId("admin");
 
-        int flag = carMapper.doUpdate(dto);
-        assertEquals(1, flag);
+		int flag = carMapper.doSave(dto);
+		assertEquals(1, flag);
 
-        CarDTO updated = carMapper.doSelectOne(dto);
-        assertEquals("K5", updated.getProductName());
-        assertEquals(3700, updated.getPrice());
-    }
+		CarDTO result = carMapper.doSelectOne(dto);
+		assertEquals("그랜저", result.getProductName());
+		assertEquals("Hyundai", result.getCarMf());
+	}
 
-    @Test
-    void doDelete() {
-        CarDTO dto = cars.get(0);
-        int flag = carMapper.doDelete(dto);
-        assertEquals(1, flag);
-        assertEquals(2, carMapper.getCount());
-    }
+	@Test
+	void doUpdate() {
+		CarDTO dto = cars.get(0);
+		dto.setProductName("K5");
+		dto.setPrice(3700);
 
-    @Test
-    void doRetrieve() {
-        DTO param = new DTO();
-        param.setSearchDiv("carMf");
-        param.setSearchWord("Kia");
-        List<CarDTO> result = carMapper.doRetrieve(param);
+		int flag = carMapper.doUpdate(dto);
+		assertEquals(1, flag);
 
-        assertEquals(1, result.size());
-        assertEquals("K5", result.get(0).getProductName());
-    }
+		CarDTO updated = carMapper.doSelectOne(dto);
+		assertEquals("K5", updated.getProductName());
+		assertEquals(3700, updated.getPrice());
+	}
+
+	@Test
+	void doDelete() {
+		CarDTO dto = cars.get(0);
+		int flag = carMapper.doDelete(dto);
+		assertEquals(1, flag);
+		assertEquals(2, carMapper.getCount());
+	}
+
+	@Test
+	void doRetrieve() {
+		DTO param = new DTO();
+		param.setSearchDiv("carMf");
+		param.setSearchWord("Kia");
+		List<CarDTO> result = carMapper.doRetrieve(param);
+
+		assertEquals(1, result.size());
+		assertEquals("K5", result.get(0).getProductName());
+	}
 }
