@@ -12,5 +12,7 @@ public interface CarMapper extends WorkDiv<CarDTO>{
 	Integer getCount();
 
 	void deleteAll();
+
+	CarDTO getOne(int carCode);
    
 }

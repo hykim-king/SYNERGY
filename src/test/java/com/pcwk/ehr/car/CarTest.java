@@ -1,7 +1,6 @@
 package com.pcwk.ehr.car;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -9,12 +8,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.Commit;
@@ -23,8 +20,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pcwk.ehr.mapper.CarMapper;
 import com.pcwk.ehr.cmn.DTO;
+import com.pcwk.ehr.mapper.CarMapper;
 
 @WebAppConfiguration
 @ExtendWith(SpringExtension.class)
@@ -32,6 +29,7 @@ import com.pcwk.ehr.cmn.DTO;
     "file:src/main/webapp/WEB-INF/spring/root-context.xml",
     "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
 })
+
 @Transactional
 class CarTest {
     Logger log = LogManager.getLogger(getClass());
@@ -64,7 +62,7 @@ class CarTest {
 
     @AfterEach
     void tearDown() throws Exception {
-        carMapper.deleteAll();
+//        carMapper.deleteAll();
     }
 
     @Test
@@ -101,14 +99,14 @@ class CarTest {
     @Test
     void doUpdate() {
         CarDTO dto = cars.get(0);
-        dto.setProductName("K5(페이스리프트)");
+        dto.setProductName("K5");
         dto.setPrice(3700);
 
         int flag = carMapper.doUpdate(dto);
         assertEquals(1, flag);
 
         CarDTO updated = carMapper.doSelectOne(dto);
-        assertEquals("K5(페이스리프트)", updated.getProductName());
+        assertEquals("K5", updated.getProductName());
         assertEquals(3700, updated.getPrice());
     }
 
