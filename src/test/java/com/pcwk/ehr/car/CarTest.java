@@ -27,7 +27,7 @@ public class CarTest {
     Logger log = LogManager.getLogger(CarTest.class);
 
     @Autowired
-    CarMapper carMapper;  //
+    CarMapper carMapper;  
 
     @Test
     void carAll() {
@@ -67,4 +67,7 @@ public class CarTest {
     	assertNotNull(dto); // 이제 NullPointerException 발생 안함!
         log.info("단건 조회 결과: {}", dto);
     }
+    
+ 
+    
 }

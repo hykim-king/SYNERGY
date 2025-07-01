@@ -42,6 +42,9 @@ public class DriveResDaoTest {
     DriveResDTO dto03;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    private int carCode;
+    private int retailerCode;
+    
     @BeforeEach
     public void setUp() throws Exception {
         // 1) 테이블 초기화
@@ -58,9 +61,9 @@ public class DriveResDaoTest {
         dto01 = new DriveResDTO("user01", "가민경", "010-1111-2222",
         		carCode, retailerCode, driveDate,  "admin",  "admin");
         dto02 = new DriveResDTO("user02", "나민경", "010-2222-3333",
-        		10, 35, driveDate,  "tester",  "tester");
+        		carCode, retailerCode, driveDate,  "tester",  "tester");
         dto03 = new DriveResDTO("user03", "다민경", "010-3333-4444",
-        		10, 35, driveDate,  "demo",  "demo");
+        		carCode, retailerCode, driveDate,  "demo",  "demo");
         log.debug("데이터 준비왈료왈왈");
     }
 
@@ -99,13 +102,19 @@ public class DriveResDaoTest {
     //@Disabled
     @Test
     void doUpdate() throws Exception {
+    	
+    	 int carCode = jdbcTemplate.queryForObject(
+         	    "SELECT car_code FROM car WHERE ROWNUM = 1", Integer.class);
+         
+         int retailerCode = jdbcTemplate.queryForObject(
+         	    "SELECT retailer_code FROM retailer WHERE ROWNUM = 1", Integer.class);
         // 1) 사전 저장
         mapper.doSave(dto01);
         // 2) 변경
         dto01.setName("홍길동_U");
         dto01.setPhone("010-9999-8888");
-        dto01.setCarCode(11);
-        dto01.setRetailerCode(37);
+        dto01.setCarCode(carCode);
+        dto01.setRetailerCode(retailerCode);
         dto01.setModId("upd");
         // 3) 업데이트
         int flag = mapper.doUpdate(dto01);
@@ -116,8 +125,8 @@ public class DriveResDaoTest {
         assertNotNull(up);
         assertEquals("홍길동_U", up.getName());
         assertEquals("010-9999-8888", up.getPhone());
-        assertEquals(11, up.getCarCode());
-        assertEquals(37, up.getRetailerCode());
+        assertEquals(carCode, up.getCarCode());
+        assertEquals(retailerCode, up.getRetailerCode());
         assertEquals("upd", up.getModId());
     }
 

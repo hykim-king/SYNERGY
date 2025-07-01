@@ -44,22 +44,30 @@ public class RepairResDaoTest {
     
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    private int carCode;
+    private int retailerCode;
+    
     @BeforeEach
     public void setUp() throws Exception {
         // 테이블 초기화
         jdbcTemplate.update("DELETE FROM repair_res");
         log.debug("repair_res 테이블 초기화");
-
+        int carCode = jdbcTemplate.queryForObject(
+        	    "SELECT car_code FROM car WHERE ROWNUM = 1", Integer.class);
+        
+        int retailerCode = jdbcTemplate.queryForObject(
+        	    "SELECT retailer_code FROM retailer WHERE ROWNUM = 1", Integer.class);
+        
         // 테스트용 DTO 준비 (repairDate 고정)
         Date repairDate = sdf.parse("2025-07-02");
         repair_dto01 = new RepairResDTO("user01", "초보운전자", "010-1111-2222",
-        		10, 35, repairDate, "엔진 소음 점검",   // repairDesc
+        		carCode, retailerCode, repairDate, "엔진 소음 점검",   // repairDesc
             "admin", "admin" );
         repair_dto02 = new RepairResDTO("user02", "운전자", "010-1111-2222",
-        		10, 35, repairDate, "모름",   // repairDesc
+        		carCode, retailerCode, repairDate, "모름",   // repairDesc
                 "admin", "admin" );
         repair_dto03 = new RepairResDTO("user03", "나야나", "010-1111-2222",
-        		10, 35, repairDate, "점검",   // repairDesc
+        		carCode, retailerCode, repairDate, "점검",   // repairDesc
                 "admin", "admin" );
         log.debug("--------- ! 정비신청 준비완료 ! ---------");
     }
