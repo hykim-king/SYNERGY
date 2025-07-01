@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,16 @@ class CarTest {
 
 	List<CarDTO> cars;
 
+	CarDTO car1;
+	CarDTO car2;
+	CarDTO car3;
 	@BeforeEach
 	void setUp() throws Exception {
 		carMapper.deleteAll();
 
 		// 각 샘플 데이터마다 시퀀스 값을 받아서 carCode 부여
-		CarDTO car1 = new CarDTO();
-		car1.setCarCode(carMapper.getCarCode());
+		car1 = new CarDTO();
+		//car1.setCarCode(carMapper.getCarCode());
 		car1.setProductName("K5");
 		car1.setCarMf("Kia");
 		car1.setCartype("세단");
@@ -66,8 +70,8 @@ class CarTest {
 		car1.setModDt(new Date());
 		car1.setModId("admin");
 
-		CarDTO car2 = new CarDTO();
-		car2.setCarCode(carMapper.getCarCode());
+		car2 = new CarDTO();
+		//car2.setCarCode(carMapper.getCarCode());
 		car2.setProductName("Sonata");
 		car2.setCarMf("Hyundai");
 		car2.setCartype("세단");
@@ -86,8 +90,8 @@ class CarTest {
 		car2.setModDt(new Date());
 		car2.setModId("admin");
 
-		CarDTO car3 = new CarDTO();
-		car3.setCarCode(carMapper.getCarCode());
+		car3 = new CarDTO();
+		//car3.setCarCode(carMapper.getCarCode());
 		car3.setProductName("520i");
 		car3.setCarMf("BMW");
 		car3.setCartype("세단");
@@ -109,7 +113,7 @@ class CarTest {
 		cars = Arrays.asList(car1, car2, car3);
 
 		for (CarDTO dto : cars) {
-			carMapper.doSave(dto);
+			log.debug(dto);
 		}
 	}
 
@@ -119,36 +123,21 @@ class CarTest {
 	}
 
 	@Test
-	@Commit
 	void doSave() {
-		CarDTO dto = new CarDTO();
-		dto.setCarCode(carMapper.getCarCode()); // 시퀀스 사용!
-		dto.setProductName("그랜저");
-		dto.setCarMf("Hyundai");
-		dto.setCartype("세단");
-		dto.setOrgFn("org_grandeur.jpg");
-		dto.setModFn("mod_grandeur.jpg");
-		dto.setPath("/img/grandeur.png");
-		dto.setPrice(4100);
-		dto.setFuel("G");
-		dto.setEf(12.5);
-		dto.setEngine("2.5");
-		dto.setDpm(2500);
-		dto.setBattery(0.0);
-		dto.setMfDt(2024);
-		dto.setRegDt(new Date());
-		dto.setRegId("admin");
-		dto.setModDt(new Date());
-		dto.setModId("admin");
 
-		int flag = carMapper.doSave(dto);
+		log.debug("before:{}",car1);
+		int flag = carMapper.doSave(car1);
+		log.debug("after:{}",car1);
+		
+		
 		assertEquals(1, flag);
 
-		CarDTO result = carMapper.doSelectOne(dto);
-		assertEquals("그랜저", result.getProductName());
-		assertEquals("Hyundai", result.getCarMf());
+		CarDTO result = carMapper.doSelectOne(car1);
+		assertEquals("K5", result.getProductName());
+		assertEquals("Kia", result.getCarMf());
 	}
 
+	//@Disabled
 	@Test
 	void doUpdate() {
 		CarDTO dto = cars.get(0);
@@ -163,6 +152,7 @@ class CarTest {
 		assertEquals(3700, updated.getPrice());
 	}
 
+	//@Disabled
 	@Test
 	void doDelete() {
 		CarDTO dto = cars.get(0);
@@ -170,7 +160,7 @@ class CarTest {
 		assertEquals(1, flag);
 		assertEquals(2, carMapper.getCount());
 	}
-
+	//@Disabled
 	@Test
 	void doRetrieve() {
 		DTO param = new DTO();

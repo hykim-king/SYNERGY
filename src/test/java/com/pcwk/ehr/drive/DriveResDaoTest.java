@@ -42,8 +42,8 @@ public class DriveResDaoTest {
     DriveResDTO dto03;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    private int carCode;
-    private int retailerCode;
+    int carCode;
+    int retailerCode;
     
     @BeforeEach
     public void setUp() throws Exception {
