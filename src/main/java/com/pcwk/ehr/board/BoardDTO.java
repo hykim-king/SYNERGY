@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-=======
-package com.pcwk.ehr.board;
->>>>>>> branch 'main' of https://github.com/hykim-king/SYNERGY.git
 
-<<<<<<< HEAD
 package com.pcwk.ehr.board;
 
 import java.util.Date;
 
 public class BoardDTO {
-=======
-import java.util.Date;
-
-import com.pcwk.ehr.cmn.DTO;
-
-public class BoardDTO extends DTO{
->>>>>>> branch 'main' of https://github.com/hykim-king/SYNERGY.git
 
 	private int boardCode;
 	private String title;
@@ -114,9 +102,7 @@ public class BoardDTO extends DTO{
 	/**
 	 * @return the nickname
 	 */
-	public String getNickname() {
-		return nickname;
-	}
+	public String getNickname() { return nickname; }
 
 	/**
 	 * @param nickname the nickname to set
