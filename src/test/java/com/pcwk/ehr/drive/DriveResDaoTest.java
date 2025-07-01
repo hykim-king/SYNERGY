@@ -81,7 +81,11 @@ public class DriveResDaoTest {
         int flag = mapper.doSave(dto01);
         assertEquals(1, flag, "doSave 성공 여부 확인");
         // 2) selectKey로 채번된 resNo가 DTO에 들어왔는지 검증
-        assertTrue(dto01.getResNo() > 0, "시퀀스로 채번된 resNo는 0보다 커야 함");
+        assertTrue(dto01.getResNo() > 0, "시퀀스로 만들어진 resNo는 0보다 커야 함");
+        
+        
+        DriveResDTO saved = mapper.doSelectOne(dto01); // resNo로 조회
+        isSameDriveRes(saved, dto01); // 입력값과 DB조회값 비교
     }
 
     //@Disabled
