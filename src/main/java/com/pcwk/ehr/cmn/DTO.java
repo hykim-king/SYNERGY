@@ -7,7 +7,7 @@ package com.pcwk.ehr.cmn;
 public class DTO {
 	private String searchDiv; // 검색구분 (ex: 제목, 작성자 등)
 	private String searchWord; // 검색어
-	private int pageSize = 20; // 한 페이지당 게시글 수
+	private int pageSize = 10; // 한 페이지당 게시글 수
 	private int pageNum = 1; // 현재 페이지 번호
 	// 페이징 계산용
 	public int getStartRow() {

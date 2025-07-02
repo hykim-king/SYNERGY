@@ -15,10 +15,12 @@ public interface MemberService {
 
 	int doDelete(MemberDTO param);
 
-	List<MemberDTO> doRetrieve(MemberDTO param);
+	List<MemberDTO> doRetrieve(MemberDTO param) throws SQLException;
 	
 	String login(String id, String pwd) throws SQLException;
 
 	int isIdExists(String id);
+	
+	int getCount() throws SQLException;
 
 }

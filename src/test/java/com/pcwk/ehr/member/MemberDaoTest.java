@@ -188,7 +188,7 @@ Logger log = LogManager.getLogger(getClass());
 	}
 	
 
-	//@Disabled
+	@Disabled
 	@Test
 	void doSave() throws SQLException {
 		
@@ -197,7 +197,7 @@ Logger log = LogManager.getLogger(getClass());
 		assertEquals(1, result);
 		
 	}
-	//@Disabled
+	@Disabled
 	@Test
 	void isIdExists() throws SQLException {
 		

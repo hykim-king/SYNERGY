@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>회원가입</title>
+<title>회원등록</title>
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin:0;
+    margin: 0;
 }
 .form-container {
     background: white;
@@ -79,6 +79,12 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #218838;
 }
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
 </style>
 
 <script>
@@ -89,7 +95,7 @@ function checkId() {
         return;
     }
 
-    fetch('${pageContext.request.contextPath}/member/checkId.do?id=' + encodeURIComponent(id))
+    fetch('${pageContext.request.contextPath}/admin/member/checkId.do?id=' + encodeURIComponent(id))
         .then(response => response.text())
         .then(result => {
             if (result === 'available') {
@@ -107,8 +113,13 @@ function checkId() {
 <body>
 
 <div class="form-container">
-    <h2>회원가입</h2>
-    <form action="${pageContext.request.contextPath}/member/register.do" method="post">
+    <h2>회원등록</h2>
+
+    <c:if test="${not empty errorMessage}">
+        <div class="error-message">${errorMessage}</div>
+    </c:if>
+
+    <form action="${pageContext.request.contextPath}/admin/member/register.do" method="post">
         <label for="id">아이디</label>
         <div class="id-check-group">
             <input type="text" name="id" id="id" required maxlength="320" />
@@ -130,7 +141,7 @@ function checkId() {
         <label for="email">이메일</label>
         <input type="email" name="email" id="email" required maxlength="320" />
 
-        <input type="submit" value="회원가입" />
+        <input type="submit" value="회원등록" />
     </form>
 </div>
 
