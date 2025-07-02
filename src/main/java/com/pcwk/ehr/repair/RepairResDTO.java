@@ -128,7 +128,8 @@ public class RepairResDTO implements PLog {
 	}
 
 	public RepairResDTO(String id, String name, String phone, int carCode, int retailerCode,
-			Date repairDate, String repairDesc, String regId, String modId) {
+			Date repairDate, String repairDesc, Date regDt,
+			 String regId, Date modDt, String modId) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
@@ -136,7 +137,9 @@ public class RepairResDTO implements PLog {
 		this.retailerCode = retailerCode;
 		this.repairDate = repairDate;
 		this.repairDesc = repairDesc;
+		this.regDt= regDt;
 		this.regId = regId;
+		this.modDt= modDt;
 		this.modId = modId;
 		log.debug("RepairResDTO 생성: {}", this);
 	}

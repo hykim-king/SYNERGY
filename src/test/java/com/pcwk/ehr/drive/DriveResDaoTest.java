@@ -58,12 +58,15 @@ public class DriveResDaoTest {
 
         // 2) 테스트 데이터 준비 (driveDate 고정) :contentReference[oaicite:1]{index=1}
         Date driveDate = sdf.parse("2025-07-01");
+        java.sql.Date today = java.sql.Date.valueOf(java.time.LocalDate.now());
+        
+        
         dto01 = new DriveResDTO("user01", "가민경", "010-1111-2222",
-        		carCode, retailerCode, driveDate,  "admin",  "admin");
+        		 carCode, retailerCode, driveDate, today, "admin", today, "admin");
         dto02 = new DriveResDTO("user02", "나민경", "010-2222-3333",
-        		carCode, retailerCode, driveDate,  "tester",  "tester");
+        		carCode, retailerCode, driveDate, today, "tester", today, "tester");
         dto03 = new DriveResDTO("user03", "다민경", "010-3333-4444",
-        		carCode, retailerCode, driveDate,  "demo",  "demo");
+        		carCode, retailerCode, driveDate, today, "demo", today, "demo");
         log.debug("데이터 준비왈료왈왈");
     }
 

@@ -60,15 +60,17 @@ public class RepairResDaoTest {
         
         // 테스트용 DTO 준비 (repairDate 고정)
         Date repairDate = sdf.parse("2025-07-02");
+        java.sql.Date today = java.sql.Date.valueOf(java.time.LocalDate.now());
+        
         repair_dto01 = new RepairResDTO("user01", "초보운전자", "010-1111-2222",
-        		carCode, retailerCode, repairDate, "엔진 소음 점검",   // repairDesc
-            "admin", "admin" );
+        		carCode, retailerCode, repairDate, "엔진 소음 점검", today,
+            "admin",today, "admin" );
         repair_dto02 = new RepairResDTO("user02", "운전자", "010-1111-2222",
-        		carCode, retailerCode, repairDate, "모름",   // repairDesc
-                "admin", "admin" );
+        		carCode, retailerCode, repairDate, "모름", today,
+                "admin",today, "admin" );
         repair_dto03 = new RepairResDTO("user03", "나야나", "010-1111-2222",
-        		carCode, retailerCode, repairDate, "점검",   // repairDesc
-                "admin", "admin" );
+        		carCode, retailerCode, repairDate, "점검",   today,
+                "admin",today, "admin" );
         log.debug("--------- ! 정비신청 준비완료 ! ---------");
     }
 
