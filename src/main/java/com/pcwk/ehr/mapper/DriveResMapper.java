@@ -1,17 +1,16 @@
 // DriveResMapper.java
 package com.pcwk.ehr.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.pcwk.ehr.cmn.WorkDiv;
 import com.pcwk.ehr.drive.DriveResDTO;
-<<<<<<< HEAD
 import com.pcwk.ehr.retailer.RetailerDTO;
 import com.pcwk.ehr.car.CarDTO;
 import com.pcwk.ehr.cmn.DTO;
-=======
->>>>>>> branch 'main' of https://github.com/hykim-king/SYNERGY.git
 
 @Mapper
 public interface DriveResMapper extends WorkDiv<DriveResDTO> {
