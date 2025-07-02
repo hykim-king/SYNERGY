@@ -3,58 +3,56 @@
  */
 package com.pcwk.ehr.board;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.mapper.BoardMapper;
 
-/**
- * @author user
- *
- */
 @Service
 public class BoardServiceImpl implements BoardService {
+	Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
-	BoardMapper boardMapper;
-	
-	public BoardServiceImpl() {	}
+	BoardMapper mapper;
 
-	@Override
-	public int doSave(BoardDTO dto) {
-		return boardMapper.doSave(dto);
+	public BoardServiceImpl() {
 	}
 
 	@Override
-	public int doUpdate(BoardDTO dto) {
-		return boardMapper.doUpdate(dto);
+	public List<BoardDTO> doRetrieve(SearchDTO param) {
+		// TODO Auto-generated method stub
+		return mapper.doRetrieve(param);
 	}
 
 	@Override
-	public int doDelete(BoardDTO dto) {
-		return boardMapper.doDelete(dto);
+	public int doDelete(BoardDTO param) {
+		return mapper.doDelete(param);
 	}
 
 	@Override
-	public BoardDTO doSelectOne(BoardDTO dto) {
-		return boardMapper.doSelectOne(dto);
+	public int doUpdate(BoardDTO param) {
+		return mapper.doUpdate(param);
 	}
 
 	@Override
-	public List<BoardDTO> doRetrieve(BoardDTO dto) {
-		return boardMapper.doRetrieve(dto);
+	public int doSave(BoardDTO param) {
+		return mapper.doSave(param);
 	}
 
 	@Override
-	public int getCount() throws SQLException {
-		return boardMapper.getCount();
+	public BoardDTO doSelectOne(BoardDTO param) {
+		// 단건 조회 + 조회 COUNT 증가
+
+		int flag = mapper.updateReadCnt(param);
+
+		log.debug("flag:{}", flag);
+
+		return mapper.doSelectOne(param);
 	}
 
-	@Override
-	public void deleteAll() throws SQLException {
-		boardMapper.deleteAll();
-	}
 }

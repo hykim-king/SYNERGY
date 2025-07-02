@@ -14,7 +14,12 @@ public class BoardDTO {
 	private String regId;
 	private Date modDt;
 	private String modId;
-
+	
+	public BoardDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	/**
 	 * @param boardCode
 	 * @param title
@@ -40,10 +45,6 @@ public class BoardDTO {
 		this.regId = regId;
 		this.modDt = modDt;
 		this.modId = modId;
-	}
-
-	public BoardDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -186,12 +187,15 @@ public class BoardDTO {
 		this.modId = modId;
 	}
 
+
 	@Override
 	public String toString() {
 		return "BoardDTO [boardCode=" + boardCode + ", title=" + title + ", contents=" + contents + ", id=" + id
 				+ ", nickname=" + nickname + ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId=" + regId
-				+ ", modDt=" + modDt + ", modId=" + modId + "]";
+				+ ", modDt=" + modDt + ", modId=" + modId + ", toString()=" + super.toString() + "]";
 	}
+
+	
 
 }
 

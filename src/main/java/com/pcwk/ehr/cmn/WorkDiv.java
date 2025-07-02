@@ -20,14 +20,44 @@ import java.util.List;
  *
  */
 public interface WorkDiv<T> {
-	
-	List<T> doRetrieve(DTO param);
-	
+
+	/**
+	 * 목록 조회
+	 * 
+	 * @param param
+	 * @return List<T>
+	 */
+	List<T> doRetrieve(SearchDTO param);
+
+	/**
+	 * 단건 삭제
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
 	int doDelete(T param);
 
+	/**
+	 * 수정
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
 	int doUpdate(T param);
-	
+
+	/**
+	 * 단건조회
+	 * 
+	 * @param param
+	 * @return T
+	 */
 	T doSelectOne(T param);
-	
+
+	/**
+	 * 단건등록
+	 * 
+	 * @param param
+	 * @return 1(성공)/0(실패)
+	 */
 	int doSave(T param);
 }

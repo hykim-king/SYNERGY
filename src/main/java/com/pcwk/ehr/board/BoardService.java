@@ -1,22 +1,8 @@
 
 package com.pcwk.ehr.board;
 
-import java.sql.SQLException;
-import java.util.List;
+import com.pcwk.ehr.cmn.WorkDiv;
 
-public interface BoardService {
+public interface BoardService extends WorkDiv<BoardDTO> {
 
-	int doSave(BoardDTO dto);
-
-	int doUpdate(BoardDTO dto);
-
-	int doDelete(BoardDTO dto);
-
-	BoardDTO doSelectOne(BoardDTO dto);
-
-	List<BoardDTO> doRetrieve(BoardDTO dto);
-
-	int getCount() throws SQLException;
-
-	void deleteAll() throws SQLException;
 }

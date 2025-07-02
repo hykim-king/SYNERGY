@@ -6,7 +6,8 @@ public class SearchDTO extends DTO {
 	private String searchWord;
 	private int pageNo; // ✅ 여기를 pageNo로 맞춰야 함
 	private int pageSize;
-
+	private String div;
+	
 	public SearchDTO() {
 	}
 
@@ -15,13 +16,15 @@ public class SearchDTO extends DTO {
 	 * @param searchWord
 	 * @param pageNo
 	 * @param pageSize
+	 * @param div
 	 */
-	public SearchDTO(String searchDiv, String searchWord, int pageNo, int pageSize) {
+	public SearchDTO(String searchDiv, String searchWord, int pageNo, int pageSize, String div) {
 		super();
 		this.searchDiv = searchDiv;
 		this.searchWord = searchWord;
 		this.pageNo = pageNo;
 		this.pageSize = pageSize;
+		this.div = div;
 	}
 
 	/**
@@ -80,10 +83,25 @@ public class SearchDTO extends DTO {
 		this.pageSize = pageSize;
 	}
 
+	/**
+	 * @return the div
+	 */
+	public String getDiv() {
+		return div;
+	}
+
+	/**
+	 * @param div the div to set
+	 */
+	public void setDiv(String div) {
+		this.div = div;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchDTO [searchDiv=" + searchDiv + ", searchWord=" + searchWord + ", pageNo=" + pageNo + ", pageSize="
-				+ pageSize + "]";
+				+ pageSize + ", div=" + div + ", toString()=" + super.toString() + "]";
 	}
-
+	
+	
 }
