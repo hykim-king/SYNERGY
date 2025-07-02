@@ -29,22 +29,22 @@ public class MemberController {
 	
 	@PostMapping("register.do")
 	public String register(MemberDTO member, Model model, HttpSession session) {
-		try {
+	    try {
 	        int result = memberService.doSave(member);
-
 	        if (result == 1) {
-	            // 메시지를 세션에 저장
 	            session.setAttribute("message", "회원가입이 완료되었습니다.");
 	            return "redirect:/member/loginView.do";
 	        } else {
-	            model.addAttribute("message", "회원가입에 실패했습니다.");
+	            model.addAttribute("errorMessage", "회원가입에 실패했습니다.");
 	            return "member/register";
 	        }
 	    } catch (Exception e) {
-	        model.addAttribute("message", "서버 오류 발생: " + e.getMessage());
+	        // 에러 메시지를 상세하게 보여주지 않고 간단히 처리
+	    	 model.addAttribute("errorMessage", "회원가입에 실패했습니다.");
+	        // 필요하면 로그로 상세 에러 기록
+	        e.printStackTrace();
 	        return "member/register";
 	    }
-		
 	}
 	
     @GetMapping("/checkId.do")

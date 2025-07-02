@@ -22,7 +22,7 @@
                 REG_DT, REG_ID, MOD_DT, MOD_ID, ADMIN_ROLE
             ) VALUES (
                 #{id}, #{pwd}, #{nickname}, #{name}, #{phone}, #{email},
-                SYSDATE, #{regId},SYSDATE,#{regId}, #{adminRole}
+                SYSDATE, #{regId, jdbcType=VARCHAR},SYSDATE,#{modId, jdbcType=VARCHAR}, #{adminRole}
         )
  </insert>
 <!-- 아이디 중복 확인 -->

@@ -124,12 +124,22 @@
 </head>
 <body>
 
+<c:if test="${not empty sessionScope.message}">
+    <script>
+        alert('${sessionScope.message}');
+    </script>
+    <c:remove var="message" scope="session" />
+</c:if>
+
+<c:if test="${not empty errorMessage}">
+    <script>
+        alert('${errorMessage}');
+    </script>
+</c:if>
+
+
 <div class="form-container">
     <h2>회원가입</h2>
-
-    <c:if test="${not empty message}">
-        <div class="message">${message}</div>
-    </c:if>
 
     <form action="${pageContext.request.contextPath}/member/register.do" method="post">
         <label for="id">아이디</label>
@@ -138,7 +148,7 @@
         <label for="pwd">비밀번호<b>(최대 30글자)</b></label>
         <input type="password" name="pwd" id="pwd" required maxlength="30" />
 
-        <label for="nickname">닉네임<b>(최대 10글자)</b></label>
+        <label for="nickname">닉네임<b>(최대 10글자(한글 기준))</b></label>
         <input type="text" name="nickname" id="nickname" maxlength="30" />
 
         <label for="name">이름</label>
