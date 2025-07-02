@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pcwk.ehr.cmn.PLog;
 import com.pcwk.ehr.member.MemberDTO;
-import com.pcwk.ehr.member.service.MemberService;
+import com.pcwk.ehr.member.MemberService;
 
 @Controller
 @RequestMapping("/member")
