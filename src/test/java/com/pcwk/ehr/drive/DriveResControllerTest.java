@@ -1,7 +1,7 @@
 package com.pcwk.ehr.drive;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -14,38 +14,53 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebAppConfiguration
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {
-        "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-        "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
-})
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 public class DriveResControllerTest {
 
-    @Autowired
-    WebApplicationContext context;
+	@Autowired
+	private WebApplicationContext context;
 
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-    }
+	@BeforeEach
+	void setUp() {
+		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+	}
 
-    @Test
-    void testApplyDrive() throws Exception {
-        mockMvc.perform(post("/drive/apply.do")
-                        .param("id", "testuser01")
-                        .param("name", "홍길동")
-                        .param("phone", "010-1234-5678")
-                        .param("carCode", "10001")
-                        .param("retailerCode", "20001")
-                        .param("driveDate", "2025-07-01"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("drive/result"))
-                .andExpect(model().attributeExists("message"));
-    }
+	// ✅ 1. 시승 신청 등록 성공 테스트
+	//@Disabled
+	@Test
+	void testApplyDriveSuccess() throws Exception {
+		mockMvc.perform(
+				post("/drive/apply.do").param("id", "testuser01").param("name", "홍길동").param("phone", "010-1234-5678")
+						.param("carCode", "67").param("retailerCode", "20001").param("driveDate", "2025-07-01"))
+				.andExpect(status().isOk()).andExpect(view().name("drive/driveResult"))
+				.andExpect(model().attributeExists("dto")).andExpect(model().attribute("success", true));
+	}
+
+	// ✅ 2. 시승 신청 목록 조회
+	@Disabled
+	@Test
+	void testListDrives() throws Exception {
+		mockMvc.perform(get("/drive/list.do")).andExpect(status().isOk()).andExpect(view().name("drive/driveList"))
+				.andExpect(model().attributeExists("driveList"));
+	}
+
+	// ✅ 3. 시승 신청 상세 조회
+	@Disabled
+	@Test
+	void testDetailDrive() throws Exception {
+		mockMvc.perform(get("/drive/detail.do").param("resNo", "46")) // 존재하는 resNo여야 함
+				.andExpect(status().isOk()).andExpect(view().name("drive/driveDetail"))
+				.andExpect(model().attributeExists("drive"));
+	}
+
+
+
 }

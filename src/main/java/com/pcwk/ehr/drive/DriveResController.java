@@ -1,14 +1,20 @@
 package com.pcwk.ehr.drive;
 
+import org.apache.logging.log4j.Logger;
+import org.checkerframework.common.reflection.qual.GetClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.apache.logging.log4j.LogManager;
 
+import com.pcwk.ehr.car.CarDTO;
 import com.pcwk.ehr.cmn.DTO;
 import com.pcwk.ehr.mapper.DriveResMapper;
 import com.pcwk.ehr.member.MemberDTO;
+import com.pcwk.ehr.retailer.RetailerDTO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +25,41 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/drive")
 public class DriveResController {
 
+	Logger log=LogManager.getLogger(GetClass.class);
+	
     @Autowired
     private DriveResMapper driveResMapper;
     
+    // 1) 제조사(JSON)
+    @GetMapping("/mfList.do")
+    @ResponseBody
+    public List<String> mfList() {
+        return driveResMapper.mfList();
+    
+    }
+
+    // 2) 제품명+코드(JSON)
+    @GetMapping("/productList.do")
+    @ResponseBody
+    public List<CarDTO> productList(@RequestParam String carMf) {
+        return driveResMapper.productList(carMf);
+    }
+
+    // 3) 업체(JSON)
+    @GetMapping("/retailerList.do")
+    @ResponseBody
+    public List<RetailerDTO> retailerList(@RequestParam String productName) {
+        return driveResMapper.retailerList(productName);
+    }
+    
+    @GetMapping("/getCode.do")
+    @ResponseBody
+    public int getCode(@RequestParam String carMf,
+                       @RequestParam String productName) {
+        return driveResMapper.getCarCode(carMf, productName);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
     /**
      * 시승 신청 화면 보여주기 (테스트용 세션 포함)
      */
@@ -35,6 +73,8 @@ public class DriveResController {
             session.setAttribute("login", dummyLogin);
         }
 
+   
+        
         //  로그인 검사
         MemberDTO login = (MemberDTO) session.getAttribute("login");
         if (login == null) {
