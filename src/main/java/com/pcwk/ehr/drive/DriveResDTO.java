@@ -1,9 +1,12 @@
 package com.pcwk.ehr.drive;
 
-import com.pcwk.ehr.cmn.PLog;
 import java.util.Date;
 
+<<<<<<< HEAD
 import org.springframework.format.annotation.DateTimeFormat;
+=======
+import com.pcwk.ehr.cmn.PLog;
+>>>>>>> branch 'main' of https://github.com/hykim-king/SYNERGY.git
 
 /**
  * 시승 예약 정보 DTO

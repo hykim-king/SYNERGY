@@ -1,11 +1,8 @@
 package com.pcwk.ehr.drive;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.drive.DriveResDTO;
 import com.pcwk.ehr.mapper.DriveResMapper;
 
 @Service
