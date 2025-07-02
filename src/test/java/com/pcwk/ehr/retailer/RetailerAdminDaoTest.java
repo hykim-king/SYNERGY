@@ -42,7 +42,8 @@ class RetailerAdminDaoTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		LocalDate now = LocalDate.now();
-		dto01 = new RetailerDTO(2001, "브레이크 오일", "XYZ오토", "KIA", "Busan", "부산 해운대구 88번지", "051-1234-5678",
+		int seq = retailerMapper.getRetailerSeq();
+		dto01 = new RetailerDTO(seq, "브레이크 오일", "XYZ오토", "KIA", "Busan", "부산 해운대구 88번지", "051-1234-5678",
 				Date.valueOf(now), "admin01", Date.valueOf(now), "admin01");
 	}
 

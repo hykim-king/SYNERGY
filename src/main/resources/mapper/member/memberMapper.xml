@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pcwk.ehr.mapper.MemberMapper">
 
-<resultMap id="memberResultMap" type="com.pcwk.ehr.member.MemberDTO">
+<resultMap id="memberResultMap" type="MemberDTO">
   <result property="id" column="id"/>
   <result property="pwd" column="pwd"/>
   <result property="nickname" column="nickname"/>
@@ -22,7 +22,7 @@
                 REG_DT, REG_ID, MOD_DT, MOD_ID, ADMIN_ROLE
             ) VALUES (
                 #{id}, #{pwd}, #{nickname}, #{name}, #{phone}, #{email},
-                SYSDATE, #{regId},SYSDATE,#{regId}, #{adminRole}
+                #{regDt}, #{regId, jdbcType=VARCHAR},#{modDt},#{modId, jdbcType=VARCHAR}, #{adminRole}
         )
  </insert>
 <!-- 아이디 중복 확인 -->
@@ -54,7 +54,7 @@
     WHERE ID = #{id}
  </update>
 
- <select id="doRetrieve" parameterType="MemberDTO" resultType="MemberDTO">
+ <select id="doRetrieve" parameterType="MemberDTO" resultMap="memberResultMap">
     <![CDATA[
     SELECT *
     FROM (
@@ -87,7 +87,7 @@
     ]]>
  </select>
 
- <delete id="deleteAll" parameterType="MemberDTO">
+ <delete id="deleteAll">
     DELETE FROM member
  </delete>
  
