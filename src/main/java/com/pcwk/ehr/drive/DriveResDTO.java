@@ -119,17 +119,20 @@ public class DriveResDTO implements PLog {
 				+ ", regId=" + regId + ", modDt=" + modDt + ", modId=" + modId + "]";
 	}
 
-	public DriveResDTO(String id, String name, String phone, int carCode, int retailerCode, Date driveDate,
-		 String regId, String modId) {
-		this.id = id;
-		this.name = name;
-		this.phone = phone;
-		this.carCode = carCode;
-		this.retailerCode = retailerCode;
-		this.driveDate = driveDate;
-		this.regId = regId;
-		this.modId = modId;
-		log.debug("DriveResDTO 생성: {}", this);
-	}
+	public DriveResDTO(String id, String name, String phone, int carCode, int retailerCode, Date driveDate, Date regDt,
+			 String regId, Date modDt, String modId) {
+			this.id = id;
+			this.name = name;
+			this.phone = phone;
+			this.carCode = carCode;
+			this.retailerCode = retailerCode;
+			this.driveDate = driveDate;
+			this.regDt= regDt;
+			this.regId = regId;
+			this.modDt=modDt;
+			this.modId = modId;
+			log.debug("DriveResDTO 생성: {}", this);
+		}
+
 
 }
