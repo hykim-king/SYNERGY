@@ -51,20 +51,40 @@
             font-size: 14px;
         }
 
-        input[type="submit"] {
-            width: 100%;
-            background-color: #2d89ef;
-            color: white;
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .button-row button,
+        .button-row a {
+            flex: 1;
             padding: 12px;
             font-size: 16px;
             border: none;
             border-radius: 6px;
-            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
             transition: background-color 0.3s ease;
         }
 
-        input[type="submit"]:hover {
+        .login-btn {
+            background-color: #2d89ef;
+            color: white;
+        }
+
+        .login-btn:hover {
             background-color: #1b61c1;
+        }
+
+        .register-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .register-btn:hover {
+            background-color: #5a6268;
         }
 
         .message {
@@ -92,7 +112,10 @@
         <label for="pwd">비밀번호</label>
         <input type="password" name="pwd" id="pwd" required />
 
-        <input type="submit" value="로그인" />
+        <div class="button-row">
+            <a href="${pageContext.request.contextPath}/member/registerView.do" class="register-btn">회원가입</a>
+            <button type="submit" class="login-btn">로그인</button>
+        </div>
     </form>
 </div>
 
