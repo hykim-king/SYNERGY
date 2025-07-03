@@ -122,10 +122,11 @@ th {
         </c:forEach>
     </div>
 
-    <!-- ✅ 관리자 메인으로 이동 버튼 (맨 아래) -->
-    <div class="action-buttons">
-        <a href="${pageContext.request.contextPath}/admin/main.do">관리자 메인으로</a>
-    </div>
+<!-- ✅ 관리자 메인과 회원 등록 버튼을 나란히 표시 -->
+<div class="action-buttons">
+    <a href="${pageContext.request.contextPath}/admin/main.do">관리자 메인으로</a>
+    <a href="${pageContext.request.contextPath}/admin/member/registerView.do">회원 등록</a>
+</div>
 
 </body>
 </html>

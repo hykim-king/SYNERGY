@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin:0;
+    margin: 0;
 }
 .form-container {
     background: white;
@@ -64,20 +64,34 @@ input[type="text"], input[type="password"], input[type="email"] {
 .id-check-btn:hover {
     background-color: #5a6268;
 }
-input[type="submit"] {
-    width: 100%;
-    background-color: #28a745;
-    color: white;
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+.button-group button,
+.button-group input[type="submit"] {
+    flex: 1;
     padding: 14px;
     font-size: 16px;
     border: none;
     border-radius: 6px;
-    margin-top: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
 input[type="submit"]:hover {
     background-color: #218838;
+}
+.main-btn {
+    background-color: #007bff;
+    color: white;
+}
+.main-btn:hover {
+    background-color: #0069d9;
 }
 </style>
 
@@ -130,7 +144,13 @@ function checkId() {
         <label for="email">이메일</label>
         <input type="email" name="email" id="email" required maxlength="320" />
 
-        <input type="submit" value="회원가입" />
+        <div class="button-group">
+            <input type="submit" value="회원가입" />
+            <button type="button" class="main-btn"
+                    onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+                메인으로
+            </button>
+        </div>
     </form>
 </div>
 
