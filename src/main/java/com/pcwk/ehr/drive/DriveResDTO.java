@@ -2,7 +2,11 @@ package com.pcwk.ehr.drive;
 
 import java.util.Date;
 
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.pcwk.ehr.cmn.PLog;
+
 
 /**
  * 시승 예약 정보 DTO
@@ -14,7 +18,10 @@ public class DriveResDTO implements PLog {
 	private String phone;
 	private int carCode;
 	private int retailerCode;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd") //이 필드만 문자열 → Date 변환 대상
 	private Date driveDate;
+	
 	private Date regDt;
 	private String regId;
 	private Date modDt;
@@ -120,19 +127,18 @@ public class DriveResDTO implements PLog {
 	}
 
 	public DriveResDTO(String id, String name, String phone, int carCode, int retailerCode, Date driveDate, Date regDt,
-			 String regId, Date modDt, String modId) {
-			this.id = id;
-			this.name = name;
-			this.phone = phone;
-			this.carCode = carCode;
-			this.retailerCode = retailerCode;
-			this.driveDate = driveDate;
-			this.regDt= regDt;
-			this.regId = regId;
-			this.modDt=modDt;
-			this.modId = modId;
-			log.debug("DriveResDTO 생성: {}", this);
-		}
-
+		 String regId, Date modDt, String modId) {
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.carCode = carCode;
+		this.retailerCode = retailerCode;
+		this.driveDate = driveDate;
+		this.regDt= regDt;
+		this.regId = regId;
+		this.modDt=modDt;
+		this.modId = modId;
+		log.debug("DriveResDTO 생성: {}", this);
+	}
 
 }
