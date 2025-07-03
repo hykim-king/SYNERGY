@@ -110,9 +110,10 @@ class CarTest {
 
 		cars = Arrays.asList(car1, car2, car3);
 
-		for (CarDTO dto : cars) {
-			log.debug(dto);
-		}
+		 // 실제 DB 저장 로직 추가!
+	    for (CarDTO dto : cars) {
+	        carMapper.doSave(dto);
+	    }
 	}
 
 	@AfterEach
