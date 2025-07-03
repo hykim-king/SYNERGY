@@ -3,22 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true" />
-        <setting name="logImpl" value="LOG4J2" />
-    </settings>
-    <typeAliases>
-        <typeAlias alias="MyMapperDTO"
-            type="com.pcwk.ehr.mymapper.domain.MyMapperDTO"></typeAlias>
-        <typeAlias alias="UserDTO"
-            type="com.pcwk.ehr.user.domain.UserDTO" />
-        <typeAlias alias="SearchDTO"
-            type="com.pcwk.ehr.cmn.SearchDTO" />
-        <typeAlias alias="MemberDTO"
-            type="com.pcwk.ehr.member.MemberDTO" />
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="logImpl" value="LOG4J2" />
+	</settings>
+	<typeAliases>
+		<typeAlias alias="MyMapperDTO"
+			type="com.pcwk.ehr.mymapper.domain.MyMapperDTO"></typeAlias>
+		<typeAlias alias="UserDTO"
+			type="com.pcwk.ehr.user.domain.UserDTO" />
+		<typeAlias alias="SearchDTO"
+			type="com.pcwk.ehr.cmn.SearchDTO" />
+		<typeAlias alias="MemberDTO"
+			type="com.pcwk.ehr.member.MemberDTO" />
 
-        <typeAlias alias="BoardDTO"
-            type="com.pcwk.ehr.board.BoardDTO" />
+		<typeAlias alias="BoardDTO"
+			type="com.pcwk.ehr.board.BoardDTO" />
+		<typeAlias alias="EventDTO"
+			type="com.pcwk.ehr.event.EventDTO" />
 
-    </typeAliases>
+	</typeAliases>
 </configuration>

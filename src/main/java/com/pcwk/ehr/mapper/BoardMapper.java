@@ -1,33 +1,79 @@
 package com.pcwk.ehr.mapper;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.pcwk.ehr.board.BoardDTO;
-import com.pcwk.ehr.cmn.DTO;
-import com.pcwk.ehr.cmn.WorkDiv;
+import com.pcwk.ehr.cmn.SearchDTO;
 
 @Mapper
-public interface BoardMapper extends WorkDiv<BoardDTO> {
+public interface BoardMapper {
 
+	/**
+	 * 조회 count증가(단, 본인글 이외 글만)
+	 * 
+	 * @param param
+	 * @return 반경 건수
+	 */
+	int updateReadCnt(BoardDTO param);
+
+	/**
+	 * 다건 등록
+	 * 
+	 * @return 등록건수
+	 */
 	int saveAll();
 
-	List<BoardDTO> getAll();
+	/**
+	 * sequence 조회
+	 * 
+	 * @return
+	 */
+	int getBoardSeq();
 
-	void deleteAll() throws SQLException;
+	void deleteAll();
 
-	int getCount() throws SQLException;
+	int getCount();
 
-	BoardDTO doSelectOne(List<BoardDTO> param);
+	/**
+	 * 목록 조회
+	 * 
+	 * @param param
+	 * @return List<T>
+	 */
+	List<BoardDTO> doRetrieve(SearchDTO param);
 
-	List<BoardDTO> doRetrieve(DTO param);
+	/**
+	 * 단건 삭제
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
+	int doDelete(BoardDTO param);
 
-	int doInsert(BoardDTO dto);
+	/**
+	 * 수정
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
+	int doUpdate(BoardDTO param);
 
-	List<BoardDTO> doRetrieve(BoardDTO dto);
-	
-	int doUpdate(BoardDTO dto);
+	/**
+	 * 단건조회
+	 * 
+	 * @param param
+	 * @return T
+	 */
+	BoardDTO doSelectOne(BoardDTO param);
+
+	/**
+	 * 단건등록
+	 * 
+	 * @param param
+	 * @return 1(성공)/0(실패)
+	 */
+	int doSave(BoardDTO param);
 
 }
