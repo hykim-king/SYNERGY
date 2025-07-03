@@ -1,20 +1,75 @@
+
 package com.pcwk.ehr.board;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import com.pcwk.ehr.cmn.SearchDTO;
+
 public interface BoardService {
-	int doSave(BoardDTO dto);
+	/**
+	 * 조회 count증가(단, 본인글 이외 글만)
+	 * 
+	 * @param param
+	 * @return 반경 건수
+	 */
+	int updateReadCnt(BoardDTO param);
 
-	int doUpdate(BoardDTO dto);
+	/**
+	 * 다건 등록
+	 * 
+	 * @return 등록건수
+	 */
+	int saveAll();
 
-	int doDelete(BoardDTO dto); // 여기만 BoardDTO 파라미터로 유지해도 무방
+	/**
+	 * sequence 조회
+	 * 
+	 * @return
+	 */
+	int getBoardSeq();
 
-	BoardDTO doSelectOne(BoardDTO dto); // dto.getBoardCode() 활용
+	void deleteAll();
 
-	List<BoardDTO> doRetrieve(BoardDTO search);
+	int getCount();
 
-	int getCount() throws SQLException;
+	/**
+	 * 목록 조회
+	 * 
+	 * @param param
+	 * @return List<T>
+	 */
+	List<BoardDTO> doRetrieve(SearchDTO param);
 
-	void deleteAll() throws SQLException;
+	/**
+	 * 단건 삭제
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
+	int doDelete(BoardDTO param);
+
+	/**
+	 * 수정
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
+	int doUpdate(BoardDTO param);
+
+	/**
+	 * 단건조회
+	 * 
+	 * @param param
+	 * @return T
+	 */
+	BoardDTO doSelectOne(BoardDTO param);
+
+	/**
+	 * 단건등록
+	 * 
+	 * @param param
+	 * @return 1(성공)/0(실패)
+	 */
+	int doSave(BoardDTO param);
+
 }
