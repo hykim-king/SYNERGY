@@ -2,16 +2,14 @@ package com.pcwk.ehr.boardtest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.pcwk.ehr.board.BoardDTO;
-import com.pcwk.ehr.board.BoardService;
 import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.mapper.BoardMapper;
 
@@ -29,109 +26,153 @@ import com.pcwk.ehr.mapper.BoardMapper;
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 class BoardTest {
 
-	final Logger log = LogManager.getLogger(getClass());
+	Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
 	ApplicationContext context;
 
 	@Autowired
-	BoardMapper boardMapper;
+	BoardMapper mapper;
 
-	@Autowired
-	BoardService boardService;
+	BoardDTO dto01;
 
-	BoardDTO board01;
+	SearchDTO search;
 
 	@BeforeEach
-	void setUp() throws SQLException {
-		board01 = new BoardDTO();
-		board01.setTitle("CARPICK");
-		board01.setContents("dddd");
-		board01.setId("dd");
-		board01.setNickname("asas");
-		board01.setRegId("asdgs");
-		board01.setModId("admin");
+	void setUp() throws Exception {
+		log.debug("┌──────────── setUp() ────────────┐");
 
-		boardMapper.deleteAll(); // 데이터 초기화
+		int seq = mapper.getBoardSeq();
+
+		dto01 = new BoardDTO(seq, "공지사항 제목", "내용입니다.", "admin01", "관리자", 0, new Date(), "admin01", new Date(),
+				"admin01");
+
+		search = new SearchDTO();
 	}
 
 	@AfterEach
-	void tearDown() {
-		log.debug("=== @AfterEach ===");
+	void tearDown() throws Exception {
+		log.debug("└──────────── tearDown() ────────────┘");
 	}
 
+	// @Disabled
 	@Test
-	void doSave() {
-		board01.setBoardCode(0); // selectKey가 자동으로 설정해줌
-		int flag = boardMapper.doSave(board01);
-		assertEquals(1, flag, "등록 성공 여부");
+	void updateReadCnt() {
+		mapper.deleteAll();
 
-		List<BoardDTO> list = boardMapper.getAll();
-		assertTrue(list.size() > 0);
+		int seq = mapper.getBoardSeq();
+		dto01.setBoardCode(seq);
+		dto01.setRegId("admin01"); // 저장 시 admin01
+
+		mapper.doSave(dto01);
+
+		// 다른 사용자로 세팅
+		dto01.setRegId("otherUser");
+
+		int flag = mapper.updateReadCnt(dto01); // ✅ 이제 1이 나와야 함
+		assertEquals(1, flag);
 	}
-	@Disabled
+
+	// @Disabled
 	@Test
 	void doRetrieve() {
-		for (int i = 1; i <= 3; i++) {
-			BoardDTO dto = new BoardDTO();
-			dto.setTitle("검색테스트" + i);
-			dto.setContents("내용" + i);
-			dto.setId("user" + i);
-			dto.setNickname("닉네임" + i);
-			dto.setRegId("admin");
-			dto.setModId("admin");
-			boardMapper.doSave(dto);
-		}
+		mapper.deleteAll();
+		int count = mapper.saveAll();
+		assertEquals(100, count); // saveAll() INSERT LEVEL <= 100 기준
 
-		SearchDTO search = new SearchDTO();
-		search.setSearchDiv("10"); // 제목 기준
-		search.setSearchWord("검색테스트");
-		search.setPageNum(1);
+		search.setPageNo(1);
 		search.setPageSize(10);
+		search.setSearchDiv("10");
+		search.setSearchWord("제목");
 
-		List<BoardDTO> result = boardMapper.doRetrieve(search);
-		assertTrue(result.size() >= 3, "검색 결과 수 확인");
+		List<BoardDTO> list = mapper.doRetrieve(search);
+		assertNotNull(list);
+		assertEquals(10, list.size());
 
-		for (BoardDTO dto : result) {
-			log.debug(dto);
-		}
+		list.forEach(vo -> log.debug("vo={}", vo));
 	}
 
+	// @Disabled
+	void addAndGet() {
+		// 1. 전체 삭제
+		mapper.deleteAll();
+
+		// 2. 시퀀스 값 받아서 DTO에 지정
+		int seq = mapper.getBoardSeq();
+		dto01.setBoardCode(seq); // ★ 반드시 필요!
+
+		// 3. 저장
+		int flag = mapper.doSave(dto01);
+		assertEquals(1, flag);
+
+		// 4. 단건 조회
+		BoardDTO outVO = mapper.doSelectOne(dto01);
+		assertNotNull(outVO);
+
+		// 5. 동일성 검증
+		isSameBoard(outVO, dto01);
+	}
+
+	// @Disabled
+	@Test
+	void doDelete() {
+		mapper.deleteAll();
+		int flag = mapper.doSave(dto01);
+		assertEquals(1, flag);
+
+		flag = mapper.doDelete(dto01);
+		assertEquals(1, flag);
+
+		assertEquals(0, mapper.getCount());
+	}
+
+	// @Disabled
 	@Test
 	void doUpdate() {
-		// 1. 저장
-		boardMapper.doSave(board01);
+		mapper.deleteAll();
 
-		// 2. 저장된 boardCode 가져오기
-		List<BoardDTO> list = boardMapper.getAll();
-		assertTrue(list.size() > 0, "게시글이 존재해야 합니다");
+		int seq = mapper.getBoardSeq();
+		dto01.setBoardCode(seq);
 
-		BoardDTO saved = list.get(0); // 안전하게 첫 번째 항목
-		log.debug("Saved boardCode: {}", saved.getBoardCode());
+		int saveFlag = mapper.doSave(dto01);
+		assertEquals(1, saveFlag);
 
-		// 3. 수정
-		saved.setTitle("수정된 제목");
-		saved.setContents("수정된 내용");
-		saved.setModId("수정자");
+		BoardDTO dbData = mapper.doSelectOne(dto01);
+		assertNotNull(dbData);
+		log.debug("조회된 데이터 board_code: {}", dbData.getBoardCode());
 
-		// 4. update 호출
-		int flag = boardMapper.doUpdate(saved);
-		assertEquals(1, flag, "수정 성공 여부");
+		dbData.setTitle("오징어");
+		dbData.setContents("안녕하세요.");
+		dbData.setModId("MOnsteER");
 
-		// 5. 수정 결과 확인
-		BoardDTO updated = boardMapper.doSelectOne(saved);
-		assertEquals("수정된 제목", updated.getTitle());
-		assertEquals("수정된 내용", updated.getContents());
+		int updateFlag = mapper.doUpdate(dbData);
+		assertEquals(1, updateFlag); //
+		BoardDTO updated = mapper.doSelectOne(dbData);
+		assertEquals("오징어", updated.getTitle());
 	}
 
+	private void isSameBoard(BoardDTO actual, BoardDTO expected) {
+		assertEquals(expected.getBoardCode(), actual.getBoardCode());
+		assertEquals(expected.getTitle(), actual.getTitle());
+		assertEquals(expected.getContents(), actual.getContents());
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getNickname(), actual.getNickname());
+		assertEquals(expected.getReadCnt(), actual.getReadCnt());
+		assertEquals(expected.getRegId(), actual.getRegId());
+		assertEquals(expected.getModId(), actual.getModId());
+	}
+
+	// @Disabled
 	@Test
 	void beans() {
-		assertNotNull(boardMapper);
 		assertNotNull(context);
-		assertNotNull(boardService);
+		assertNotNull(mapper);
+		assertNotNull(dto01);
 
-		log.debug("context    : {}", context);
-		log.debug("userService: {}", boardService);
-		log.debug("boardMapper: {}", boardMapper);
+		log.debug("1. context:{}", context);
+		log.debug("1. mapper:{}", mapper);
+		log.debug("1. dto01:{}", dto01);
+
 	}
+
 }

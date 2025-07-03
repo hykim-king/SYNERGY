@@ -14,15 +14,12 @@ public class BoardDTO {
 	private String regId;
 	private Date modDt;
 	private String modId;
-
-	private int pageNo;
-	private int pageSize;
-	private String searchDiv;
-	private String searchWord;
-
+	
 	public BoardDTO() {
+		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	/**
 	 * @param boardCode
 	 * @param title
@@ -34,13 +31,10 @@ public class BoardDTO {
 	 * @param regId
 	 * @param modDt
 	 * @param modId
-	 * @param pageNo
-	 * @param pageSize
-	 * @param searchDiv
-	 * @param searchWord
 	 */
 	public BoardDTO(int boardCode, String title, String contents, String id, String nickname, int readCnt, Date regDt,
 			String regId, Date modDt, String modId) {
+		super();
 		this.boardCode = boardCode;
 		this.title = title;
 		this.contents = contents;
@@ -193,68 +187,15 @@ public class BoardDTO {
 		this.modId = modId;
 	}
 
-	/**
-	 * @return the pageNo
-	 */
-	public int getPageNo() {
-		return pageNo;
-	}
-
-	/**
-	 * @param pageNo the pageNo to set
-	 */
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
-	}
-
-	/**
-	 * @return the pageSize
-	 */
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	/**
-	 * @param pageSize the pageSize to set
-	 */
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	/**
-	 * @return the searchDiv
-	 */
-	public String getSearchDiv() {
-		return searchDiv;
-	}
-
-	/**
-	 * @param searchDiv the searchDiv to set
-	 */
-	public void setSearchDiv(String searchDiv) {
-		this.searchDiv = searchDiv;
-	}
-
-	/**
-	 * @return the searchWord
-	 */
-	public String getSearchWord() {
-		return searchWord;
-	}
-
-	/**
-	 * @param searchWord the searchWord to set
-	 */
-	public void setSearchWord(String searchWord) {
-		this.searchWord = searchWord;
-	}
 
 	@Override
 	public String toString() {
 		return "BoardDTO [boardCode=" + boardCode + ", title=" + title + ", contents=" + contents + ", id=" + id
 				+ ", nickname=" + nickname + ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId=" + regId
-				+ ", modDt=" + modDt + ", modId=" + modId + ", pageNo=" + pageNo + ", pageSize=" + pageSize
-				+ ", searchDiv=" + searchDiv + ", searchWord=" + searchWord + "]";
+				+ ", modDt=" + modDt + ", modId=" + modId + ", toString()=" + super.toString() + "]";
 	}
 
+	
+
 }
+
