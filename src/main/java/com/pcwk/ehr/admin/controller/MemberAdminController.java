@@ -65,7 +65,7 @@ public class MemberAdminController {
 	        int result = memberService.doSave(member);
 	        if (result == 1) {
 	            session.setAttribute("message", "회원등록이 완료되었습니다.");
-	            return "redirect:/admin/main";
+	            return "redirect:/admin/main.do";
 	        } else {
 	            model.addAttribute("errorMessage", "회원등록에 실패했습니다.");
 	            return "/admin/member/register";
