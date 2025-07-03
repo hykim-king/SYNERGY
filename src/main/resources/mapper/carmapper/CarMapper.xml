@@ -8,20 +8,51 @@
 </select>
   <!-- doSave -->
 <insert id="doSave" parameterType="com.pcwk.ehr.car.CarDTO">
+  <!-- 시퀀스 미리 가져오기 -->
   <selectKey keyProperty="carCode" order="BEFORE" resultType="int">
-      SELECT CAR_CODE.NEXTVAL FROM dual
+    SELECT CAR_CODE.NEXTVAL FROM dual
   </selectKey>
 
-
   INSERT INTO CAR (
-    CAR_CODE, PRODUCT_NAME, CAR_MF, CARTYPE, ORG_FN, MOD_FN, PATH, PRICE, FUEL, EF,
-    ENGINE, DPM, BATTERY, MF_DT, REG_DT, REG_ID, MOD_DT, MOD_ID
+      CAR_CODE,
+      PRODUCT_NAME,
+      CAR_MF,
+      CARTYPE,
+      ORG_FN,
+      MOD_FN,
+      PATH,
+      PRICE,
+      FUEL,
+      EF,
+      ENGINE,
+      DPM,
+      BATTERY,
+      MF_DT,
+      REG_DT,
+      REG_ID,
+      MOD_DT,
+      MOD_ID
   ) VALUES (
-    #{carCode}, #{productName}, #{carMf}, #{cartype}, #{orgFn}, #{modFn}, #{path}, #{price}, #{fuel}, #{ef},
-    #{engine}, #{dpm}, #{battery}, #{mfDt}, #{regDt, jdbcType=DATE}, #{regId}, #{modDt, jdbcType=DATE}, #{modId}
+      #{carCode,      jdbcType=INTEGER},
+      #{productName,  jdbcType=VARCHAR},
+      #{carMf,        jdbcType=VARCHAR},
+      #{cartype,      jdbcType=VARCHAR},
+      #{orgFn,        jdbcType=VARCHAR},
+      #{modFn,        jdbcType=VARCHAR},
+      #{path,         jdbcType=VARCHAR},
+      #{price,        jdbcType=INTEGER},
+      #{fuel,         jdbcType=VARCHAR},
+      #{ef,           jdbcType=DOUBLE},
+      #{engine,       jdbcType=VARCHAR},
+      #{dpm,          jdbcType=INTEGER},
+      #{battery,      jdbcType=DOUBLE},
+      #{mfDt,         jdbcType=INTEGER},
+      #{regDt,        jdbcType=DATE},
+      #{regId,        jdbcType=VARCHAR},
+      #{modDt,        jdbcType=DATE},
+      #{modId,        jdbcType=VARCHAR}
   )
 </insert>
-
   <!-- doUpdate -->
   <update id="doUpdate" parameterType="com.pcwk.ehr.car.CarDTO">
     UPDATE CAR
@@ -86,12 +117,50 @@
     <!-- 페이지네이션 예시: <if test="pageSize != null">OFFSET #{pageSize} ROWS FETCH NEXT #{pageSize} ROWS ONLY</if> -->
   </select>
 
-  <!-- 기타 (테스트용) -->
-  <delete id="deleteAll">
-    DELETE FROM CAR
-  </delete>
 
   <select id="getCount" resultType="int">
     SELECT COUNT(*) FROM CAR
   </select>
+  
+  <!-- 기타 (테스트용) -->
+  <delete id="deleteAll">
+    DELETE FROM CAR
+  </delete>
+  
+
+    <!-- ...다른 SQL... -->
+    <select id="getAllCars" resultType="com.pcwk.ehr.car.CarDTO">
+        SELECT
+            CAR_CODE,
+            PRODUCT_NAME,
+            CAR_MF,
+            CARTYPE,
+            ORG_FN,
+            MOD_FN,
+            PATH,
+            PRICE,
+            FUEL,
+            EF,
+            ENGINE,
+            DPM,
+            BATTERY,
+            MF_DT,
+            REG_DT,
+            REG_ID,
+            MOD_DT,
+            MOD_ID
+        FROM CAR
+    </select>
+  
+  
+  
+   <!-- 브랜드별 조회 -->
+    <select id="getCarsByBrand" resultType="com.pcwk.ehr.car.CarDTO" parameterType="string">
+        SELECT * FROM CAR WHERE CAR_MF = #{brand}
+    </select>
+
+    <!-- 상세조회 -->
+<select id="getOne" resultType="com.pcwk.ehr.car.CarDTO" parameterType="int">
+    SELECT * FROM CAR WHERE CAR_CODE = #{carCode}
+</select>
 </mapper>
