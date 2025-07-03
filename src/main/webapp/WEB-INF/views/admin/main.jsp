@@ -80,6 +80,8 @@
     <a href="javascript:void(0)" onclick="toggleSubMenu()">회원 관리</a>
     <a href="#">차량 정보 관리</a>
     <a href="#">리테일러 정보 관리</a>
+    <a href="#">시승 신청 관리</a>
+    <a href="#">정비 신청 관리</a>
     <a href="#">게시판 관리</a>
     <a href="#">이벤트 관리</a>
     <a href="${pageContext.request.contextPath}/member/logout.do" style="float:right;">로그아웃</a>
@@ -94,7 +96,7 @@
 
 <main>
     <div class="welcome">
-        <h2>환영합니다, <c:out value="${loginUser.name}" /> 님!</h2>
+        <h2>환영합니다, <c:out value="${loginUser.nickname}" /> 님!</h2>
         <p>관리자 페이지에 오신 것을 환영합니다.</p>
     </div>
     <p>여기서 회원 관리, 차량 정보 관리 등 여러 관리 작업을 수행할 수 있습니다.</p>
