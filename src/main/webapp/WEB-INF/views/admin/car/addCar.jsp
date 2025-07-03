@@ -7,68 +7,77 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 30px;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
         }
-        form {
-            width: 600px;
-            margin: 0 auto;
+        .container {
+            width: 700px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         h2 {
             text-align: center;
+            color: #2c3e50;
         }
-        label {
+        form label {
             display: block;
-            margin-top: 12px;
+            margin-top: 15px;
             font-weight: bold;
         }
-        input[type="text"], input[type="number"], select {
+        form input[type="text"],
+        form input[type="number"],
+        form input[type="date"],
+        form input[type="submit"],
+        form input[type="reset"] {
             width: 100%;
             padding: 8px;
-            margin-top: 4px;
-            box-sizing: border-box;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         .radio-group {
-            margin-top: 4px;
+            margin-top: 6px;
         }
-        .radio-group label {
-            display: inline-block;
-            margin-right: 15px;
-            font-weight: normal;
+        .radio-group input {
+            margin-right: 8px;
         }
-        .btn-container {
+        .btn-group {
+            margin-top: 25px;
             text-align: center;
-            margin-top: 20px;
         }
-        .btn-container button {
-            padding: 10px 20px;
+        .btn-group input {
+            width: 45%;
             margin: 0 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            font-size: 16px;
+        }
+        .btn-group input:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
 
-    <h2>🚗 차량 등록</h2>
+<div class="container">
+    <h2>차량 등록</h2>
     <form action="${pageContext.request.contextPath}/admin/car/add.do" method="post">
-        <label for="productName">제품명</label>
-        <input type="text" name="productName" required />
+        <label for="productName">모델명</label>
+        <input type="text" id="productName" name="productName" required>
 
         <label for="carMf">제조사</label>
-        <input type="text" name="carMf" required />
+        <input type="text" id="carMf" name="carMf" required>
 
         <label for="cartype">차종</label>
-        <input type="text" name="cartype" required />
-
-        <label for="orgFn">원본 파일명</label>
-        <input type="text" name="orgFn" />
-
-        <label for="modFn">수정된 파일명</label>
-        <input type="text" name="modFn" />
-
-        <label for="path">경로</label>
-        <input type="text" name="path" />
+        <input type="text" id="cartype" name="cartype" required>
 
         <label for="price">가격</label>
-        <input type="number" name="price" required />
+        <input type="number" id="price" name="price" required>
 
         <label>연료</label>
         <div class="radio-group">
@@ -78,25 +87,27 @@
         </div>
 
         <label for="ef">연비</label>
-        <input type="number" step="0.1" name="ef" />
+        <input type="number" step="0.1" id="ef" name="ef" required>
 
         <label for="engine">엔진</label>
-        <input type="text" name="engine" />
+        <input type="text" id="engine" name="engine" required>
 
-        <label for="dpm">배기량</label>
-        <input type="number" name="dpm" />
+        <label for="dpm">배기량 (선택)</label>
+        <input type="number" id="dpm" name="dpm">
 
-        <label for="battery">배터리 용량</label>
-        <input type="number" step="0.1" name="battery" />
+        <label for="battery">배터리 (선택)</label>
+        <input type="number" step="0.1" id="battery" name="battery">
 
         <label for="mfDt">제조년도</label>
-        <input type="number" name="mfDt" required />
+        <input type="number" id="mfDt" name="mfDt" required>
 
-        <div class="btn-container">
-            <button type="submit">등록</button>
-            <button type="button" onclick="location.href='${pageContext.request.contextPath}/admin/main.do'">취소</button>
+        <div class="btn-group">
+            <input type="submit" value="등록">
+            <input type="reset" value="초기화">
+            <a href="${pageContext.request.contextPath}/admin/main.do" class="button-link">메인으로 이동</a>
         </div>
     </form>
+</div>
 
 </body>
 </html>
