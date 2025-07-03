@@ -163,4 +163,24 @@
 <select id="getOne" resultType="com.pcwk.ehr.car.CarDTO" parameterType="int">
     SELECT * FROM CAR WHERE CAR_CODE = #{carCode}
 </select>
+
+
+<!-- 전체 차량 수 조회 -->
+<select id="getCarCount" resultType="int">
+    SELECT COUNT(*) FROM Car
+</select>
+
+<!-- 페이징된 차량 리스트 조회 -->
+<!-- CarMapper.xml -->
+<select id="getCarsByPage" parameterType="map" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT * FROM (
+        SELECT a.*, ROWNUM rn
+        FROM (
+            SELECT * FROM Car
+            ORDER BY car_Code DESC
+        ) a
+        WHERE ROWNUM &lt;= #{offset} + #{pageSize}
+    )
+    WHERE rn &gt; #{offset}
+</select>
 </mapper>

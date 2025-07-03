@@ -58,4 +58,23 @@ public class CarControllerTest {
                 .andExpect(view().name("car/detail"))
                 .andExpect(model().attributeExists("car"));
     }
+    
+    
+ // ✅ 1-1. 페이징을 포함한 전체 자동차 리스트 조회 테스트
+    @Test
+    void testListWithPaging() throws Exception {
+        mockMvc.perform(
+                get("/car/list.do")
+                .param("pageNum", "2")
+                .param("pageSize", "5")
+            )
+            .andExpect(status().isOk())
+            .andExpect(view().name("car/list"))
+            .andExpect(model().attributeExists("carList"))
+            .andExpect(model().attributeExists("currentPage"))
+            .andExpect(model().attributeExists("pageSize"))
+            .andExpect(model().attributeExists("totalPages"))
+            .andExpect(model().attributeExists("totalCount"));
+    }
+
 }

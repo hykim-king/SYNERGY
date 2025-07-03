@@ -1,6 +1,8 @@
 package com.pcwk.ehr.car.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -56,5 +58,20 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public int getCarCount() {
+	    return carMapper.getCarCount();
+	}
+
+	@Override
+	public List<CarDTO> getCarsByPage(int pageNum, int pageSize) {
+	    int offset = (pageNum - 1) * pageSize;
+	    Map<String, Integer> params = new HashMap<>();
+	    params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+	    return carMapper.getCarsByPage(params);
+	}
+
 
 }
