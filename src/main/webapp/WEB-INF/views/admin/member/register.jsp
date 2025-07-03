@@ -11,9 +11,10 @@ body {
     background: #f4f6f8;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
     margin: 0;
+    padding-top: 50px;
 }
 .form-container {
     background: white;
@@ -64,21 +65,48 @@ input[type="text"], input[type="password"], input[type="email"] {
 .id-check-btn:hover {
     background-color: #5a6268;
 }
-input[type="submit"] {
-    width: 100%;
-    background-color: #28a745;
-    color: white;
-    padding: 14px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
+
+/* 버튼 가로 배치 컨테이너 */
+.button-group {
     margin-top: 25px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* 관리자 메인 버튼 스타일 */
+.main-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 14px 30px;
+    font-size: 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+/* 회원등록 제출 버튼 스타일 */
+input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 14px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 input[type="submit"]:hover {
     background-color: #218838;
 }
+.main-btn:hover {
+    background-color: #0056b3;
+}
+
 .error-message {
     color: red;
     margin-bottom: 15px;
@@ -141,7 +169,10 @@ function checkId() {
         <label for="email">이메일</label>
         <input type="email" name="email" id="email" required maxlength="320" />
 
-        <input type="submit" value="회원등록" />
+        <div class="button-group">
+            <a href="${pageContext.request.contextPath}/admin/main.do" class="main-btn">관리자 메인</a>
+            <input type="submit" value="회원등록" />
+        </div>
     </form>
 </div>
 
