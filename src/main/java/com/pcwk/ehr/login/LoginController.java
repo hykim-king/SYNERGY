@@ -71,7 +71,7 @@ public class LoginController implements PLog {
 	public String logout(HttpSession session) {
 		// 로그아웃하는 명령어
 		session.invalidate();
-		return "redirect:/member/loginView.do";
+		return "redirect:/main/main.do";
 	}
 
 }
