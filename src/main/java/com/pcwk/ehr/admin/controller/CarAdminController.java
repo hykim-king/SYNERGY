@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -54,5 +56,24 @@ public class CarAdminController implements PLog{
 		
 		return "admin/car/list";
 	}
+	
+	@GetMapping("/add.do")
+	public String addCarView(Model model) {
+		model.addAttribute("car", new CarDTO());
+		return "admin/car/addCar";
+	}
+	
+	@PostMapping("/add.do")
+	public String addCar(@ModelAttribute CarDTO car) {
+		int flag = carService.save(car);
+		if(flag>0) {
+			log.debug("차량 등록 성공: " + car);
+		}else {
+			log.debug("차량 등록 실패");
+		}		
+		return "redirect:/admin/main.do";
+	}
+	
+	
 
 }
