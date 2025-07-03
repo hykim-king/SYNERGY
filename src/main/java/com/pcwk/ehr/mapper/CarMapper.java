@@ -1,6 +1,7 @@
 package com.pcwk.ehr.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -33,4 +34,8 @@ public interface CarMapper extends WorkDiv<CarDTO> {
 	List<CarDTO> getAllCars();
 
 	void insertCar(List<CarDTO> cars);
+
+	int getCarCount();
+
+	List<CarDTO> getCarsByPage(Map<String, Integer> params);
 }
