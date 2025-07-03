@@ -43,7 +43,7 @@ public class CarControllerTest {
     // ✅ 2. 브랜드별 자동차 리스트 조회 테스트
     @Test
     void testListByBrand() throws Exception {
-        mockMvc.perform(get("/car/brand.do").param("brand", "현대"))
+        mockMvc.perform(get("/car/brand.do").param("brand", "아반떼"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("car/list"))
                 .andExpect(model().attributeExists("carList"))
