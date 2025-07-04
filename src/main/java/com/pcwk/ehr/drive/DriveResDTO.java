@@ -1,12 +1,9 @@
 package com.pcwk.ehr.drive;
 
+import com.pcwk.ehr.cmn.PLog;
 import java.util.Date;
 
-
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.pcwk.ehr.cmn.PLog;
-
 
 /**
  * 시승 예약 정보 DTO
