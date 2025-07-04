@@ -14,64 +14,65 @@ import com.pcwk.ehr.mapper.CarMapper;
 
 @Service
 public class CarServiceImpl implements CarService {
-	Logger log = LogManager.getLogger(getClass());
+    Logger log = LogManager.getLogger(getClass());
 
-	public CarServiceImpl() {
+    @Autowired
+    private CarMapper carMapper;
 
-	}
+    @Override
+    public List<CarDTO> getAllCars() {
+        return carMapper.getAllCars();
+    }
 
-	@Autowired
-	private CarMapper carMapper;
+    @Override
+    public List<CarDTO> getCarsByBrand(String brand) {
+        return carMapper.getCarsByBrand(brand);
+    }
 
-	@Override
-	public List<CarDTO> getAllCars() {
-	    List<CarDTO> list = carMapper.getAllCars();
-	    list.forEach(car -> log.debug("▶ DB에 있는 차량 → {}", car));
-	    return list;
-	}
+    @Override
+    public CarDTO getCarById(int carCode) {
+        return carMapper.getOne(carCode);
+    }
 
-	@Override
-	public List<CarDTO> getCarsByBrand(String brand) {
+    @Override
+    public int save(CarDTO car) {
+        return carMapper.doSave(car);
+    }
 
-		return carMapper.getCarsByBrand(brand);
-	}
+    @Override
+    public int update(CarDTO car) {
+        return carMapper.doUpdate(car);
+    }
 
-	@Override
-	public CarDTO getCarById(int carCode) {
-	    return carMapper.getOne(carCode); // 파라미터를 그대로 넘기는지 확인!
-	}
+    @Override
+    public boolean existsById(int carCode) {
+        CarDTO car = carMapper.getOne(carCode);
+        return car != null;
+    }
 
-	@Override
-	public int save(CarDTO car) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int deleteById(int carCode) {
+        return carMapper.doDeleteById(carCode);
+    }
 
-	@Override
-	public int deleteById(int carCode) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int deleteAll() {
+        return carMapper.deleteAll();
+    }
 
-	@Override
-	public int deleteAll() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public int getCarCount() {
-	    return carMapper.getCarCount();
-	}
+    @Override
+    public int getCarCount() {
+        return carMapper.getCarCount();
+    }
 
-	@Override
-	public List<CarDTO> getCarsByPage(int pageNum, int pageSize) {
-	    int offset = (pageNum - 1) * pageSize;
-	    Map<String, Integer> params = new HashMap<>();
-	    params.put("offset", offset);
-	    params.put("pageSize", pageSize);
-	    return carMapper.getCarsByPage(params);
-	}
+    @Override
+    public List<CarDTO> getCarsByPage(int pageNum, int pageSize) {
+        int offset = (pageNum - 1) * pageSize;
+        Map<String, Integer> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        return carMapper.getCarsByPage(params);
+    }
 
 
 }

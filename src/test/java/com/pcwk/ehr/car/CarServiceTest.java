@@ -1,6 +1,6 @@
 package com.pcwk.ehr.car;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -35,34 +35,20 @@ class CarServiceTest {
 
     @BeforeEach
     void setup() throws SQLException {
-        // 1) 기존 데이터 전체 삭제
-       // carMapper.deleteAll();
+        // 1) 기존 데이터 전체 삭제 (선택)
+        // carMapper.deleteAll();
 
-        // 2) 테스트용 CarDTO 생성 (시퀀스는 doSave의 selectKey가 처리)
+        // 2) 테스트용 CarDTO 생성
         CarDTO initial = new CarDTO(
-            0,                                // ▶ dummy; 실제 PK는 doSave selectKey가 채워줍니다
-            "현대",                           // PRODUCT_NAME
-            "아반떼",                             // CAR_MF
-            "세단",                             // CARTYPE
-            null,                              // ORG_FN
-            null,                              // MOD_FN
-            null,                              // PATH
-            2000,                              // PRICE
-            "가솔린",                           // FUEL
-            15.2,                              // EF
-            null,                              // ENGINE
-            null,                              // DPM
-            null,                              // BATTERY
-            2020,                              // MF_DT (정수)
-            new Date(System.currentTimeMillis()), // REG_DT
-            "admin",                           // REG_ID
-            new Date(System.currentTimeMillis()), // MOD_DT
-            "admin"                            // MOD_ID
+            0, "현대", "아반떼", "세단", null, null, null,
+            2000, "가솔린", 15.2, null, null, null, 2020,
+            new Date(System.currentTimeMillis()), "admin",
+            new Date(System.currentTimeMillis()), "admin"
         );
-        // 3) 삽입 (doSave의 selectKey가 initial.carCode를 세팅)
+        // 3) 삽입 (doSave의 selectKey가 carCode 채움)
         carMapper.doSave(initial);
 
-        // 4) 초기 데이터의 실제 PK를 꺼내 테스트에 사용
+        // 4) 실제 PK 얻기
         this.carCode = initial.getCarCode();
     }
 
@@ -70,18 +56,84 @@ class CarServiceTest {
     void getAllCars() {
         List<CarDTO> cars = carService.getAllCars();
         assertNotNull(cars);
+        assertTrue(cars.size() > 0);
     }
 
     @Test
     void getCarsByBrand() {
-        List<CarDTO> cars = carService.getCarsByBrand("현대");
-        assertNotNull(cars);
+    	List<CarDTO> cars = carService.getCarsByBrand("아반떼");
+    	assertNotNull(cars);
+    	assertTrue(cars.size() > 0);
     }
 
     @Test
     void getCarById() {
         CarDTO car = carService.getCarById(carCode);
-        System.out.println("테스트 조회 결과 → " + car);
         assertNotNull(car);
+        assertEquals(carCode, car.getCarCode());
+    }
+
+    @Test
+    void updateCar() {
+        // 1) 데이터 조회
+        CarDTO car = carService.getCarById(carCode);
+        assertNotNull(car);
+
+        // 2) 일부 데이터 변경
+        car.setPrice(2500);
+        car.setCartype("SUV");
+
+        // 3) 수정
+        int updated = carService.update(car);
+        assertTrue(updated > 0);
+
+        // 4) 재조회 및 검증
+        CarDTO updatedCar = carService.getCarById(carCode);
+        assertEquals(2500, updatedCar.getPrice());
+        assertEquals("SUV", updatedCar.getCartype());
+    }
+
+    @Test
+    void existsById() {
+        boolean exists = carService.existsById(carCode);
+        assertTrue(exists);
+
+        boolean notExists = carService.existsById(999999);
+        assertFalse(notExists);
+    }
+
+    @Test
+    void deleteById() {
+        // 1) 삭제
+        int result = carService.deleteById(carCode);
+        assertTrue(result > 0);
+
+        // 2) 삭제 후 재조회
+        CarDTO car = carService.getCarById(carCode);
+        assertNull(car);
+    }
+
+    @Test
+    void deleteAll() {
+        // 1) 전체 삭제
+        int deleted = carService.deleteAll();
+        assertTrue(deleted >= 0);
+
+        // 2) 재조회
+        List<CarDTO> cars = carService.getAllCars();
+        assertEquals(0, cars.size());
+    }
+
+    @Test
+    void saveCar() {
+        CarDTO newCar = new CarDTO(
+            0, "기아", "K5", "세단", null, null, null,
+            1800, "디젤", 13.5, null, null, null, 2022,
+            new Date(System.currentTimeMillis()), "test",
+            new Date(System.currentTimeMillis()), "test"
+        );
+        int result = carService.save(newCar);
+        assertTrue(result > 0);
+        assertTrue(newCar.getCarCode() > 0); // 시퀀스 PK가 잘 들어갔는지 체크
     }
 }

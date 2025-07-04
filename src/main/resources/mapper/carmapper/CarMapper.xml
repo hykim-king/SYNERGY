@@ -54,32 +54,36 @@
   )
 </insert>
   <!-- doUpdate -->
-  <update id="doUpdate" parameterType="com.pcwk.ehr.car.CarDTO">
-    UPDATE CAR
-       SET PRODUCT_NAME = #{productName},
-           CAR_MF = #{carMf},
-           CARTYPE = #{cartype},
-           ORG_FN = #{orgFn},
-           MOD_FN = #{modFn},
-           PATH = #{path},
-           PRICE = #{price},
-           FUEL = #{fuel},
-           EF = #{ef},
-           ENGINE = #{engine},
-           DPM = #{dpm},
-           BATTERY = #{battery},
-           MF_DT = #{mfDt},
-           REG_DT = #{regDt, jdbcType=DATE},
-           REG_ID = #{regId},
-           MOD_DT = #{modDt, jdbcType=DATE},
-           MOD_ID = #{modId}
-     WHERE CAR_CODE = #{carCode}
-  </update>
-
+<update id="doUpdate" parameterType="com.pcwk.ehr.car.CarDTO">
+    UPDATE car
+    SET
+        product_name = #{productName},
+        car_mf       = #{carMf},
+        cartype      = #{cartype},
+        org_fn       = #{orgFn, jdbcType=VARCHAR},
+        mod_fn       = #{modFn, jdbcType=VARCHAR},
+        path         = #{path, jdbcType=VARCHAR},
+        price        = #{price},
+        fuel         = #{fuel},
+        ef           = #{ef},
+        engine       = #{engine, jdbcType=VARCHAR},
+        dpm          = #{dpm, jdbcType=VARCHAR},
+        battery      = #{battery, jdbcType=VARCHAR},
+        mf_dt        = #{mfDt},
+        mod_dt       = #{modDt},
+        mod_id       = #{modId}
+    WHERE
+        car_code = #{carCode}
+</update>
   <!-- doDelete -->
   <delete id="doDelete" parameterType="com.pcwk.ehr.car.CarDTO">
     DELETE FROM CAR WHERE CAR_CODE = #{carCode}
   </delete>
+  
+  <delete id="doDeleteById" parameterType="int">
+    DELETE FROM car
+    WHERE car_code = #{carCode}
+</delete>
 
   <!-- doSelectOne -->
   <select id="doSelectOne" parameterType="com.pcwk.ehr.car.CarDTO" resultType="com.pcwk.ehr.car.CarDTO">
@@ -155,9 +159,9 @@
   
   
    <!-- 브랜드별 조회 -->
-    <select id="getCarsByBrand" resultType="com.pcwk.ehr.car.CarDTO" parameterType="string">
-        SELECT * FROM CAR WHERE CAR_MF = #{brand}
-    </select>
+<select id="getCarsByBrand" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT * FROM car WHERE car_mf = #{brand}
+</select>
 
     <!-- 상세조회 -->
 <select id="getOne" resultType="com.pcwk.ehr.car.CarDTO" parameterType="int">
