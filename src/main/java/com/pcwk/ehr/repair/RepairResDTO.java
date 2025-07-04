@@ -1,8 +1,9 @@
 package com.pcwk.ehr.repair;
 
+import com.pcwk.ehr.cmn.PLog;
 import java.util.Date;
 
-import com.pcwk.ehr.cmn.PLog;
+import org.springframework.format.annotation.DateTimeFormat;
 
 // 정비예약 정보 DTO
 
@@ -13,7 +14,10 @@ public class RepairResDTO implements PLog {
 	private String phone;
 	private int carCode;
 	private int retailerCode;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date repairDate;
+	
 	private String repairDesc;
 	private Date regDt;
 	private String regId;

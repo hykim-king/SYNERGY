@@ -1,4 +1,4 @@
-package com.pcwk.ehr.drive;
+package com.pcwk.ehr.repair;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -11,24 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pcwk.ehr.cmn.DTO;
-import com.pcwk.ehr.mapper.DriveResMapper;
+import com.pcwk.ehr.mapper.RepairResMapper;
 
 @Service
-public class DriveResServiceImpl implements DriveResService {
+public class RepairResServiceImpl implements RepairResService {
 
     Logger log = LogManager.getLogger(getClass());
 
     @Autowired
-    private DriveResMapper driveResMapper;
+    private RepairResMapper repairResMapper;
 
-    public DriveResServiceImpl() {}
+    public RepairResServiceImpl() {}
     
-    public void setMapper(DriveResMapper driveResMapper) {
-        this.driveResMapper = driveResMapper;
+    public void setMapper(RepairResMapper repairResMapper) {
+        this.repairResMapper = repairResMapper;
     }
 
     @Override
-    public int doSave(DriveResDTO dto) {
+    public int doSave(RepairResDTO dto) {
         Date now = new Date();
         dto.setRegDt(now);
         dto.setModDt(now);
@@ -42,9 +42,9 @@ public class DriveResServiceImpl implements DriveResService {
 
         int result = 0;
         try {
-            result = driveResMapper.doSave(dto);
+            result = repairResMapper.doSave(dto);
             if (result > 0) {
-                DriveResDTO saved = driveResMapper.doSelectOne(dto);
+                RepairResDTO saved = repairResMapper.doSelectOne(dto);
                 dto.setRegDt(saved.getRegDt());
                 dto.setModDt(saved.getModDt());
             }
@@ -56,14 +56,14 @@ public class DriveResServiceImpl implements DriveResService {
     }
 
     @Override
-    public int doUpdate(DriveResDTO dto) {
+    public int doUpdate(RepairResDTO dto) {
         if (dto.getModId() == null || dto.getModId().isEmpty()) {
             dto.setModId(dto.getName());
         }
 
-        int result = driveResMapper.doUpdate(dto);
+        int result = repairResMapper.doUpdate(dto);
         if (result > 0) {
-            DriveResDTO updated = driveResMapper.doSelectOne(dto);
+            RepairResDTO updated = repairResMapper.doSelectOne(dto);
             dto.setModDt(updated.getModDt());
         }
 
@@ -71,17 +71,17 @@ public class DriveResServiceImpl implements DriveResService {
     }
 
     @Override
-    public int doDelete(DriveResDTO dto) {
-        return driveResMapper.doDelete(dto);
+    public int doDelete(RepairResDTO dto) {
+        return repairResMapper.doDelete(dto);
     }
 
     @Override
-    public DriveResDTO doSelectOne(DriveResDTO dto) {
-        return driveResMapper.doSelectOne(dto);
+    public RepairResDTO doSelectOne(RepairResDTO dto){
+        return repairResMapper.doSelectOne(dto);
     }
-    
+
     @Override
-    public List<DriveResDTO> doRetrieve(DTO dto) {
-        return driveResMapper.doRetrieve(dto);
+    public List<RepairResDTO> doRetrieve(DTO dto){
+        return repairResMapper.doRetrieve(dto);
     }
 }
