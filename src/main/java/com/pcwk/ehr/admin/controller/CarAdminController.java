@@ -86,7 +86,7 @@ public class CarAdminController implements PLog{
 		        log.debug("차량 삭제 실패");
 		    }
 		 
-		 return "redirect:/admin/main.do";
+		 return "redirect:/admin/main.do";  
 	}
 	
 	@GetMapping("/updateView.do")
