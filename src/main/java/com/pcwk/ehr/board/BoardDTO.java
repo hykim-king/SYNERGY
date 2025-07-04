@@ -2,27 +2,28 @@ package com.pcwk.ehr.board;
 
 import java.util.Date;
 
-public class BoardDTO {
+import com.pcwk.ehr.cmn.DTO;
 
-	private int boardCode;
-	private String title;
-	private String contents;
-	private String id;
-	private String nickname;
-	private int readCnt;
-	private Date regDt;
-	private String regId;
-	private Date modDt;
-	private String modId;
+public class BoardDTO extends DTO {
+
+	private int boardCode; // 게시글 고유 번호
+	private String title; // 제목
+	private String div; // 게시구분
+	private String contents; // 내용
+	private String id; // 작성자 ID
+	private String nickname; // 작성자 닉네임
+	private int readCnt; // 조회수
+	private Date regDt; // 등록일
+	private String regId; // 등록자 ID
+	private Date modDt; // 수정일
+	private String modId; // 수정자 ID
+
 	
-	public BoardDTO() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+	public BoardDTO() {}
 	/**
 	 * @param boardCode
 	 * @param title
+	 * @param div
 	 * @param contents
 	 * @param id
 	 * @param nickname
@@ -32,11 +33,12 @@ public class BoardDTO {
 	 * @param modDt
 	 * @param modId
 	 */
-	public BoardDTO(int boardCode, String title, String contents, String id, String nickname, int readCnt, Date regDt,
-			String regId, Date modDt, String modId) {
+	public BoardDTO(int boardCode, String title, String div, String contents, String id, String nickname, int readCnt,
+			Date regDt, String regId, Date modDt, String modId) {
 		super();
 		this.boardCode = boardCode;
 		this.title = title;
+		this.div = div;
 		this.contents = contents;
 		this.id = id;
 		this.nickname = nickname;
@@ -73,6 +75,20 @@ public class BoardDTO {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	/**
+	 * @return the div
+	 */
+	public String getDiv() {
+		return div;
+	}
+
+	/**
+	 * @param div the div to set
+	 */
+	public void setDiv(String div) {
+		this.div = div;
 	}
 
 	/**
@@ -187,15 +203,11 @@ public class BoardDTO {
 		this.modId = modId;
 	}
 
-
 	@Override
 	public String toString() {
-		return "BoardDTO [boardCode=" + boardCode + ", title=" + title + ", contents=" + contents + ", id=" + id
-				+ ", nickname=" + nickname + ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId=" + regId
-				+ ", modDt=" + modDt + ", modId=" + modId + ", toString()=" + super.toString() + "]";
+		return "BoardDTO [boardCode=" + boardCode + ", title=" + title + ", div=" + div + ", contents=" + contents
+				+ ", id=" + id + ", nickname=" + nickname + ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId="
+				+ regId + ", modDt=" + modDt + ", modId=" + modId + ", toString()=" + super.toString() + "]";
 	}
 
-	
-
 }
-

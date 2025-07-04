@@ -35,16 +35,15 @@ class BoardTest {
 	BoardMapper mapper;
 
 	BoardDTO dto01;
-
 	SearchDTO search;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		log.debug("┌──────────── setUp() ────────────┐");
+		log.debug("┌──── setUp() ────┐");
 
 		int seq = mapper.getBoardSeq();
 
-		dto01 = new BoardDTO(seq, "공지사항 제목", "내용입니다.", "admin01", "관리자", 0, new Date(), "admin01", new Date(),
+		dto01 = new BoardDTO(seq, "공지사항 제목", "10", "내용입니다.", "admin01", "관리자", 0, new Date(), "admin01", new Date(),
 				"admin01");
 
 		search = new SearchDTO();
@@ -52,38 +51,37 @@ class BoardTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		log.debug("└──────────── tearDown() ────────────┘");
+		log.debug("└──── tearDown() ────┘");
 	}
-
-	// @Disabled
+	//@Disabled
 	@Test
 	void updateReadCnt() {
 		mapper.deleteAll();
 
 		int seq = mapper.getBoardSeq();
 		dto01.setBoardCode(seq);
-		dto01.setRegId("admin01"); // 저장 시 admin01
+		dto01.setRegId("admin01");
 
 		mapper.doSave(dto01);
 
-		// 다른 사용자로 세팅
+		// 다른 사용자로 조회할 경우 조회수 증가
 		dto01.setRegId("otherUser");
 
-		int flag = mapper.updateReadCnt(dto01); // ✅ 이제 1이 나와야 함
+		int flag = mapper.updateReadCnt(dto01);
 		assertEquals(1, flag);
 	}
-
-	// @Disabled
+	//@Disabled
 	@Test
 	void doRetrieve() {
 		mapper.deleteAll();
 		int count = mapper.saveAll();
-		assertEquals(100, count); // saveAll() INSERT LEVEL <= 100 기준
+		assertEquals(100, count);
 
 		search.setPageNo(1);
 		search.setPageSize(10);
-		search.setSearchDiv("10");
+		search.setSearchDiv("10"); // title 검색
 		search.setSearchWord("제목");
+		search.setDiv("10");
 
 		List<BoardDTO> list = mapper.doRetrieve(search);
 		assertNotNull(list);
@@ -91,32 +89,27 @@ class BoardTest {
 
 		list.forEach(vo -> log.debug("vo={}", vo));
 	}
-
-	// @Disabled
+	//@Disabled
+	@Test
 	void addAndGet() {
-		// 1. 전체 삭제
 		mapper.deleteAll();
 
-		// 2. 시퀀스 값 받아서 DTO에 지정
 		int seq = mapper.getBoardSeq();
-		dto01.setBoardCode(seq); // ★ 반드시 필요!
+		dto01.setBoardCode(seq);
 
-		// 3. 저장
 		int flag = mapper.doSave(dto01);
 		assertEquals(1, flag);
 
-		// 4. 단건 조회
 		BoardDTO outVO = mapper.doSelectOne(dto01);
 		assertNotNull(outVO);
 
-		// 5. 동일성 검증
 		isSameBoard(outVO, dto01);
 	}
-
-	// @Disabled
+	//@Disabled
 	@Test
 	void doDelete() {
 		mapper.deleteAll();
+
 		int flag = mapper.doSave(dto01);
 		assertEquals(1, flag);
 
@@ -125,35 +118,35 @@ class BoardTest {
 
 		assertEquals(0, mapper.getCount());
 	}
-
-	// @Disabled
+	//@Disabled
 	@Test
 	void doUpdate() {
 		mapper.deleteAll();
 
 		int seq = mapper.getBoardSeq();
 		dto01.setBoardCode(seq);
-
-		int saveFlag = mapper.doSave(dto01);
-		assertEquals(1, saveFlag);
+		mapper.doSave(dto01);
 
 		BoardDTO dbData = mapper.doSelectOne(dto01);
 		assertNotNull(dbData);
-		log.debug("조회된 데이터 board_code: {}", dbData.getBoardCode());
 
 		dbData.setTitle("오징어");
 		dbData.setContents("안녕하세요.");
-		dbData.setModId("MOnsteER");
+		dbData.setDiv("20");
+		dbData.setModId("monster");
 
-		int updateFlag = mapper.doUpdate(dbData);
-		assertEquals(1, updateFlag); //
+		int flag = mapper.doUpdate(dbData);
+		assertEquals(1, flag);
+
 		BoardDTO updated = mapper.doSelectOne(dbData);
 		assertEquals("오징어", updated.getTitle());
+		assertEquals("20", updated.getDiv());
 	}
 
 	private void isSameBoard(BoardDTO actual, BoardDTO expected) {
 		assertEquals(expected.getBoardCode(), actual.getBoardCode());
 		assertEquals(expected.getTitle(), actual.getTitle());
+		assertEquals(expected.getDiv(), actual.getDiv());
 		assertEquals(expected.getContents(), actual.getContents());
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getNickname(), actual.getNickname());
@@ -161,18 +154,15 @@ class BoardTest {
 		assertEquals(expected.getRegId(), actual.getRegId());
 		assertEquals(expected.getModId(), actual.getModId());
 	}
-
-	// @Disabled
+	//@Disabled
 	@Test
 	void beans() {
 		assertNotNull(context);
 		assertNotNull(mapper);
 		assertNotNull(dto01);
 
-		log.debug("1. context:{}", context);
-		log.debug("1. mapper:{}", mapper);
-		log.debug("1. dto01:{}", dto01);
-
+		log.debug("1. context: {}", context);
+		log.debug("2. mapper: {}", mapper);
+		log.debug("3. dto01: {}", dto01);
 	}
-
 }

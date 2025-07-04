@@ -24,6 +24,7 @@ import com.pcwk.ehr.mapper.BoardMapper;
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 class BoardServiceTest {
+
 	Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
@@ -44,9 +45,8 @@ class BoardServiceTest {
 		log.debug("└──────────────────────────────┘");
 
 		int seq = mapper.getBoardSeq();
-		dto01 = new BoardDTO(seq, "공지사항 제목", "내용입니다.", "admin01", "관리자", 0, new Date(), "admin01", new Date(),
-				"admin01");
-
+		dto01 = new BoardDTO(seq, "공지사항 제목", "10", // div 추가
+				"내용입니다.", "admin01", "관리자", 0, new Date(), "admin01", new Date(), "admin01");
 	}
 
 	@AfterEach
@@ -54,34 +54,29 @@ class BoardServiceTest {
 		log.debug("┌───────────────────────────────┐");
 		log.debug("│ tearDown()                    │");
 		log.debug("└───────────────────────────────┘");
-
 	}
 
 	@Test
 	void doSelectOne() {
-		// 매번 동일한 결과가 도출 되도록 작성
-		// 1.전체삭제
-		// 2. 단건 등록
-		// 3. doSelectOne() Service호출
-
-		// 1.
+		// 매번 동일한 결과가 도출되도록 작성
+		// 1. 전체 삭제
 		mapper.deleteAll();
 		assertEquals(0, mapper.getCount());
 
-		// 2.
-		log.debug("before:{}", dto01);
+		// 2. 단건 등록
+		log.debug("before: {}", dto01);
 		int flag = mapper.doSave(dto01);
-		log.debug("after:{}", dto01);
+		log.debug("after: {}", dto01);
 		assertEquals(1, flag);
 
-		// 등록자 수정
+		// 3. 조회자 변경 (조회수 증가 테스트)
 		dto01.setRegId("james");
-		// 3.
+
+		// 4. 서비스 호출
 		BoardDTO outVO = boardService.doSelectOne(dto01);
 
 		assertNotNull(outVO);
 		assertEquals(1, outVO.getReadCnt());
-
 	}
 
 	@Test
@@ -89,13 +84,13 @@ class BoardServiceTest {
 		log.debug("┌───────────────────────────────┐");
 		log.debug("│ beans()                       │");
 		log.debug("└───────────────────────────────┘");
+
 		assertNotNull(context);
 		assertNotNull(boardService);
 		assertNotNull(mapper);
 
-		log.debug("context:{}" + context);
-		log.debug("boardService:{}" + boardService);
-		log.debug("mapper:{}" + mapper);
+		log.debug("context: {}", context);
+		log.debug("boardService: {}", boardService);
+		log.debug("mapper: {}", mapper);
 	}
-
 }
