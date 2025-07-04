@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pcwk.ehr.board.BoardDTO;
 import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.mapper.EventMapper;
 
@@ -55,6 +54,36 @@ public class EventServiceImpl implements EventService {
 		log.debug("flag:{}", flag);
 
 		return mapper.doSelectOne(param);
+	}
+
+	@Override
+	public int updateReadCnt(EventDTO param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int saveAll() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getEventSeq() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

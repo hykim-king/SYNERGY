@@ -9,64 +9,114 @@ public class DTO {
 	private String searchWord; // 검색어
 	private int pageSize = 10; // 한 페이지당 게시글 수
 	private int pageNum = 1; // 현재 페이지 번호
-	// 페이징 계산용
-	public int getStartRow() {
-		return (pageNum - 1) * pageSize + 1;
-	}
-	public int getEndRow() {
-		return pageNum * pageSize;
-	}
+	private int totalCnt;
+	private int startRow;
+	private int endRow;
+	
+	public DTO() {}
 	/**
 	 * @return the searchDiv
 	 */
 	public String getSearchDiv() {
 		return searchDiv;
 	}
+
 	/**
 	 * @param searchDiv the searchDiv to set
 	 */
 	public void setSearchDiv(String searchDiv) {
 		this.searchDiv = searchDiv;
 	}
+
 	/**
 	 * @return the searchWord
 	 */
 	public String getSearchWord() {
 		return searchWord;
 	}
+
 	/**
 	 * @param searchWord the searchWord to set
 	 */
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
+
 	/**
 	 * @return the pageSize
 	 */
 	public int getPageSize() {
 		return pageSize;
 	}
+
 	/**
 	 * @param pageSize the pageSize to set
 	 */
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
+
 	/**
 	 * @return the pageNum
 	 */
 	public int getPageNum() {
 		return pageNum;
 	}
+
 	/**
 	 * @param pageNum the pageNum to set
 	 */
 	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
 	}
+
+	/**
+	 * @return the totalCnt
+	 */
+	public int getTotalCnt() {
+		return totalCnt;
+	}
+
+	/**
+	 * @param totalCnt the totalCnt to set
+	 */
+	public void setTotalCnt(int totalCnt) {
+		this.totalCnt = totalCnt;
+	}
+
+	/**
+	 * @return the startRow
+	 */
+	public int getStartRow() {
+		return startRow;
+	}
+
+	/**
+	 * @param startRow the startRow to set
+	 */
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	/**
+	 * @return the endRow
+	 */
+	public int getEndRow() {
+		return endRow;
+	}
+
+	/**
+	 * @param endRow the endRow to set
+	 */
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
+
 	@Override
 	public String toString() {
 		return "DTO [searchDiv=" + searchDiv + ", searchWord=" + searchWord + ", pageSize=" + pageSize + ", pageNum="
-				+ pageNum + "]";
+				+ pageNum + ", totalCnt=" + totalCnt + ", startRow=" + startRow + ", endRow=" + endRow + ", toString()="
+				+ super.toString() + "]";
 	}
+
 }
