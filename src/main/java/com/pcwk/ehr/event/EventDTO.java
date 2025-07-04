@@ -5,7 +5,9 @@ package com.pcwk.ehr.event;
 
 import java.util.Date;
 
-public class EventDTO {
+import com.pcwk.ehr.cmn.DTO;
+
+public class EventDTO extends DTO{
 
 	private String ecode;
 	private String email;

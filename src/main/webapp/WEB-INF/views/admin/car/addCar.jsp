@@ -50,8 +50,8 @@
             text-align: center;
         }
         .btn-group input {
-            width: 45%;
-            margin: 0 10px;
+            width: 30%;
+            margin: 0 10px 10px 10px;
             background-color: #3498db;
             color: white;
             border: none;
@@ -59,6 +59,21 @@
         }
         .btn-group input:hover {
             background-color: #2980b9;
+        }
+        .btn-link {
+            display: inline-block;
+            width: 30%;
+            padding: 8px 0;
+            margin: 0 10px;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn-link:hover {
+            background-color: #34495e;
         }
     </style>
 </head>
@@ -77,7 +92,7 @@
         <input type="text" id="cartype" name="cartype" required>
 
         <label for="price">가격</label>
-        <input type="number" id="price" name="price" required>
+        <input type="number" id="price" name="price" required min="0">
 
         <label>연료</label>
         <div class="radio-group">
@@ -87,24 +102,24 @@
         </div>
 
         <label for="ef">연비</label>
-        <input type="number" step="0.1" id="ef" name="ef" required>
+        <input type="number" step="0.1" id="ef" name="ef" required min="0">
 
         <label for="engine">엔진</label>
         <input type="text" id="engine" name="engine" required>
 
         <label for="dpm">배기량 (선택)</label>
-        <input type="number" id="dpm" name="dpm">
+        <input type="number" id="dpm" name="dpm" min="0">
 
         <label for="battery">배터리 (선택)</label>
-        <input type="number" step="0.1" id="battery" name="battery">
+        <input type="number" step="0.1" id="battery" name="battery" min="0">
 
         <label for="mfDt">제조년도</label>
-        <input type="number" id="mfDt" name="mfDt" required>
+        <input type="number" id="mfDt" name="mfDt" required min="1990" max="2099">
 
         <div class="btn-group">
             <input type="submit" value="등록">
             <input type="reset" value="초기화">
-            <a href="${pageContext.request.contextPath}/admin/main.do" class="button-link">메인으로 이동</a>
+            <a href="${pageContext.request.contextPath}/admin/main.do" class="btn-link">메인으로 이동</a>
         </div>
     </form>
 </div>

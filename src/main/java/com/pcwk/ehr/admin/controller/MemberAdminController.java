@@ -26,26 +26,31 @@ public class MemberAdminController {
 	
 	@GetMapping("/list.do")
 	public String list(MemberDTO param, Model model) {
-		try {
-	        // 기본값 세팅 (필요 시)
-	        if (param.getPageNum() == 0) param.setPageNum(1);
-	        if (param.getPageSize() == 0) param.setPageSize(10); // 10개 단위로 보기
+	    try {
+	        // 기본값 세팅
+	        if (param.getPageNum() < 1) param.setPageNum(1);
+	        if (param.getPageSize() < 1) param.setPageSize(10);
+
+	        // startRow, endRow 계산
+	        int startRow = (param.getPageNum() - 1) * param.getPageSize() + 1;
+	        int endRow = param.getPageNum() * param.getPageSize();
+
+	        param.setStartRow(startRow);
+	        param.setEndRow(endRow);
 
 	        // 회원 목록 조회
 	        List<MemberDTO> members = memberService.doRetrieve(param);
 
-	        // 전체 회원 수 조회 (search 조건 고려하려면 MemberDTO로 조회)
-	        int totalCount = memberService.getCount(); // 전체 건수
-
-	        // 페이지 수 계산
+	        // 전체 건수 (검색 조건 없이)
+	        int totalCount = memberService.getCount(); // 인자 없이 전체 수 조회
 	        int totalPages = (int) Math.ceil((double) totalCount / param.getPageSize());
 
-	        // View 전달
+	        // 모델 전달
 	        model.addAttribute("members", members);
 	        model.addAttribute("currentPage", param.getPageNum());
+	        model.addAttribute("pageSize", param.getPageSize());
 	        model.addAttribute("totalPages", totalPages);
-	        model.addAttribute("searchDiv", param.getSearchDiv());
-	        model.addAttribute("searchWord", param.getSearchWord());
+	        model.addAttribute("totalCount", totalCount);
 
 	    } catch (SQLException e) {
 	        model.addAttribute("errorMessage", "회원 목록 조회 중 오류가 발생했습니다.");

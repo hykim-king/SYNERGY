@@ -2,40 +2,59 @@ package com.pcwk.ehr.mapper;
 
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import com.pcwk.ehr.car.CarDTO;
-import com.pcwk.ehr.cmn.WorkDiv;
+import com.pcwk.ehr.cmn.DTO;
 
 @Mapper
-public interface CarMapper extends WorkDiv<CarDTO> {
+public interface CarMapper {
 
-	// 시퀀스
-	int getCarCode();
+	 // 자동차 고유 번호(CAR_CODE) 시퀀스 값 가져오기
+    int getCarCode();
 
-	// 등록된 전체 자동차 수 카운트
-	int getCount();
+    // 전체 자동차 수 조회
+    int getCarCount();
 
-	// 전체 자동차 데이터 삭제
-	void deleteAll();
+    // 전체 자동차 데이터 삭제
+    int deleteAll();
 
-	// 고유 번호로 단일 자동차 정보 조회
-	CarDTO getOne(int carCode);
+    // 자동차 1건 조회 (carCode 기준)
+    CarDTO getOne(int carCode);
 
-	// 브랜드별 조회
-	List<CarDTO> getCarsByBrand(@Param("brand") String brand);
+    // 자동차 1건 조회 (CarDTO 필드 기준 검색)
+    CarDTO doSelectOne(CarDTO carDTO);
 
-	// 검색 기능
-	List<CarDTO> searchCars(@Param("keyword") String keyword);
+    // 브랜드로 자동차 목록 조회
+    List<CarDTO> getCarsByBrand(@Param("brand") String brand);
 
-	// 전체 리스트
-	List<CarDTO> getAllCars();
+    // 키워드로 자동차 검색
+    List<CarDTO> searchCars(@Param("keyword") String keyword);
 
-	void insertCar(List<CarDTO> cars);
+    // 모든 자동차 목록 조회
+    List<CarDTO> getAllCars();
 
-	int getCarCount();
+    // 다수의 자동차 데이터 일괄 삽입
+    void insertCar(List<CarDTO> cars);
 
-	List<CarDTO> getCarsByPage(Map<String, Integer> params);
+    // 자동차 1건 저장
+    int doSave(CarDTO car);
+
+    // 자동차 1건 수정
+    int doUpdate(CarDTO car);
+
+    // carCode 기준으로 자동차 1건 삭제
+    int doDeleteById(@Param("carCode") int carCode);
+
+    // 자동차 전체 삭제
+    int doDeleteAll();
+
+    // CarDTO 조건으로 자동차 1건 삭제 (예: carMf 기준 등)
+    int doDelete(CarDTO car);
+
+    // 페이징 처리된 자동차 목록 조회 (offset, pageSize)
+    List<CarDTO> getCarsByPage(Map<String, Integer> params);
+
+    // 검색 및 조건 조회 (DTO 기준)
+    List<CarDTO> doRetrieve(DTO param);
 }

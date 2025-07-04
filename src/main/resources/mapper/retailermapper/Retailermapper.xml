@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pcwk.ehr.mapper.Retailermapper">
 
-<select id="getRetailerSeq" resultType="java.lang.Integer">
-        SELECT RETAILER_SEQ.NEXTVAL FROM dual
-    </select>
-    
+
+<select id="getRetailerSeq" resultType="int">
+    SELECT RETAILER_SEQ.NEXTVAL FROM DUAL
+</select>
   <select id="getAll" resultType="com.pcwk.ehr.retailer.RetailerDTO">
     SELECT
       RETAILER_CODE,
@@ -23,6 +23,8 @@
       MOD_ID
     FROM RETAILER
   </select>
+  
+  
   <resultMap id="retailerResultMap" type="com.pcwk.ehr.retailer.RetailerDTO">
   <id property="retailerCode" column="RETAILER_CODE"/>
   <result property="productName" column="PRODUCT_NAME"/>
@@ -36,6 +38,8 @@
   <result property="modDt" column="MOD_DT"/>
   <result property="modId" column="MOD_ID"/>
 </resultMap>
+
+
   <select id="getOne" parameterType="int" resultType="com.pcwk.ehr.retailer.RetailerDTO">
     SELECT
       RETAILER_CODE,
@@ -52,6 +56,8 @@
     FROM RETAILER
     WHERE RETAILER_CODE = #{retailerCode}
   </select>
+  
+  
   <select id="doRetrieveByCarMfList"
           parameterType="java.util.List"
           resultType="com.pcwk.ehr.retailer.RetailerDTO">
@@ -77,21 +83,32 @@
       </if>
     </where>
   </select>
+  
+  
   <select id="getCount" resultType="int">
     SELECT COUNT(*) FROM RETAILER
 </select>
-   <insert id="doSave" parameterType="com.pcwk.ehr.retailer.RetailerDTO">
-        INSERT INTO retailer (
-            retailer_code, product_name, retailer_name, car_mf, area,
-            address, telephone, reg_dt, reg_id, mod_dt, mod_id
-        ) VALUES (
-            #{retailerCode}, #{productName}, #{retailerName}, #{carMf}, #{area},
-            #{address}, #{telephone}, #{regDt}, #{regId}, #{modDt}, #{modId}
-        )
-    </insert>
+
+
+<insert id="doSave" parameterType="com.pcwk.ehr.retailer.RetailerDTO">
+    <selectKey keyProperty="retailerCode" order="BEFORE" resultType="int">
+        SELECT RETAILER_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO retailer (
+        retailer_code, product_name, retailer_name, car_mf, area,
+        address, telephone, reg_dt, reg_id, mod_dt, mod_id
+    ) VALUES (
+        #{retailerCode}, #{productName}, #{retailerName}, #{carMf}, #{area},
+        #{address}, #{telephone}, #{regDt}, #{regId}, #{modDt}, #{modId}
+    )
+</insert>
+
+
     <delete id="deleteAll">
         DELETE FROM retailer
     </delete>
+    
+    
     <update id="doUpdate" parameterType="com.pcwk.ehr.retailer.RetailerDTO">
         UPDATE retailer
         SET product_name = #{productName},
@@ -108,4 +125,18 @@
         DELETE FROM RETAILER
         WHERE RETAILER_CODE = #{retailerCode}
 </delete>
+
+<select id="getRetailersByPage" resultType="com.pcwk.ehr.retailer.RetailerDTO">
+  SELECT *
+  FROM (
+    SELECT ROWNUM AS rnum, t.*
+    FROM (
+      SELECT *
+      FROM RETAILER
+      ORDER BY REG_DT DESC
+    ) t
+    WHERE ROWNUM &lt;= #{offset} + #{pageSize}
+  )
+  WHERE rnum &gt; #{offset}
+</select>
 </mapper>
