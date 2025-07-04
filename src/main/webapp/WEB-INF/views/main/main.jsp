@@ -74,8 +74,8 @@
         <a href="${pageContext.request.contextPath}/retailer/search.do">리테일러 찾기</a>
         <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
         <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
-        <a href="${pageContext.request.contextPath}/board/list.do">자유게시판</a>
-        <a href="${pageContext.request.contextPath}/event/list.do">이벤트</a>
+        <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
+        <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
     </div>
 
     <div class="nav-right">
