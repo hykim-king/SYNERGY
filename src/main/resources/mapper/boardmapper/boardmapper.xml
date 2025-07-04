@@ -20,12 +20,13 @@
     <insert id="saveAll">
         <![CDATA[
         INSERT INTO board (
-            board_code, title, contents, id, nickname,
+            board_code, title, div, contents, id, nickname,
             read_cnt, reg_dt, reg_id, mod_dt, mod_id
         )
         SELECT 
             BOARD_SEQ.NEXTVAL,
             '제목' || LEVEL,
+            DECODE(MOD(LEVEL, 2), 1, '10', '20'), -- div 추가
             '내용' || LEVEL,
             'user' || LEVEL,
             DECODE(MOD(LEVEL,2),1,'admin','james'),
@@ -64,11 +65,12 @@
             SELECT TT1.rnum AS no,
                    TT1.board_code,
                    TT1.title,
+                   TT1.div,
                    TT1.contents,
                    TT1.id,
                    TT1.nickname,
                    TT1.read_cnt,
-                   TT1.mod_dt  AS mod_dt,
+                   TT1.mod_dt,
                    TT1.mod_id
             FROM (
                 SELECT ROWNUM rnum, T1.*
@@ -109,10 +111,10 @@
     <!-- 단건 등록 -->
     <insert id="doSave" parameterType="BoardDTO">
         INSERT INTO board (
-            board_code, title, contents, id, nickname,
+            board_code, title, div, contents, id, nickname,
             read_cnt, reg_dt, reg_id, mod_dt, mod_id
         ) VALUES (
-            #{boardCode}, #{title}, #{contents}, #{id}, #{nickname},
+            #{boardCode}, #{title}, #{div}, #{contents}, #{id}, #{nickname},
             0, SYSDATE, #{regId}, SYSDATE, #{regId}
         )
     </insert>
@@ -122,6 +124,7 @@
         SELECT
             board_code,
             title,
+            div,
             contents,
             id,
             nickname,
@@ -145,6 +148,7 @@
         UPDATE board
         SET
             title = #{title},
+            div = #{div},
             contents = #{contents},
             mod_dt = SYSDATE,
             mod_id = #{modId}

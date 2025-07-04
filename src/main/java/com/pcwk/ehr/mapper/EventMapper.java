@@ -3,13 +3,16 @@
  */
 package com.pcwk.ehr.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
-import com.pcwk.ehr.cmn.WorkDiv;
+import com.pcwk.ehr.board.BoardDTO;
+import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.event.EventDTO;
 
 @Mapper
-public interface EventMapper extends WorkDiv<EventDTO> {
+public interface EventMapper {
 
 	/**
 	 * 조회 count증가(단, 본인글 이외 글만)
@@ -36,5 +39,47 @@ public interface EventMapper extends WorkDiv<EventDTO> {
 	void deleteAll();
 
 	int getCount();
+	
+	/**
+	 * 목록 조회
+	 * 
+	 * @param param
+	 * @return List<T>
+	 */
+	List<EventDTO> doRetrieve(SearchDTO param);
+
+	/**
+	 * 단건 삭제
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
+	int doDelete(EventDTO param);
+
+	/**
+	 * 수정
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
+	int doUpdate(EventDTO param);
+
+	/**
+	 * 단건조회
+	 * 
+	 * @param param
+	 * @return T
+	 */
+	EventDTO doSelectOne(EventDTO param);
+
+	/**
+	 * 단건등록
+	 * 
+	 * @param param
+	 * @return 1(성공)/0(실패)
+	 */
+	int doSave(EventDTO param);
+
+
 
 }
