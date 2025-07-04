@@ -2,13 +2,10 @@ package com.pcwk.ehr.retailer;
 
 import java.util.List;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,7 +15,7 @@ import com.pcwk.ehr.retailer.service.RetailerService;
 public class RetailerController implements PLog{
 	 @Autowired
 	    private RetailerService retailerService;
-
+	 private int retailerCode;
 	    // 1. 전체 리테일러 목록(페이징) 조회
 	    @GetMapping("/list.do")
 	    public String list(
@@ -57,14 +54,14 @@ public class RetailerController implements PLog{
 	    }
 
 	    // 3. 리테일러 상세 정보 조회
-	    @GetMapping("/detail/{retailerId}.do")
-	    public String detail(@PathVariable("retailerId") int retailerId, Model model) {
+	    @GetMapping("/detail")
+	    public String detail(@RequestParam("retailerCode") int retailerCode, Model model) {
 	        log.debug("┌──────────────────────────────────────────────┐");
-	        log.debug("│ detail() - 리테일러 상세 정보 조회 (retailerId={}) │", retailerId);
+	        log.debug("│ detail() - 리테일러 상세 정보 조회 (retailerId={}) │", retailerCode);
 	        log.debug("└──────────────────────────────────────────────┘");
 
-	        RetailerDTO retailer = retailerService.getRetailerById(retailerId);
-	        model.addAttribute("retailer", retailer);
+	        RetailerDTO dto = retailerService.getOne(retailerCode);
+	        model.addAttribute("retailer", dto);  // ← 이 코드가 없으면 에러 발생
 	        return "retailer/detail";
 	    }
 	}

@@ -74,5 +74,10 @@ public class CarServiceImpl implements CarService {
         return carMapper.getCarsByPage(params);
     }
 
+    @Override
+    public CarDTO getOne(int carCode) {
+        return carMapper.getOne(carCode);
+    }
+
 
 }

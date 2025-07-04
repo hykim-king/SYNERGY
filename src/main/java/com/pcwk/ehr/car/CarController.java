@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -63,14 +62,11 @@ public class CarController implements PLog {
 	}
 
 	// 자동차 정보 상세보기
-	@GetMapping("/detail/{carCode}.do")
-	public String detail(@PathVariable("carCode") int carCode, Model model) {
-		log.debug("┌─────────────────────────────────────────────────┐");
-		log.debug("│ detail() - 차량 상세 조회 (carCode={})               │", carCode);
-		log.debug("└─────────────────────────────────────────────────┘");
-		CarDTO car = carService.getCarById(carCode);
-		model.addAttribute("car", car);
-		return "car/detail";
+	 @GetMapping("/detail")
+	    public String detail(@RequestParam("carCode") int carCode, Model model) {
+	        CarDTO car = carService.getOne(carCode);
+	        model.addAttribute("car", car);
+	        return "car/detail";
+	    }
 
-	}
 }

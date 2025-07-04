@@ -22,6 +22,9 @@ public interface CarService {
     int deleteAll();
 
     int getCarCount();
+    
 
     List<CarDTO> getCarsByPage(int pageNum, int pageSize);
+
+	CarDTO getOne(int carCode);
 }

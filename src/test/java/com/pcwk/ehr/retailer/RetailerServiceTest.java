@@ -1,6 +1,7 @@
 package com.pcwk.ehr.retailer;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -20,62 +21,135 @@ import com.pcwk.ehr.mapper.Retailermapper;
 
 @WebAppConfiguration
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
+@ContextConfiguration(locations = { 
+    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+    "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" 
+})
 class RetailerServiceTest {
 
-	@Autowired
-	private Retailermapper retailerMapper;
+    @Autowired
+    private Retailermapper retailerMapper;
 
-	@Autowired
-	private RetailerServiceImpl retailerService;
+    @Autowired
+    private RetailerServiceImpl retailerService;
 
-	private int retailerCode;
+    private int retailerCode;
 
-	@BeforeEach
-	void setup() throws SQLException {
-		// 1) 기존 데이터 전체 삭제
-		// retailerMapper.deleteAll();
+    @BeforeEach
+    void setup() throws SQLException {
+        // 기존 데이터 전체 삭제 (필요 시 주석 해제)
+        retailerMapper.deleteAll();
 
-		// 2) 테스트용 RetailerDTO 생성 (시퀀스는 doSave의 selectKey가 처리)
-		RetailerDTO initial = new RetailerDTO(0, // retailerCode: dummy, 실제 PK는 doSave selectKey에서 할당됨
-				"아반떼", // productName
-				"현대 강남대리점", // retailerName
-				"현대", // carMf
-				"서울", // area
-				"서울 강남구 테헤란로 123", // address
-				"02-123-4567", // telephone
-				new Date(System.currentTimeMillis()), // regDt
-				"admin", // regId
-				new Date(System.currentTimeMillis()), // modDt
-				"admin" // modId
-		);
+        // 테스트용 DTO 생성
+        RetailerDTO initial = new RetailerDTO(0, // dummy 코드
+                "아반떼", 
+                "현대 강남대리점", 
+                "현대", 
+                "서울", 
+                "서울 강남구 테헤란로 123", 
+                "02-123-4567", 
+                new Date(System.currentTimeMillis()), 
+                "admin", 
+                new Date(System.currentTimeMillis()), 
+                "admin");
 
-		// 3) 삽입 (doSave의 selectKey가 initial.retailerCode를 세팅)
-		retailerMapper.doSave(initial);
+        // 저장 및 시퀀스 코드 획득
+        retailerMapper.doSave(initial);
+        this.retailerCode = initial.getRetailerCode(); // 시퀀스 값으로 실제 PK 설정
+    }
 
-		// 4) 초기 데이터의 실제 PK를 꺼내 테스트에 사용
-		this.retailerCode = initial.getRetailerCode();
-	}
+    @Test
+    void getAll() {
+        List<RetailerDTO> list = retailerService.getAll();
+        assertNotNull(list);
+        System.out.println("▶ getAll(): " + list);
+    }
 
-	@Test
-	void getAll() {
-		List<RetailerDTO> list = retailerService.getAll();
-		assertNotNull(list);
-	}
+    @Test
+    void getOne() {
+        RetailerDTO dto = retailerService.getOne(retailerCode);
+        assertNotNull(dto);
+        System.out.println("▶ getOne(): " + dto);
+    }
 
-	@Test
-	void getOne() {
-		RetailerDTO dto = retailerService.getOne(retailerCode);
-		System.out.println("테스트 조회 결과 → " + dto);
-		assertNotNull(dto);
-	}
+    @Test
+    void doRetrieveByCarMfList() {
+        List<String> brands = Arrays.asList("현대");
+        List<RetailerDTO> list = retailerService.doRetrieveByCarMfList(brands);
+        assertNotNull(list);
+        System.out.println("▶ doRetrieveByCarMfList(): " + list);
+    }
 
-	@Test
-	void doRetrieveByCarMfList() {
-		List<String> brands = Arrays.asList("현대"); // ✅ 이렇게!
-		List<RetailerDTO> list = retailerService.doRetrieveByCarMfList(brands);
-		assertNotNull(list);
-	}
+    @Test
+    void doSave() {
+        RetailerDTO newDto = new RetailerDTO(0, 
+                "소나타", 
+                "현대 서초대리점", 
+                "현대", 
+                "서울", 
+                "서울 서초구 서초대로 456", 
+                "02-987-6543", 
+                new Date(System.currentTimeMillis()), 
+                "testuser", 
+                new Date(System.currentTimeMillis()), 
+                "testuser");
 
+        int result = retailerService.doSave(newDto);
+        assertEquals(1, result);
+        System.out.println("▶ doSave() 성공 여부: " + result);
+    }
+
+    @Test
+    void doUpdate() {
+        RetailerDTO updateDto = retailerService.getOne(retailerCode);
+        updateDto.setRetailerName("현대 삼성지점");
+        updateDto.setModId("tester");
+
+        int result = retailerService.doUpdate(updateDto);
+        assertEquals(1, result);
+        System.out.println("▶ doUpdate() 성공 여부: " + result);
+    }
+
+    @Test
+    void doDelete() {
+        RetailerDTO dto = retailerService.getOne(retailerCode);
+        int result = retailerService.doDelete(dto);
+        assertEquals(1, result);
+        System.out.println("▶ doDelete() 성공 여부: " + result);
+    }
+
+    @Test
+    void getRetailerCount() {
+        int count = retailerService.getRetailerCount();
+        assertNotNull(count);
+        System.out.println("▶ getRetailerCount(): " + count);
+    }
+
+    @Test
+    void getRetailerSeq() {
+        int seq = retailerService.getRetailerSeq();
+        assertNotNull(seq);
+        System.out.println("▶ getRetailerSeq(): " + seq);
+    }
+
+    @Test
+    void getRetailersByPage() {
+        List<RetailerDTO> list = retailerService.getRetailersByPage(1, 10);
+        assertNotNull(list);
+        System.out.println("▶ getRetailersByPage(): " + list);
+    }
+
+    @Test
+    void getRetailerById() {
+        RetailerDTO dto = retailerService.getRetailerById(retailerCode);
+        assertNotNull(dto);
+        System.out.println("▶ getRetailerById(): " + dto);
+    }
+
+    @Test
+    void getAllRetailers() {
+        List<RetailerDTO> list = retailerService.getAllRetailers();
+        assertNotNull(list);
+        System.out.println("▶ getAllRetailers(): " + list);
+    }
 }
