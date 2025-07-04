@@ -4,6 +4,18 @@ import com.google.common.base.Strings;
 
 public class PcwkString {
 	
+	/**
+	 * null,"" 입력되면 default value로 변경
+	 * @param value
+	 * @param defaultValue
+	 * @return
+	 */
+	public static String nvlString(String value, String defaultValue) {
+		if(Strings.isNullOrEmpty(value) == true) {
+			return defaultValue;
+		}
+		return value;
+	}
 	
 	/**
 	 * value가 0이면 defaultValue 리턴
@@ -15,8 +27,6 @@ public class PcwkString {
 		return(value==0)? defaultValue:value;
 		
 	}
-	
-	
 	
 	/**
 	 * null 또는 빈 문자열인지 체크
@@ -35,9 +45,6 @@ public class PcwkString {
 		return Strings.nullToEmpty(str);
 		
 	}
-
-
-
 
 
 }

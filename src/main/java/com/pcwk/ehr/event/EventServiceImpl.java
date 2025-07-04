@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pcwk.ehr.board;
+package com.pcwk.ehr.event;
 
 import java.util.List;
 
@@ -11,41 +11,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pcwk.ehr.cmn.SearchDTO;
-import com.pcwk.ehr.mapper.BoardMapper;
+import com.pcwk.ehr.mapper.EventMapper;
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public class EventServiceImpl implements EventService {
+
 	Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
-	BoardMapper mapper;
+	EventMapper mapper;
 
-	public BoardServiceImpl() {
+	public EventServiceImpl() {
 	}
 
 	@Override
-	public List<BoardDTO> doRetrieve(SearchDTO param) {
+	public List<EventDTO> doRetrieve(SearchDTO param) {
 		// TODO Auto-generated method stub
 		return mapper.doRetrieve(param);
 	}
 
 	@Override
-	public int doDelete(BoardDTO param) {
+	public int doDelete(EventDTO param) {
 		return mapper.doDelete(param);
 	}
 
 	@Override
-	public int doUpdate(BoardDTO param) {
+	public int doUpdate(EventDTO param) {
 		return mapper.doUpdate(param);
 	}
 
 	@Override
-	public int doSave(BoardDTO param) {
+	public int doSave(EventDTO param) {
 		return mapper.doSave(param);
 	}
 
 	@Override
-	public BoardDTO doSelectOne(BoardDTO param) {
+	public EventDTO doSelectOne(EventDTO param) {
 		// 단건 조회 + 조회 COUNT 증가
 
 		int flag = mapper.updateReadCnt(param);
@@ -56,7 +57,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int updateReadCnt(BoardDTO param) {
+	public int updateReadCnt(EventDTO param) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -68,7 +69,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int getBoardSeq() {
+	public int getEventSeq() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

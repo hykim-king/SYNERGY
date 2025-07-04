@@ -30,19 +30,18 @@
         nav a:hover {
             text-decoration: underline;
         }
-        /* 서브 메뉴 스타일 */
-        #submenu {
+        .submenu {
             background-color: #ecf0f1;
             padding: 10px 20px;
-            display: none; /* 기본은 숨김 */
+            display: none;
         }
-        #submenu a {
+        .submenu a {
             margin-right: 15px;
             color: #34495e;
             font-weight: normal;
             text-decoration: none;
         }
-        #submenu a:hover {
+        .submenu a:hover {
             text-decoration: underline;
         }
         main {
@@ -62,12 +61,16 @@
         }
     </style>
     <script>
-        function toggleSubMenu() {
-            const submenu = document.getElementById('submenu');
-            if(submenu.style.display === 'block'){
-                submenu.style.display = 'none';
-            } else {
-                submenu.style.display = 'block';
+        function toggleSubMenu(id) {
+            const submenus = document.querySelectorAll('.submenu');
+            submenus.forEach(menu => {
+                if(menu.id !== id){
+                    menu.style.display = 'none';
+                }
+            });
+            const target = document.getElementById(id);
+            if(target){
+                target.style.display = (target.style.display === 'block') ? 'none' : 'block';
             }
         }
     </script>
@@ -77,8 +80,8 @@
     <h1>관리자 페이지</h1>
 </header>
 <nav>
-    <a href="javascript:void(0)" onclick="toggleSubMenu()">회원 관리</a>
-    <a href="#">차량 정보 관리</a>
+    <a href="javascript:void(0)" onclick="toggleSubMenu('memberSubmenu')">회원 관리</a>
+    <a href="javascript:void(0)" onclick="toggleSubMenu('carSubmenu')">차량 관리</a>
     <a href="#">리테일러 정보 관리</a>
     <a href="#">시승 신청 관리</a>
     <a href="#">정비 신청 관리</a>
@@ -87,11 +90,16 @@
     <a href="${pageContext.request.contextPath}/member/logout.do" style="float:right;">로그아웃</a>
 </nav>
 
-<!-- 회원 관리 하위 메뉴 -->
-<div id="submenu">
+<!-- 회원 관리 서브 메뉴 -->
+<div id="memberSubmenu" class="submenu">
     <a href="${pageContext.request.contextPath}/admin/member/registerView.do">회원 등록</a>
     <a href="${pageContext.request.contextPath}/admin/member/list.do">회원 조회</a>
-    <!-- 수정/삭제는 일반적으로 목록에서 해당 항목 클릭해서 처리하므로 메뉴에서 따로 분리 안 하는 게 보통입니다 -->
+</div>
+
+<!-- 🚗 차량 관리 서브 메뉴 -->
+<div id="carSubmenu" class="submenu">
+    <a href="${pageContext.request.contextPath}/admin/car/add.do">차량 등록</a>
+    <a href="${pageContext.request.contextPath}/admin/car/list.do">차량 목록</a>
 </div>
 
 <main>
@@ -101,6 +109,7 @@
     </div>
     <p>여기서 회원 관리, 차량 정보 관리 등 여러 관리 작업을 수행할 수 있습니다.</p>
 </main>
+
 <footer>
     &copy; 2025 Your Company. All rights reserved.
 </footer>

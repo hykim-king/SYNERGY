@@ -1,18 +1,17 @@
-
-package com.pcwk.ehr.board;
+package com.pcwk.ehr.event;
 
 import java.util.List;
 
 import com.pcwk.ehr.cmn.SearchDTO;
 
-public interface BoardService {
+public interface EventService {
 	/**
 	 * 조회 count증가(단, 본인글 이외 글만)
 	 * 
 	 * @param param
 	 * @return 반경 건수
 	 */
-	int updateReadCnt(BoardDTO param);
+	int updateReadCnt(EventDTO param);
 
 	/**
 	 * 다건 등록
@@ -26,7 +25,7 @@ public interface BoardService {
 	 * 
 	 * @return
 	 */
-	int getBoardSeq();
+	int getEventSeq();
 
 	void deleteAll();
 
@@ -38,7 +37,7 @@ public interface BoardService {
 	 * @param param
 	 * @return List<T>
 	 */
-	List<BoardDTO> doRetrieve(SearchDTO param);
+	List<EventDTO> doRetrieve(SearchDTO param);
 
 	/**
 	 * 단건 삭제
@@ -46,7 +45,7 @@ public interface BoardService {
 	 * @param param
 	 * @return 성공(1)/실패(0)
 	 */
-	int doDelete(BoardDTO param);
+	int doDelete(EventDTO param);
 
 	/**
 	 * 수정
@@ -54,7 +53,7 @@ public interface BoardService {
 	 * @param param
 	 * @return 성공(1)/실패(0)
 	 */
-	int doUpdate(BoardDTO param);
+	int doUpdate(EventDTO param);
 
 	/**
 	 * 단건조회
@@ -62,7 +61,7 @@ public interface BoardService {
 	 * @param param
 	 * @return T
 	 */
-	BoardDTO doSelectOne(BoardDTO param);
+	EventDTO doSelectOne(EventDTO param);
 
 	/**
 	 * 단건등록
@@ -70,6 +69,6 @@ public interface BoardService {
 	 * @param param
 	 * @return 1(성공)/0(실패)
 	 */
-	int doSave(BoardDTO param);
+	int doSave(EventDTO param);
 
 }

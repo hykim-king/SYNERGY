@@ -7,57 +7,79 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.pcwk.ehr.cmn.DTO;
-import com.pcwk.ehr.cmn.WorkDiv;
+import com.pcwk.ehr.board.BoardDTO;
+import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.event.EventDTO;
 
 @Mapper
-public interface EventMapper extends WorkDiv<EventDTO> {
+public interface EventMapper {
 
 	/**
-	 * 조건 검색
+	 * 조회 count증가(단, 본인글 이외 글만)
 	 * 
-	 * @param param 검색조건 포함 DTO
-	 * @return 검색 결과 리스트
+	 * @param param
+	 * @return 반경 건수
 	 */
-	List<EventDTO> doRetrieve(DTO param);
+	int updateReadCnt(EventDTO param);
 
 	/**
-	 * 전체 이벤트 조회
+	 * 다건 등록
 	 * 
-	 * @return 이벤트 전체 목록
+	 * @return 등록건수
 	 */
-	List<EventDTO> selectAll();
+	int saveAll();
 
 	/**
-	 * 단건 이벤트 조회
+	 * sequence 조회
 	 * 
-	 * @param ecode 이벤트 코드
-	 * @return 해당 이벤트 DTO
+	 * @return
 	 */
-	EventDTO selectOne(String ecode);
+	int getEventSeq();
 
+	void deleteAll();
+
+	int getCount();
+	
 	/**
-	 * 이벤트 등록
+	 * 목록 조회
 	 * 
-	 * @param param 등록할 이벤트 DTO
+	 * @param param
+	 * @return List<T>
 	 */
-	void doInsert(EventDTO param);
+	List<EventDTO> doRetrieve(SearchDTO param);
 
 	/**
-	 * 이벤트 수정
+	 * 단건 삭제
 	 * 
-	 * @param param 수정할 이벤트 DTO
-	 * @return 수정 건 수
+	 * @param param
+	 * @return 성공(1)/실패(0)
+	 */
+	int doDelete(EventDTO param);
+
+	/**
+	 * 수정
+	 * 
+	 * @param param
+	 * @return 성공(1)/실패(0)
 	 */
 	int doUpdate(EventDTO param);
 
 	/**
-	 * 이벤트 삭제
+	 * 단건조회
 	 * 
-	 * @param param 삭제할 이벤트 DTO
-	 * @return 삭제 건 수
+	 * @param param
+	 * @return T
 	 */
-	int doDelete(EventDTO param);
+	EventDTO doSelectOne(EventDTO param);
+
+	/**
+	 * 단건등록
+	 * 
+	 * @param param
+	 * @return 1(성공)/0(실패)
+	 */
+	int doSave(EventDTO param);
+
+
 
 }
