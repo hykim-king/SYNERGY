@@ -74,6 +74,38 @@ public class CarAdminController implements PLog{
 		return "redirect:/admin/main.do";
 	}
 	
+	@PostMapping("/delete.do")
+	public String deleteCar(@RequestParam("carCode") int carCode) {
+		 log.debug("차량 삭제 요청 carCode: {}", carCode);
+		 
+		 int flag = carService.deleteById(carCode);
+		 
+		 if(flag > 0) {
+		        log.debug("차량 삭제 성공");
+		    } else {
+		        log.debug("차량 삭제 실패");
+		    }
+		 
+		 return "redirect:/admin/main.do";
+	}
 	
-
+	@GetMapping("/updateView.do")
+	public String updateCarView(@RequestParam("carCode") int carCode, Model model) {
+		log.debug("차량 수정 화면 요청 carCode: {}", carCode);
+		
+		CarDTO car = carService.getCarById(carCode);
+		model.addAttribute("car", car);
+		
+		return "admin/car/updateCar";
+	}
+	
+	@PostMapping("update.do")
+	public String updateCar(@ModelAttribute CarDTO car) {
+		
+		//int flag = carService.
+		
+		
+		return "redirect:/admin/main.do";
+	}
+	
 }
