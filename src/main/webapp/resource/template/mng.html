@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+<html>  
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../css/form.css">
+<title>게시글 관리</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+ <script src="../js/common.js"></script>
+</head>
+<body>     
+    <div class="form-container">
+    <h2>게시글 관리</h2>     
+    <hr class="title-underline">
+       
+    <!-- Button area -->
+    <div  class="button-area">
+        
+        <input type="button" id="moveToList" value="목록">
+        <input type="button" id="doUpdate"     value="수정">
+        <input type="button" id="doDelete"     value="삭제">
+    </div>
+    <!--// Button area -->
+    
+    <!-- form area -->
+    <form action="/ehr/user/doSave.do" method="post" >
+        <div class="form-group">
+            <label for="userId">제목</label>
+            <input type="text"  maxlength="50" name="title" id="title" >
+        </div>
+        <div class="form-group">
+            <label for="name">조회수</label>
+            <input type="text"  maxlength="9" name="readCnt" id="readCnt" >
+        </div>         
+        <div class="form-group">
+            <label for="name">등록일</label>
+            <input type="text"   name="regDt" id="regDt" disabled>
+        </div>   
+        <div class="form-group">
+            <label for="name">등록자</label>
+            <input type="text"  maxlength="30" name="regId" id="regId" disabled="disabled" >
+        </div>                
+   
+        <div class="form-group">
+            <label  for="contents">내용</label>
+            <textarea class="contents" id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+        </div>                                
+    </form>
+    <!--// form area -->
+  </div>  
+</body>
+</html>
