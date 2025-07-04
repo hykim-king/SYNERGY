@@ -1,4 +1,4 @@
-package com.pcwk.ehr.drive;
+package com.pcwk.ehr.repair;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -12,26 +12,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.pcwk.ehr.mapper.DriveResMapper;
+import com.pcwk.ehr.mapper.RepairResMapper;
 
-public class DriveResServiceTest {
+public class RepairResServiceTest {
 
-    Logger log = LogManager.getLogger(getClass());
+    private final Logger log = LogManager.getLogger(getClass());
 
-    private DriveResServiceImpl service;
-    private DriveResMapper mockMapper;
+    private RepairResServiceImpl service;
+    private RepairResMapper mockMapper;
 
     @BeforeEach
     void setUp() {
-        mockMapper = Mockito.mock(DriveResMapper.class);
-        service = new DriveResServiceImpl();
+        mockMapper = Mockito.mock(RepairResMapper.class);
+        service = new RepairResServiceImpl();
         service.setMapper(mockMapper); // 수동 의존성 주입
     }
 
     @Test
     void testDoSave() {
-        DriveResDTO dto = new DriveResDTO("user01", "가민경", "010-1111-2222",
-                1001, 2001, Date.valueOf("2025-07-03"),
+        RepairResDTO dto = new RepairResDTO("user01", "가민경", "010-2222-3333",
+                1001, 2001, Date.valueOf("2025-07-03"), "엔진 점검 요청",
                 Date.valueOf("2025-07-02"), "admin", Date.valueOf("2025-07-02"), "admin");
 
         when(mockMapper.doSave(dto)).thenReturn(1);
@@ -44,9 +44,9 @@ public class DriveResServiceTest {
 
     @Test
     void testDoUpdate() {
-        DriveResDTO dto = new DriveResDTO("user01", "김수정", "010-9999-8888",
-                1001, 2001, Date.valueOf("2025-07-05"),
-                Date.valueOf("2025-07-01"), "admin", Date.valueOf("2025-07-04"), "admin");
+        RepairResDTO dto = new RepairResDTO("user01", "변경된이름", "010-9999-8888",
+                1001, 2001, Date.valueOf("2025-07-05"), "브레이크 점검",
+                Date.valueOf("2025-07-02"), "admin", Date.valueOf("2025-07-04"), "admin");
 
         when(mockMapper.doUpdate(dto)).thenReturn(1);
         when(mockMapper.doSelectOne(dto)).thenReturn(dto);
@@ -54,17 +54,17 @@ public class DriveResServiceTest {
         int result = service.doUpdate(dto);
 
         log.debug("🛠️ testDoUpdate() result = {}", result);
-        log.debug("    ↳ name: {}, phone: {}", dto.getName(), dto.getPhone());
+        log.debug("    ↳ name: {}, desc: {}", dto.getName(), dto.getRepairDesc());
 
         assertEquals(1, result);
-        assertEquals("김수정", dto.getName());
-        assertEquals("010-9999-8888", dto.getPhone());
+        assertEquals("변경된이름", dto.getName());
+        assertEquals("브레이크 점검", dto.getRepairDesc());
     }
 
     @Test
     void testDoDelete() {
-        DriveResDTO dto = new DriveResDTO();
-        dto.setResNo(123);
+        RepairResDTO dto = new RepairResDTO();
+        dto.setRepairNo(123); // 삭제는 repairNo만 있으면 됨
 
         when(mockMapper.doDelete(dto)).thenReturn(1);
 

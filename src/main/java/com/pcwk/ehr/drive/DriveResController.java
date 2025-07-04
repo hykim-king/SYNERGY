@@ -1,6 +1,5 @@
 package com.pcwk.ehr.drive;
 
-
 import org.apache.logging.log4j.Logger;
 import org.checkerframework.common.reflection.qual.GetClass;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +15,11 @@ import com.pcwk.ehr.member.MemberDTO;
 import com.pcwk.ehr.retailer.RetailerDTO;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.pcwk.ehr.cmn.DTO;
-import com.pcwk.ehr.mapper.DriveResMapper;
-import com.pcwk.ehr.member.MemberDTO;
 
 @Controller
 @RequestMapping("/drive")
@@ -163,5 +148,24 @@ public class DriveResController {
         model.addAttribute("drive", out);
         return "drive/driveDetail"; // 상세 페이지
     }
+    
+    @PostMapping("/update.do")
+    public String updateDrive(DriveResDTO dto, Model model) {
+        int flag = driveResMapper.doUpdate(dto);
+        model.addAttribute("dto", dto);
+        model.addAttribute("success", flag == 1);
+        return "drive/driveResult";
+    }
+
+    @GetMapping("/delete.do")
+    public String deleteDrive(@RequestParam("resNo") int resNo, Model model) {
+        DriveResDTO dto = new DriveResDTO();
+        dto.setResNo(resNo);
+        int flag = driveResMapper.doDelete(dto);
+        model.addAttribute("success", flag == 1);
+        return "drive/driveResult";
+    }
+    
+    
 
 }
