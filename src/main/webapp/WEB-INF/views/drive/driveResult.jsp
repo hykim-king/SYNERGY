@@ -22,8 +22,9 @@
         </c:otherwise>
     </c:choose>
 
+<div style="margin-top: 20px;">
     <p>
-      <a href="<c:url value='/drive/form.do'/>">시승신청 다시하기</a> |
+      <a href="<c:url value='/drive/메인주소넣기'/>">메인으로 가기</a> |
       <a href="<c:url value='/drive/list.do'/>">내 신청 목록 보기</a>
     </p>
 </body>
