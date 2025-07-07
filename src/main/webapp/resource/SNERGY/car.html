@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>차량 관리</title>
+    <!-- CSS 연결 -->
+    <link rel="stylesheet" type="text/css" href="css/car.css" />
+  </head>
+  <body>
+    <!-- 상단 헤더: 필터(전체, 브랜드) 및 검색창 -->
+    <div class="header">
+      <div class="filters">
+        <button id="btn-all">전체</button>
+        <select id="brand-select">
+          <option value="">브랜드</option>
+          <option value="Hyundai">Hyundai</option>
+          <option value="Kia">Kia</option>
+          <option value="Tesla">Tesla</option>
+        </select>
+        <input type="text" id="search" placeholder="검색어" />
+        <button id="btn-search">🔍</button>
+      </div>
+    </div>
+
+    <!-- 메인 컨텐츠: 사이드바 + 카드 그리드 + 하단 페이징 -->
+    <div class="container">
+      <aside class="sidebar">
+        <ul>
+          <li id="nav-all">전체 목록</li>
+          <li id="nav-brand">브랜드별</li>
+          <li id="nav-create">신규 등록</li>
+        </ul>
+      </aside>
+      <main class="main">
+        <div class="card-grid" id="card-grid">
+          <!-- 카드 예시 -->
+          <div class="card" data-car-code="101">
+            <img src="https://via.placeholder.com/200x120" alt="차량 이미지" />
+            <div class="info">
+              <h4>Kia K5</h4>
+              <p>연식: 2022</p>
+              <p>가격: 27,500,000원</p>
+              <p>재고: 12대</p>
+            </div>
+          </div>
+          <!-- 추가 카드 반복 -->
+        </div>
+        <!-- 페이징: 카드 그리드 아래쪽에 항상 표시 -->
+        <div class="bottom-pagination pagination">
+          <button id="prev-page">◀ 이전</button>
+          <span id="page-numbers">1 | 2 | 3 | 4</span>
+          <button id="next-page">다음 ▶</button>
+        </div>
+      </main>
+    </div>
+
+    <!-- 상세 정보 Drawer -->
+    <div class="drawer" id="drawer">
+      <div class="header">
+        <h3>차량 상세</h3>
+        <button id="btn-close">×</button>
+      </div>
+      <div class="content" id="drawer-content">
+        <p>카드를 클릭하여 상세 정보를 확인하세요.</p>
+      </div>
+    </div>
+
+    <script>
+      // 카드 클릭 시 상세 정보 로드 및 Drawer 열기
+      document.querySelectorAll(".card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const code = card.getAttribute("data-car-code");
+          fetch(`/car/detail?carCode=${code}`)
+            .then((res) => res.text())
+            .then((html) => {
+              document.getElementById("drawer-content").innerHTML = html;
+              document.getElementById("drawer").classList.add("open");
+            })
+            .catch((err) => console.error(err));
+        });
+      });
+      // Drawer 닫기 버튼
+      document.getElementById("btn-close").addEventListener("click", () => {
+        document.getElementById("drawer").classList.remove("open");
+      });
+    </script>
+  </body>
+</html>
