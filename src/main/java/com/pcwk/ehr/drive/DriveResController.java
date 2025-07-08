@@ -63,20 +63,33 @@ public class DriveResController {
     /**
      * 시승 신청 화면 보여주기 (테스트용 세션 포함)
      */
-    @GetMapping("/form.do")
-    public String showForm(HttpSession session, Model model) {
-       //   테스트용 임시 로그인 세션 삽입
-        if (session.getAttribute("login") == null) {
-            MemberDTO dummyLogin = new MemberDTO();
-            dummyLogin.setId("testUserAgain");
-            dummyLogin.setName("테스트유저또해");
-            session.setAttribute("login", dummyLogin);
-        }
+//    @GetMapping("/form.do")
+//    public String showForm(HttpSession session, Model model) {
+//       //   테스트용 임시 로그인 세션 삽입
+//        if (session.getAttribute("login") == null) {
+//            MemberDTO dummyLogin = new MemberDTO();
+//            dummyLogin.setId("testUserAgain");
+//            dummyLogin.setName("테스트유저또해");
+//            session.setAttribute("login", dummyLogin);
+//        }
 
+        // 추후 실서비스 시
+        // (위의 세션 삽입 코드 제거)
    
+        @GetMapping("/form.do")
+        public String showForm(HttpSession session, Model model) {
+        MemberDTO login = (MemberDTO) session.getAttribute("loginUser");
+/*            if (login == null) {
+                return "redirect:/member/login.do";
+            }
+            model.addAttribute("loginId", login.getId());
+            return "drive/driveForm";
+        }
+        */
+        
         
         //  로그인 검사
-        MemberDTO login = (MemberDTO) session.getAttribute("login");
+   //     MemberDTO login = (MemberDTO) session.getAttribute("login");
         if (login == null) {
             return "redirect:/member/loginView.do";
         }
@@ -85,20 +98,6 @@ public class DriveResController {
         model.addAttribute("loginId", login.getId());
         return "drive/driveForm"; // → /WEB-INF/views/drive/driveForm.jsp
     }
-
-    // 추후 실서비스 시
-    // (위의 세션 삽입 코드 제거)
-    /*
-    @GetMapping("/form.do")
-    public String showForm(HttpSession session, Model model) {
-        MemberDTO login = (MemberDTO) session.getAttribute("login");
-        if (login == null) {
-            return "redirect:/member/login.do";
-        }
-        model.addAttribute("loginId", login.getId());
-        return "drive/driveForm";
-    }
-    */
 
 
 
