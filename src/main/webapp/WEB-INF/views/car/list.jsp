@@ -323,30 +323,17 @@
 
     <main>
 <section class="slider">
-  <div class="slide active">
-    <img src="${pageContext.request.contextPath}/image/2024kiaK9.png" alt="2024kiaK9">
-  </div>
-  <div class="slide">
-    <img src="${pageContext.request.contextPath}/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S">
-  </div>
-  <div class="slide">
-    <img src="${pageContext.request.contextPath}/image/2025 팰리세이드.png" alt="2025 팰리세이드">
-  </div>
-  <div class="slide">
-    <img src="${pageContext.request.contextPath}/image/2025 메르세데스-벤츠 G클래스.png" alt="2025 메르세데스-벤츠 G클래스" >
-  </div>
-  <div class="slide">
-    <img src="${pageContext.request.contextPath}/image/볼보_XC40.png" alt="볼보 XC40" >
-  </div>
-  <div class="slide">
-    <img src="${pageContext.request.contextPath}/image/지프_어벤저 EV.png" alt="지프 어벤저 EV" >
-  </div>
+  <c:forEach var="car" items="${carList}" varStatus="status">
+    <div class="slide${status.first ? ' active' : ''}">
+      <img src="${pageContext.request.contextPath}/image/${car.imageFileName}" alt="${car.productName}" />
+      <div>${car.productName}</div>
+    </div>
+  </c:forEach>
   <div class="nav">
     <button id="prev">&#10094;</button>
     <button id="next">&#10095;</button>
   </div>
 </section>
-
       <!-- 기존 환영 문구 (필요시 삭제하거나 슬라이더 아래로 이동) -->
       <section style="text-align: center; margin-bottom: 40px">
         <h2>환영합니다!</h2>
