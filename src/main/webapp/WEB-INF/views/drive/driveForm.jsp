@@ -32,19 +32,19 @@
 		<br>
 
 		<!-- 제조사 선택 -->
-		<label>자동차 브랜드:</label> <select id="carMf" name="dummy">
+		<label>자동차 브랜드:</label> <select id="carMf" name="dummy" required>
 			<option value="">-- 선택 --</option>
 		</select><br>
 		<br>
 
 		<!-- 차량 선택 -->
-		<label>제품명</label> <select id="product" name="dummy">
+		<label>제품명</label> <select id="product" name="dummy" required>
 			<option value="">-- 선택 --</option>
 		</select><br>
 		<br>
 
 		<!-- 업체 선택 -->
-		<table border="1" id="retailerTable">
+		<table border="1" id="retailerTable" >
 			<thead>
 				<tr>
 					<th>선택</th>
@@ -100,82 +100,53 @@
 					});
 
 			// (3) 제품명 선택 시: carCode 설정 + 업체 리스트 표시
-			$('#product')
-					.change(
-							function() {
-								const mf = $('#carMf').val();
-								const prod = $(this).find('option:selected')
-										.text();
-								const carCode = $(this).val();
+			$('#product').change(function () {
+				  const mf = $('#carMf').val();
+				  const prod = $(this).find('option:selected').text();
+				  const carCode = $(this).val();
 
-								if (carCode) {
-									$('#carCode').val(carCode);
-								} else {
-									$('#carCode').val('');
-								}
+				  // carCode 설정
+				  $('#carCode').val(carCode || '');
 
-								$('#retailerCode').val('');
-								$('#retailerTable tbody').empty();
+				  // 이전 선택 초기화
+				  $('#retailerCode').val('');
+				  $('#retailerTable tbody').empty();
 
-								if (!prod)
-									return;
+				  if (!prod) return;
 
-								$
-										.getJSON(
-												'retailerList.do',
-												{
-													productName : prod
-												},
-												function(list) {
-													list
-															.forEach(function(r) {
-																const $tr = $(
-																		'<tr>')
-																		.append(
-																				$(
-																						'<td>')
-																						.append(
-																								$(
-																										'<input type="radio" name="retailerRadio"/>')
-																										.val(
-																												r.retailerCode)
-																										.click(
-																												function() {
-																													$(
-																															'#retailerCode')
-																															.val(
-																																	r.retailerCode);
-																												})))
-																		.append(
-																				$(
-																						'<td>')
-																						.text(
-																								r.retailerName))
-																		.append(
-																				$(
-																						'<td>')
-																						.text(
-																								r.area))
-																		.append(
-																				$(
-																						'<td>')
-																						.text(
-																								r.address))
-																		.append(
-																				$(
-																						'<td>')
-																						.text(
-																								r.telephone));
-																$(
-																		'#retailerTable tbody')
-																		.append(
-																				$tr);
-															});
-												});
-							});
-		});
-	</script>
+				  // 업체 리스트 불러오기
+				  $.getJSON('retailerList.do', { productName: prod }, function (list) {
+				    list.forEach(function (r) {
+				      const $radio = $('<input>')
+				        .attr('type', 'radio')
+				        .attr('name', 'retailerRadio')
+				        .val(r.retailerCode)
+				        .on('click', function () {
+				          $('#retailerCode').val(r.retailerCode);
+				        });
 
+				      const $tr = $('<tr>')
+				        .append($('<td>').append($radio))
+				        .append($('<td>').text(r.retailerName))
+				        .append($('<td>').text(r.area))
+				        .append($('<td>').text(r.address))
+				        .append($('<td>').text(r.telephone));
+
+				      $('#retailerTable tbody').append($tr);
+				    });
+				  });
+				});
+                              	});
+		
+             // 업체명 필수값 (테이블은 리콰이어 불가능)
+             $("form").on("submit", function (e) {
+               if (!$("input[name='retailerRadio']:checked").length) {
+                 alert("업체를 선택해주세요.");
+                 e.preventDefault();
+               }
+             });
+             	</script>
+             
 
 
 </body>
