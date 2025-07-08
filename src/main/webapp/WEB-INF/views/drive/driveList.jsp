@@ -21,10 +21,10 @@
                 <th>회원ID</th>
                 <th>이름</th>
                 <th>연락처</th>
-                <th>차량코드</th>
-                <th>업체코드</th>
-                <th>시승일</th>
-                <th>등록일</th>
+                <th>브랜드</th>
+                <th>차량명</th>
+                <th>업체명</th>
+                <th>시승신청일</th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +34,10 @@
                     <td>${dto.id}</td>
                     <td>${dto.name}</td>
                     <td>${dto.phone}</td>
-                    <td>${dto.carCode}</td>
-                    <td>${dto.retailerCode}</td>
-                    <td><fmt:formatDate value="${dto.driveDate}" pattern="yyyy-MM-dd"/></td>
-                    <td><fmt:formatDate value="${dto.regDt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                    <td>${dto.carMf}</td>
+                    <td>${dto.productName}</td>
+                    <td>${dto.retailerName}</td>
+                    <td><fmt:formatDate value="${dto.driveDate}" pattern="yyyy-MM-dd" /></td>
                 </tr>
             </c:forEach>
         </tbody>
