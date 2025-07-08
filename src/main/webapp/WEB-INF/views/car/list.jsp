@@ -102,11 +102,13 @@
       }
 /* 슬라이더 컨테이너 설정 */
 .slider {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #f7f7f7;
-  min-height: 440px;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 400px; /* 원하는 만큼 늘리기 */
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f4f6f8;
 }
       .slide {
         position: static;
@@ -136,17 +138,17 @@
         border-radius: 50%;
       }
 /* 슬라이드 내부 이미지 공통 스타일 */
-.slider .slide img {
-  display: block;
-  margin: 0 auto;
-  width: 380px;   /* 원하는 고정 width */
-  height: 220px;  /* 원하는 고정 height */
-  object-fit: contain; /* 비율 유지하며 내부에 맞춤 */
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.06);
-}
-    </style>
+    .slider .slide img {
+      display: block;
+      margin: 0 auto;
+      width: 480px;
+      height: 260px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+  </style>
 
 
     <!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
