@@ -151,4 +151,31 @@ public class CarServiceImpl implements CarService {
         return carMapper.getOne(carCode);
     }
 
+	@Override
+	public List<CarDTO> getCarsByPageWithSearch(int pageNum, int pageSize, String searchType, String searchWord) {
+		log.debug("getCarsByPageWithSearch 호출: pageNum={}, pageSize={}, searchType={}, searchWord={}",
+                pageNum, pageSize, searchType, searchWord);
+
+      int offset = (pageNum - 1) * pageSize;
+
+      Map<String, Object> params = new HashMap<>();
+      params.put("offset", offset);
+      params.put("pageSize", pageSize);
+      params.put("searchType", searchType);
+      params.put("searchWord", searchWord);
+
+      return carMapper.getCarsByPageWithSearch(params);
+	}
+
+	@Override
+	public int getCarCountWithSearch(String searchType, String searchWord) {
+		 log.debug("getCarCountWithSearch 호출: searchType={}, searchWord={}", searchType, searchWord);
+
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("searchType", searchType);
+	        params.put("searchWord", searchWord);
+
+	        return carMapper.getCarCountWithSearch(params);
+	}
+
 }
