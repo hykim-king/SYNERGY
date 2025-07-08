@@ -184,4 +184,58 @@
     )
     WHERE rn &gt; #{offset}
 </select>
+
+<select id="getCarsByPageWithSearch" parameterType="map" resultType="com.pcwk.ehr.car.CarDTO">
+  SELECT * FROM car
+  WHERE
+    <choose>
+      <when test="searchType == 'productName'">
+        <![CDATA[
+          product_name LIKE '%' || #{searchWord} || '%'
+        ]]>
+      </when>
+      <when test="searchType == 'carMf'">
+        <![CDATA[
+          car_mf LIKE '%' || #{searchWord} || '%'
+        ]]>
+      </when>
+      <when test="searchType == 'fuel'">
+        <![CDATA[
+          fuel LIKE '%' || #{searchWord} || '%'
+        ]]>
+      </when>
+      <otherwise>
+        1=1
+      </otherwise>
+    </choose>
+  ORDER BY car_code
+  OFFSET #{offset} ROWS FETCH NEXT #{pageSize} ROWS ONLY
+</select>
+
+<select id="getCarCountWithSearch" parameterType="map" resultType="int">
+  SELECT COUNT(*)
+  FROM car
+  WHERE
+    <choose>
+      <when test="searchType == 'productName'">
+        <![CDATA[
+          product_name LIKE '%' || #{searchWord} || '%'
+        ]]>
+      </when>
+      <when test="searchType == 'carMf'">
+        <![CDATA[
+          car_mf LIKE '%' || #{searchWord} || '%'
+        ]]>
+      </when>
+      <when test="searchType == 'fuel'">
+        <![CDATA[
+          fuel LIKE '%' || #{searchWord} || '%'
+        ]]>
+      </when>
+      <otherwise>
+        1=1
+      </otherwise>
+    </choose>
+</select>
+
 </mapper>
