@@ -55,25 +55,26 @@
 </insert>
   <!-- doUpdate -->
 <update id="doUpdate" parameterType="com.pcwk.ehr.car.CarDTO">
-    UPDATE car
-    SET
-        product_name = #{productName},
-        car_mf       = #{carMf},
-        cartype      = #{cartype},
-        org_fn       = #{orgFn, jdbcType=VARCHAR},
-        mod_fn       = #{modFn, jdbcType=VARCHAR},
-        path         = #{path, jdbcType=VARCHAR},
-        price        = #{price},
-        fuel         = #{fuel},
-        ef           = #{ef},
-        engine       = #{engine, jdbcType=VARCHAR},
-        dpm          = #{dpm, jdbcType=VARCHAR},
-        battery      = #{battery, jdbcType=VARCHAR},
-        mf_dt        = #{mfDt},
-        mod_dt       = #{modDt},
-        mod_id       = #{modId}
-    WHERE
-        car_code = #{carCode}
+  UPDATE CAR
+  SET
+    product_name = #{productName,jdbcType=VARCHAR},
+    car_mf       = #{carMf,jdbcType=VARCHAR},
+    cartype      = #{cartype,jdbcType=VARCHAR},
+    org_fn       = #{orgFn,jdbcType=VARCHAR},
+    mod_fn       = #{modFn,jdbcType=VARCHAR},
+    path         = #{path,jdbcType=VARCHAR},
+    price        = #{price,jdbcType=INTEGER},
+    fuel         = #{fuel,jdbcType=VARCHAR},
+    ef           = #{ef,jdbcType=DOUBLE},
+    engine       = #{engine,jdbcType=VARCHAR},
+    dpm          = #{dpm,jdbcType=INTEGER},
+    battery      = #{battery,jdbcType=DOUBLE},
+    mf_dt        = #{mfDt,jdbcType=INTEGER},
+    reg_dt       = #{regDt,jdbcType=TIMESTAMP},
+    reg_id       = #{regId,jdbcType=VARCHAR},
+    mod_dt       = #{modDt,jdbcType=TIMESTAMP},
+    mod_id       = #{modId,jdbcType=VARCHAR}
+  WHERE car_code = #{carCode,jdbcType=INTEGER}
 </update>
   <!-- doDelete -->
 <delete id="doDelete" parameterType="com.pcwk.ehr.car.CarDTO">
