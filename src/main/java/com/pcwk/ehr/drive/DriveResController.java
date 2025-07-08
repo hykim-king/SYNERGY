@@ -52,6 +52,14 @@ public class DriveResController {
         return driveResMapper.retailerList(productName);
     }
     
+    // 업체 상세보기
+    @GetMapping("/retailer-detail.do")
+    @ResponseBody
+    public RetailerDTO getRetailerDetailFromDrive(@RequestParam("retailerCode") int retailerCode) {
+        RetailerDTO dto = driveResMapper.getRetailerInfoByCode(retailerCode); 
+        return dto;
+    }
+    
     @GetMapping("/getCode.do")
     @ResponseBody
     public int getCode(@RequestParam String carMf,
@@ -86,9 +94,9 @@ public class DriveResController {
             return "drive/driveForm";
         }
         */
+       
         
-        
-        //  로그인 검사
+        //  테스트 로그인 검사
    //     MemberDTO login = (MemberDTO) session.getAttribute("login");
         if (login == null) {
             return "redirect:/member/loginView.do";
@@ -132,19 +140,32 @@ public class DriveResController {
     
     
     /**
-     * 시승 신청 목록 보기 (예: 마이페이지)
+     * 시승 신청 목록 보기 (로그인 정보 추가)
      */
     @GetMapping("/list.do")
-    public String listDrives(Model model) {
-    	DTO search= new DTO();
-        List<DriveResDTO> list = driveResMapper.doRetrieve(search);
-        model.addAttribute("driveList", list);
-        return "drive/driveList"; // 목록 출력 페이지
+    public String list(HttpSession session, Model model) {
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/member/loginView.do";
+        }
+
+        String loginId = loginUser.getId();
+
+        DriveResDTO inDto = new DriveResDTO();
+        inDto.setId(loginId); // 로그인 ID만 설정
+
+        List<DriveResDTO> driveList = driveResMapper.doRetrieveByUser(inDto);
+        model.addAttribute("driveList", driveList);
+
+        return "drive/driveList";
     }
 
+    
+    
     /**
      * 이하 기능 실행 안함
      */
+    
     @GetMapping("/detail.do")
     public String detail(@RequestParam("resNo") int resNo, Model model) {
         DriveResDTO dto = new DriveResDTO();

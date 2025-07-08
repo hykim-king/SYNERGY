@@ -24,7 +24,7 @@
                 <th>브랜드</th>
                 <th>차량명</th>
                 <th>업체명</th>
-                <th>시승신청일</th>
+                <th>시승희망일</th>
             </tr>
         </thead>
         <tbody>
@@ -57,24 +57,26 @@
   <button onclick="document.getElementById('retailerModal').style.display='none'">닫기</button>
 </div>
 
-<!-- 📌 jQuery 필요 (CDN으로 추가) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- 📌 이벤트 스크립트 -->
+
+<!-- jQuery CDN  -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 $(document).ready(function() {
-  $('.retailer-name').on('click', function() {
+  $('.retailer-detail-btn').on('click', function() {
     let code = $(this).data('code');
 
     $.ajax({
-      url: '/ehr/retailer/detail.do',
+      url: '/ehr/drive/retailer-detail.do',
       type: 'GET',
-      data: { code: code },
+      data: { retailerCode: code },
       success: function(data) {
         $('#modalName').text(data.retailerName);
         $('#modalArea').text(data.area);
         $('#modalAddress').text(data.address);
-        $('#modalPhone').text(data.phone);
+        $('#modalPhone').text(data.telephone);
         $('#retailerModal').show();
       },
       error: function() {
