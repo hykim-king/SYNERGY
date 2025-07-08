@@ -26,8 +26,26 @@
     <result column="area"          property="area"/>
     <result column="address"       property="address"/>
     <result column="telephone"     property="telephone"/>
- 
+ </resultMap>
+
+<!-- 아이디값을 반영해서 리트리브. 쿼리 오류나서 분리 -->
+<resultMap id="DriveResFullResult" type="com.pcwk.ehr.drive.DriveResDTO">
+  <id     column="res_no"         property="resNo"/>
+  <result column="id"             property="id"/>
+  <result column="name"           property="name"/>
+  <result column="phone"          property="phone"/>
+  <result column="car_code"       property="carCode"/>
+  <result column="retailer_code"  property="retailerCode"/>
+  <result column="drive_date"     property="driveDate"/>
+  <result column="reg_dt"         property="regDt"/>
+  <result column="reg_id"         property="regId"/>
+  <result column="mod_dt"         property="modDt"/>
+  <result column="mod_id"         property="modId"/>
+  <result column="car_mf"         property="carMf"/>
+  <result column="product_name"   property="productName"/>
+  <result column="retailer_name"  property="retailerName"/>
 </resultMap>
+
 
   <insert id="doSave" parameterType="com.pcwk.ehr.drive.DriveResDTO">
    <selectKey keyProperty="resNo"
@@ -90,6 +108,29 @@
    ORDER BY dr.reg_dt DESC
 </select>
 
+<!-- 로그인 된 아이디로 신청된 정보 조회 -->
+<select id="doRetrieveByUser" parameterType="com.pcwk.ehr.drive.DriveResDTO" resultMap="DriveResFullResult">
+    SELECT dr.res_no,
+           dr.id,
+           dr.name,
+           dr.phone,
+           dr.car_code,
+           dr.retailer_code,
+           dr.drive_date,
+           dr.reg_dt,
+           dr.reg_id,
+           dr.mod_dt,
+           dr.mod_id,
+           c.car_mf,
+           c.product_name,
+           r.retailer_name
+      FROM drive_res dr
+     JOIN car c ON dr.car_code = c.car_code
+     JOIN retailer r ON dr.retailer_code = r.retailer_code
+     WHERE dr.id = #{id}
+     ORDER BY dr.reg_dt DESC
+</select>
+
   <!-- 1) 제조사 목록 -->
 <select id="mfList" resultType="java.lang.String">
   SELECT DISTINCT car_mf
@@ -139,7 +180,10 @@
 <!-- 업체 코드로 업체 정보 조회 -->
 <select id="getRetailerInfoByCode" parameterType="int" resultType="com.pcwk.ehr.retailer.RetailerDTO">
   SELECT retailer_code,
-         retailer_name
+         retailer_name,
+         area,
+         address,
+         telephone         
     FROM retailer
    WHERE retailer_code = #{retailerCode}
 </select>
