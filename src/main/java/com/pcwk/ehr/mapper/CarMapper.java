@@ -26,7 +26,7 @@ public interface CarMapper {
     CarDTO doSelectOne(CarDTO carDTO);
 
     // 브랜드로 자동차 목록 조회
-    List<CarDTO> getCarsByBrand(@Param("brand") String brand);
+    List<CarDTO> getCarsByBrand(@Param("carMf") String carMf);
 
     // 키워드로 자동차 검색
     List<CarDTO> searchCars(@Param("keyword") String keyword);

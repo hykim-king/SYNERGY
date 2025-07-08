@@ -33,4 +33,8 @@ public interface DriveResMapper extends WorkDiv<DriveResDTO> {
     CarDTO getCarInfoByCode(int carCode);
     RetailerDTO getRetailerInfoByCode(int retailerCode);
 
+    public List<DriveResDTO> doRetrieveByUser(DriveResDTO dto);
+	
+    
+
 }
