@@ -1,0 +1,153 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f4f6f8;
+}
+
+header {
+  background-color: #00274d;
+  color: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+footer {
+  background-color: #ddd;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ── Car.css ── */
+
+/* ── 네비게이션 바 ── */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  background-color: #99b1c9;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar__menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.navbar__menu > li {
+  margin-left: 1rem;
+}
+.navbar__menu a,
+.dropdown__btn {
+  text-decoration: none;
+  color: #fff;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+.navbar__item--dropdown {
+  position: relative; /* 반드시 필요 */
+}
+.dropdown__content {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  z-index: 1000; /*값이 높을수록 위에 뜸 */
+}
+.dropdown__content li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  color: #333;
+}
+.navbar__item--dropdown.open .dropdown__content {
+  display: block;
+}
+
+/* ── Car.css ── */
+
+/* 슬라이더 컨테이너: 높이를 이미지에 따라 자동으로 */
+.slider {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f4f6f8;
+  /* box-shadow 등 필요 시 추가 */
+}
+
+/* 개별 슬라이드: 기본 static */
+.slide {
+  position: static; /* 기존 absolute 대신 static */
+  display: none;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+.slide.active {
+  display: block; /* 보임 */
+  opacity: 1;
+}
+
+/* (선택) 네비 버튼 */
+.slider .nav {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+.slider .nav button {
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+/* 슬라이드 내부 이미지가 컨테이너를 채우도록 */
+.slider .slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
