@@ -21,6 +21,7 @@ public class CarController implements PLog {
     @Autowired
     private CarService carService;
 
+    // (1) 전체 자동차 리스트 (페이징, 파라미터 없이도 OK)
     @GetMapping("/list.do")
     public String list(
         @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
@@ -31,16 +32,10 @@ public class CarController implements PLog {
         log.debug("│ list() - 전체 차량 목록 조회(페이징) │");
         log.debug("└─────────────────────────────┘");
 
-        // 전체 차량 수 조회
         int totalCount = carService.getCarCount();
-
-        // 전체 페이지 수 계산
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-
-        // 해당 페이지 차량 목록 조회
         List<CarDTO> carList = carService.getCarsByPage(pageNum, pageSize);
 
-        // View에 데이터 전달
         model.addAttribute("carList", carList);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("pageSize", pageSize);
@@ -50,9 +45,12 @@ public class CarController implements PLog {
         return "car/list";
     }
 
-    // 브랜드별 자동차 리스트
+    // (2) 브랜드별 자동차 리스트
     @GetMapping("/brand.do")
-    public String listByBrand(@RequestParam("brand") String brand, Model model) {
+    public String listByBrand(
+        @RequestParam("brand") String brand, 
+        Model model) 
+    {
         log.debug("┌─────────────────────────────────────────────────┐");
         log.debug("│ listByBrand() - 브랜드별 차량 조회 (brand={})          │", brand);
         log.debug("└─────────────────────────────────────────────────┘");
@@ -63,7 +61,7 @@ public class CarController implements PLog {
         return "car/list";
     }
 
-    // 자동차 정보 상세보기
+    // (3) 자동차 상세 조회
     @GetMapping("/detail.do")
     public String detail(@RequestParam("carCode") int carCode, Model model) {
         log.debug("┌─────────────────────────────┐");
@@ -75,7 +73,7 @@ public class CarController implements PLog {
         return "car/detail";
     }
 
-    // 자동차 정보 수정 처리
+    // (4) 자동차 정보 수정 처리
     @PostMapping("/update.do")
     public String update(CarDTO car, RedirectAttributes rttr) {
         log.debug("┌─────────────────────────────┐");
@@ -88,11 +86,10 @@ public class CarController implements PLog {
         } else {
             rttr.addFlashAttribute("msg", "차량 정보 수정에 실패했습니다.");
         }
-        // 수정 후 상세 페이지로 리다이렉트
         return "redirect:/car/detail.do?carCode=" + car.getCarCode();
     }
 
-    // 자동차 정보 삭제 처리
+    // (5) 자동차 정보 삭제 처리
     @PostMapping("/delete.do")
     public String delete(@RequestParam("carCode") int carCode, RedirectAttributes rttr) {
         log.debug("┌─────────────────────────────┐");
@@ -105,7 +102,6 @@ public class CarController implements PLog {
         } else {
             rttr.addFlashAttribute("msg", "차량 정보 삭제에 실패했습니다.");
         }
-        // 삭제 후 목록 페이지로 리다이렉트
         return "redirect:/car/list.do";
     }
 
