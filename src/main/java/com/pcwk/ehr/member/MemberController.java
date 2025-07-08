@@ -57,6 +57,29 @@ public class MemberController {
             return "error";
         }
     }
+    
+    @GetMapping("/mypage.do")
+    public String mypage(HttpSession session, Model model) {
+    	
+    	MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+    	
+    	if(loginUser == null) {
+    		return "redirect:/member/loginView.do";
+    	}
+    	
+    	try {
+    		MemberDTO Info = memberService.doSelectOne(loginUser);
+    		model.addAttribute("Info", Info);
+    		return "member/mypage";
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		model.addAttribute("errorMessage", "회원 정보를 불러오지 못했습니다.");
+    	}
+    	
+    	return "member/mypage";
+    }
+    
+    
 }
 
 

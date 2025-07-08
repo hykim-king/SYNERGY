@@ -94,5 +94,6 @@
  <select id="getCount" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM member
  </select>
+ 
 
 </mapper>
