@@ -1,8 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.Date"%>
-
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <c:set var="now" value="<%=new Date()%>" />
 <c:set var="sysDate">
@@ -20,8 +20,38 @@
 	href="${CP}/resources/assets/css/boardform.css?ver=${sysDate}">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+.main-content {
+	flex-grow: 1;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.top-nav {
+	width: 100%;
+	max-width: 1200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.page-title, .banner, .filter-section, .board-table, .pagination {
+	width: 100%;
+	max-width: 1200px;
+}
+
+.banner img {
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+	border-radius: 8px;
+}
+</style>
 </head>
 <body>
+
 	<div class="layout">
 		<!-- 사이드바 -->
 		<aside class="sidebar">
@@ -48,12 +78,14 @@
 
 			<!-- 타이틀 -->
 			<h2 class="page-title">자유 게시판</h2>
-
+			<c:set var="CP" value="${pageContext.request.contextPath}" />
 			<!-- 이미지 배너 -->
 			<div class="banner">
 				<img src="${CP}/resource/SNERGY/Board_image/board_cover.png"
-					alt="게시판 표지 이미지">
+					alt="배너 이미지">
 			</div>
+
+
 
 			<!-- 검색/필터 -->
 			<section class="filter-section">
@@ -93,8 +125,7 @@
 								<tr>
 									<td>${status.index + 1}</td>
 									<td><a
-										href="${CP}/board/doSelectOne.do?boardCode=${vo.boardCode}&regId=${vo.regId}">
-											${vo.title} </a></td>
+										href="${CP}/board/doSelectOne.do?boardCode=${vo.boardCode}&regId=${vo.regId}">${vo.title}</a></td>
 									<td>${vo.nickname}</td>
 									<td><fmt:formatDate value="${vo.regDt}"
 											pattern="yyyy-MM-dd" /></td>
