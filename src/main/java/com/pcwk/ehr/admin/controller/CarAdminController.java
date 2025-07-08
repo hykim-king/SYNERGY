@@ -25,33 +25,43 @@ public class CarAdminController implements PLog {
 
 	@GetMapping("/list.do")
 	public String adminList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-			@RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
-			@RequestParam(value = "searchType", required = false, defaultValue = "productName") String searchType,
-			Model model) {
+	        @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+	        @RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
+	        @RequestParam(value = "searchType", required = false, defaultValue = "productName") String searchType,
+	        Model model) {
 
-		log.debug("adminList() - 관리자 차량 목록 조회");
+	    log.debug("adminList() - 관리자 차량 목록 조회");
 
-		if (pageNum < 1)
-			pageNum = 1;
+	    if (pageNum < 1)
+	        pageNum = 1;
 
-		int totalCount = carService.getCarCount();
-		int totalPages = (int) Math.ceil((double) totalCount / pageSize); // 여기 수정됨
+	    int totalCount = 0;
+	    List<CarDTO> carList = null;
 
-		if (pageNum > totalPages)
-			pageNum = totalPages > 0 ? totalPages : 1;
+	    if (searchWord == null || searchWord.trim().isEmpty()) {
+	        // 검색어 없으면 기존 방식으로 전체 목록
+	        totalCount = carService.getCarCount();
+	        carList = carService.getCarsByPage(pageNum, pageSize);
+	    } else {
+	        // 검색어 있을 때는 검색 조건 반영
+	        totalCount = carService.getCarCountWithSearch(searchType, searchWord);
+	        carList = carService.getCarsByPageWithSearch(pageNum, pageSize, searchType, searchWord);
+	    }
 
-		List<CarDTO> carList = carService.getCarsByPage(pageNum, pageSize);
+	    int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
-		model.addAttribute("carList", carList);
-		model.addAttribute("currentPage", pageNum);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("searchType", searchType);
-		model.addAttribute("searchWord", searchWord);
+	    if (pageNum > totalPages)
+	        pageNum = totalPages > 0 ? totalPages : 1;
 
-		return "admin/car/list";
+	    model.addAttribute("carList", carList);
+	    model.addAttribute("currentPage", pageNum);
+	    model.addAttribute("pageSize", pageSize);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("totalCount", totalCount);
+	    model.addAttribute("searchType", searchType);
+	    model.addAttribute("searchWord", searchWord);
+
+	    return "admin/car/list";
 	}
 
 	@GetMapping("/add.do")

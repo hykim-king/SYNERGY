@@ -160,7 +160,6 @@ tr:nth-child(even) {
             <select name="searchType">
                 <option value="productName" <c:if test="${searchType == 'productName'}">selected</c:if>>차량명</option>
                 <option value="carMf" <c:if test="${searchType == 'carMf'}">selected</c:if>>제조사</option>
-                <option value="cartype" <c:if test="${searchType == 'cartype'}">selected</c:if>>차종</option>
             </select>
             <input type="text" name="searchWord" value="${fn:escapeXml(searchWord)}" placeholder="검색어 입력" />
             <button type="submit">검색</button>

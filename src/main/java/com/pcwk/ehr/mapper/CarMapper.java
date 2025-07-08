@@ -57,4 +57,10 @@ public interface CarMapper {
 
     // 검색 및 조건 조회 (DTO 기준)
     List<CarDTO> doRetrieve(DTO param);
+    
+ // 검색어와 페이징 조건을 반영한 자동차 목록 조회
+    List<CarDTO> getCarsByPageWithSearch(Map<String, Object> params);
+
+    // 검색 조건에 따른 자동차 수 조회
+    int getCarCountWithSearch(Map<String, Object> params);
 }

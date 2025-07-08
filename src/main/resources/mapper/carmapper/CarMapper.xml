@@ -186,4 +186,40 @@
     )
     WHERE rn &gt; #{offset}
 </select>
+
+<select id="getCarsByPageWithSearch" parameterType="map" resultType="com.pcwk.ehr.car.CarDTO">
+  SELECT * FROM car
+  WHERE
+    <choose>
+      <when test="searchType = 'productName'">
+        product_name LIKE CONCAT('%', #{searchWord}, '%')
+      </when>
+      <when test="searchType = 'carMf'">
+        car_mf LIKE CONCAT('%', #{searchWord}, '%')
+      </when>
+      <otherwise>
+        1=1
+      </otherwise>
+    </choose>
+  ORDER BY car_code
+  LIMIT #{pageSize} OFFSET #{offset}
+</select>
+
+<select id="getCarCountWithSearch" parameterType="map" resultType="int">
+  SELECT COUNT(*)
+  FROM car
+  WHERE
+    <choose>
+      <when test="searchType = 'productName'">
+        product_name LIKE CONCAT('%', #{searchWord}, '%')
+      </when>
+      <when test="searchType = 'carMf'">
+        car_mf LIKE CONCAT('%', #{searchWord}, '%')
+      </when>
+      <otherwise>
+        1=1
+      </otherwise>
+    </choose>
+</select>
+
 </mapper>
