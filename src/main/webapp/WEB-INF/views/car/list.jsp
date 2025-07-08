@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -226,12 +228,14 @@
         <li class="navbar__item--dropdown">
           <button class="dropdown__btn">더보기 ▼</button>
           <ul class="dropdown__content">
-               <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=1">현대</a></li>
-  <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=2">기아</a></li>
-  <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=3">포르쉐</a></li>
-  <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=4">람보르기니</a></li>
-  <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=5">BMW</a></li>
-    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=테슬라">테슬라</a></li>
+     <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=1">현대</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=2">기아</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=3">포르쉐</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=4">람보르기니</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=5">BMW</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=6">토요타</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=7">벤츠</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/detail.do?carCode=8">테슬라</a></li>
             <li>
               <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
                 >페라리</a
