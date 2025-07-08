@@ -144,10 +144,7 @@
       }
     </style>
 
-     <!-- 💡 로그인 여부를 자바스크립트에 전달 -->
-    <script>
-        const isLoggedIn = ${not empty sessionScope.loginUser}; // true 또는 false
-    </script>
+
     <!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
     <script>
       function handleProtectedLink(event, url) {
@@ -351,34 +348,30 @@
 
 
     <main>
-      <!--차량 슬라이더 이미지-->
-      <section class="slider">
-        <div class="slide active">
-          <img src="Car_image/2024 기아 K9.png" alt="2024 기아 K9">
-        </div>
-        <div class="slide">
-          <img src="Car_image/v.png" alt="Model S" />
-        </div>
-        <div class="slide">
-          <img src="Car_image/2025 팰리세이드.png" alt="Palisade" />
-        </div>
-        <div class="slide">
-          <img src="Car_image/2025 메르세데스-벤츠 G클래스.png" alt="Palisade" />
-        </div>
-        <div class="slide">
-          <img src="Car_image/볼보_XC40.png" alt="Palisade" />
-        </div>
-        <div class="slide">
-          <img src="Car_image/지프_어벤저 EV.png" alt="Palisade" />
-        </div>
-        <div class="slide">
-          <img src="Car_image/2024 테슬라 모델 S.png" alt="Palisade" />
-        </div>
-        <div class="nav">
-          <button id="prev">&#10094;</button>
-          <button id="next">&#10095;</button>
-        </div>
-      </section>
+<section class="slider">
+  <div class="slide active">
+    <img src="${pageContext.request.contextPath}/car/image/2024 기아 레이.png">
+  </div>
+  <div class="slide">
+    <img src="${pageContext.request.contextPath}/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S" style="width:300px;">
+  </div>
+  <div class="slide">
+    <img src="${pageContext.request.contextPath}/image/2025 팰리세이드.png" alt="2025 팰리세이드" style="width:300px;">
+  </div>
+  <div class="slide">
+    <img src="${pageContext.request.contextPath}/image/2025 메르세데스-벤츠 G클래스.png" alt="2025 메르세데스-벤츠 G클래스" style="width:300px;">
+  </div>
+  <div class="slide">
+    <img src="${pageContext.request.contextPath}/image/볼보_XC40.png" alt="볼보 XC40" style="width:300px;">
+  </div>
+  <div class="slide">
+    <img src="${pageContext.request.contextPath}/image/지프_어벤저 EV.png" alt="지프 어벤저 EV" style="width:300px;">
+  </div>
+  <div class="nav">
+    <button id="prev">&#10094;</button>
+    <button id="next">&#10095;</button>
+  </div>
+</section>
 
       <!-- 기존 환영 문구 (필요시 삭제하거나 슬라이더 아래로 이동) -->
       <section style="text-align: center; margin-bottom: 40px">
