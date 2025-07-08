@@ -3,6 +3,32 @@
 
 <mapper namespace="com.pcwk.ehr.mapper.DriveResMapper">
 
+<resultMap id="DriveResResult" type="com.pcwk.ehr.drive.DriveResDTO">
+  <id     column="res_no"         property="resNo"/>
+  <result column="id"             property="id"/>
+  <result column="name"           property="name"/>
+  <result column="phone"          property="phone"/>
+  <result column="car_code"       property="carCode"/>
+  <result column="retailer_code"  property="retailerCode"/>
+  <result column="drive_date"     property="driveDate"/>
+  <result column="reg_dt"         property="regDt"/>
+  <result column="reg_id"         property="regId"/>
+  <result column="mod_dt"         property="modDt"/>
+  <result column="mod_id"         property="modId"/>
+  <result column="car_mf"         property="carMf"/>
+  <result column="product_name"   property="productName"/>
+  <result column="retailer_name"  property="retailerName"/>
+    </resultMap>
+    <!-- 4) 제품명으로 업체 목록 -->
+   <resultMap id="RetailerResult" type="com.pcwk.ehr.retailer.RetailerDTO">
+    <id     column="retailer_code" property="retailerCode"/>
+    <result column="retailer_name" property="retailerName"/>
+    <result column="area"          property="area"/>
+    <result column="address"       property="address"/>
+    <result column="telephone"     property="telephone"/>
+ 
+</resultMap>
+
   <insert id="doSave" parameterType="com.pcwk.ehr.drive.DriveResDTO">
    <selectKey keyProperty="resNo"
              resultType="int"
@@ -39,19 +65,6 @@
     WHERE res_no = #{resNo}
   </delete>
 
-<resultMap id="DriveResResult" type="com.pcwk.ehr.drive.DriveResDTO">
-  <id     column="res_no"         property="resNo"/>
-  <result column="id"             property="id"/>
-  <result column="name"           property="name"/>
-  <result column="phone"          property="phone"/>
-  <result column="car_code"       property="carCode"/>
-  <result column="retailer_code"  property="retailerCode"/>
-  <result column="drive_date"     property="driveDate"/>
-  <result column="reg_dt"         property="regDt"/>
-  <result column="reg_id"         property="regId"/>
-  <result column="mod_dt"         property="modDt"/>
-  <result column="mod_id"         property="modId"/>
-</resultMap>
 
 
   <select id="doSelectOne" parameterType="com.pcwk.ehr.drive.DriveResDTO"  resultMap="DriveResResult">
@@ -60,11 +73,22 @@
     WHERE res_no = #{resNo}
   </select>
 
-  <select id="doRetrieve" parameterType="com.pcwk.ehr.cmn.DTO" resultMap="DriveResResult">
-    SELECT *
-    FROM drive_res
-    ORDER BY reg_dt DESC
-  </select>
+<select id="doRetrieve" parameterType="com.pcwk.ehr.cmn.DTO" resultMap="DriveResResult">
+  SELECT dr.res_no,
+         dr.id,
+         dr.name,
+         dr.phone,
+         dr.car_code,
+         dr.retailer_code,
+         dr.drive_date,
+         c.car_mf,
+         c.product_name,
+         r.retailer_name
+    FROM drive_res dr
+    JOIN car c ON dr.car_code = c.car_code
+    JOIN retailer r ON dr.retailer_code = r.retailer_code
+   ORDER BY dr.reg_dt DESC
+</select>
 
   <!-- 1) 제조사 목록 -->
 <select id="mfList" resultType="java.lang.String">
@@ -92,14 +116,6 @@
        AND product_name = #{productName}
   </select>
 
-  <!-- 4) 제품명으로 업체 목록 -->
-  <resultMap id="RetailerResult" type="com.pcwk.ehr.retailer.RetailerDTO">
-    <id     column="retailer_code" property="retailerCode"/>
-    <result column="retailer_name" property="retailerName"/>
-    <result column="area"          property="area"/>
-    <result column="address"       property="address"/>
-    <result column="telephone"     property="telephone"/>
-  </resultMap>
 
   <select id="retailerList" parameterType="string" resultMap="RetailerResult">
     SELECT retailer_code,
@@ -111,5 +127,21 @@
      WHERE product_name = #{productName}
   </select>
 
+<!-- 차량 코드로 차량 정보 조회 -->
+<select id="getCarInfoByCode" parameterType="int" resultType="com.pcwk.ehr.car.CarDTO">
+  SELECT car_code,
+         product_name,
+         car_mf
+    FROM car
+   WHERE car_code = #{carCode}
+</select>
+
+<!-- 업체 코드로 업체 정보 조회 -->
+<select id="getRetailerInfoByCode" parameterType="int" resultType="com.pcwk.ehr.retailer.RetailerDTO">
+  SELECT retailer_code,
+         retailer_name
+    FROM retailer
+   WHERE retailer_code = #{retailerCode}
+</select>
 
 </mapper>
