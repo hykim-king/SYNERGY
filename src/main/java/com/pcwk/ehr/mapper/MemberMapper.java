@@ -20,4 +20,5 @@ public interface MemberMapper extends WorkDiv<MemberDTO> {
 	void deleteAll() throws SQLException;
 	
 	int getCount() throws SQLException;
+	
 }
