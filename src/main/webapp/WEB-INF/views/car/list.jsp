@@ -16,7 +16,7 @@
         background-color: #f4f6f8;
       }
       header {
-        background-color: #00274d;
+        background-color: #435261;
         color: white;
         padding: 20px 40px;
         display: flex;
@@ -102,6 +102,7 @@
       .navbar__item--dropdown.open .dropdown__content {
         display: block;
       }
+      
 /* 슬라이더 컨테이너 설정 */
 .slider {
   width: 100%;
