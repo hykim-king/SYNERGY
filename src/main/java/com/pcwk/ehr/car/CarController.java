@@ -28,20 +28,10 @@ public class CarController implements PLog {
         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
         Model model
     ) {
-        log.debug("┌─────────────────────────────┐");
-        log.debug("│ list() - 전체 차량 목록 조회(페이징) │");
-        log.debug("└─────────────────────────────┘");
-
-        int totalCount = carService.getCarCount();
-        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
         List<CarDTO> carList = carService.getCarsByPage(pageNum, pageSize);
-
+        System.out.println("carList size = " + carList.size()); // ★
         model.addAttribute("carList", carList);
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalCount", totalCount);
-
+        // ...
         return "car/list";
     }
 
