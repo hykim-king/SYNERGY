@@ -49,12 +49,13 @@
             font-size: 14px;
         }
     </style>
-     <!-- 💡 로그인 여부를 자바스크립트에 전달 -->
+
+    <!-- 로그인 여부를 자바스크립트에 전달 (필요시 활용 가능) -->
     <script>
         const isLoggedIn = ${not empty sessionScope.loginUser}; // true 또는 false
     </script>
 
-    <!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
+    <!-- 로그인 여부 확인 후 보호된 링크 접근 제어 -->
     <script>
         function handleProtectedLink(event, url) {
             if (!isLoggedIn) {
@@ -90,6 +91,14 @@
         </c:choose>
     </div>
 </header>
+
+<!-- 로그인 직후 한 번만 뜨는 환영 메시지 alert -->
+<c:if test="${not empty sessionScope.welcomeMessage}">
+    <script>
+        alert('${sessionScope.welcomeMessage}');
+    </script>
+    <c:remove var="welcomeMessage" scope="session" />
+</c:if>
 
 <main>
     <h2>환영합니다!</h2>
