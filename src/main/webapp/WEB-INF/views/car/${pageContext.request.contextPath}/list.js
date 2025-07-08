@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   // --- 슬라이더 자동 전환 로직 ---
   const slides = document.querySelectorAll(".slide");
