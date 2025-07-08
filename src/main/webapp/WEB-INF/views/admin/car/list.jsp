@@ -178,7 +178,7 @@ tr:nth-child(even) {
                     <th>효율</th>
                     <th>엔진</th>
                      <th>배기량(cc)</th>
-                    <th>배터리</th>
+                    <th>배터리(kWh)</th>
                     <th>수정/삭제</th>
                 </tr>
             </thead>
