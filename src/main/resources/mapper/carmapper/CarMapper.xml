@@ -156,8 +156,10 @@
   
   
    <!-- 브랜드별 조회 -->
-<select id="getCarsByBrand" resultType="com.pcwk.ehr.car.CarDTO">
-    SELECT * FROM car WHERE car_mf = #{brand}
+<select id="getCarsByBrand" parameterType="String" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT *
+    FROM CAR
+    WHERE CAR_MF = #{carMf}
 </select>
 
     <!-- 상세조회 -->

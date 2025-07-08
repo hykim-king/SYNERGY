@@ -46,18 +46,18 @@ public class CarController implements PLog {
     }
 
     // (2) 브랜드별 자동차 리스트
-    @GetMapping("/brand.do")
+    @GetMapping("/carMf.do")
     public String listByBrand(
-        @RequestParam("brand") String brand, 
+        @RequestParam("carMf") String carMf, 
         Model model) 
     {
         log.debug("┌─────────────────────────────────────────────────┐");
-        log.debug("│ listByBrand() - 브랜드별 차량 조회 (brand={})          │", brand);
+        log.debug("│ listByBrand() - 브랜드별 차량 조회 (brand={})          │", carMf);
         log.debug("└─────────────────────────────────────────────────┘");
 
-        List<CarDTO> carList = carService.getCarsByBrand(brand);
+        List<CarDTO> carList = carService.getCarsByBrand(carMf);
         model.addAttribute("carList", carList);
-        model.addAttribute("selectedBrand", brand);
+        model.addAttribute("selectedBrand", carMf);
         return "car/list";
     }
 

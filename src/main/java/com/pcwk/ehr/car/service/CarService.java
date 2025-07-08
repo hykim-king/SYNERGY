@@ -7,7 +7,7 @@ public interface CarService {
 
     List<CarDTO> getAllCars();
 
-    List<CarDTO> getCarsByBrand(String brand);
+    List<CarDTO> getCarsByBrand(String carMf);
 
     CarDTO getCarById(int carCode);
 
