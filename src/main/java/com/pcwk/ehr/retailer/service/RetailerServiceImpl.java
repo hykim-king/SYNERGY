@@ -7,7 +7,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RetailerServiceImpl implements RetailerService {
@@ -87,4 +89,35 @@ public class RetailerServiceImpl implements RetailerService {
     public RetailerDTO getRetailerById(int retailerCode) {
         return retailerMapper.getOne(retailerCode);
     }
+
+
+
+    @Override
+    public List<RetailerDTO> getRetailersByPageWithSearch(int pageNum, int pageSize, String searchType, String searchWord) {
+        log.debug("getRetailersByPageWithSearch 호출: pageNum={}, pageSize={}, searchType={}, searchWord={}",
+                  pageNum, pageSize, searchType, searchWord);
+
+        int offset = (pageNum - 1) * pageSize;
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        params.put("searchType", searchType);
+        params.put("searchWord", searchWord);
+
+        return retailerMapper.getRetailersByPageWithSearch(params);
+    }
+
+
+	@Override
+	public int getRetailersCountWithSearch(String searchType, String searchWord) {
+	    log.debug("getRetailersCountWithSearch 호출: searchType={}, searchWord={}", searchType, searchWord);
+
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("searchType", searchType);
+	    params.put("searchWord", searchWord);
+
+	    return retailerMapper.getRetailersCountWithSearch(params);
+	}
+
 }

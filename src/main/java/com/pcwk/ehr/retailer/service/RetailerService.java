@@ -1,6 +1,7 @@
 package com.pcwk.ehr.retailer.service;
 
 import java.util.List;
+
 import com.pcwk.ehr.retailer.RetailerDTO;
 
 public interface RetailerService {
@@ -24,7 +25,11 @@ public interface RetailerService {
 
 	RetailerDTO getRetailerById(int retailerCode);
 
-	// (선택) 페이징 조회
 	List<RetailerDTO> getRetailersByPage(int pageNum, int pageSize);
+
+   	
+   	 List<RetailerDTO> getRetailersByPageWithSearch(int pageNum, int pageSize, String searchType, String searchWord);
+
+   	 int getRetailersCountWithSearch(String searchType, String searchWord);
 
 }

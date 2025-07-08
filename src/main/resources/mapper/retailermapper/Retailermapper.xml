@@ -139,4 +139,56 @@
   )
   WHERE rnum &gt; #{offset}
 </select>
+
+
+<select id="getRetailersByPageWithSearch" resultType="com.pcwk.ehr.retailer.RetailerDTO" parameterType="map">
+    SELECT *
+      FROM (
+              SELECT ROWNUM rn, r.*
+                FROM (
+                        SELECT * 
+                          FROM SYNERGY.RETAILER
+                         <where>
+                             <if test="searchWord != null and searchWord != ''">
+                                 <choose>
+                                     <when test="searchType eq 'retailerName'">
+                                         AND RETAILER_NAME LIKE '%' || #{searchWord} || '%'
+                                     </when>
+                                     <when test="searchType eq 'productName'">
+                                         AND PRODUCT_NAME LIKE '%' || #{searchWord} || '%'
+                                     </when>
+                                     <when test="searchType eq 'carMf'">
+                                         AND CAR_MF LIKE '%' || #{searchWord} || '%'
+                                     </when>
+                                 </choose>
+                             </if>
+                         </where>
+                         ORDER BY RETAILER_CODE DESC
+                     ) r
+               WHERE ROWNUM &lt;= #{offset} + #{pageSize}
+           )
+     WHERE rn &gt; #{offset}
+</select>
+
+
+<select id="getRetailersCountWithSearch" resultType="int" parameterType="map">
+    SELECT COUNT(*)
+      FROM SYNERGY.RETAILER
+     <where>
+         <if test="searchWord != null and searchWord != ''">
+             <choose>
+                 <when test="searchType == 'retailerName'">
+                     AND RETAILER_NAME LIKE '%' || #{searchWord} || '%'
+                 </when>
+                 <when test="searchType == 'productName'">
+                     AND PRODUCT_NAME LIKE '%' || #{searchWord} || '%'
+                 </when>
+                 <when test="searchType == 'carMf'">
+                     AND CAR_MF LIKE '%' || #{searchWord} || '%'
+                 </when>
+             </choose>
+         </if>
+     </where>
+</select>
+
 </mapper>
