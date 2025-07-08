@@ -32,22 +32,34 @@ public class RetailerTest {
     @Autowired
     Retailermapper retailerMapper;
 
-    int retailerCode; // 시퀀스 값 저장용
+    private int retailerCode;
 
     @BeforeEach
-    void setUp() throws SQLException {
-        retailerMapper.deleteAll();
+    void setup() throws SQLException {
+        // 기존 데이터 삭제 (권장)
+        //retailerMapper.deleteAll();
 
-        // 1. 시퀀스 값 얻기
-        retailerCode = retailerMapper.getRetailerSeq();
-
-        // 2. retailerCode를 활용하여 데이터 insert
-        retailerMapper.doSave(
-            new RetailerDTO(retailerCode, "K9", "카모터스", "Kia", "서울", "서울특별시 강남구", "02-1111-1111",
-                new Date(System.currentTimeMillis()), "admin", new Date(System.currentTimeMillis()), "admin")
+        RetailerDTO initial = new RetailerDTO(
+            0, "아반떼", "현대 강남대리점", "현대", "서울",
+            "서울 강남구 테헤란로 123", "02-123-4567",
+            new Date(System.currentTimeMillis()), "admin",
+            new Date(System.currentTimeMillis()), "admin"
         );
+        retailerMapper.doSave(initial);
+        retailerCode = initial.getRetailerCode();
     }
 
+    @Test
+    void getOne() {
+        System.out.println("테스트용 retailerCode = " + retailerCode);
+        RetailerDTO dto = retailerMapper.getOne(retailerCode);
+        System.out.println("테스트 조회 결과 → " + dto);
+        assertNotNull(dto);
+    }
+
+
+    
+    
     @Test
     void retailerall() {
         List<RetailerDTO> list = retailerMapper.getAll();
@@ -86,4 +98,8 @@ public class RetailerTest {
         assertNotNull(dto);
         log.info("단건 조회 결과: {}", dto);
     }
+    
+    
 }
+
+

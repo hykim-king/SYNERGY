@@ -29,4 +29,12 @@ public interface DriveResMapper extends WorkDiv<DriveResDTO> {
     /** 4) 제품명으로 업체 목록 조회 */
     List<RetailerDTO> retailerList(@Param("productName") String productName);
 
+    //결과 화면
+    CarDTO getCarInfoByCode(int carCode);
+    RetailerDTO getRetailerInfoByCode(int retailerCode);
+
+    public List<DriveResDTO> doRetrieveByUser(DriveResDTO dto);
+	
+    
+
 }

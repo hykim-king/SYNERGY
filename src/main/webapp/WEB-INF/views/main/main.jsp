@@ -49,6 +49,22 @@
             font-size: 14px;
         }
     </style>
+     <!-- 💡 로그인 여부를 자바스크립트에 전달 -->
+    <script>
+        const isLoggedIn = ${not empty sessionScope.loginUser}; // true 또는 false
+    </script>
+
+    <!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
+    <script>
+        function handleProtectedLink(event, url) {
+            if (!isLoggedIn) {
+                event.preventDefault();
+                alert("로그인을 시도해 주세요.");
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -56,10 +72,10 @@
     <div class="nav-left">
         <a href="${pageContext.request.contextPath}/car/allModels.do">전체 차량 모델</a>
         <a href="${pageContext.request.contextPath}/retailer/search.do">리테일러 찾기</a>
-        <a href="${pageContext.request.contextPath}/testdrive/apply.do">시승 신청</a>
-        <a href="${pageContext.request.contextPath}/service/apply.do">정비 신청</a>
-        <a href="${pageContext.request.contextPath}/board/list.do">자유게시판</a>
-        <a href="${pageContext.request.contextPath}/event/list.do">이벤트</a>
+        <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
+        <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
+        <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
+        <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
     </div>
 
     <div class="nav-right">

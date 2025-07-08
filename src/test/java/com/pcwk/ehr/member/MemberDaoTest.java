@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -37,7 +38,7 @@ Logger log = LogManager.getLogger(getClass());
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		dto01 = new MemberDTO("test01","1234","hong","홍길동","010-1111-2222","hong12@naver.com",null,"admin",null,"admin",1);
+		dto01 = new MemberDTO("test01","1234","hong","홍길동","010-1111-2222","hong12@naver.com",new Date(),"admin",new Date(),"admin",1);
 	}
 
 	@AfterEach

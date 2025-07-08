@@ -157,7 +157,7 @@ class CarTest {
 		CarDTO dto = cars.get(0);
 		int flag = carMapper.doDelete(dto);
 		assertEquals(1, flag);
-		assertEquals(2, carMapper.getCount());
+		assertEquals(2, carMapper.getCarCount());
 	}
 	//@Disabled
 	@Test

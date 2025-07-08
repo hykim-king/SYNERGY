@@ -18,7 +18,7 @@
     ) VALUES (
       #{repairNo}, #{id}, #{name}, #{phone},
       #{carCode}, #{retailerCode}, #{repairDate}, #{repairDesc},
-      SYSDATE, #{regId}, SYSDATE, #{modId}
+      SYSDATE, #{regId, jdbcType=VARCHAR}, SYSDATE, #{modId, jdbcType=VARCHAR}
     )
   </insert>
 
@@ -75,5 +75,55 @@
       FROM repair_res
      ORDER BY reg_dt DESC
   </select>
+
+
+<!-- 제조사 목록 -->
+<select id="mfList" resultType="java.lang.String">
+  SELECT DISTINCT car_mf
+    FROM car
+   WHERE car_mf IS NOT NULL
+   ORDER BY car_mf
+</select>
+
+<!-- 제품명 목록 (car_code도 함께 반환) -->
+<select id="productList" parameterType="string" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT car_code AS carCode,
+           product_name AS productName,
+           car_mf AS carMf
+    FROM car
+    WHERE car_mf = #{carMf}
+    ORDER BY product_name
+</select>
+
+  <!-- 4) 제품명으로 업체 목록 -->
+  <resultMap id="RetailerResult" type="com.pcwk.ehr.retailer.RetailerDTO">
+    <id     column="retailer_code" property="retailerCode"/>
+    <result column="retailer_name" property="retailerName"/>
+    <result column="area"          property="area"/>
+    <result column="address"       property="address"/>
+    <result column="telephone"     property="telephone"/>
+  </resultMap>
+
+
+<!-- 차량 코드 단일 조회 -->
+<select id="getCarCode"
+        parameterType="map"
+        resultType="int">
+  SELECT car_code
+  FROM car
+  WHERE car_mf = #{carMf}
+    AND car_name = #{productName}
+</select>
+
+  <select id="retailerList" parameterType="string" resultMap="RetailerResult">
+    SELECT retailer_code,
+           retailer_name,
+           area,
+           address,
+           telephone
+      FROM retailer
+     WHERE product_name = #{productName}
+  </select>
+
 
 </mapper>
