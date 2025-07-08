@@ -1,10 +1,8 @@
 package com.pcwk.ehr.drive;
 
-import com.pcwk.ehr.cmn.DTO;
-import com.pcwk.ehr.drive.DriveResDTO;
-import com.pcwk.ehr.repair.RepairResDTO;
-
 import java.util.List;
+
+import com.pcwk.ehr.cmn.DTO;
 
 public interface DriveResService {
     int doSave(DriveResDTO dto);
@@ -13,4 +11,8 @@ public interface DriveResService {
     int doDelete(DriveResDTO dto);
     
     List<DriveResDTO> doRetrieve(DTO inVO);     // 목록 조회
+    
+    List<DriveResDTO> doRetrievePaging(DTO search) throws Exception;
+    
+    int getTotalCount(DTO dto) throws Exception;
 }
