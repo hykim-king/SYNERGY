@@ -23,6 +23,34 @@ public class DriveResDTO implements PLog {
 	private String regId;
 	private Date modDt;
 	private String modId;
+	
+	public String getCarMf() {
+		return carMf;
+	}
+
+	public void setCarMf(String carMf) {
+		this.carMf = carMf;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getRetailerName() {
+		return retailerName;
+	}
+
+	public void setRetailerName(String retailerName) {
+		this.retailerName = retailerName;
+	}
+
+	private String carMf;
+	private String productName;
+	private String retailerName;
 
 	public DriveResDTO() {
 		log.debug("DriveResDTO() 생성");
