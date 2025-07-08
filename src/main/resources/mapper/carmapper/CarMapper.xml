@@ -185,18 +185,18 @@
   SELECT * FROM car
   WHERE
     <choose>
-      <when test="searchType = 'productName'">
-        product_name LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'productName'">
+        product_name LIKE '%' || #{searchWord} || '%'
       </when>
-      <when test="searchType = 'carMf'">
-        car_mf LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'carMf'">
+        car_mf LIKE '%' || #{searchWord} || '%'
       </when>
       <otherwise>
         1=1
       </otherwise>
     </choose>
   ORDER BY car_code
-  LIMIT #{pageSize} OFFSET #{offset}
+  OFFSET #{offset} ROWS FETCH NEXT #{pageSize} ROWS ONLY
 </select>
 
 <select id="getCarCountWithSearch" parameterType="map" resultType="int">
@@ -204,11 +204,11 @@
   FROM car
   WHERE
     <choose>
-      <when test="searchType = 'productName'">
-        product_name LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'productName'">
+        product_name LIKE '%' || #{searchWord} || '%'
       </when>
-      <when test="searchType = 'carMf'">
-        car_mf LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'carMf'">
+        car_mf LIKE '%' || #{searchWord} || '%'
       </when>
       <otherwise>
         1=1
