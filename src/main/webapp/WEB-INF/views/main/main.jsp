@@ -71,7 +71,7 @@
 
 <header>
     <div class="nav-left">
-        <a href="${pageContext.request.contextPath}/car/allModels.do">전체 차량 모델</a>
+        <a href="${pageContext.request.contextPath}/car/list.do">전체 차량 모델</a>
         <a href="${pageContext.request.contextPath}/retailer/search.do">리테일러 찾기</a>
         <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
         <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
