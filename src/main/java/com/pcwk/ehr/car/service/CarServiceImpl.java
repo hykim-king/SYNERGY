@@ -41,9 +41,9 @@ public class CarServiceImpl implements CarService {
      * @return List<CarDTO> 해당 브랜드 차량 목록
      */
     @Override
-    public List<CarDTO> getCarsByBrand(String brand) {
-        log.debug("getCarsByBrand 호출: brand=" + brand);
-        return carMapper.getCarsByBrand(brand);
+    public List<CarDTO> getCarsByBrand(String carMf) {
+        log.debug("getCarsByBrand 호출: brand=" + carMf);
+        return carMapper.getCarsByBrand(carMf);
     }
 
     /**
@@ -147,7 +147,6 @@ public class CarServiceImpl implements CarService {
      */
     @Override
     public CarDTO getOne(int carCode) {
-        log.debug("getOne 호출: carCode=" + carCode);
         return carMapper.getOne(carCode);
     }
 
