@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.apache.logging.log4j.LogManager;
 
 import com.pcwk.ehr.car.CarDTO;
@@ -160,6 +161,22 @@ public class DriveResController {
         return "drive/driveList";
     }
 
+    //예약 취소(삭제)
+    @GetMapping("/delete.do")
+    public String deleteDrive(@RequestParam("resNo") int resNo, RedirectAttributes redirectAttributes) {
+        DriveResDTO dto = new DriveResDTO();
+        dto.setResNo(resNo);
+
+        int flag = driveResMapper.doDelete(dto);
+
+        if (flag == 1) {
+            redirectAttributes.addFlashAttribute("msg", "예약이 성공적으로 취소되었습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("msg", "예약 취소에 실패했습니다.");
+        }
+
+        return "redirect:/drive/list.do";
+    }
     
     
     /**
@@ -183,15 +200,7 @@ public class DriveResController {
         return "drive/driveResult";
     }
 
-    @GetMapping("/delete.do")
-    public String deleteDrive(@RequestParam("resNo") int resNo, Model model) {
-        DriveResDTO dto = new DriveResDTO();
-        dto.setResNo(resNo);
-        int flag = driveResMapper.doDelete(dto);
-        model.addAttribute("success", flag == 1);
-        return "drive/driveResult";
-    }
-    
+
     
 
 }

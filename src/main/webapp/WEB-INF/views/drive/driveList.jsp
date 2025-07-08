@@ -24,7 +24,8 @@
                 <th>브랜드</th>
                 <th>차량명</th>
                 <th>업체명</th>
-                <th>시승희망일</th>
+                <th>시승 희망일</th>
+                <th>예약 취소</th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,10 @@
                                               상세보기  </button>
                      </td>
                     <td><fmt:formatDate value="${dto.driveDate}" pattern="yyyy-MM-dd" /></td>
+                        <td>
+                        <button onclick="cancelConfirm(${dto.resNo})" title="시승신청 취소" style="border:none; background:none; cursor:pointer; font-size:18px; color:gray;">
+    🗑️</button>
+                       </td>
                 </tr>
             </c:forEach>
         </tbody>
@@ -86,5 +91,17 @@ $(document).ready(function() {
   });
 });
 </script>
+<script>
+  function cancelConfirm(resNo) {
+    if (confirm("정말로 해당 시승 신청을 취소하시겠습니까?")) {
+      location.href = '/ehr/drive/delete.do?resNo=' + resNo;
+    }
+  }
+</script>
+<c:if test="${not empty msg}">
+  <script>
+    alert("${msg}");
+  </script>
+</c:if>
 </body>
 </html>
