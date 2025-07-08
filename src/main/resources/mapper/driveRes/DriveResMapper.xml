@@ -188,4 +188,25 @@
    WHERE retailer_code = #{retailerCode}
 </select>
 
+<!-- 페이징 포함한 시승 신청 조회(이종민) -->
+<select id="doRetrievePaging" parameterType="com.pcwk.ehr.cmn.DTO" resultType="com.pcwk.ehr.drive.DriveResDTO">
+  SELECT * FROM (
+    SELECT dr.res_no, dr.id, dr.name, dr.phone, dr.car_code, dr.retailer_code, dr.drive_date,
+           c.car_mf, c.product_name, r.retailer_name,
+           ROW_NUMBER() OVER (ORDER BY dr.reg_dt DESC) rn
+    FROM drive_res dr
+    JOIN car c ON dr.car_code = c.car_code
+    JOIN retailer r ON dr.retailer_code = r.retailer_code
+  )
+  WHERE rn BETWEEN #{startRow} AND #{endRow}
+</select>
+<!-- 전체 데이터 개수 조회(이종민) -->
+<select id="getTotalCount" parameterType="com.pcwk.ehr.cmn.DTO" resultType="int">
+  SELECT COUNT(*)
+  FROM drive_res dr
+  JOIN car c ON dr.car_code = c.car_code
+  JOIN retailer r ON dr.retailer_code = r.retailer_code
+  <!-- 검색 조건이 있다면 여기에 추가 -->
+</select>
+
 </mapper>

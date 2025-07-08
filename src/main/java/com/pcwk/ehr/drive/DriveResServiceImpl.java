@@ -1,12 +1,10 @@
 package com.pcwk.ehr.drive;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,4 +82,16 @@ public class DriveResServiceImpl implements DriveResService {
     public List<DriveResDTO> doRetrieve(DTO dto) {
         return driveResMapper.doRetrieve(dto);
     }
+
+	@Override
+	public List<DriveResDTO> doRetrievePaging(DTO search) throws Exception {
+		return driveResMapper.doRetrievePaging(search);
+	}
+
+	@Override
+	public int getTotalCount(DTO dto) throws Exception {
+		return driveResMapper.getTotalCount(dto);
+	}
+
+
 }
