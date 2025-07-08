@@ -100,16 +100,14 @@
       .navbar__item--dropdown.open .dropdown__content {
         display: block;
       }
-      /* ── 슬라이더 ── */
-      .slider {
-        position: relative;
-        width: 90%;
-        max-width: 1200px;
-        margin: 2rem auto;
-        overflow: hidden;
-        border-radius: 8px;
-        background: #f4f6f8;
-      }
+/* 슬라이더 컨테이너 설정 */
+.slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f7f7f7;
+  min-height: 440px;
+}
       .slide {
         position: static;
         display: none;
@@ -137,11 +135,17 @@
         cursor: pointer;
         border-radius: 50%;
       }
-      .slider .slide img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
+/* 슬라이드 내부 이미지 공통 스타일 */
+.slider .slide img {
+  display: block;
+  margin: 0 auto;
+  width: 380px;   /* 원하는 고정 width */
+  height: 220px;  /* 원하는 고정 height */
+  object-fit: contain; /* 비율 유지하며 내부에 맞춤 */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+}
     </style>
 
 
