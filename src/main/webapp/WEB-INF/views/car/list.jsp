@@ -225,46 +225,14 @@
         <li class="navbar__item--dropdown">
           <button class="dropdown__btn">더보기 ▼</button>
           <ul class="dropdown__content">
-            <li>
-              <a href="${pageContext.request.contextPath}/retailer/search.do"
-                >현대</a
-              >
-            </li>
-            <li>
-              <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
-                >기아</a
-              >
-            </li>
-            <li>
-              <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
-                >포르쉐</a
-              >
-            </li>
-            <li>
-              <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
-                >람브로기니</a
-              >
-            </li>
-            <li>
-              <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
-                >BMW</a
-              >
-            </li>
-            <li>
-              <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
-                >토요타</a
-              >
-            </li>
-            <li>
-              <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
-                >벤츠</a
-              >
-            </li>
-            <li>
-              <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
-                >테슬라</a
-              >
-            </li>
+             <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=현대">현대</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=기아">기아</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=포르쉐">포르쉐</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=람보르기니">람보르기니</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=BMW">BMW</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=토요타">토요타</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=벤츠">벤츠</a></li>
+    <li><a href="${pageContext.request.contextPath}/car/carMf.do?carMf=테슬라">테슬라</a></li>
             <li>
               <a href="${pageContext.request.contextPath}/event/doRetrieve.do"
                 >페라리</a
@@ -356,7 +324,7 @@
     <main>
 <section class="slider">
   <div class="slide active">
-    <img src="${pageContext.request.contextPath}/image/볼보_XC40.png" alt="2024kiaK9">
+    <img src="${pageContext.request.contextPath}/image/2024kiaK9.png" alt="2024kiaK9">
   </div>
   <div class="slide">
     <img src="${pageContext.request.contextPath}/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S">
