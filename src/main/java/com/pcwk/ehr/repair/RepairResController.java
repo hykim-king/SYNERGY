@@ -29,9 +29,95 @@ public class RepairResController {
     @Autowired
     private RepairResMapper repairResMapper;
 
-    @Autowired
-    private RepairResService repairResService;
+ 
 
+    /**
+     * 정비신청 폼
+     */
+    @GetMapping("/form.do")
+    public String showForm(HttpSession session, Model model) {
+    //테스트 아이디 주입
+    	/*    if (session.getAttribute("login") == null) {
+            MemberDTO dummyLogin = new MemberDTO();
+            dummyLogin.setId("testUser");
+            dummyLogin.setName("테스트유저");
+            session.setAttribute("login", dummyLogin);
+        }*/
+
+        MemberDTO login = (MemberDTO) session.getAttribute("loginUser");
+        if (login == null) {
+            return "redirect:/member/loginView.do";
+        }
+
+        model.addAttribute("loginId", login.getId());
+        return "repair/repairForm"; // → /WEB-INF/views/repair/repairForm.jsp
+    }
+
+    /**
+     * 리페어 신청 처리 → 결과 페이지로 이동
+     */
+    @PostMapping("/apply.do")
+    public String applyRepair(RepairResDTO dto, Model model) throws Exception {
+        int flag = repairResMapper.doSave(dto); // 신청내용 저장
+        RepairResDTO outDto = repairResMapper.doSelectOne(dto); // 저장된 정보 다시 가져옴
+        
+        //히든값 가져오려고 필요한 정보 조회 
+        CarDTO car = repairResMapper.getCarInfoByCode(outDto.getCarCode()); // 차량 정보조회
+        
+        /*
+         **여기부터 해야함 피곤 위에까진 완료
+        */
+        
+        
+        model.addAttribute("dto", dto);
+        model.addAttribute("success", flag == 1);
+        return "repair/repairResult";
+    }
+
+
+    @GetMapping("/delete.do")
+    public String deleteRepair(@RequestParam("repairNo") int repairNo, Model model) {
+        RepairResDTO dto = new RepairResDTO();
+        dto.setRepairNo(repairNo);
+        int flag = repairResMapper.doDelete(dto);
+        model.addAttribute("success", flag == 1);
+        return "repair/repairResult";
+    }
+    
+    
+    /**
+     * 신청 목록
+     */
+    @GetMapping("/list.do")
+    public String listRepairs(Model model) {
+        DTO search = new DTO();
+        List<RepairResDTO> list = repairResMapper.doRetrieve(search);
+        model.addAttribute("repairList", list);
+        return "repair/repairList";
+    }
+
+    /**
+     * 이하 기능 사용 x
+     */
+    @GetMapping("/detail.do")
+    public String detail(@RequestParam("repairNo") int repairNo, Model model) {
+        RepairResDTO dto = new RepairResDTO();
+        dto.setRepairNo(repairNo);
+        RepairResDTO out = repairResMapper.doSelectOne(dto);
+        model.addAttribute("repair", out);
+        return "repair/repairDetail";
+    }
+    
+    @PostMapping("/update.do")
+    public String updateRepair(RepairResDTO dto, Model model) {
+        int flag = repairResMapper.doUpdate(dto);
+        model.addAttribute("dto", dto);
+        model.addAttribute("success", flag == 1);
+        return "repair/repairResult";
+    }
+
+    
+ // JSON 응답 메서드
     // 1) 제조사(JSON)
     @GetMapping("/mfList.do")
     @ResponseBody
@@ -59,89 +145,5 @@ public class RepairResController {
     public int getCode(@RequestParam String carMf,
                        @RequestParam String productName) {
         return repairResMapper.getCarCode(carMf, productName);
-    }
-
-    /**
-     * 리페어 신청 폼
-     */
-    @GetMapping("/form.do")
-    public String showForm(HttpSession session, Model model) {
-        if (session.getAttribute("login") == null) {
-            MemberDTO dummyLogin = new MemberDTO();
-            dummyLogin.setId("testUser");
-            dummyLogin.setName("테스트유저");
-            session.setAttribute("login", dummyLogin);
-        }
-
-        MemberDTO login = (MemberDTO) session.getAttribute("login");
-        if (login == null) {
-            return "redirect:/member/loginView.do";
-        }
-
-        model.addAttribute("loginId", login.getId());
-        return "repair/repairForm"; // → /WEB-INF/views/repair/repairForm.jsp
-    }
-
-    /**
-     * 리페어 신청 처리 → 결과 뷰
-     */
-    @PostMapping("/apply.do")
-    public String applyRepair(RepairResDTO dto, Model model) throws Exception {
-        int flag = repairResMapper.doSave(dto);
-        model.addAttribute("dto", dto);
-        model.addAttribute("success", flag == 1);
-        return "repair/repairResult";
-    }
-
-    /**
-     * 리페어 신청 저장 (AJAX 전송 대응)
-     */
-    @PostMapping("/reserve")
-    @ResponseBody
-    public Map<String, Object> reserve(RepairResDTO dto) throws Exception {
-        int flag = repairResService.doSave(dto);
-        Map<String, Object> result = new HashMap<>();
-        result.put("status", flag > 0 ? "success" : "fail");
-        return result;
-    }
-
-    /**
-     * 신청 목록
-     */
-    @GetMapping("/list.do")
-    public String listRepairs(Model model) {
-        DTO search = new DTO();
-        List<RepairResDTO> list = repairResMapper.doRetrieve(search);
-        model.addAttribute("repairList", list);
-        return "repair/repairList";
-    }
-
-    /**
-     * 신청 상세 조회
-     */
-    @GetMapping("/detail.do")
-    public String detail(@RequestParam("repairNo") int repairNo, Model model) {
-        RepairResDTO dto = new RepairResDTO();
-        dto.setRepairNo(repairNo);
-        RepairResDTO out = repairResMapper.doSelectOne(dto);
-        model.addAttribute("repair", out);
-        return "repair/repairDetail";
-    }
-    
-    @PostMapping("/update.do")
-    public String updateRepair(RepairResDTO dto, Model model) {
-        int flag = repairResMapper.doUpdate(dto);
-        model.addAttribute("dto", dto);
-        model.addAttribute("success", flag == 1);
-        return "repair/repairResult";
-    }
-
-    @GetMapping("/delete.do")
-    public String deleteRepair(@RequestParam("repairNo") int repairNo, Model model) {
-        RepairResDTO dto = new RepairResDTO();
-        dto.setRepairNo(repairNo);
-        int flag = repairResMapper.doDelete(dto);
-        model.addAttribute("success", flag == 1);
-        return "repair/repairResult";
     }
 }
