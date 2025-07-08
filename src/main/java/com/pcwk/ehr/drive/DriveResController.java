@@ -143,7 +143,7 @@ public class DriveResController {
     }
 
     /**
-     * 시승 신청 상세 조회
+     * 이하 기능 실행 안함
      */
     @GetMapping("/detail.do")
     public String detail(@RequestParam("resNo") int resNo, Model model) {
