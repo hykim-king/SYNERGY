@@ -74,18 +74,6 @@ public class CarAdminController implements PLog {
 		return "redirect:/admin/main.do";
 	}
 	
-	@GetMapping("/delete.do")
-	public String deleteCar(@RequestParam("carCode") int carCode,
-	                        @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-	                        @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-	    int flag = carService.deleteById(carCode);
-	    if (flag > 0) {
-	        log.debug("차량 삭제 성공: " + carCode);
-	    } else {
-	        log.debug("차량 삭제 실패: " + carCode);
-	    }
-	    // 삭제 후 리스트 페이지로 리다이렉트 할 때 현재 페이지 정보 유지
-	    return "redirect:/admin/car/list.do?pageNum=" + pageNum + "&pageSize=" + pageSize;
-	}
+	
 
 }
