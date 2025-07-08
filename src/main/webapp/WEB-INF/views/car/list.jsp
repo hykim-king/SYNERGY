@@ -350,7 +350,7 @@
     <main>
 <section class="slider">
   <div class="slide active">
-    <img src="${pageContext.request.contextPath}/car/image/2024 기아 레이.png">
+    <img src="${pageContext.request.contextPath}/image/2024kiaK9.png">
   </div>
   <div class="slide">
     <img src="${pageContext.request.contextPath}/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S" style="width:300px;">
