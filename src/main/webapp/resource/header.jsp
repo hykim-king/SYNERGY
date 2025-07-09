@@ -1,7 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
+<script>
+  const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
+</script>
 
+<script>
+  function handleProtectedLink(event, url) {
+    if (!isLoggedIn) {
+      event.preventDefault();
+      alert("로그인이 필요합니다.");
+    } else {
+      window.location.href = url;
+    }
+  }
+</script>
 <header>
+
   <div class="header-bar">
     <div class="header-nav">
       <a href="${pageContext.request.contextPath}/main/main.do">
@@ -10,8 +25,8 @@
 
       <a href="${pageContext.request.contextPath}/car/list.do">차량 전체 모델</a>
       <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
-      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>  <!--이렇게 하면 접근안됨  -->
-      <a href="${pageContext.request.contextPath}/repair/form.do">정비 신청</a>  <!--이렇게 하면 접근됨  -->
+      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
+      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
       <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
       <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
     </div>
