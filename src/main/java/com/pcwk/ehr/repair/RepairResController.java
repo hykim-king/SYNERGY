@@ -78,6 +78,7 @@ public class RepairResController {
             model.addAttribute("dto", outDto);
         model.addAttribute("success", flag == 1);
         return "repair/repairResult";
+        
     }
 
     /**
