@@ -6,9 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pcwk.ehr.board.BoardDTO;
 import com.pcwk.ehr.cmn.SearchDTO;
+import com.pcwk.ehr.cmn.WorkDiv;
 
 @Mapper
-public interface BoardMapper {
+public interface BoardMapper extends WorkDiv<BoardDTO> {
 
 	/**
 	 * 조회 count증가(단, 본인글 이외 글만)
