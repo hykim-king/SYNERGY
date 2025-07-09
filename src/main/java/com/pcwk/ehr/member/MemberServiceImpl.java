@@ -2,7 +2,9 @@ package com.pcwk.ehr.member;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -129,6 +131,14 @@ public class MemberServiceImpl implements MemberService {
 	public int getCount() throws SQLException {
 		
 		return memberMapper.getCount();
+	}
+
+	@Override
+	public int updatePasswordByUserId(String userId, String newPassword) {
+		Map<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
+        param.put("password", newPassword);
+        return memberMapper.updatePasswordByUserId(param);
 	}
 
 }

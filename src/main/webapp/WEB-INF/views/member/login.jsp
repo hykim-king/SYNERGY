@@ -51,26 +51,16 @@ input[type="text"], input[type="password"] {
     font-size: 14px;
 }
 
-.button-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
-.button-row button, .button-row a {
-    flex: 1;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
 .login-btn {
     background-color: #2d89ef;
     color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
 }
 
 .login-btn:hover {
@@ -80,6 +70,13 @@ input[type="text"], input[type="password"] {
 .register-btn {
     background-color: #6c757d;
     color: white;
+    border-radius: 6px;
+    padding: 12px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: block;
 }
 
 .register-btn:hover {
@@ -92,34 +89,48 @@ input[type="text"], input[type="password"] {
     margin-bottom: 15px;
     font-weight: 600;
 }
+
+.links-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.links-container a {
+    flex: 1;
+}
 </style>
 </head>
 <body>
 
-    <c:if test="${not empty sessionScope.message}">
-        <script>
-            alert('<c:out value="${sessionScope.message}" />');
-        </script>
-        <c:remove var="message" scope="session" />
-    </c:if>
+<c:if test="${not empty sessionScope.message}">
+    <script>
+        alert('<c:out value="${sessionScope.message}" />');
+    </script>
+    <c:remove var="message" scope="session" />
+</c:if>
 
-    <div class="login-container">
-        <h2>CarPick 로그인</h2>
+<div class="login-container">
+    <h2>CarPick 로그인</h2>
 
-        <form action="${pageContext.request.contextPath}/member/login.do"
-            method="post">
-            <label for="id">아이디</label> 
-            <input type="text" name="id" id="id" required /> 
-            <label for="pwd">비밀번호</label> 
-            <input type="password" name="pwd" id="pwd" required />
+    <form action="${pageContext.request.contextPath}/member/login.do" method="post">
+        <label for="id">아이디</label> 
+        <input type="text" name="id" id="id" required /> 
 
-            <div class="button-row">
-                <a href="${pageContext.request.contextPath}/member/registerView.do"
-                    class="register-btn">회원가입</a>
-                <button type="submit" class="login-btn">로그인</button>
-            </div>
-        </form>
+        <label for="pwd">비밀번호</label> 
+        <input type="password" name="pwd" id="pwd" required />
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="login-btn">로그인</button>
+        </div>
+    </form>
+
+    <div class="links-container">
+        <a href="${pageContext.request.contextPath}/member/registerView.do" class="register-btn">회원가입</a>
+        <a href="${pageContext.request.contextPath}/member/passwordReset.do" class="register-btn">비밀번호 찾기</a>
     </div>
+</div>
 
 </body>
 </html>

@@ -43,16 +43,23 @@
     <h1>시승 신청 조회</h1>
 </header>
 <main>
-    <form method="get" action="list.do" class="search-form">
-        <select name="searchDiv">
-            <option value="" <c:if test="${empty searchDiv}">selected</c:if>>전체</option>
-            <option value="name" <c:if test="${searchDiv == 'name'}">selected</c:if>>이름</option>
-            <option value="id" <c:if test="${searchDiv == 'id'}">selected</c:if>>회원ID</option>
-            <option value="phone" <c:if test="${searchDiv == 'phone'}">selected</c:if>>전화번호</option>
-        </select>
-        <input type="text" name="searchWord" value="${fn:escapeXml(searchWord)}" placeholder="검색어 입력"/>
-        <button type="submit">검색</button>
-    </form>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <form method="get" action="list.do" class="search-form" style="margin: 0;">
+            <select name="searchDiv">
+                <option value="" <c:if test="${empty searchDiv}">selected</c:if>>전체</option>
+                <option value="name" <c:if test="${searchDiv == 'name'}">selected</c:if>>이름</option>
+                <option value="id" <c:if test="${searchDiv == 'id'}">selected</c:if>>회원ID</option>
+                <option value="phone" <c:if test="${searchDiv == 'phone'}">selected</c:if>>전화번호</option>
+            </select>
+            <input type="text" name="searchWord" value="${fn:escapeXml(searchWord)}" placeholder="검색어 입력"/>
+            <button type="submit">검색</button>
+        </form>
+
+        <a href="${pageContext.request.contextPath}/admin/main.do" 
+           style="padding: 8px 12px; background-color:#3498db; color:white; border-radius:4px; text-decoration:none;">
+            관리자 메인으로
+        </a>
+    </div>
 
     <table>
         <thead>
