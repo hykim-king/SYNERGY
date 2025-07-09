@@ -33,7 +33,7 @@ body {
     color: #fff;
     font-weight: bold;
     text-decoration: none;
-    font-size: 1.04rem;
+    font-size: 1.5rem;
     letter-spacing: 0.01em;
     transition: color 0.12s;
     line-height: 60px;  /* 로고와 높이 맞추고 싶을 때 사용 */
@@ -59,7 +59,7 @@ body {
     color: #fff; 
     margin: 0;
     padding: 38px 0 38px 70px;
-    font-size: 2.3rem;
+    font-size: 2rem;
     font-weight: bold;
     letter-spacing: -1.5px;
 }
@@ -199,7 +199,7 @@ function handleProtectedLink(event, url) {
   <img src="${pageContext.request.contextPath}/image/carpick.png" alt="CARPICK " style="height:100px;vertical-align:middle;">
 
 </a>
-      <a href="${pageContext.request.contextPath}/car/list.do">전체 차량 모델</a>
+
       <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
       <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
       <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
