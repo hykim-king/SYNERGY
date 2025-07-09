@@ -247,10 +247,8 @@ function handleProtectedLink(event, url) {
           <tr>
             <td>${(currentPage-1) * pageSize + status.index + 1}</td>
             <!-- 업체명에만 링크! -->
-            <td>
-              <a href="detail.do?retailerCode=${retailer.retailerCode}" style="color:#236bff;text-decoration:underline;">
-                <c:out value="${retailer.retailerName}" />
-              </a>
+            <td><c:out value="${retailer.retailerName}" />
+
             </td>
             <!-- 제조사 -->
             <td><c:out value="${retailer.carMf}" /></td>

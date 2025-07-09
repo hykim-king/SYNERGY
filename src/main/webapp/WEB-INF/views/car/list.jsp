@@ -21,11 +21,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
+    height: 90px;
 }
 .header-nav {
     display: flex;
-    gap: 28px;
+    gap: 28px;    
+    align-items: center;   /* 메뉴도 중앙정렬 */
+    
 }
 .header-nav a {
     color: #fff;
@@ -34,6 +36,7 @@ body {
     font-size: 1.04rem;
     letter-spacing: 0.01em;
     transition: color 0.12s;
+    line-height: 60px;  /* 로고와 높이 맞추고 싶을 때 사용 */
 }
 .header-nav a:hover { color: #c0e7ff; }
 .header-right {
@@ -41,6 +44,7 @@ body {
     align-items: center;
     gap: 10px;
     font-size: 1rem;
+        height: 90px;
 }
 .header-right a {
     color: #fff;
@@ -191,7 +195,10 @@ function handleProtectedLink(event, url) {
   <!-- 네비/헤더 영역 -->
   <div class="header-bar">
     <div class="header-nav">
-     <a href="${pageContext.request.contextPath}/main/main.do">메인페이지</a>
+<a href="${pageContext.request.contextPath}/main/main.do">
+  <img src="${pageContext.request.contextPath}/image/carpick.png" alt="CARPICK " style="height:100px;vertical-align:middle;">
+
+</a>
       <a href="${pageContext.request.contextPath}/car/list.do">전체 차량 모델</a>
       <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
       <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
@@ -282,6 +289,8 @@ function handleProtectedLink(event, url) {
     </tbody>
   </table>
   
+  
+  
   <!-- 4. 페이징 영역 -->
   <div class="paging">
     <c:set var="pageBlock" value="10" />
@@ -317,5 +326,11 @@ function handleProtectedLink(event, url) {
       </c:otherwise>
     </c:choose>
   </div>
+  
+  
+    <section style="text-align: center; margin-bottom: 40px">
+            <h2>환영합니다!</h2>
+            <p>당신의 프리미엄 드라이빙 경험, 지금 시작하세요.</p>
+        </section>
 </body>
 </html>
