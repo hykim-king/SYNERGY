@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f9fc;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+}
+
+main {
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #ecf0f1;
+}
+
+.paging {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.paging a {
+    margin: 0 5px;
+    padding: 6px 12px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.paging a.current {
+    background-color: #2c3e50;
+    font-weight: bold;
+    cursor: default;
+}
+
+.paging a.disabled {
+    background-color: #bdc3c7;
+    pointer-events: none;
+    cursor: default;
+}
+
+.btn-main {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.btn-main a {
+    text-decoration: none;
+    background-color: #2c3e50;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.btn-main a:hover {
+    background-color: #34495e;
+}
+
+.search-form input[type="text"] {
+    padding: 6px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.search-form select {
+    padding: 6px;
+    border-radius: 3px;
+}
+
+.search-form button {
+    padding: 6px 12px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #2980b9;
+}
+
+/* 수정/삭제 버튼 */
+.action-btn {
+    margin-right: 5px;
+    padding: 4px 8px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.action-btn.delete {
+    background-color: #c0392b;
+}
+
+.action-btn:hover {
+    opacity: 0.8;
+}
+/* 차량 목록의 이미지에 통일 적용 */
+.car-img {
+    width: 100px;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px #e0e0e0;
+    object-fit: contain; /* 비율 맞춰 깔끔하게 */
+    background: #fff;
+}

@@ -22,5 +22,7 @@ public interface MemberService {
 	int isIdExists(String id);
 	
 	int getCount() throws SQLException;
+	
+	int updatePasswordByUserId(String userId, String pwd);
 
 }

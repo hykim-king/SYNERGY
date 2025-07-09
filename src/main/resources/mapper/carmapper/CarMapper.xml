@@ -55,25 +55,26 @@
 </insert>
   <!-- doUpdate -->
 <update id="doUpdate" parameterType="com.pcwk.ehr.car.CarDTO">
-    UPDATE car
-    SET
-        product_name = #{productName},
-        car_mf       = #{carMf},
-        cartype      = #{cartype},
-        org_fn       = #{orgFn, jdbcType=VARCHAR},
-        mod_fn       = #{modFn, jdbcType=VARCHAR},
-        path         = #{path, jdbcType=VARCHAR},
-        price        = #{price},
-        fuel         = #{fuel},
-        ef           = #{ef},
-        engine       = #{engine, jdbcType=VARCHAR},
-        dpm          = #{dpm, jdbcType=VARCHAR},
-        battery      = #{battery, jdbcType=VARCHAR},
-        mf_dt        = #{mfDt},
-        mod_dt       = #{modDt},
-        mod_id       = #{modId}
-    WHERE
-        car_code = #{carCode}
+  UPDATE CAR
+  SET
+    product_name = #{productName,jdbcType=VARCHAR},
+    car_mf       = #{carMf,jdbcType=VARCHAR},
+    cartype      = #{cartype,jdbcType=VARCHAR},
+    org_fn       = #{orgFn,jdbcType=VARCHAR},
+    mod_fn       = #{modFn,jdbcType=VARCHAR},
+    path         = #{path,jdbcType=VARCHAR},
+    price        = #{price,jdbcType=INTEGER},
+    fuel         = #{fuel,jdbcType=VARCHAR},
+    ef           = #{ef,jdbcType=DOUBLE},
+    engine       = #{engine,jdbcType=VARCHAR},
+    dpm          = #{dpm,jdbcType=INTEGER},
+    battery      = #{battery,jdbcType=DOUBLE},
+    mf_dt        = #{mfDt,jdbcType=INTEGER},
+    reg_dt       = #{regDt,jdbcType=TIMESTAMP},
+    reg_id       = #{regId,jdbcType=VARCHAR},
+    mod_dt       = #{modDt,jdbcType=TIMESTAMP},
+    mod_id       = #{modId,jdbcType=VARCHAR}
+  WHERE car_code = #{carCode,jdbcType=INTEGER}
 </update>
   <!-- doDelete -->
 <delete id="doDelete" parameterType="com.pcwk.ehr.car.CarDTO">
@@ -129,40 +130,36 @@
   
 
     <!-- ...다른 SQL... -->
-    <select id="getAllCars" resultType="com.pcwk.ehr.car.CarDTO">
-        SELECT
-            CAR_CODE,
-            PRODUCT_NAME,
-            CAR_MF,
-            CARTYPE,
-            ORG_FN,
-            MOD_FN,
-            PATH,
-            PRICE,
-            FUEL,
-            EF,
-            ENGINE,
-            DPM,
-            BATTERY,
-            MF_DT,
-            REG_DT,
-            REG_ID,
-            MOD_DT,
-            MOD_ID
-        FROM CAR
-    </select>
+<select id="getAllCars" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT
+        CAR_CODE,           -- DB 컬럼명!
+        PRODUCT_NAME,
+        CAR_MF,
+        CARTYPE,
+        PRICE,
+        FUEL,
+        EF,
+        ENGINE,
+        BATTERY,
+        MF_DT
+    FROM CAR
+    ORDER BY CAR_CODE DESC
+</select>
   
   
   
    <!-- 브랜드별 조회 -->
-<select id="getCarsByBrand" resultType="com.pcwk.ehr.car.CarDTO">
-    SELECT * FROM car WHERE car_mf = #{brand}
+<select id="getCarsByBrand" parameterType="String" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT *
+    FROM CAR
+    WHERE CAR_MF = #{carMf}
 </select>
 
     <!-- 상세조회 -->
-<select id="getOne" resultType="com.pcwk.ehr.car.CarDTO" parameterType="int">
+<select id="getOne" parameterType="int" resultType="com.pcwk.ehr.car.CarDTO">
     SELECT * FROM CAR WHERE CAR_CODE = #{carCode}
 </select>
+
 
 
 <!-- 전체 차량 수 조회 -->
@@ -183,4 +180,40 @@
     )
     WHERE rn &gt; #{offset}
 </select>
+
+<select id="getCarsByPageWithSearch" parameterType="map" resultType="com.pcwk.ehr.car.CarDTO">
+  SELECT * FROM car
+  WHERE
+    <choose>
+      <when test="searchType eq 'productName'">
+        product_name LIKE '%' || #{searchWord} || '%'
+      </when>
+      <when test="searchType eq 'carMf'">
+        car_mf LIKE '%' || #{searchWord} || '%'
+      </when>
+      <otherwise>
+        1=1
+      </otherwise>
+    </choose>
+  ORDER BY car_code
+  OFFSET #{offset} ROWS FETCH NEXT #{pageSize} ROWS ONLY
+</select>
+
+<select id="getCarCountWithSearch" parameterType="map" resultType="int">
+  SELECT COUNT(*)
+  FROM car
+  WHERE
+    <choose>
+      <when test="searchType eq 'productName'">
+        product_name LIKE '%' || #{searchWord} || '%'
+      </when>
+      <when test="searchType eq 'carMf'">
+        car_mf LIKE '%' || #{searchWord} || '%'
+      </when>
+      <otherwise>
+        1=1
+      </otherwise>
+    </choose>
+</select>
+
 </mapper>

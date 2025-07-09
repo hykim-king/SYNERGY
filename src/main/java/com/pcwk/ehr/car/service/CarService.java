@@ -7,7 +7,7 @@ public interface CarService {
 
     List<CarDTO> getAllCars();
 
-    List<CarDTO> getCarsByBrand(String brand);
+    List<CarDTO> getCarsByBrand(String carMf);
 
     CarDTO getCarById(int carCode);
 
@@ -26,5 +26,9 @@ public interface CarService {
 
     List<CarDTO> getCarsByPage(int pageNum, int pageSize);
 
-	CarDTO getOne(int carCode);
-}
+   	CarDTO getOne(int carCode);
+   	
+   	 List<CarDTO> getCarsByPageWithSearch(int pageNum, int pageSize, String searchType, String searchWord);
+
+   	 int getCarCountWithSearch(String searchType, String searchWord);
+   }

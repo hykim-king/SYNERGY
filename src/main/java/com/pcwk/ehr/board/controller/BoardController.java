@@ -3,6 +3,7 @@ package com.pcwk.ehr.board.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -36,6 +38,22 @@ public class BoardController {
 
 	}
 
+	// 등록 화면 조회: /board/doSaveView.do
+	@GetMapping("/doSaveView.do")
+	public String doSaveView(@RequestParam(name = "div", defaultValue = "10") String div, Model model) {
+		String viewNString = "board/board_reg"; // -> /WEB-INF/views/board/board_reg.jsp
+		log.debug("┌───────────────────────────┐");
+		log.debug("│ *doSaveView()*            │");
+		log.debug("└───────────────────────────┘");
+		log.debug("div: {}", div);
+
+		model.addAttribute("board_div", div); // JSP에서 ${board_div}로 사용 가능
+		
+		log.debug("viewNString: {}",viewNString);
+		
+		return viewNString;
+	}
+
 	@GetMapping(value = "/doRetrieve.do")
 	public String doRetrieve(SearchDTO param, Model model) {
 		String viewName = "board/board_list";
@@ -50,6 +68,12 @@ public class BoardController {
 		String searchDiv = PcwkString.nullToEmpty(param.getSearchDiv());
 		String searchWord = PcwkString.nullToEmpty(param.getSearchWord());
 
+		log.debug("pageNo:{}",pageNo);
+		log.debug("pageSize:{}",pageSize);
+		log.debug("div:{}",div);
+		log.debug("searchDiv:{}",searchDiv);
+		log.debug("searchWord:{}",searchWord);
+		
 		// 파라미터 설정
 		param.setPageNo(pageNo);
 		param.setPageSize(pageSize);
@@ -57,7 +81,7 @@ public class BoardController {
 		param.setSearchDiv(searchDiv);
 		param.setSearchWord(searchWord);
 
-		log.debug("SearchDTO param: {}", param);
+		log.debug("***param:{}",param);
 
 		// 데이터 조회
 		List<BoardDTO> list = boardService.doRetrieve(param);
@@ -70,6 +94,9 @@ public class BoardController {
 			totalCnt = totalVO.getTotalCnt();
 		}
 		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("divValue", div);
+		// Form Submit: 파라메터 값 유지
+		model.addAttribute("search", param);
 
 		return viewName;
 	}
@@ -79,12 +106,18 @@ public class BoardController {
 		String viewName = "board/board_mod"; // /WEB-INF/views/board/board_mod.jsp
 
 		log.debug("1. param: {}", param);
-
+		
+		//게시구분: 공지사항(10)
+		String div   = PcwkString.nvlString(param.getDiv(), "10");
+		log.debug("2. div: {}",div);
+		
+		
 		BoardDTO outVO = boardService.doSelectOne(param);
 		log.debug("2. outVO: {}", outVO);
 
 		model.addAttribute("vo", outVO); // 조회된 데이터를 "vo"라는 이름으로 JSP에 전달
-
+		model.addAttribute("divValue", div);
+		
 		return viewName;
 	}
 
@@ -115,7 +148,7 @@ public class BoardController {
 		log.debug("└───────────────────────────┘");
 
 		log.debug("1. param:{}", param);
-
+		String jsonString = "";
 		int flag = boardService.doDelete(param);
 
 		String message = "";
@@ -125,11 +158,14 @@ public class BoardController {
 			message = "게시판 글이 삭제 되지않았습니다.";
 		}
 
-		MessageDTO messageDTO = new MessageDTO(flag, message); // ✅ 메시지 객체 생성
-		String jsonString = new Gson().toJson(messageDTO); // ✅ JSON 문자열로 변환
+		//MessageDTO messageDTO = new MessageDTO(flag, message); // ✅ 메시지 객체 생성
+		//String jsonString = new Gson().toJson(messageDTO); // ✅ JSON 문자열로 변환
 
-		log.debug("2. jsonString: {}", jsonString);
+		//log.debug("2. jsonString: {}", jsonString);
 
+		//return jsonString;
+		jsonString = new Gson().toJson(new MessageDTO(flag, message));
+		log.debug("2. jsonString:{}",jsonString);
 		return jsonString;
 	}
 

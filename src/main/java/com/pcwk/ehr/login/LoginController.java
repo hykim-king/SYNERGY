@@ -56,6 +56,9 @@ public class LoginController implements PLog {
 
 		// 로그인 성공 시
 		session.setAttribute("loginUser", user);
+		
+        String nick = (user.getNickname() != null && !user.getNickname().isEmpty()) ? user.getNickname() : user.getId();
+        session.setAttribute("welcomeMessage", nick + " 님 환영합니다.");
 
 		if (user.getAdminRole() == 1) {
 			session.setAttribute("message", "관리자 로그인 성공!");

@@ -83,7 +83,7 @@
     <a href="javascript:void(0)" onclick="toggleSubMenu('memberSubmenu')">회원 관리</a>
     <a href="javascript:void(0)" onclick="toggleSubMenu('carSubmenu')">차량 관리</a>
     <a href="#">리테일러 정보 관리</a>
-    <a href="#">시승 신청 관리</a>
+    <a href="${pageContext.request.contextPath}/admin/drive/list.do">시승 신청 관리</a>
     <a href="#">정비 신청 관리</a>
     <a href="#">게시판 관리</a>
     <a href="#">이벤트 관리</a>
@@ -96,15 +96,33 @@
     <a href="${pageContext.request.contextPath}/admin/member/list.do">회원 조회</a>
 </div>
 
-<!-- 🚗 차량 관리 서브 메뉴 -->
+<!-- 차량 관리 서브 메뉴 -->
 <div id="carSubmenu" class="submenu">
     <a href="${pageContext.request.contextPath}/admin/car/add.do">차량 등록</a>
     <a href="${pageContext.request.contextPath}/admin/car/list.do">차량 목록</a>
 </div>
 
+<!-- 로그인 직후 한 번만 뜨는 환영 메시지 alert -->
+<c:if test="${not empty sessionScope.welcomeMessage}">
+    <script>
+        alert('${sessionScope.welcomeMessage}');
+    </script>
+    <c:remove var="welcomeMessage" scope="session" />
+</c:if>
+
 <main>
     <div class="welcome">
-        <h2>환영합니다, <c:out value="${loginUser.nickname}" /> 님!</h2>
+        <h2>환영합니다, 
+            <c:choose>
+                <c:when test="${not empty sessionScope.loginUser}">
+                    <c:out value="${sessionScope.loginUser.nickname}" />
+                </c:when>
+                <c:otherwise>
+                    손님
+                </c:otherwise>
+            </c:choose>
+            님!
+        </h2>
         <p>관리자 페이지에 오신 것을 환영합니다.</p>
     </div>
     <p>여기서 회원 관리, 차량 정보 관리 등 여러 관리 작업을 수행할 수 있습니다.</p>

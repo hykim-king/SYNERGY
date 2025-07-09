@@ -94,5 +94,11 @@
  <select id="getCount" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM member
  </select>
+ 
+ <update id="updatePasswordByUserId" parameterType="map">
+        UPDATE member
+        SET pwd = #{pwd}
+        WHERE id = #{userId}
+ </update>
 
 </mapper>
