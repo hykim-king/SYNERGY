@@ -1,7 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
+<script>
+  const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
+</script>
 
+<script>
+  function handleProtectedLink(event, url) {
+    if (!isLoggedIn) {
+      event.preventDefault();
+      alert("로그인이 필요합니다.");
+    } else {
+      window.location.href = url;
+    }
+  }
+</script>
 <header>
+
   <div class="header-bar">
     <div class="header-nav">
       <a href="${pageContext.request.contextPath}/main/main.do">
