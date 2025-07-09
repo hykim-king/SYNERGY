@@ -116,6 +116,27 @@ public class MemberController {
     	
     }
     
+    @GetMapping("/passwordReset.do")
+    public String passwordResetForm() {
+        return "member/passwordReset"; // JSP 경로 예: /WEB-INF/views/member/passwordReset.jsp
+    }
+    
+    @PostMapping("/passwordReset.do")
+    public String passwordReset(
+            @RequestParam("userId") String userId,
+            @RequestParam("newPassword") String newPassword,
+            Model model) {
+
+        int result = memberService.updatePasswordByUserId(userId, newPassword);
+        if(result > 0) {
+            model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+            return "member/login"; // 변경 후 로그인 페이지로 이동
+        } else {
+            model.addAttribute("error", "비밀번호 변경에 실패했습니다. 아이디를 확인해주세요.");
+            return "member/passwordReset"; // 실패 시 다시 폼으로
+        }
+    }
+    
     
 }
 

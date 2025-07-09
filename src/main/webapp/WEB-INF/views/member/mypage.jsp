@@ -128,7 +128,7 @@ input[readonly] {
             <a href="#">신청 현황</a>
             <ul class="submenu">
                 <li><a href="${pageContext.request.contextPath}/drive/list.do">시승 신청 현황</a></li>
-                <li><a href="${pageContext.request.contextPath}/apply/maintenanceList.do">정비 신청 현황</a></li>
+                <li><a href="${pageContext.request.contextPath}/repair/list.do">정비 신청 현황</a></li>
             </ul>
         </li>
         <li><a href="${pageContext.request.contextPath}/board/myPosts.do">내가 쓴 글</a></li>
