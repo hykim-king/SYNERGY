@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -34,6 +35,19 @@ public class BoardController {
 		log.debug("│ BoardController()                   │");
 		log.debug("└─────────────────────────────────────┘");
 
+	}
+	
+	// 등록 화면 조회: /board/doSaveView.do
+	@GetMapping("/doSaveView.do")
+	public String doSaveView(@RequestParam(name = "div", defaultValue = "10") String div, Model model) {
+	    String viewName = "board/board_reg"; // -> /WEB-INF/views/board/board_reg.jsp
+	    log.debug("┌───────────────────────────┐");
+	    log.debug("│ *doSaveView()*            │");
+	    log.debug("└───────────────────────────┘");
+	    log.debug("div: {}", div);
+
+	    model.addAttribute("board_div", div); // JSP에서 ${board_div}로 사용 가능
+	    return viewName;
 	}
 
 	@GetMapping(value = "/doRetrieve.do")
@@ -70,6 +84,9 @@ public class BoardController {
 			totalCnt = totalVO.getTotalCnt();
 		}
 		model.addAttribute("totalCnt", totalCnt);
+		model.addAttribute("divValue", div);
+		//Form Submit: 파라메터 값 유지
+		model.addAttribute("search", param);
 
 		return viewName;
 	}
