@@ -80,10 +80,10 @@ body {
 
 .page-title {
     background: #00274d;
-    color: #fff;
+    color: #fff; 
     margin: 0;
     padding: 38px 0 38px 70px;
-    font-size: 2.3rem;
+    font-size: 2rem;
     font-weight: bold;
     letter-spacing: -1.5px;
 }
@@ -227,27 +227,38 @@ tr:nth-child(even) {
     text-decoration: none;
     border-radius: 3px;
     display: inline-block;
-    font-weight: 600;
+
 }
+
+
 .paging a.current {
     background-color: #2c3e50;
     font-weight: bold;
     cursor: default;
 }
+
+
 .paging a.disabled {
     background-color: #bdc3c7;
     pointer-events: none;
     cursor: default;
 }
 
+
+
+
 @media (max-width: 1100px) {
     .main-center-wrap { max-width: 97vw; }
 }
+
+
 @media (max-width: 700px) {
   .header-bar, .page-title { padding-left: 20px; padding-right: 10px; }
   .page-title { font-size: 1.3rem; padding: 25px 0 18px 16px; }
   .main-center-wrap { padding-left: 5px; padding-right: 5px; }
 }
+
+
 </style>
 </head>
 

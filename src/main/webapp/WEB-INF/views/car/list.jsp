@@ -91,6 +91,7 @@ tr:nth-child(even) {
     text-decoration: none;
     border-radius: 3px;
     display: inline-block;
+   
 }
 
 
