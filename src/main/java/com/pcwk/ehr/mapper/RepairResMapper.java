@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.pcwk.ehr.car.CarDTO;
+import com.pcwk.ehr.cmn.DTO;
 import com.pcwk.ehr.cmn.WorkDiv;
+import com.pcwk.ehr.drive.DriveResDTO;
 import com.pcwk.ehr.repair.RepairResDTO;
 import com.pcwk.ehr.retailer.RetailerDTO;
 
@@ -32,5 +34,8 @@ public interface RepairResMapper extends WorkDiv<RepairResDTO> {
 
     public List<RepairResDTO> doRetrieveByUser(RepairResDTO dto);
 	
+    List<RepairResDTO> doRetrievePaging(DTO search) throws Exception;
+    
+    int getTotalCount(DTO dto);
 	
 }
