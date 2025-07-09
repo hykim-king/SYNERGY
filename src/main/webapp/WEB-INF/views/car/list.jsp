@@ -7,7 +7,8 @@
 <head>
 <title>관리자 차량 목록</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="/Synergy_Test/resource/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
+
 
 
 <style>
@@ -238,8 +239,6 @@ function handleProtectedLink(event, url) {
       <script>alert('${msg}');</script>
     </c:if>
   
-  
-  
  <div class="search-form-wrapper">
 <!-- 2. 검색 폼 -->
 <form class="search-form" method="get" action="list.do">
@@ -272,7 +271,6 @@ function handleProtectedLink(event, url) {
         <th>배터리</th>
         <th>제조년도</th>
         <th>이미지</th>
-        
       </tr>
     </thead>
     <tbody>
