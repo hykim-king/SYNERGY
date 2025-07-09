@@ -41,7 +41,15 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int doSave(BoardDTO param) {
-		return mapper.doSave(param);
+		if (param.getId() == null || param.getId().isEmpty()) {
+	        param.setId(param.getRegId()); // 등록자와 동일하게
+	    }
+
+	    if (param.getNickname() == null || param.getNickname().isEmpty()) {
+	        param.setNickname("익명");
+	    }
+
+	    return mapper.doSave(param);
 	}
 
 	@Override

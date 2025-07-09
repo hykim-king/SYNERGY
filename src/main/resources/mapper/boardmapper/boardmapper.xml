@@ -3,6 +3,21 @@
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pcwk.ehr.mapper.BoardMapper">
 
+<resultMap id="boardResultMap" type="com.pcwk.ehr.board.BoardDTO">
+    <result property="boardCode" column="board_code"/>
+    <result property="title" column="title"/>
+    <result property="div" column="div"/>
+    <result property="contents" column="contents"/>
+    <result property="id" column="id"/>
+    <result property="nickname" column="nickname"/>
+    <result property="readCnt" column="read_cnt"/>
+    <result property="regDt" column="reg_dt"/>
+    <result property="regId" column="reg_id"/>
+    <result property="modDt" column="mod_dt"/>
+    <result property="modId" column="mod_id"/>
+</resultMap>
+
+
     <!-- 시퀀스 조회 -->
     <select id="getBoardSeq" resultType="java.lang.Integer">
         SELECT BOARD_SEQ.NEXTVAL FROM dual
@@ -59,7 +74,7 @@
     </sql>
 
     <!-- 목록 조회 (페이징 + 검색) -->
-    <select id="doRetrieve" parameterType="SearchDTO" resultType="BoardDTO">
+    <select id="doRetrieve" parameterType="SearchDTO" resultMap="boardResultMap">
         SELECT A.*, B.total_cnt
         FROM (
             SELECT TT1.rnum AS no,
@@ -70,6 +85,7 @@
                    TT1.id,
                    TT1.nickname,
                    TT1.read_cnt,
+                   TT1.reg_dt,
                    TT1.mod_dt,
                    TT1.mod_id
             FROM (
@@ -110,17 +126,17 @@
 
     <!-- 단건 등록 -->
     <insert id="doSave" parameterType="BoardDTO">
-        INSERT INTO board (
-            board_code, title, div, contents, id, nickname,
-            read_cnt, reg_dt, reg_id, mod_dt, mod_id
-        ) VALUES (
-            #{boardCode}, #{title}, #{div}, #{contents}, #{id}, #{nickname},
-            0, SYSDATE, #{regId}, SYSDATE, #{regId}
-        )
-    </insert>
+    INSERT INTO board (
+        board_code, title, div, contents, id, nickname,
+        read_cnt, reg_dt, reg_id, mod_dt, mod_id
+    ) VALUES (
+        BOARD_SEQ.NEXTVAL, #{title}, #{div}, #{contents}, #{id, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR},
+        0, SYSDATE, #{regId}, SYSDATE, #{regId}
+    )
+</insert>
 
     <!-- 단건 조회 -->
-    <select id="doSelectOne" resultType="BoardDTO" parameterType="BoardDTO">
+    <select id="doSelectOne" parameterType="BoardDTO" resultMap="boardResultMap">
         SELECT
             board_code,
             title,
