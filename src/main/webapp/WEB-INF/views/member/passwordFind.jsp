@@ -1,9 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>비밀번호 재설정</title>
+    <title>비밀번호 찾기</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +14,7 @@
             margin: 0;
         }
 
-        .reset-container {
+        .find-container {
             background-color: white;
             padding: 40px 30px;
             border-radius: 10px;
@@ -38,7 +37,7 @@
             font-weight: 600;
         }
 
-        input[type="password"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -70,10 +69,6 @@
             font-weight: 600;
         }
 
-        .success {
-            color: green;
-        }
-
         .error {
             color: red;
         }
@@ -95,27 +90,19 @@
 </head>
 <body>
 
-<div class="reset-container">
-    <h2>비밀번호 재설정</h2>
-
-    <!-- 성공 메시지 -->
-    <c:if test="${not empty message}">
-        <div class="message success">${message}</div>
-    </c:if>
+<div class="find-container">
+    <h2>비밀번호 찾기</h2>
 
     <!-- 에러 메시지 -->
     <c:if test="${not empty error}">
         <div class="message error">${error}</div>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/member/passwordReset.do" method="post">
-        <!-- 아이디는 이미 확인된 상태라면 숨겨서 보낼 수 있음 -->
-        <input type="hidden" name="userId" value="${userId}"/>
+    <form action="${pageContext.request.contextPath}/member/passwordFind.do" method="post">
+        <label for="userId">아이디</label>
+        <input type="text" id="userId" name="userId" required>
 
-        <label for="pwd">새 비밀번호</label>
-        <input type="password" id="pwd" name="pwd" required>
-
-        <button type="submit">비밀번호 변경</button>
+        <button type="submit">확인</button>
     </form>
 
     <div class="link-area">

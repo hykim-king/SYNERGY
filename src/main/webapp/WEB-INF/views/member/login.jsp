@@ -128,7 +128,7 @@ input[type="text"], input[type="password"] {
 
     <div class="links-container">
         <a href="${pageContext.request.contextPath}/member/registerView.do" class="register-btn">회원가입</a>
-        <a href="${pageContext.request.contextPath}/member/passwordReset.do" class="register-btn">비밀번호 찾기</a>
+        <a href="${pageContext.request.contextPath}/member/passwordFind.do" class="register-btn">비밀번호 찾기</a>
     </div>
 </div>
 

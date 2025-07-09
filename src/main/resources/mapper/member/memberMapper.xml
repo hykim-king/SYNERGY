@@ -97,7 +97,7 @@
  
  <update id="updatePasswordByUserId" parameterType="map">
         UPDATE member
-        SET pwd = #{newPassword}
+        SET pwd = #{pwd}
         WHERE id = #{userId}
  </update>
 
