@@ -1,11 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/resource/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>시승신청 결과</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 </head>
 <body>
     <h2>시승신청 결과</h2>
@@ -30,5 +32,6 @@
       <a href="<c:url value='/main/main.do'/>">메인으로 가기</a> |
       <a href="<c:url value='/drive/list.do'/>">내 신청 목록 보기</a>
     </p>
+    <%@ include file="/resource/footer.jsp" %>
 </body>
 </html>
