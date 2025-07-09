@@ -20,6 +20,8 @@ body { font-family: Arial, sans-serif; background: #f7f9fc; }
 .back-btn:hover { background: #2c3e50; }
 </style>
 </head>
+
+
 <body>
   <header>
     <h1>차량 상세 정보</h1>
@@ -35,7 +37,9 @@ body { font-family: Arial, sans-serif; background: #f7f9fc; }
       <div class="detail-row"><span class="label">효율</span> <span class="value"><c:out value="${car.ef}"/></span></div>
       <div class="detail-row"><span class="label">엔진</span> <span class="value"><c:out value="${car.engine != null ? car.engine : '-'}"/></span></div>
       <div class="detail-row"><span class="label">배터리</span> <span class="value"><c:out value="${car.battery != null ? car.battery : '-'}"/></span></div>
-      <!-- 필요한 상세 정보 더 추가 가능 -->
+      
+      
+      <!-- list.do로 롤백 -->
       <a href="list.do" class="back-btn">목록으로</a>
     </div>
   </main>
