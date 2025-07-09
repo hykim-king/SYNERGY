@@ -84,7 +84,7 @@
     <a href="javascript:void(0)" onclick="toggleSubMenu('carSubmenu')">차량 관리</a>
     <a href="#">리테일러 정보 관리</a>
     <a href="${pageContext.request.contextPath}/admin/drive/list.do">시승 신청 관리</a>
-    <a href="#">정비 신청 관리</a>
+    <a href="${pageContext.request.contextPath}/admin/repair/list.do">정비 신청 관리</a>
     <a href="#">게시판 관리</a>
     <a href="#">이벤트 관리</a>
     <a href="${pageContext.request.contextPath}/member/logout.do" style="float:right;">로그아웃</a>

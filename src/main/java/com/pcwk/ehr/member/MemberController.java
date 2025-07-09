@@ -116,24 +116,40 @@ public class MemberController {
     	
     }
     
-    @GetMapping("/passwordReset.do")
-    public String passwordResetForm() {
-        return "member/passwordReset"; // JSP 경로 예: /WEB-INF/views/member/passwordReset.jsp
+    // ✅ [1] 비밀번호 찾기 폼 (아이디 입력)
+    @GetMapping("/passwordFind.do")
+    public String passwordFindForm() {
+        return "member/passwordFind"; // JSP: /WEB-INF/views/member/passwordFind.jsp
     }
-    
+
+    // ✅ [2] 아이디 확인 → 재설정 폼으로
+    @PostMapping("/passwordFind.do")
+    public String passwordFind(@RequestParam("userId") String userId, Model model) {
+        int count = memberService.isIdExists(userId);
+        if (count > 0) {
+            model.addAttribute("userId", userId); // reset 폼에 전달
+            return "member/passwordReset"; // JSP: /WEB-INF/views/member/passwordReset.jsp
+        } else {
+            model.addAttribute("error", "존재하지 않는 아이디입니다.");
+            return "member/passwordFind";
+        }
+    }
+
+    // ✅ [3] 비밀번호 재설정
     @PostMapping("/passwordReset.do")
     public String passwordReset(
             @RequestParam("userId") String userId,
-            @RequestParam("newPassword") String newPassword,
+            @RequestParam("pwd") String pwd,
             Model model) {
 
-        int result = memberService.updatePasswordByUserId(userId, newPassword);
-        if(result > 0) {
+        int result = memberService.updatePasswordByUserId(userId, pwd);
+        if (result > 0) {
             model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
-            return "member/login"; // 변경 후 로그인 페이지로 이동
+            return "member/login";
         } else {
             model.addAttribute("error", "비밀번호 변경에 실패했습니다. 아이디를 확인해주세요.");
-            return "member/passwordReset"; // 실패 시 다시 폼으로
+            model.addAttribute("userId", userId); // 실패 시 값 유지
+            return "member/passwordReset";
         }
     }
     

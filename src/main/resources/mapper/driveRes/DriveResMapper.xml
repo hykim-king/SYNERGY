@@ -206,7 +206,6 @@
   FROM drive_res dr
   JOIN car c ON dr.car_code = c.car_code
   JOIN retailer r ON dr.retailer_code = r.retailer_code
-  <!-- 검색 조건이 있다면 여기에 추가 -->
 </select>
 
 </mapper>

@@ -23,6 +23,6 @@ public interface MemberService {
 	
 	int getCount() throws SQLException;
 	
-	int updatePasswordByUserId(String userId, String newPassword);
+	int updatePasswordByUserId(String userId, String pwd);
 
 }
