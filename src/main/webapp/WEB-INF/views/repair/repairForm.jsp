@@ -34,15 +34,22 @@
 		<br>
 
 
+        <!-- 정비 요청 사항 -->
+        <label for="repairDesc">정비 요청 사항:</label><br>
+        <textarea name="repairDesc" id="repairDesc" rows="3" cols="40"
+         placeholder="예: 브레이크 점검, 엔진오일 교체 등" required></textarea><br>
+         <small>※ 구체적인 증상이나 요청사항을 입력해주세요.</small>
+        <br><br>
+
 
 		<!-- 제조사 -->
-		<label>자동차 브랜드: </label> <select id="carMf" name="dummy">
+		<label>자동차 브랜드: </label> <select id="carMf" name="dummy" required>
 			<option value="">-- 선택 --</option>
 		</select><br>
 		<br>
 
 		<!-- 제품명 (제조사 선택 시 동적로딩) -->
-          <label>제품명</label> <select id="product" name="dummy">
+          <label>제품명</label> <select id="product" name="dummy" required>
             <option value="">-- 선택 --</option>
         </select><br>
         <br>
@@ -167,8 +174,7 @@
 																		.append(
 																				$(
 																						'<td>')
-																						.text(
-																								r.tel));
+																						.text(r.telephone));
 																$(
 																		'#retailerTable tbody')
 																		.append(
@@ -177,4 +183,12 @@
 												});
 							});
 		});
+		
+		 // 업체명 필수값 (테이블은 리콰이어 불가능)
+        $("form").on("submit", function (e) {
+          if (!$("input[name='retailerRadio']:checked").length) {
+            alert("업체를 선택해주세요.");
+            e.preventDefault();
+          }
+        });
 	</script>
