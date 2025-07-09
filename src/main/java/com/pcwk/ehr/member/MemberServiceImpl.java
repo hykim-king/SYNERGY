@@ -134,10 +134,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updatePasswordByUserId(String userId, String newPassword) {
+	public int updatePasswordByUserId(String userId, String pwd) {
 		Map<String, Object> param = new HashMap<>();
         param.put("userId", userId);
-        param.put("password", newPassword);
+        param.put("pwd", pwd);
         return memberMapper.updatePasswordByUserId(param);
 	}
 
