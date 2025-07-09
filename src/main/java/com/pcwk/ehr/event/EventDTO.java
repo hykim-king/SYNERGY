@@ -7,12 +7,14 @@ import java.util.Date;
 
 import com.pcwk.ehr.cmn.DTO;
 
-public class EventDTO extends DTO{
+public class EventDTO extends DTO {
 
 	private String ecode;
 	private String email;
 	private String title;
+	private String div; // 게시구분
 	private String contents;
+	private String nickname;
 	private int readCnt;
 	private Date regDt;
 	private String regId;
@@ -20,32 +22,38 @@ public class EventDTO extends DTO{
 	private String modId;
 
 	/**
+	 * 
+	 */
+	public EventDTO() {
+	}
+
+	/**
 	 * @param ecode
 	 * @param email
 	 * @param title
+	 * @param div
 	 * @param contents
+	 * @param nickname
 	 * @param readCnt
 	 * @param regDt
 	 * @param regId
 	 * @param modDt
 	 * @param modId
 	 */
-	public EventDTO(String ecode, String email, String title, String contents, int readCnt, Date regDt, String regId,
-			Date modDt, String modId) {
+	public EventDTO(String ecode, String email, String title, String div, String contents, String nickname, int readCnt,
+			Date regDt, String regId, Date modDt, String modId) {
 		super();
 		this.ecode = ecode;
 		this.email = email;
 		this.title = title;
+		this.div = div;
 		this.contents = contents;
+		this.nickname = nickname;
 		this.readCnt = readCnt;
 		this.regDt = regDt;
 		this.regId = regId;
 		this.modDt = modDt;
 		this.modId = modId;
-	}
-
-	public EventDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -91,6 +99,20 @@ public class EventDTO extends DTO{
 	}
 
 	/**
+	 * @return the div
+	 */
+	public String getDiv() {
+		return div;
+	}
+
+	/**
+	 * @param div the div to set
+	 */
+	public void setDiv(String div) {
+		this.div = div;
+	}
+
+	/**
 	 * @return the contents
 	 */
 	public String getContents() {
@@ -102,6 +124,20 @@ public class EventDTO extends DTO{
 	 */
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+
+	/**
+	 * @return the nickname
+	 */
+	public String getNickname() {
+		return nickname;
+	}
+
+	/**
+	 * @param nickname the nickname to set
+	 */
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	/**
@@ -176,9 +212,9 @@ public class EventDTO extends DTO{
 
 	@Override
 	public String toString() {
-		return "EventDTO [ecode=" + ecode + ", email=" + email + ", title=" + title + ", contents=" + contents
-				+ ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId=" + regId + ", modDt=" + modDt + ", modId="
-				+ modId + "]";
+		return "EventDTO [ecode=" + ecode + ", email=" + email + ", title=" + title + ", div=" + div + ", contents="
+				+ contents + ", nickname=" + nickname + ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId=" + regId
+				+ ", modDt=" + modDt + ", modId=" + modId + ", toString()=" + super.toString() + "]";
 	}
 
 }

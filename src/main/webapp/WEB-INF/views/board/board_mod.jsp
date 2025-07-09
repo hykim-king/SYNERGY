@@ -8,9 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 관리</title>
-<link rel="stylesheet" href="${CP}/resources/assets/css/form.css">
+<link rel="stylesheet" href="${CP}/resource/css/SNERGY/css/board.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="${CP}/resources/assets/js/common.js"></script>
+<script src="${CP}/resource/js/board.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
     const boardCodeInput = document.querySelector("#boardCode");
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
     // 목록 이동
     moveToListButton.addEventListener('click', function(){
         if(confirm('목록으로 이동 하시겠습니까?') === false) return;
-        location.href = '${CP}/board/doRetrieve.do?div=' + divInput.value;
+        location.href = '${CP}/board/board_list.do?div=' + divInput.value;
     });
 
     // 수정
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 const message = JSON.parse(response);
                 alert(message.message);
                 if(message.messageId === 1){
-                    location.href = '${CP}/board/doRetrieve.do?div=' + divInput.value;
+                    location.href = '${CP}/board/board_list.do?div=' + divInput.value;
                 }
             },
             error: function(error){
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 const message = JSON.parse(response);
                 alert(message.message);
                 if(message.messageId === 1){
-                    location.href = '${CP}/board/doRetrieve.do?div=' + divInput.value;
+                    location.href = '${CP}/board/board_list.do?div=' + divInput.value;
                 }
             },
             error: function(error){

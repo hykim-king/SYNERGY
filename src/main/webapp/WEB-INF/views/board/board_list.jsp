@@ -27,7 +27,7 @@
     pageNo = paramVO.getPageNo();
 
     String cp = request.getContextPath();
-    url = cp + "/board/doRetrieve.do";
+    url = cp + "/board/board_list.do";
     scriptName = "pagerDoRetrieve";
     String pageHtml = PcwkString.renderingPager(maxNum, pageNo, pageSize, bottomCount, url, scriptName);
 %>
@@ -71,7 +71,7 @@ function pagerDoRetrieve(url, pageNo) {
         <li><a href="${CP}/retailer/list.do">리테일러 찾기</a></li>
         <li><a href="${CP}/drive/form.do">시승 신청</a></li>
         <li><a href="${CP}/repair/form.do">정비 신청</a></li>
-        <li><a href="${CP}/board/doRetrieve.do">자유 게시판</a></li>
+        <li><a href="${CP}/board/board_list.do">자유 게시판</a></li>
         <li><a href="${CP}/event/doRetrieve.do">이벤트</a></li>
     </ul>
 </div>
@@ -83,7 +83,7 @@ function pagerDoRetrieve(url, pageNo) {
         <a href="${CP}/retailer/list.do">리테일러 볼래요</a>&nbsp;|&nbsp;
         <a href="${CP}/drive/form.do">차 타보고 싶어요</a>&nbsp;|&nbsp;
         <a href="${CP}/repair/form.do">차가 고장났어요</a>&nbsp;|&nbsp;
-        <a href="${CP}/board/doRetrieve.do">글 써볼게요!</a>&nbsp;|&nbsp;
+        <a href="${CP}/board/board_list.do">글 써볼게요!</a>&nbsp;|&nbsp;
         <a href="${CP}/event/doRetrieve.do">나도 당첨되어보고 싶다~</a>
     </div>
 
@@ -92,7 +92,7 @@ function pagerDoRetrieve(url, pageNo) {
         <img src="${CP}/resource/SNERGY/Board_image/board_cover.png" alt="배너 이미지">
     </div>
 
-    <form name="userForm" method="get">
+    <form name="userForm" method="get" action="${CP}/board/board_list.do">
         <input type="hidden" name="pageNo" id="pageNo">
         <input type="hidden" name="div" id="div" value="<c:out value='${divValue}' />">
 

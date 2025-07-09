@@ -1,16 +1,13 @@
 package com.pcwk.ehr.event;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -25,7 +22,7 @@ import com.pcwk.ehr.mapper.EventMapper;
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 class EventTest {
 
-	Logger log = LogManager.getLogger(getClass());
+	final Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
 	ApplicationContext context;
@@ -34,7 +31,6 @@ class EventTest {
 	EventMapper mapper;
 
 	EventDTO dto01;
-
 	SearchDTO search;
 
 	@BeforeEach
@@ -42,8 +38,9 @@ class EventTest {
 		log.debug("┌──────────── setUp() ────────────┐");
 
 		int seq = mapper.getEventSeq();
-		dto01 = new EventDTO(String.valueOf(seq), "test@pcwk.com", "이벤트 제목", "이벤트 내용", 0, new Date(), "admin",
-				new Date(), "admin");
+
+		dto01 = new EventDTO(String.valueOf(seq), // ecode
+				"test@pcwk.com", "이벤트 제목", "20", "이벤트 내용입니다.", "테스터", 0, new Date(), "admin", new Date(), "admin");
 
 		search = new SearchDTO();
 	}
@@ -53,26 +50,27 @@ class EventTest {
 		log.debug("└──────────── tearDown() ────────────┘");
 	}
 
-	// @Disabled
 	@Test
+	@Disabled
 	void updateReadCnt() {
 		mapper.deleteAll();
 
 		int seq = mapper.getEventSeq();
 		dto01.setEcode(String.valueOf(seq));
 		dto01.setRegId("admin");
+
 		mapper.doSave(dto01);
 
 		EventDTO readParam = new EventDTO();
 		readParam.setEcode(dto01.getEcode());
-		readParam.setRegId("otherUser");
+		readParam.setRegId("otherUser"); // 본인이 아닌 경우만 증가
 
 		int flag = mapper.updateReadCnt(readParam);
 		assertEquals(1, flag);
 	}
 
-	// @Disabled
 	@Test
+	@Disabled
 	void doRetrieve() {
 		mapper.deleteAll();
 		int count = mapper.saveAll();
@@ -90,8 +88,8 @@ class EventTest {
 		list.forEach(vo -> log.debug("vo={}", vo));
 	}
 
-	// @Disabled
 	@Test
+	@Disabled
 	void doDelete() {
 		mapper.deleteAll();
 		int flag = mapper.doSave(dto01);
@@ -102,33 +100,37 @@ class EventTest {
 
 		assertEquals(0, mapper.getCount());
 	}
-
-	// @Disabled
+	@Disabled
 	@Test
 	void doUpdate() {
-		mapper.deleteAll();
-		int seq = mapper.getEventSeq();
-		dto01.setEcode(String.valueOf(seq));
+	    mapper.deleteAll();
 
-		int saveFlag = mapper.doSave(dto01);
-		assertEquals(1, saveFlag);
+	    int seq = mapper.getEventSeq(); // 시퀀스 먼저 조회
+	    dto01.setEcode(String.valueOf(seq)); // 수동으로 ecode 설정
 
-		EventDTO dbData = mapper.doSelectOne(dto01);
-		assertNotNull(dbData);
+	    int flag = mapper.doSave(dto01); // 등록
+	    assertEquals(1, flag);
 
-		dbData.setTitle("오징어");
-		dbData.setContents("안녕하세요.");
-		dbData.setModId("updateUser");
+	    // 조회 시 동일한 ecode로 조회
+	    EventDTO param = new EventDTO();
+	    param.setEcode(dto01.getEcode());
 
-		int updateFlag = mapper.doUpdate(dbData);
-		assertEquals(1, updateFlag);
+	    EventDTO dbData = mapper.doSelectOne(param); // 조회
+	    assertNotNull(dbData, "등록된 데이터가 조회되지 않음");
 
-		EventDTO updated = mapper.doSelectOne(dbData);
-		assertEquals("오징어", updated.getTitle());
+	    dbData.setTitle("수정된 제목");
+	    dbData.setContents("수정된 내용입니다.");
+	    dbData.setModId("modifier");
+
+	    int updateFlag = mapper.doUpdate(dbData);
+	    assertEquals(1, updateFlag);
+
+	    EventDTO updated = mapper.doSelectOne(param);
+	    assertEquals("수정된 제목", updated.getTitle());
 	}
-
-	// @Disabled
+	
 	@Test
+	//@Disabled
 	void beans() {
 		assertNotNull(context);
 		assertNotNull(mapper);

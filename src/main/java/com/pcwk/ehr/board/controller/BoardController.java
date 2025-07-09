@@ -54,7 +54,7 @@ public class BoardController {
 		return viewNString;
 	}
 
-	@GetMapping(value = "/doRetrieve.do")
+	@GetMapping(value = "/board_list.do")
 	public String doRetrieve(SearchDTO param, Model model) {
 		String viewName = "board/board_list";
 

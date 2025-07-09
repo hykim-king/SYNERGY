@@ -10,11 +10,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/ehr/resources/assets/css/form.css">
+<link rel="stylesheet" href="${CP}/resource/css/SNERGY/css/board.css">
 <title>게시글 등록</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="/ehr/resources/assets/js/common.js"></script>
+<script src="${CP}/resource/js/board.js"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		const titleInput = document.querySelector("#title");
@@ -28,7 +28,7 @@
 		moveToListButton.addEventListener("click", function() {
 			if (confirm('목록으로 이동 하시겠습니까?') === false)
 				return;
-			window.location.href = '/ehr/board/doRetrieve.do?div='
+			window.location.href = '/ehr/board/board_list.do?div='
 					+ divInput.value;
 		});
 
@@ -74,7 +74,7 @@
 					const message = JSON.parse(response);
 					alert(message.message);
 					if (message.messageId === 1) {
-						window.location.href = '/ehr/board/doRetrieve.do?div='
+						window.location.href = '/ehr/board/board_list.do?div='
 								+ divInput.value;
 					}
 				},

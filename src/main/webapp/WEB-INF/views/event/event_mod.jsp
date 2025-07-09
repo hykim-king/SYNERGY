@@ -1,57 +1,144 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.util.Date" %>
-<c:set var="CP" value="${pageContext.request.contextPath}" />
-<c:set var="now" value="<%=new Date()%>" />
-<c:set var="sysDate">
-  <fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss" />
-</c:set>
+<c:set var="CP" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>이벤트 수정</title>
-  <link rel="stylesheet" href="${CP}/resources/assets/css/event.css?ver=${sysDate}" />
-  <link rel="stylesheet" href="${CP}/resources/assets/css/eventform.css?ver=${sysDate}" />
+<meta charset="UTF-8">
+<title>이벤트 게시글 수정</title>
+<link rel="stylesheet" href="${CP}/resource/css/SNERGY/css/event.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="${CP}/resource/js/board.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const ecodeInput = document.querySelector("#ecode");
+    const titleInput = document.querySelector("#title");
+    const contentsTextarea = document.querySelector("#contents");
+    const moveToListButton = document.querySelector("#moveToList");
+    const doUpdateButton = document.querySelector("#doUpdate");
+    const doDeleteButton = document.querySelector("#doDelete");
+    const regIdInput = document.querySelector("#regId");
+
+    // 목록 이동
+    moveToListButton.addEventListener('click', function(){
+        if(confirm('목록으로 이동 하시겠습니까?') === false) return;
+        location.href = '${CP}/event/doRetrieve.do';
+    });
+
+    // 수정
+    doUpdateButton.addEventListener('click', function(){
+        if(isEmpty(titleInput.value)){
+            alert('제목을 입력 하세요');
+            titleInput.focus();
+            return;
+        }
+        if(isEmpty(contentsTextarea.value)){
+            alert('내용을 입력 하세요');
+            contentsTextarea.focus();
+            return;
+        }
+
+        if(confirm('이벤트 게시글을 수정 하시겠습니까?') === false) return;
+
+        $.ajax({
+            type: "POST",
+            url: "${CP}/event/doUpdate.do",
+            async: true,
+            dataType: "html",
+            data: {
+                ecode: ecodeInput.value,
+                title: titleInput.value,
+                contents: contentsTextarea.value,
+                modId: regIdInput.value
+            },
+            success: function(response){
+                const message = JSON.parse(response);
+                alert(message.message);
+                if(message.messageId === 1){
+                    location.href = '${CP}/event/doRetrieve.do';
+                }
+            },
+            error: function(error){
+                console.log("error:", error);
+            }
+        });
+    });
+
+    // 삭제
+    doDeleteButton.addEventListener('click', function(){
+        if(isEmpty(ecodeInput.value)){
+            alert("이벤트 번호를 확인 하세요.");
+            return;
+        }
+        if(confirm('이벤트 게시글을 삭제 하시겠습니까?') === false) return;
+
+        $.ajax({
+            type: "POST",
+            url: "${CP}/event/doDelete.do",
+            async: true,
+            dataType: "html",
+            data: {
+                ecode: ecodeInput.value
+            },
+            success: function(response){
+                const message = JSON.parse(response);
+                alert(message.message);
+                if(message.messageId === 1){
+                    location.href = '${CP}/event/doRetrieve.do';
+                }
+            },
+            error: function(error){
+                console.log("error:", error);
+            }
+        });
+    });
+});
+</script>
 </head>
 <body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="logo">CarPick</div>
-      <ul class="menu">
-        <li><a href="${CP}/notice/list.do">공지사항</a></li>
-        <li><a href="${CP}/board/doRetrieve.do">자유 게시판</a></li>
-        <li><a href="#">구매 후기</a></li>
-        <li><a href="${CP}/event/doRetrieve.do">이벤트</a></li>
-      </ul>
-    </aside>
-    <main class="main-content">
-      <h2 class="page-title">이벤트 수정</h2>
-      <form name="eventForm" action="${CP}/event/doUpdate.do" method="post">
-        <input type="hidden" name="ecode" value="${vo.ecode}" />
-        <input type="hidden" name="regId" value="${vo.regId}" />
-        <input type="hidden" name="modId" value="admin" />
+<div class="form-container">
+    <h2>이벤트 게시글 - 수정</h2>
+    <hr class="title-underline">
+
+    <!-- 버튼 -->
+    <div class="button-area">
+        <input type="button" id="moveToList" value="목록">
+        <input type="button" id="doUpdate" value="수정">
+        <input type="button" id="doDelete" value="삭제">
+    </div>
+
+    <!-- 폼 -->
+    <form>
+        <input type="hidden" name="ecode" id="ecode" value="${vo.ecode}">
 
         <div class="form-group">
-          <label for="email">이메일</label>
-          <input type="email" id="email" name="email" value="${vo.email}" required />
-        </div>
-        <div class="form-group">
-          <label for="title">제목</label>
-          <input type="text" id="title" name="title" value="${vo.title}" required />
-        </div>
-        <div class="form-group">
-          <label for="contents">내용</label>
-          <textarea id="contents" name="contents" rows="10" required>${vo.contents}</textarea>
+            <label for="title">제목</label>
+            <input type="text" name="title" id="title" maxlength="200" value="${vo.title}" required>
         </div>
 
-        <div class="form-actions">
-          <button type="submit">수정</button>
-          <button type="button" onclick="location.href='${CP}/event/doRetrieve.do'">목록</button>
+        <div class="form-group">
+            <label for="readCnt">조회수</label>
+            <input type="text" name="readCnt" id="readCnt" value="${vo.readCnt}" disabled>
         </div>
-      </form>
-    </main>
-  </div>
+
+        <div class="form-group">
+            <label for="regDt">등록일</label>
+            <fmt:formatDate value="${vo.regDt}" pattern="yyyy-MM-dd HH:mm:ss" var="formattedRegDt"/>
+            <input type="text" name="regDt" id="regDt" value="${formattedRegDt}" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="regId">등록자</label>
+            <input type="text" name="regId" id="regId" maxlength="30" value="${vo.regId}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="contents">내용</label>
+            <textarea class="contents" id="contents" name="contents" required>${vo.contents}</textarea>
+        </div>
+    </form>
+</div>
 </body>
 </html>
