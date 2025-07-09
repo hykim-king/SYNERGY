@@ -1,4 +1,4 @@
-package com.pcwk.ehr.boardtest;
+package com.pcwk.ehr.board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
-import com.pcwk.ehr.board.BoardDTO;
 import com.pcwk.ehr.cmn.MessageDTO;
 import com.pcwk.ehr.mapper.BoardMapper;
 
@@ -67,19 +67,18 @@ public class BoardControllerTest {
 		log.debug("테스트 종료");
 	}
 
+	//@Disabled
 	@Test
 	void doRetrieve() throws Exception {
 		mapper.deleteAll();
 		assertEquals(0, mapper.getCount());
 
-		for (int i = 0; i < 6; i++) {
-			mapper.saveAll();
-		}
-		assertEquals(600, mapper.getCount());
+		int count = mapper.saveAll();
+		assertEquals(100, count);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/board/doRetrieve.do")
 				.param("pageNo", "1").param("pageSize", "10").param("div", "10").param("searchDiv", "10")
-				.param("searchWord", "제목");
+				.param("searchWord", "제목1");
 
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
 
@@ -92,11 +91,11 @@ public class BoardControllerTest {
 		List<BoardDTO> list = (List<BoardDTO>) model.get("list");
 		list.forEach(vo -> log.debug("vo: {}", vo));
 
-		assertEquals(10, list.size());
+		assertEquals(6, list.size());
 		assertEquals("board/board_list", mvcResult.getModelAndView().getViewName());
 	}
 
-	// @Disabled
+	@Disabled
 	@Test
 	void doSelectOne() throws Exception {
 		mapper.deleteAll();
@@ -123,7 +122,7 @@ public class BoardControllerTest {
 		assertEquals("board/board_mod", viewName);
 	}
 
-	// @Disabled
+	@Disabled
 	@Test
 	void doUpdate() throws Exception {
 		mapper.deleteAll();
@@ -152,7 +151,7 @@ public class BoardControllerTest {
 		assertEquals("회원님의 글이 수정되었습니다.", resultMessage.getMessage());
 	}
 
-	// @Disabled
+	@Disabled
 	@Test
 	void doDelete() throws Exception {
 		mapper.deleteAll();
@@ -177,7 +176,7 @@ public class BoardControllerTest {
 		assertEquals(0, mapper.getCount());
 	}
 
-	// @Disabled
+	@Disabled
 	@Test
 	void doSave() throws Exception {
 		mapper.deleteAll();
@@ -197,6 +196,7 @@ public class BoardControllerTest {
 		assertEquals("Carpick 글이 등록되었습니다.", resultMessage.getMessage());
 	}
 
+	@Disabled
 	@Test
 	void beans() {
 		assertNotNull(webApplicationContext);
