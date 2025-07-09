@@ -2,9 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Pen+Script&display=swap');
 
 
-
 /* body 부분에 꼭 추가해야 됨 !!! */
-/* <body>
+ <body>
   <!-- 네비/헤더 영역 -->
   <div class="header-bar">
     <div class="header-nav">
@@ -12,7 +11,6 @@
   <img src="${pageContext.request.contextPath}/image/carpick.png" alt="CARPICK " style="height:100px;vertical-align:middle;">
 
 </a>
-
       <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
       <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
       <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
@@ -36,4 +34,4 @@
   <!-- 상단 타이틀 바 -->
   <div class="page-title">차량 전체 목록</div>
 
-  </body> */
+  </body>
