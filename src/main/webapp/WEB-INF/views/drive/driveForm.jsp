@@ -7,8 +7,78 @@
 <head>
 <meta charset="UTF-8">
 <title>시승 신청</title>
+   <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        header {
+            background-color: #00274d;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #ddd;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+
 </head>
 <body>
+
+<header>
+    <div class="nav-left">
+        <a href="${pageContext.request.contextPath}/car/allModels.do">전체 차량 모델</a>
+        <a href="${pageContext.request.contextPath}/retailer/search.do">리테일러 찾기</a>
+        <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
+        <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
+        <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
+        <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
+    </div>
+
+    <div class="nav-right">
+        <c:choose>
+            <c:when test="${not empty sessionScope.loginUser}">
+                <span>👤 ${sessionScope.loginUser.nickname}님</span>
+                <a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
+            </c:when>
+            <c:otherwise>
+                <a href="${pageContext.request.contextPath}/member/loginView.do">🔐 로그인</a>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</header>
+
+
 	<h2>🚗 시승 신청 양식</h2>
 	<form action="<c:url value='/drive/apply.do'/>" method="post">
 		<!-- 아이디 -->
@@ -147,7 +217,9 @@
              });
              	</script>
              
-
+<footer>
+    ⓒ 2025 자동차 브랜드. All rights reserved.
+</footer>
 
 </body>
 </html>

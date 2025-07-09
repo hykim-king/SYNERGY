@@ -3,6 +3,7 @@
 <%@ page import="com.pcwk.ehr.cmn.PcwkString"%>
 <%@ page import="com.pcwk.ehr.cmn.SearchDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />
@@ -114,23 +115,27 @@ function pagerDoRetrieve(url, pageNo) {
             <tr>
                 <th>번호</th>
                 <th>제목</th>
-                <th>글쓴이</th>
+                <th>별명</th>
                 <th>작성일</th>
                 <th>조회수</th>
             </tr>
         </thead>
         <tbody>
-            <c:choose>
-                <c:when test="${not empty list}">
-                    <c:forEach var="vo" items="${list}">
-                        <tr>
-                            <td>${vo.no}</td>
-                            <td><a href="${CP}/board/doSelectOne.do?div=${divValue}&boardCode=${vo.boardCode}&regId=${vo.modId}">${vo.title}</a></td>
-                            <td>${vo.modId}</td>
-                            <td><fmt:formatDate value="${vo.modDt}" pattern="yyyy-MM-dd" /></td>
-                            <td>${vo.readCnt}</td>
-                        </tr>
-                    </c:forEach>
+    <c:choose>
+        <c:when test="${not empty list}">
+            <c:forEach var="vo" items="${list}">
+                <tr>
+                    <td>${vo.no}</td>
+                    <td>
+                        <a href="${CP}/board/doSelectOne.do?div=${divValue}&boardCode=${vo.boardCode}&regId=${vo.regId}">
+                            ${vo.title}
+                        </a>
+                    </td>
+                    <td>${vo.nickname}</td>  <%-- ✅ 별명 추가 --%>
+                    <td><fmt:formatDate value="${vo.regDt}" pattern="yyyy-MM-dd" /></td> <%-- ✅ 등록일 추가 --%>
+                    <td>${vo.readCnt}</td>
+                </tr>
+            </c:forEach>
                 </c:when>
                 <c:otherwise>
                     <tr>
