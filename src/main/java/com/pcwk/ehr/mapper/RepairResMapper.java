@@ -32,7 +32,7 @@ public interface RepairResMapper extends WorkDiv<RepairResDTO> {
     CarDTO getCarInfoByCode(int carCode);
     RetailerDTO getRetailerInfoByCode(int retailerCode);
 
-    public List<DriveResDTO> doRetrieveByUser(DriveResDTO dto);
+    public List<RepairResDTO> doRetrieveByUser(RepairResDTO dto);
 	
 	
 }

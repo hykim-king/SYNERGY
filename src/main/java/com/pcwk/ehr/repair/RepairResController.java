@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pcwk.ehr.car.CarDTO;
 import com.pcwk.ehr.cmn.DTO;
@@ -62,39 +63,60 @@ public class RepairResController {
         RepairResDTO outDto = repairResMapper.doSelectOne(dto); // 저장된 정보 다시 가져옴
         
         //히든값 가져오려고 필요한 정보 조회 
-        CarDTO car = repairResMapper.getCarInfoByCode(outDto.getCarCode()); // 차량 정보조회
+        CarDTO car = 
+        	repairResMapper.getCarInfoByCode(outDto.getCarCode()); // 차량 정보조회
         
-        /*
-         **여기부터 해야함 피곤 위에까진 완료
-        */
+        RetailerDTO retailer = 
+        	repairResMapper.getRetailerInfoByCode(outDto.getRetailerCode()); //업체 정보조회
         
+        // 추가 정보 outDto에 불러와
+        outDto.setCarMf(car.getCarMf());
+        outDto.setProductName(car.getProductName());
+        outDto.setRetailerName(retailer.getRetailerName());
         
-        model.addAttribute("dto", dto);
+        // 모델에 outDto 값 추가
+            model.addAttribute("dto", outDto);
         model.addAttribute("success", flag == 1);
         return "repair/repairResult";
     }
 
+    /**
+     * 신청 목록: 로그인 정보를 반영해야함.
+     */
+    @GetMapping("/list.do")
+    public String list(HttpSession session, Model model) {
+        MemberDTO loginUser = (MemberDTO)session.getAttribute("loginUser");
+        if(loginUser == null) {
+        	return "redirect:/member/loginView.do"; 			
+        }
+        
+        String loginId = loginUser.getId();
+        
+        RepairResDTO inDto = new RepairResDTO();
+        inDto.setId(loginId); // 로그인된 아이디값 가져오기
+        
+        List<RepairResDTO> repairList = repairResMapper.doRetrieveByUser(inDto);
+        model.addAttribute("repairList", repairList);
+        return "repair/repairList";
+    }
 
+    
+    
+    // 정비신청 취소 -신청목록에서 삭제
     @GetMapping("/delete.do")
-    public String deleteRepair(@RequestParam("repairNo") int repairNo, Model model) {
+    public String deleteRepair(@RequestParam("repairNo") int repairNo, RedirectAttributes redirectAttributes) {
         RepairResDTO dto = new RepairResDTO();
         dto.setRepairNo(repairNo);
         int flag = repairResMapper.doDelete(dto);
-        model.addAttribute("success", flag == 1);
-        return "repair/repairResult";
+        if (flag == 1) {
+            redirectAttributes.addFlashAttribute("msg", "예약이 성공적으로 취소되었습니다.");
+        } else {
+            redirectAttributes.addFlashAttribute("msg", "예약 취소에 실패했습니다.");
+        }
+        return "redirect:/repair/list.do";
     }
     
     
-    /**
-     * 신청 목록
-     */
-    @GetMapping("/list.do")
-    public String listRepairs(Model model) {
-        DTO search = new DTO();
-        List<RepairResDTO> list = repairResMapper.doRetrieve(search);
-        model.addAttribute("repairList", list);
-        return "repair/repairList";
-    }
 
     /**
      * 이하 기능 사용 x
@@ -117,7 +139,7 @@ public class RepairResController {
     }
 
     
- // JSON 응답 메서드
+  //=========================  JSON 응답 메서드 ============================//
     // 1) 제조사(JSON)
     @GetMapping("/mfList.do")
     @ResponseBody
