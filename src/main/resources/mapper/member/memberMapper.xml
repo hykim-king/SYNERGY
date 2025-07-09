@@ -95,5 +95,10 @@
     SELECT COUNT(*) FROM member
  </select>
  
+ <update id="updatePasswordByUserId" parameterType="map">
+        UPDATE member
+        SET pwd = #{newPassword}
+        WHERE id = #{userId}
+ </update>
 
 </mapper>

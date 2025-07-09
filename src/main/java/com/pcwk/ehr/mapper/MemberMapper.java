@@ -2,6 +2,7 @@ package com.pcwk.ehr.mapper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,5 +21,7 @@ public interface MemberMapper extends WorkDiv<MemberDTO> {
 	void deleteAll() throws SQLException;
 	
 	int getCount() throws SQLException;
+	
+	int updatePasswordByUserId(Map<String, Object> param);
 	
 }
