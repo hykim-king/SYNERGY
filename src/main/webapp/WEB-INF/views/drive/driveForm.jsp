@@ -1,84 +1,82 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/resource/header.jsp" %>
+
 <!DOCTYPE html>
 
 <html>
 <head>
 <meta charset="UTF-8">
 <title>시승 신청</title>
-   <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f6f8;
-        }
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Nanum Gothic', sans-serif;
+      background-color: #f4f6f8;
+    }
 
-        header {
-            background-color: #00274d;
-            color: white;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .form-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
 
-        .nav-left, .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+    form label {
+      display: block;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 6px;
+    }
 
-        a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    form input[type="text"],
+    form input[type="date"],
+    form select {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    #retailerTable {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
 
-        main {
-            padding: 60px 40px;
-            text-align: center;
-        }
+    #retailerTable th,
+    #retailerTable td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
 
-        footer {
-            background-color: #ddd;
-            padding: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
-    </style>
+    form button {
+      background-color: #00274d;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
+    form button:hover {
+      background-color: #004080;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <div class="nav-left">
-        <a href="${pageContext.request.contextPath}/car/allModels.do">전체 차량 모델</a>
-        <a href="${pageContext.request.contextPath}/retailer/search.do">리테일러 찾기</a>
-        <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
-        <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
-        <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
-        <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
-    </div>
 
-    <div class="nav-right">
-        <c:choose>
-            <c:when test="${not empty sessionScope.loginUser}">
-                <span>👤 ${sessionScope.loginUser.nickname}님</span>
-                <a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
-            </c:when>
-            <c:otherwise>
-                <a href="${pageContext.request.contextPath}/member/loginView.do">🔐 로그인</a>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</header>
-
-
+  <div class="form-container">
 	<h2>🚗 시승 신청 양식</h2>
 	<form action="<c:url value='/drive/apply.do'/>" method="post">
 		<!-- 아이디 -->
@@ -92,7 +90,7 @@
 		<br>
 
 		<!-- 연락처 -->
-		<label for="phone">휴대폰 번호:</label> <input type="text" name="phone"
+		<label for="phone">연락처:</label> <input type="text" name="phone"
 			placeholder="000-0000-0000" pattern="\d{3}-\d{4}-\d{4}" required /><br>
 		<br>
 
@@ -133,7 +131,7 @@
 
 		<button type="submit">시승 신청</button>
 	</form>
-
+  </div>
 	<!-- 	숨어있는 코드 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
@@ -217,9 +215,7 @@
              });
              	</script>
              
-<footer>
-    ⓒ 2025 자동차 브랜드. All rights reserved.
-</footer>
 
+<%@ include file="/resource/footer.jsp" %>
 </body>
 </html>

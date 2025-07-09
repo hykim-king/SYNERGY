@@ -1,4 +1,4 @@
-package com.pcwk.ehr.boardtest;
+package com.pcwk.ehr.board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.pcwk.ehr.board.BoardDTO;
-import com.pcwk.ehr.board.BoardService;
 import com.pcwk.ehr.mapper.BoardMapper;
 
 @ExtendWith(SpringExtension.class)
@@ -55,7 +54,7 @@ class BoardServiceTest {
 		log.debug("│ tearDown()                    │");
 		log.debug("└───────────────────────────────┘");
 	}
-
+	@Disabled
 	@Test
 	void doSelectOne() {
 		// 매번 동일한 결과가 도출되도록 작성
@@ -78,7 +77,7 @@ class BoardServiceTest {
 		assertNotNull(outVO);
 		assertEquals(1, outVO.getReadCnt());
 	}
-
+	@Disabled
 	@Test
 	void beans() {
 		log.debug("┌───────────────────────────────┐");

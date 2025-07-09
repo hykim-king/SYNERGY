@@ -5,7 +5,6 @@ import java.util.Date;
 import com.pcwk.ehr.cmn.DTO;
 
 public class BoardDTO extends DTO {
-
 	private int boardCode; // 게시글 고유 번호
 	private String title; // 제목
 	private String div; // 게시구분
@@ -18,8 +17,9 @@ public class BoardDTO extends DTO {
 	private Date modDt; // 수정일
 	private String modId; // 수정자 ID
 
-	
-	public BoardDTO() {}
+	public BoardDTO() {
+	}
+
 	/**
 	 * @param boardCode
 	 * @param title
@@ -209,5 +209,4 @@ public class BoardDTO extends DTO {
 				+ ", id=" + id + ", nickname=" + nickname + ", readCnt=" + readCnt + ", regDt=" + regDt + ", regId="
 				+ regId + ", modDt=" + modDt + ", modId=" + modId + ", toString()=" + super.toString() + "]";
 	}
-
 }

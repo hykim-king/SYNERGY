@@ -1,4 +1,3 @@
-
 package com.pcwk.ehr.board;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import com.pcwk.ehr.cmn.SearchDTO;
 public interface BoardService {
 	/**
 	 * 조회 count증가(단, 본인글 이외 글만)
-	 * 
+	 *
 	 * @param param
 	 * @return 반경 건수
 	 */
@@ -16,14 +15,14 @@ public interface BoardService {
 
 	/**
 	 * 다건 등록
-	 * 
+	 *
 	 * @return 등록건수
 	 */
 	int saveAll();
 
 	/**
 	 * sequence 조회
-	 * 
+	 *
 	 * @return
 	 */
 	int getBoardSeq();
@@ -34,7 +33,7 @@ public interface BoardService {
 
 	/**
 	 * 목록 조회
-	 * 
+	 *
 	 * @param param
 	 * @return List<T>
 	 */
@@ -42,7 +41,7 @@ public interface BoardService {
 
 	/**
 	 * 단건 삭제
-	 * 
+	 *
 	 * @param param
 	 * @return 성공(1)/실패(0)
 	 */
@@ -50,7 +49,7 @@ public interface BoardService {
 
 	/**
 	 * 수정
-	 * 
+	 *
 	 * @param param
 	 * @return 성공(1)/실패(0)
 	 */
@@ -58,7 +57,7 @@ public interface BoardService {
 
 	/**
 	 * 단건조회
-	 * 
+	 *
 	 * @param param
 	 * @return T
 	 */
@@ -66,10 +65,9 @@ public interface BoardService {
 
 	/**
 	 * 단건등록
-	 * 
+	 *
 	 * @param param
 	 * @return 1(성공)/0(실패)
 	 */
 	int doSave(BoardDTO param);
-
 }

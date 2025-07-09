@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pcwk.ehr.mapper.BoardMapper">
-
 <resultMap id="boardResultMap" type="com.pcwk.ehr.board.BoardDTO">
     <result property="boardCode" column="board_code"/>
     <result property="title" column="title"/>
@@ -16,20 +15,16 @@
     <result property="modDt" column="mod_dt"/>
     <result property="modId" column="mod_id"/>
 </resultMap>
-
-
     <!-- 시퀀스 조회 -->
     <select id="getBoardSeq" resultType="java.lang.Integer">
         SELECT BOARD_SEQ.NEXTVAL FROM dual
     </select>
-
     <!-- 조회수 증가 (본인 제외) -->
     <update id="updateReadCnt" parameterType="BoardDTO">
         UPDATE board
         SET read_cnt = NVL(read_cnt, 0) + 1
         WHERE board_code = #{boardCode}
     </update>
-
     <!-- 더미 데이터 다건 등록 -->
     <insert id="saveAll">
         <![CDATA[
@@ -37,7 +32,7 @@
             board_code, title, div, contents, id, nickname,
             read_cnt, reg_dt, reg_id, mod_dt, mod_id
         )
-        SELECT 
+        SELECT
             BOARD_SEQ.NEXTVAL,
             '제목' || LEVEL,
             DECODE(MOD(LEVEL, 2), 1, '10', '20'), -- div 추가
@@ -53,7 +48,6 @@
         CONNECT BY LEVEL <= 100
         ]]>
     </insert>
-
     <!-- 검색 조건 분기 -->
     <sql id="boardWhere">
         <choose>
@@ -71,7 +65,6 @@
             </when>
         </choose>
     </sql>
-
     <!-- 목록 조회 (페이징 + 검색) -->
     <select id="doRetrieve" parameterType="SearchDTO" resultMap="boardResultMap">
         SELECT A.*, B.total_cnt
@@ -117,19 +110,20 @@
               <include refid="boardWhere"/>
         ) B
     </select>
-
     <!-- 전체 삭제 -->
     <delete id="deleteAll">
         DELETE FROM board
     </delete>
-
     <!-- 단건 등록 -->
     <insert id="doSave" parameterType="BoardDTO">
+    <selectKey keyProperty="boardCode" resultType="int" order="BEFORE">
+        SELECT BOARD_SEQ.NEXTVAL FROM dual
+    </selectKey>
     INSERT INTO board (
         board_code, title, div, contents, id, nickname,
         read_cnt, reg_dt, reg_id, mod_dt, mod_id
     ) VALUES (
-        BOARD_SEQ.NEXTVAL, #{title}, #{div}, #{contents}, #{id, jdbcType=VARCHAR}, #{nickname, jdbcType=VARCHAR},
+        #{boardCode}, #{title}, #{div}, #{contents}, #{id}, #{nickname},
         0, SYSDATE, #{regId}, SYSDATE, #{regId}
     )
 </insert>
@@ -151,13 +145,11 @@
         FROM board
         WHERE board_code = #{boardCode}
     </select>
-
     <!-- 단건 삭제 -->
     <delete id="doDelete" parameterType="BoardDTO">
         DELETE FROM board
         WHERE board_code = #{boardCode}
     </delete>
-
     <!-- 수정 -->
     <update id="doUpdate" parameterType="BoardDTO">
         UPDATE board
@@ -169,10 +161,8 @@
             mod_id = #{modId}
         WHERE board_code = #{boardCode}
     </update>
-
     <!-- 전체 건수 -->
     <select id="getCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM board
     </select>
-
 </mapper>
