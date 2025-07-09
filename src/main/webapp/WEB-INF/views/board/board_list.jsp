@@ -79,11 +79,12 @@ function pagerDoRetrieve(url, pageNo) {
 <!-- 메인 콘텐츠 -->
 <div class="main-container">
     <div class="top-nav">
-        <a href="#">전체모델</a>&nbsp;|&nbsp;
-        <a href="#">리테일러 찾기</a>&nbsp;|&nbsp;
-        <a href="#">마이페이지</a>&nbsp;|&nbsp;
-        <a href="#">나만의 차량 만들기</a>&nbsp;|&nbsp;
-        <a href="#">Logout</a>
+        <a href="${CP}/main/main.do">HOME</a>&nbsp;|&nbsp;
+        <a href="${CP}/retailer/list.do">리테일러 볼래요</a>&nbsp;|&nbsp;
+        <a href="${CP}/drive/form.do">차 타보고 싶어요</a>&nbsp;|&nbsp;
+        <a href="${CP}/repair/form.do">차가 고장났어요</a>&nbsp;|&nbsp;
+        <a href="${CP}/board/doRetrieve.do">글 써볼게요!</a>&nbsp;|&nbsp;
+        <a href="${CP}/event/doRetrieve.do">나도 당첨되어보고 싶다~</a>
     </div>
 
     <h2>자유 게시판</h2>
