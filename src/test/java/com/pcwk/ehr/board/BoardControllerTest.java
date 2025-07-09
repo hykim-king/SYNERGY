@@ -39,7 +39,7 @@ import com.pcwk.ehr.mapper.BoardMapper;
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 public class BoardControllerTest {
 
-	final Logger log = LogManager.getLogger(getClass());
+	Logger log = LogManager.getLogger(getClass());
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
