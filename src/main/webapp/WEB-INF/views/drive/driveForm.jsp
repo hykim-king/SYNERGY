@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-             
 
-<%@ include file="/resource/footer.jsp" %>
 <!DOCTYPE html>
 
 <html>
@@ -215,6 +213,8 @@
                }
              });
              	</script>
+             
 
+<%@ include file="/resource/footer.jsp" %>
 </body>
 </html>
