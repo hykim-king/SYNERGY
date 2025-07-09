@@ -22,34 +22,41 @@ public class RetailerController implements PLog {
     private RetailerService retailerService;
 
     // 1. 전체 리테일러 목록 조회 (페이징)
-    @GetMapping("/list.do")
+    @GetMapping("/all.do")
     public String list(
         @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+        @RequestParam(value = "searchType", required = false, defaultValue = "retailerName") String searchType,
+        @RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
         Model model
     ) {
-        log.debug("list() - 전체 리테일러 목록 조회 (pageNum={}, pageSize={})", pageNum, pageSize);
-        int totalCount = retailerService.getRetailerCount();
+        // 전체 건수는 'getCarCountWithSearch' 사용
+        int totalCount = retailerService.getRetailersCountWithSearch(searchType, searchWord);
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
-        List<RetailerDTO> list = retailerService.getRetailersByPage(pageNum, pageSize);
-        model.addAttribute("retailerList", list);
+        // 실제 데이터 목록은 'getCarsByPageWithSearch' 사용
+        List<RetailerDTO> retailerList = retailerService.getRetailersByPageWithSearch(pageNum, pageSize, searchType, searchWord);
+
+        model.addAttribute("retailerList", retailerList);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchWord", searchWord);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalCount", totalCount);
 
-        return "retailer/list";
-    }
-
-    // 2. 전체 리테일러 목록 조회 (페이징 없이)
-    @GetMapping("/all.do")
-    public String allList(Model model) {
-        log.debug("allList() - 리테일러 전체 목록 조회");
-        List<RetailerDTO> list = retailerService.getAllRetailers();
-        model.addAttribute("retailerList", list);
         return "retailer/all";
     }
+
+
+
+//    // 2. 전체 리테일러 목록 조회 (페이징 없이)
+//    @GetMapping("/all.do")
+//    public String allList(Model model) {
+//        log.debug("allList() - 리테일러 전체 목록 조회");
+//        List<RetailerDTO> list = retailerService.getAllRetailers();
+//        model.addAttribute("retailerList", list);
+//        return "retailer/all";
+//    }
 
     // 3. 리테일러 상세 조회
     @GetMapping("/detail.do")

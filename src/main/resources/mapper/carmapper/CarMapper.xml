@@ -130,28 +130,21 @@
   
 
     <!-- ...다른 SQL... -->
-    <select id="getAllCars" resultType="com.pcwk.ehr.car.CarDTO">
-        SELECT
-            CAR_CODE,
-            PRODUCT_NAME,
-            CAR_MF,
-            CARTYPE,
-            ORG_FN,
-            MOD_FN,
-            PATH,
-            PRICE,
-            FUEL,
-            EF,
-            ENGINE,
-            DPM,
-            BATTERY,
-            MF_DT,
-            REG_DT,
-            REG_ID,
-            MOD_DT,
-            MOD_ID
-        FROM CAR
-    </select>
+<select id="getAllCars" resultType="com.pcwk.ehr.car.CarDTO">
+    SELECT
+        CAR_CODE,           -- DB 컬럼명!
+        PRODUCT_NAME,
+        CAR_MF,
+        CARTYPE,
+        PRICE,
+        FUEL,
+        EF,
+        ENGINE,
+        BATTERY,
+        MF_DT
+    FROM CAR
+    ORDER BY CAR_CODE DESC
+</select>
   
   
   
@@ -163,9 +156,10 @@
 </select>
 
     <!-- 상세조회 -->
-<select id="getOne" resultType="com.pcwk.ehr.car.CarDTO" parameterType="int">
+<select id="getOne" parameterType="int" resultType="com.pcwk.ehr.car.CarDTO">
     SELECT * FROM CAR WHERE CAR_CODE = #{carCode}
 </select>
+
 
 
 <!-- 전체 차량 수 조회 -->
@@ -191,18 +185,18 @@
   SELECT * FROM car
   WHERE
     <choose>
-      <when test="searchType = 'productName'">
-        product_name LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'productName'">
+        product_name LIKE '%' || #{searchWord} || '%'
       </when>
-      <when test="searchType = 'carMf'">
-        car_mf LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'carMf'">
+        car_mf LIKE '%' || #{searchWord} || '%'
       </when>
       <otherwise>
         1=1
       </otherwise>
     </choose>
   ORDER BY car_code
-  LIMIT #{pageSize} OFFSET #{offset}
+  OFFSET #{offset} ROWS FETCH NEXT #{pageSize} ROWS ONLY
 </select>
 
 <select id="getCarCountWithSearch" parameterType="map" resultType="int">
@@ -210,11 +204,11 @@
   FROM car
   WHERE
     <choose>
-      <when test="searchType = 'productName'">
-        product_name LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'productName'">
+        product_name LIKE '%' || #{searchWord} || '%'
       </when>
-      <when test="searchType = 'carMf'">
-        car_mf LIKE CONCAT('%', #{searchWord}, '%')
+      <when test="searchType eq 'carMf'">
+        car_mf LIKE '%' || #{searchWord} || '%'
       </when>
       <otherwise>
         1=1

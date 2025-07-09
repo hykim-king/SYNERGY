@@ -57,6 +57,66 @@ public class MemberController {
             return "error";
         }
     }
+    
+    @GetMapping("/mypage.do")
+    public String mypage(HttpSession session, Model model) {
+    	
+    	MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+    	
+    	if(loginUser == null) {
+    		return "redirect:/member/loginView.do";
+    	}
+    	
+    	try {
+    		MemberDTO Info = memberService.doSelectOne(loginUser);
+    		model.addAttribute("Info", Info);
+    		return "member/mypage";
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		model.addAttribute("errorMessage", "회원 정보를 불러오지 못했습니다.");
+    	}
+    	
+    	return "member/mypage";
+    }
+    
+    @PostMapping("updateInfo.do")
+    public String updateInfo(MemberDTO member, HttpSession session, Model model) {
+    	
+    	 MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+    	    if (loginUser == null) {
+    	        return "redirect:/member/loginView.do";
+    	    }
+
+    	    try {
+    	        // 아이디는 로그인한 유저 아이디로 고정 (보안상)
+    	        member.setId(loginUser.getId());
+
+    	        // 비밀번호가 null 또는 빈 값이면 기존 비밀번호 유지
+    	        if (member.getPwd() == null || member.getPwd().isEmpty()) {
+    	            member.setPwd(loginUser.getPwd());
+    	        }
+
+    	        int result = memberService.doUpdate(member);
+
+    	        if (result == 1) {
+    	            // 업데이트 성공 시 session의 loginUser 정보도 최신화
+    	            session.setAttribute("loginUser", member);
+    	            return "redirect:/member/mypage.do";
+    	        } else {
+    	            model.addAttribute("errorMessage", "정보 수정에 실패했습니다.");
+    	            model.addAttribute("Info", member);
+    	            return "member/mypage";
+    	        }
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	        model.addAttribute("errorMessage", "오류가 발생했습니다.");
+    	        model.addAttribute("Info", member);
+    	        return "member/mypage";
+    	    }
+    	
+    }
+    
+    
 }
 
 

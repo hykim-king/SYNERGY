@@ -3,7 +3,54 @@
 
 <mapper namespace="com.pcwk.ehr.mapper.RepairResMapper">
 
-  <!-- 1) 저장 DB에 REPAIR_RES_SEQ시퀀스 -->
+<!-- 결과 매핑 -->
+   
+    <!--정비신청 결과 화면 -->
+  <resultMap id="RepairResResult" type="com.pcwk.ehr.repair.RepairResDTO">
+    <id     column="repair_no"        property="repairNo"/>
+    <result column="id"               property="id"/>
+    <result column="name"             property="name"/>
+    <result column="phone"            property="phone"/>
+    <result column="car_code"         property="carCode"/>
+    <result column="retailer_code"    property="retailerCode"/>
+    <result column="repair_date"      property="repairDate"/>
+    <result column="repair_desc"      property="repairDesc"/>
+    <result column="reg_dt"           property="regDt"/>
+    <result column="reg_id"           property="regId"/>
+    <result column="mod_dt"           property="modDt"/>
+    <result column="mod_id"           property="modId"/>
+  </resultMap>
+
+    <!-- 제품명으로 업체 목록 -->
+  <resultMap id="RetailerResult" type="com.pcwk.ehr.retailer.RetailerDTO">
+    <id     column="retailer_code" property="retailerCode"/>
+    <result column="retailer_name" property="retailerName"/>
+    <result column="area"          property="area"/>
+    <result column="address"       property="address"/>
+    <result column="telephone"     property="telephone"/>
+  </resultMap>
+  
+    <!-- 아이디값을 반영해서 리트리브. 쿼리 오류나서 분리 -->
+<resultMap id="RepairResFullResult" type="com.pcwk.ehr.repair.RepairResDTO">
+  <id     column="repair_no"         property="repairNo"/>
+  <result column="id"             property="id"/>
+  <result column="name"           property="name"/>
+  <result column="phone"          property="phone"/>
+  <result column="car_code"       property="carCode"/>
+  <result column="retailer_code"  property="retailerCode"/>
+  <result column="repair_date"     property="repairDate"/>
+  <result column="reg_dt"         property="regDt"/>
+  <result column="reg_id"         property="regId"/>
+  <result column="mod_dt"         property="modDt"/>
+  <result column="mod_id"         property="modId"/>
+  <result column="car_mf"         property="carMf"/>
+  <result column="product_name"   property="productName"/>
+  <result column="retailer_name"  property="retailerName"/>
+</resultMap>
+
+
+<!-- 이하 sql -->
+  <!-- 1건 저장-->
   <insert id="doSave" parameterType="com.pcwk.ehr.repair.RepairResDTO">
     <selectKey keyProperty="repairNo"
                resultType="int"
@@ -22,7 +69,47 @@
     )
   </insert>
 
-  <!-- 2) 수정 -->
+
+  <!-- 정비 신청 목록 조회 -->
+  <select id="doRetrieve"
+          parameterType="com.pcwk.ehr.cmn.DTO"
+          resultMap="RepairResResult">
+  SELECT rr.repair_no,
+         rr.id,
+         rr.name,
+         rr.phone,
+         rr.car_code,
+         rr.retailer_code,
+         rr.repair_date,
+         rr.repair_desc,
+         c.car_mf,
+         c.product_name,
+         r.retailer_name
+      FROM repair_res rr
+      JOIN car c ON rr.car_code = c.car_code
+    JOIN retailer r ON rr.retailer_code = r.retailer_code
+   ORDER BY rr.reg_dt DESC
+
+  </select>
+
+
+  <!-- 삭제 -->
+  <delete id="doDelete" parameterType="com.pcwk.ehr.repair.RepairResDTO">
+    DELETE FROM repair_res
+     WHERE repair_no = #{repairNo}
+  </delete>
+  
+
+
+  <!-- 단건 조회. 안씀 -->
+  <select id="doSelectOne"
+          parameterType="com.pcwk.ehr.repair.RepairResDTO"
+          resultMap="RepairResResult">
+    SELECT *
+      FROM repair_res
+     WHERE repair_no = #{repairNo}
+  </select>
+  <!-- 업데이트. 안씀 -->
   <update id="doUpdate" parameterType="com.pcwk.ehr.repair.RepairResDTO">
     UPDATE repair_res
        SET name           = #{name},
@@ -36,47 +123,8 @@
      WHERE repair_no = #{repairNo}
   </update>
 
-  <!-- 3) 삭제 -->
-  <delete id="doDelete" parameterType="com.pcwk.ehr.repair.RepairResDTO">
-    DELETE FROM repair_res
-     WHERE repair_no = #{repairNo}
-  </delete>
 
-  <!-- 4) 결과 매핑 -->
-  <resultMap id="RepairResResult" type="com.pcwk.ehr.repair.RepairResDTO">
-    <id     column="repair_no"        property="repairNo"/>
-    <result column="id"               property="id"/>
-    <result column="name"             property="name"/>
-    <result column="phone"            property="phone"/>
-    <result column="car_code"         property="carCode"/>
-    <result column="retailer_code"    property="retailerCode"/>
-    <result column="repair_date"      property="repairDate"/>
-    <result column="repair_desc"      property="repairDesc"/>
-    <result column="reg_dt"           property="regDt"/>
-    <result column="reg_id"           property="regId"/>
-    <result column="mod_dt"           property="modDt"/>
-    <result column="mod_id"           property="modId"/>
-  </resultMap>
-
-  <!-- 5) 단건 조회 -->
-  <select id="doSelectOne"
-          parameterType="com.pcwk.ehr.repair.RepairResDTO"
-          resultMap="RepairResResult">
-    SELECT *
-      FROM repair_res
-     WHERE repair_no = #{repairNo}
-  </select>
-
-  <!-- 6) 목록 조회 -->
-  <select id="doRetrieve"
-          parameterType="com.pcwk.ehr.cmn.DTO"
-          resultMap="RepairResResult">
-    SELECT *
-      FROM repair_res
-     ORDER BY reg_dt DESC
-  </select>
-
-
+<!-- =============== &&&&&&&     JSON 응답 쿼리          &&&&&&============== -->
 <!-- 제조사 목록 -->
 <select id="mfList" resultType="java.lang.String">
   SELECT DISTINCT car_mf
@@ -94,15 +142,6 @@
     WHERE car_mf = #{carMf}
     ORDER BY product_name
 </select>
-
-  <!-- 4) 제품명으로 업체 목록 -->
-  <resultMap id="RetailerResult" type="com.pcwk.ehr.retailer.RetailerDTO">
-    <id     column="retailer_code" property="retailerCode"/>
-    <result column="retailer_name" property="retailerName"/>
-    <result column="area"          property="area"/>
-    <result column="address"       property="address"/>
-    <result column="telephone"     property="telephone"/>
-  </resultMap>
 
 
 <!-- 차량 코드 단일 조회 -->
@@ -125,5 +164,48 @@
      WHERE product_name = #{productName}
   </select>
 
+<!-- 차량 코드로 차량 정보 조회 -->
+<select id="getCarInfoByCode" parameterType="int" resultType="com.pcwk.ehr.car.CarDTO">
+  SELECT car_code,
+         product_name,
+         car_mf
+    FROM car
+   WHERE car_code = #{carCode}
+</select>
+
+<!-- 업체 코드로 업체 정보 조회 -->
+<select id="getRetailerInfoByCode" parameterType="int" resultType="com.pcwk.ehr.retailer.RetailerDTO">
+  SELECT retailer_code,
+         retailer_name,
+         area,
+         address,
+         telephone         
+    FROM retailer
+   WHERE retailer_code = #{retailerCode}
+</select>
+
+
+<!-- 로그인 된 아이디로 신청된 정보 조회 -->
+<select id="doRetrieveByUser" parameterType="com.pcwk.ehr.repair.RepairResDTO" resultMap="RepairResFullResult">
+    SELECT rr.repair_no,
+           rr.id,
+           rr.name,
+           rr.phone,
+           rr.car_code,
+           rr.retailer_code,
+           rr.repair_date,
+           rr.reg_dt,
+           rr.reg_id,
+           rr.mod_dt,
+           rr.mod_id,
+           c.car_mf,
+           c.product_name,
+           r.retailer_name
+      FROM repair_res rr
+     JOIN car c ON rr.car_code = c.car_code
+     JOIN retailer r ON rr.retailer_code = r.retailer_code
+     WHERE rr.id = #{id}
+     ORDER BY rr.reg_dt DESC
+</select>
 
 </mapper>

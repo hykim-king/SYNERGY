@@ -21,29 +21,28 @@ public class CarController implements PLog {
     @Autowired
     private CarService carService;
 
-    // (1) 전체 자동차 리스트 (페이징, 파라미터 없이도 OK)
+    // (1) 전체 자동차 리스트 
+    // ( 차량 목록 페이지 -> 검색 / 페이징 기능을 지원하게 하는 컨트롤러 메서드 )
     @GetMapping("/list.do")
     public String list(
         @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+        @RequestParam(value = "searchType", required = false, defaultValue = "productName") String searchType,
+        @RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
         Model model
+        
     ) {
-        log.debug("┌─────────────────────────────┐");
-        log.debug("│ list() - 전체 차량 목록 조회(페이징) │");
-        log.debug("└─────────────────────────────┘");
-
-        int totalCount = carService.getCarCount();
-        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-        List<CarDTO> carList = carService.getCarsByPage(pageNum, pageSize);
-
+        List<CarDTO> carList = carService.getCarsByPageWithSearch(pageNum, pageSize, searchType, searchWord);
         model.addAttribute("carList", carList);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchWord", searchWord);
 
         return "car/list";
     }
+
+    
 
     // (2) 브랜드별 자동차 리스트
     @GetMapping("/carMf.do")

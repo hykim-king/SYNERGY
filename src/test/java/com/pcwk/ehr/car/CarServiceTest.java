@@ -35,21 +35,36 @@ class CarServiceTest {
 
     @BeforeEach
     void setup() throws SQLException {
-        // 1) 기존 데이터 전체 삭제 (선택)
+        // 기존 데이터 전체 삭제 (선택)
         // carMapper.deleteAll();
 
-        // 2) 테스트용 CarDTO 생성
-        CarDTO initial = new CarDTO(
+        // 1) 샘플 데이터 1: 현대 아반떼
+        CarDTO car1 = new CarDTO(
             0, "현대", "아반떼", "세단", null, null, null,
             2000, "가솔린", 15.2, null, null, null, 2020,
             new Date(System.currentTimeMillis()), "admin",
             new Date(System.currentTimeMillis()), "admin"
         );
-        // 3) 삽입 (doSave의 selectKey가 carCode 채움)
-        carMapper.doSave(initial);
+        carMapper.doSave(car1);
+        this.carCode = car1.getCarCode(); // PK 저장
 
-        // 4) 실제 PK 얻기
-        this.carCode = initial.getCarCode();
+        // 2) 샘플 데이터 2: 기아 K5
+        CarDTO car2 = new CarDTO(
+            0, "기아", "K5", "세단", null, null, null,
+            2500, "디젤", 13.1, null, null, null, 2021,
+            new Date(System.currentTimeMillis()), "admin",
+            new Date(System.currentTimeMillis()), "admin"
+        );
+        carMapper.doSave(car2);
+
+        // 3) 샘플 데이터 3: 테슬라 모델3
+        CarDTO car3 = new CarDTO(
+            0, "테슬라", "모델3", "전기차", null, null, null,
+            4500, "전기", 5.2, null, null, 60.0, 2023,
+            new Date(System.currentTimeMillis()), "admin",
+            new Date(System.currentTimeMillis()), "admin"
+        );
+        carMapper.doSave(car3);
     }
 
     @Test
@@ -59,6 +74,10 @@ class CarServiceTest {
         assertTrue(cars.size() > 0);
     }
 
+    
+    
+    
+    
     @Test
     void getCarsByBrand() {
     	List<CarDTO> cars = carService.getCarsByBrand("아반떼");

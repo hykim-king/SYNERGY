@@ -6,11 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.pcwk.ehr.car.CarDTO;
+import com.pcwk.ehr.cmn.DTO;
 import com.pcwk.ehr.cmn.WorkDiv;
 import com.pcwk.ehr.drive.DriveResDTO;
 import com.pcwk.ehr.retailer.RetailerDTO;
-import com.pcwk.ehr.car.CarDTO;
-import com.pcwk.ehr.cmn.DTO;
 
 @Mapper
 public interface DriveResMapper extends WorkDiv<DriveResDTO> {
@@ -34,6 +34,10 @@ public interface DriveResMapper extends WorkDiv<DriveResDTO> {
     RetailerDTO getRetailerInfoByCode(int retailerCode);
 
     public List<DriveResDTO> doRetrieveByUser(DriveResDTO dto);
+    
+    List<DriveResDTO> doRetrievePaging(DTO search) throws Exception;
+    
+    int getTotalCount(DTO dto);
 	
     
 

@@ -173,11 +173,12 @@ tr:nth-child(even) {
                     <th>제조사</th>
                     <th>차종</th>
                     <th>제조년도</th>
-                    <th>가격</th>
+                    <th>가격(만원)</th>
                     <th>연료</th>
                     <th>효율</th>
                     <th>엔진</th>
-                    <th>배터리</th>
+                     <th>배기량(cc)</th>
+                    <th>배터리(kWh)</th>
                     <th>수정/삭제</th>
                 </tr>
             </thead>
@@ -198,6 +199,7 @@ tr:nth-child(even) {
                         <td><c:out value="${car.fuel}" /></td>
                         <td><c:out value="${car.ef}" /></td>
                         <td><c:out value="${car.engine}" /></td>
+                        <td><c:out value="${car.dpm != null ? car.dpm : '-'}" /></td>
                         <td><c:out value="${car.battery != null ? car.battery : '-'}" /></td>
                         <td>
                             <form action="${pageContext.request.contextPath}/admin/car/delete.do" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
