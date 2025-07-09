@@ -6,54 +6,11 @@
 <html>
 <head>
 <title>관리자 차량 목록</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f9fc;
-    margin: 0;
-    padding: 0;
-}
-/* 네비/헤더 스타일 */
-.header-bar {
-    background: #00274d;
-    color: #fff;
-    padding: 0 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 90px;
-}
-.header-nav {
-    display: flex;
-    gap: 28px;    
-    align-items: center;   /* 메뉴도 중앙정렬 */
-    
-}
-.header-nav a {
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.5rem;
-    letter-spacing: 0.01em;
-    transition: color 0.12s;
-    line-height: 60px;  /* 로고와 높이 맞추고 싶을 때 사용 */
-}
-.header-nav a:hover { color: #c0e7ff; }
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-        height: 90px;
-}
-.header-right a {
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-}
-.header-right a:hover { color: #ffe7a2; }
-.header-right .login-icon { font-size: 17px; margin-right: 3px; }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+
+
+<style>
 .page-title {
     background: #00274d;
     color: #fff; 
@@ -64,16 +21,22 @@ body {
     letter-spacing: -1.5px;
 }
 
+
+
 @media (max-width: 700px) {
   .header-bar, .page-title { padding-left: 20px; padding-right: 10px; }
   .page-title { font-size: 1.3rem; padding: 25px 0 18px 16px; }
 }
+
+
 
 main {
     padding: 20px 5vw;
     max-width: 1100px;
     margin: 0 auto;
 }
+
+
 
 table {
     width: 100%;
@@ -82,25 +45,37 @@ table {
     background: #fff;
 }
 
+
+
+
 th, td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
 }
 
+
+
+
 th {
     background-color: #34495e;
     color: white;
 }
 
+
+
 tr:nth-child(even) {
     background-color: #ecf0f1;
 }
+
+
 
 .paging {
     margin-top: 10px;
     text-align: center;
 }
+
+
 
 .paging a {
     margin: 0 5px;
@@ -112,11 +87,15 @@ tr:nth-child(even) {
     display: inline-block;
 }
 
+
+
 .paging a.current {
     background-color: #2c3e50;
     font-weight: bold;
     cursor: default;
 }
+
+
 
 .paging a.disabled {
     background-color: #bdc3c7;
@@ -142,29 +121,53 @@ tr:nth-child(even) {
     background-color: #34495e;
 }
 
-.search-form input[type="text"] {
-    padding: 6px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+/* 검색폼을 왼쪽 상단에 배치하는 래퍼 */
+.search-form-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;  /* 왼쪽 정렬 */
+    margin-bottom: 18px;
+    margin-top: 18px;
 }
 
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
 .search-form select {
-    padding: 6px;
-    border-radius: 3px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccd4e2;
+    background: #fff;
+    font-size: 1rem;
+    height: 42px;
 }
-
-.search-form button {
-    padding: 6px 12px;
+.search-form input[type="text"] {
+    padding: 7px 1px;
+    border: 1px solid #ccd4e2;
+    border-radius: 5px;
+    width: 150px;
+    font-size: 1rem;
+    background: #fff;
+    height: 28px;
+}
+.search-btn {
+    background: #3498db;
     border: none;
-    background-color: #3498db;
-    color: white;
-    border-radius: 3px;
+    border-radius: 5px;
+    padding: 0 18px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.25rem;
     cursor: pointer;
+    transition: background 0.15s;
 }
-
-.search-form button:hover {
-    background-color: #2980b9;
+.search-btn:hover {
+    background: #2378b9;
 }
 
 /* 차량 목록의 이미지에 통일 적용 */
@@ -177,6 +180,7 @@ tr:nth-child(even) {
     background: #fff;
 }
 </style>
+
 <!-- 로그인 보호 자바스크립트(필요시 사용) -->
 <script>
 function handleProtectedLink(event, url) {
@@ -190,6 +194,7 @@ function handleProtectedLink(event, url) {
     }
 }
 </script>
+
 </head>
 <body>
   <!-- 네비/헤더 영역 -->
@@ -229,17 +234,25 @@ function handleProtectedLink(event, url) {
       <script>alert('${msg}');</script>
     </c:if>
   
-  <!-- 2. 검색 폼 -->
-  <form method="get" action="list.do">
-    <select name="searchType">
-      <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>차량명</option>
-      <option value="carMf" ${searchType eq 'carMf' ? 'selected' : ''}>제조사</option>
-      <option value="cartype" ${searchType eq 'cartype' ? 'selected' : ''}>차종</option>
-    </select>
-    <input type="text" name="searchWord" value="${searchWord}" placeholder="검색어">
-    <button type="submit">검색</button>
-  </form>
   
+  
+ <div class="search-form-wrapper">
+<!-- 2. 검색 폼 -->
+<form class="search-form" method="get" action="list.do">
+  <select name="searchType">
+    <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>차량명</option>
+    <option value="carMf" ${searchType eq 'carMf' ? 'selected' : ''}>제조사</option>
+    <option value="cartype" ${searchType eq 'cartype' ? 'selected' : ''}>차종</option>
+  </select>
+  <input type="text" name="searchWord" value="${searchWord}" placeholder="검색어">
+  <button type="submit" class="search-btn">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+</form>
+</div>
+
+
+
   <!-- 3. 차량 테이블 -->
   <table>
     <thead>
@@ -328,9 +341,6 @@ function handleProtectedLink(event, url) {
   </div>
   
   
-    <section style="text-align: center; margin-bottom: 40px">
-            <h2>환영합니다!</h2>
-            <p>당신의 프리미엄 드라이빙 경험, 지금 시작하세요.</p>
-        </section>
+
 </body>
 </html>
