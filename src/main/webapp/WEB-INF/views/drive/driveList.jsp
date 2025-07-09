@@ -1,11 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/resource/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>시승 신청 목록</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
     <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
@@ -13,7 +15,7 @@
     </style>
 </head>
 <body>
-    <h2>시승 신청 목록</h2>
+    <h2>나의 시승 신청 목록</h2>
     <table>
         <thead>
             <tr>
@@ -103,5 +105,6 @@ $(document).ready(function() {
     alert("${msg}");
   </script>
 </c:if>
+<%@ include file="/resource/footer.jsp" %>
 </body>
 </html>
