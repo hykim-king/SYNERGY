@@ -18,7 +18,7 @@
                 <li>희망 정비일: <fmt:formatDate value="${dto.repairDate}" pattern="yyyy-MM-dd"/></li>
                 <li>신청 브랜드: ${dto.carMf}</li>
                 <li>제품명: ${dto.productName}</li>
-                <li>정비사항: ${dto.repairDesc}</li>                
+                <li>정비요청사항: ${dto.repairDesc}</li>                
                 <li>신청 업체: ${dto.retailerName}</li>
             </ul>
         </c:when>

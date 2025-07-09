@@ -169,4 +169,12 @@ public class RepairResController {
                        @RequestParam String productName) {
         return repairResMapper.getCarCode(carMf, productName);
     }
+    
+    // 5) 업체 상세보기
+    @GetMapping("/retailer-detail.do")
+    @ResponseBody
+    public RetailerDTO getRetailerDetail(@RequestParam("retailerCode") int retailerCode) {
+        return repairResMapper.getRetailerInfoByCode(retailerCode);
+    }
+    
 }
