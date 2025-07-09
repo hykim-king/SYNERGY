@@ -46,6 +46,8 @@
   <result column="car_mf"         property="carMf"/>
   <result column="product_name"   property="productName"/>
   <result column="retailer_name"  property="retailerName"/>
+  <result column="repair_desc" property="repairDesc"/>
+  
 </resultMap>
 
 
@@ -198,6 +200,7 @@
            rr.reg_id,
            rr.mod_dt,
            rr.mod_id,
+           rr.repair_desc,
            c.car_mf,
            c.product_name,
            r.retailer_name
