@@ -11,7 +11,7 @@
 <!-- ✅ 로그인 여부 자바스크립트 변수 전달 -->
 <script>
   const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
-</script>
+</sc
 
 <!-- ✅ 로그인 보호 링크 핸들러 -->
 <script>
