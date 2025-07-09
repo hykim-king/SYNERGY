@@ -111,6 +111,7 @@ public class BoardController {
 		String div   = PcwkString.nvlString(param.getDiv(), "10");
 		log.debug("2. div: {}",div);
 		
+		
 		BoardDTO outVO = boardService.doSelectOne(param);
 		log.debug("2. outVO: {}", outVO);
 
