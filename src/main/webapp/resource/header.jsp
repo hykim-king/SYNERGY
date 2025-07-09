@@ -10,8 +10,8 @@
 
       <a href="${pageContext.request.contextPath}/car/list.do">차량 전체 모델</a>
       <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
-      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
-      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
+      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>  <!--이렇게 하면 접근안됨  -->
+      <a href="${pageContext.request.contextPath}/repair/form.do">정비 신청</a>  <!--이렇게 하면 접근됨  -->
       <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
       <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
     </div>
