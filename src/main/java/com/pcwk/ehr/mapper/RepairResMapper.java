@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.pcwk.ehr.car.CarDTO;
 import com.pcwk.ehr.cmn.WorkDiv;
-import com.pcwk.ehr.drive.DriveResDTO;
 import com.pcwk.ehr.repair.RepairResDTO;
 import com.pcwk.ehr.retailer.RetailerDTO;
 
@@ -31,7 +30,7 @@ public interface RepairResMapper extends WorkDiv<RepairResDTO> {
     CarDTO getCarInfoByCode(int carCode);
     RetailerDTO getRetailerInfoByCode(int retailerCode);
 
-    public List<DriveResDTO> doRetrieveByUser(DriveResDTO dto);
+    public List<RepairResDTO> doRetrieveByUser(RepairResDTO dto);
 	
 	
 }
