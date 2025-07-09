@@ -50,7 +50,7 @@
 
 
 <!-- 이하 sql -->
-  <!-- 저장 DB에 REPAIR_RES_SEQ시퀀스 -->
+  <!-- 1건 저장-->
   <insert id="doSave" parameterType="com.pcwk.ehr.repair.RepairResDTO">
     <selectKey keyProperty="repairNo"
                resultType="int"
@@ -74,10 +74,24 @@
   <select id="doRetrieve"
           parameterType="com.pcwk.ehr.cmn.DTO"
           resultMap="RepairResResult">
-    SELECT *
-      FROM repair_res
-     ORDER BY reg_dt DESC
+  SELECT rr.repair_no,
+         rr.id,
+         rr.name,
+         rr.phone,
+         rr.car_code,
+         rr.retailer_code,
+         rr.repair_date,
+         rr.repair_desc,
+         c.car_mf,
+         c.product_name,
+         r.retailer_name
+      FROM repair_res rr
+      JOIN car c ON rr.car_code = c.car_code
+    JOIN retailer r ON rr.retailer_code = r.retailer_code
+   ORDER BY rr.reg_dt DESC
+
   </select>
+
 
   <!-- 삭제 -->
   <delete id="doDelete" parameterType="com.pcwk.ehr.repair.RepairResDTO">
@@ -85,6 +99,7 @@
      WHERE repair_no = #{repairNo}
   </delete>
   
+
 
   <!-- 단건 조회. 안씀 -->
   <select id="doSelectOne"
@@ -94,7 +109,7 @@
       FROM repair_res
      WHERE repair_no = #{repairNo}
   </select>
-  <!-- 수정. 안씀 -->
+  <!-- 업데이트. 안씀 -->
   <update id="doUpdate" parameterType="com.pcwk.ehr.repair.RepairResDTO">
     UPDATE repair_res
        SET name           = #{name},
@@ -109,7 +124,7 @@
   </update>
 
 
-<!--      &&&&&&&     JSON 응답 쿼리          &&&&&& -->
+<!-- =============== &&&&&&&     JSON 응답 쿼리          &&&&&&============== -->
 <!-- 제조사 목록 -->
 <select id="mfList" resultType="java.lang.String">
   SELECT DISTINCT car_mf
@@ -167,6 +182,30 @@
          telephone         
     FROM retailer
    WHERE retailer_code = #{retailerCode}
+</select>
+
+
+<!-- 로그인 된 아이디로 신청된 정보 조회 -->
+<select id="doRetrieveByUser" parameterType="com.pcwk.ehr.repair.RepairResDTO" resultMap="RepairResFullResult">
+    SELECT rr.repair_no,
+           rr.id,
+           rr.name,
+           rr.phone,
+           rr.car_code,
+           rr.retailer_code,
+           rr.repair_date,
+           rr.reg_dt,
+           rr.reg_id,
+           rr.mod_dt,
+           rr.mod_id,
+           c.car_mf,
+           c.product_name,
+           r.retailer_name
+      FROM repair_res rr
+     JOIN car c ON rr.car_code = c.car_code
+     JOIN retailer r ON rr.retailer_code = r.retailer_code
+     WHERE rr.id = #{id}
+     ORDER BY rr.reg_dt DESC
 </select>
 
 </mapper>
