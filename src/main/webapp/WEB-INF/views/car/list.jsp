@@ -13,21 +13,69 @@ body {
     margin: 0;
     padding: 0;
 }
+/* 네비/헤더 스타일 */
+.header-bar {
+    background: #00274d;
+    color: #fff;
+    padding: 0 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+.header-nav {
+    display: flex;
+    gap: 28px;
+}
+.header-nav a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.04rem;
+    letter-spacing: 0.01em;
+    transition: color 0.12s;
+}
+.header-nav a:hover { color: #c0e7ff; }
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+}
+.header-right a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+.header-right a:hover { color: #ffe7a2; }
+.header-right .login-icon { font-size: 17px; margin-right: 3px; }
 
-header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 15px 20px;
+.page-title {
+    background: #00274d;
+    color: #fff;
+    margin: 0;
+    padding: 38px 0 38px 70px;
+    font-size: 2.3rem;
+    font-weight: bold;
+    letter-spacing: -1.5px;
+}
+
+@media (max-width: 700px) {
+  .header-bar, .page-title { padding-left: 20px; padding-right: 10px; }
+  .page-title { font-size: 1.3rem; padding: 25px 0 18px 16px; }
 }
 
 main {
-    padding: 20px;
+    padding: 20px 5vw;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 10px;
+    background: #fff;
 }
 
 th, td {
@@ -115,35 +163,63 @@ tr:nth-child(even) {
     background-color: #2980b9;
 }
 
-/* 수정/삭제 버튼 */
-.action-btn {
-    margin-right: 5px;
-    padding: 4px 8px;
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 12px;
-    text-decoration: none;
-}
-
-.action-btn.delete {
-    background-color: #c0392b;
-}
-
-.action-btn:hover {
-    opacity: 0.8;
+/* 차량 목록의 이미지에 통일 적용 */
+.car-img {
+    width: 100px;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px #e0e0e0;
+    object-fit: contain;
+    background: #fff;
 }
 </style>
+<!-- 로그인 보호 자바스크립트(필요시 사용) -->
+<script>
+function handleProtectedLink(event, url) {
+    // 로그인이 안 된 상태라면 alert
+    var isLoggedIn = '${not empty sessionScope.loginUser}' === 'true';
+    if (!isLoggedIn) {
+        event.preventDefault();
+        alert('로그인 후 이용해 주세요.');
+    } else {
+        window.location.href = url;
+    }
+}
+</script>
 </head>
 <body>
-  <h1>차량 전체 목록</h1>
-  
-  <!-- 1. 상태 메시지 -->
-  <c:if test="${not empty msg}">
-    <script>alert('${msg}');</script>
-  </c:if>
+  <!-- 네비/헤더 영역 -->
+  <div class="header-bar">
+    <div class="header-nav">
+      <a href="${pageContext.request.contextPath}/main/main.do">전체 차량 모델</a>
+      <a href="${pageContext.request.contextPath}/retailer/search.do">리테일러 찾기</a>
+      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
+      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
+      <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
+      <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
+    </div>
+    <div class="header-right">
+      <c:choose>
+        <c:when test="${not empty sessionScope.loginUser}">
+          <span class="login-icon">👤</span>
+          <a href="${pageContext.request.contextPath}/member/mypage.do">${sessionScope.loginUser.nickname}님</a>
+          <a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
+        </c:when>
+        <c:otherwise>
+          <span class="login-icon">🔒</span>
+          <a href="${pageContext.request.contextPath}/member/loginView.do">로그인</a>
+        </c:otherwise>
+      </c:choose>
+    </div>
+  </div>
+  <!-- 상단 타이틀 바 -->
+  <div class="page-title">차량 전체 목록</div>
+
+  <main>
+    <!-- 1. 상태 메시지 -->
+    <c:if test="${not empty msg}">
+      <script>alert('${msg}');</script>
+    </c:if>
   
   <!-- 2. 검색 폼 -->
   <form method="get" action="list.do">
@@ -194,7 +270,9 @@ tr:nth-child(even) {
               <td><c:out value="${car.ef}" /></td>
               <td><c:out value="${car.engine}" /></td>
               <td><c:out value="${car.battery != null ? car.battery : '-'}" /></td>
-            </tr>
+              <td>
+              <img class = "car-img" src = "${pageContext.request.contextPath}/image/${car.productName}.png"
+              alt = "${car.productName}" onerror = "this.onerror = null; this.src = "${pageContext.request.contextPath}}/image/${car.productName}.png">
           </c:forEach>
         </c:otherwise>
       </c:choose>

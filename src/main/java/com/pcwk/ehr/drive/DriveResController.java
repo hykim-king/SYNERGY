@@ -161,7 +161,7 @@ public class DriveResController {
         return "drive/driveList";
     }
 
-    //예약 취소(삭제)
+    //예약 취소(시승신청 목록에서 삭제)
     @GetMapping("/delete.do")
     public String deleteDrive(@RequestParam("resNo") int resNo, RedirectAttributes redirectAttributes) {
         DriveResDTO dto = new DriveResDTO();
