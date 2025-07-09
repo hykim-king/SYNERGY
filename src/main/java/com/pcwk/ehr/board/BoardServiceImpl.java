@@ -65,8 +65,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int updateReadCnt(BoardDTO param) {
-		// TODO Auto-generated method stub
-		return 0;
+	    return mapper.updateReadCnt(param);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public interface BoardMapper extends WorkDiv<BoardDTO> {
 	 * @param param
 	 * @return 반경 건수
 	 */
-	int updateReadCnt(BoardDTO param);
+	int updateReadCnt(BoardDTO inVO);
 
 	/**
 	 * 다건 등록
