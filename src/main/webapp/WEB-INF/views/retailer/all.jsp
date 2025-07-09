@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>관리자 차량 목록</title>
+<title>리테일러(정비소) 전체 목록</title>
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -52,7 +52,7 @@ body {
 
 .page-title {
     background: #00274d;
-    color: #fff; 
+    color: #fff;
     margin: 0;
     padding: 38px 0 38px 70px;
     font-size: 2.3rem;
@@ -85,7 +85,7 @@ th, td {
 }
 
 th {
-    background-color: #34495e;
+    background-color: #5a728a;
     color: white;
 }
 
@@ -162,16 +162,6 @@ tr:nth-child(even) {
 .search-form button:hover {
     background-color: #2980b9;
 }
-
-/* 차량 목록의 이미지에 통일 적용 */
-.car-img {
-    width: 100px;
-    height: auto;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px #e0e0e0;
-    object-fit: contain;
-    background: #fff;
-}
 </style>
 <!-- 로그인 보호 자바스크립트(필요시 사용) -->
 <script>
@@ -191,7 +181,6 @@ function handleProtectedLink(event, url) {
   <!-- 네비/헤더 영역 -->
   <div class="header-bar">
     <div class="header-nav">
-     <a href="${pageContext.request.contextPath}/main/main.do">메인페이지</a>
       <a href="${pageContext.request.contextPath}/car/list.do">전체 차량 모델</a>
       <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
       <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
@@ -214,108 +203,107 @@ function handleProtectedLink(event, url) {
     </div>
   </div>
   <!-- 상단 타이틀 바 -->
-  <div class="page-title">차량 전체 목록</div>
+  <div class="page-title">리테일러 전체 목록</div>
 
-  <main>
-    <!-- 1. 상태 메시지 -->
-    <c:if test="${not empty msg}">
-      <script>alert('${msg}');</script>
-    </c:if>
-  
+  <!-- 1. 상태 메시지 -->
+  <c:if test="${not empty msg}">
+    <script>alert('${msg}');</script>
+  </c:if>
+
   <!-- 2. 검색 폼 -->
-  <form method="get" action="list.do">
+  <!-- 검색 form -->
+<form method="get" action="${pageContext.request.contextPath}/retailer/all.do">
+
     <select name="searchType">
-      <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>차량명</option>
+      <option value="retailerName" ${searchType eq 'retailerName' ? 'selected' : ''}>업체명</option>
+      <option value="area" ${searchType eq 'area' ? 'selected' : ''}>지역</option>
       <option value="carMf" ${searchType eq 'carMf' ? 'selected' : ''}>제조사</option>
-      <option value="cartype" ${searchType eq 'cartype' ? 'selected' : ''}>차종</option>
+      <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>취급차량</option>
     </select>
     <input type="text" name="searchWord" value="${searchWord}" placeholder="검색어">
     <button type="submit">검색</button>
   </form>
-  
-  <!-- 3. 차량 테이블 -->
-  <table>
-    <thead>
-      <tr>
-        <th>번호</th>
-        <th>차량명</th>
-        <th>제조사</th>
-        <th>차종</th>
-        <th>가격</th>
-        <th>연료</th>
-        <th>효율</th>
-        <th>엔진</th>
-        <th>배터리</th>
-        <th>제조년도</th>
-        <th>이미지</th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      <c:choose>
-        <c:when test="${empty carList}">
-          <tr><td colspan="10">등록된 차량이 없습니다.</td></tr>
-        </c:when>
-        <c:otherwise>
-          <c:forEach var="car" items="${carList}" varStatus="status">
-            <tr>
-              <td>${(currentPage-1) * pageSize + status.index + 1}</td>
-              <td>
-                <a href="detail.do?carCode=${car.carCode}">
-                  <c:out value="${car.productName}" />
-                </a>
-              </td>
-              <td><c:out value="${car.carMf}" /></td>
-              <td><c:out value="${car.cartype}" /></td>
-              <td><fmt:formatNumber value="${car.price}" type="currency" currencySymbol="₩" /></td>
-              <td><c:out value="${car.fuel}" /></td>
-              <td><c:out value="${car.ef}" /></td>
-              <td><c:out value="${car.engine}" /></td>
-              <td><c:out value="${car.battery != null ? car.battery : '-'}" /></td>
-              <td><c:out value="${car.mfDt}" /></td>
-              <td>
-              <img class = "car-img" src = "${pageContext.request.contextPath}/image/${car.productName}.png"
-              alt = "${car.productName}" onerror = "this.onerror = null; this.src = "${pageContext.request.contextPath}}/image/${car.productName}.png">
-          </c:forEach>
-        </c:otherwise>
-      </c:choose>
-    </tbody>
-  </table>
-  
-  <!-- 4. 페이징 영역 -->
-  <div class="paging">
-    <c:set var="pageBlock" value="10" />
-    <c:set var="startPage" value="${((currentPage - 1) / pageBlock) * pageBlock + 1}" />
-    <c:set var="endPage" value="${startPage + pageBlock - 1}" />
-    <c:if test="${endPage > totalPages}">
-      <c:set var="endPage" value="${totalPages}" />
-    </c:if>
+
+ <!-- 3. 리테일러 테이블 -->
+<table>
+  <thead>
+    <tr>
+      <th>번호</th>
+      <th>업체명</th>
+      <th>제조사</th>
+      <th>제품명</th>
+      <th>지역(도 /시)</th>
+      <th>상세주소</th>
+      <th>전화번호</th>
+    </tr>
+  </thead>
+  <tbody>
     <c:choose>
-      <c:when test="${currentPage == 1}">
-        <a href="#" class="disabled">&laquo; 이전</a>
+      <c:when test="${empty retailerList}">
+        <tr><td colspan="7">등록된 리테일러가 없습니다.</td></tr>
       </c:when>
       <c:otherwise>
-        <a href="list.do?pageNum=${currentPage - 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">&laquo; 이전</a>
+        <c:forEach var="retailer" items="${retailerList}" varStatus="status">
+          <tr>
+            <td>${(currentPage-1) * pageSize + status.index + 1}</td>
+            <!-- 업체명에만 링크! -->
+            <td>
+              <a href="detail.do?retailerCode=${retailer.retailerCode}" style="color:#236bff;text-decoration:underline;">
+                <c:out value="${retailer.retailerName}" />
+              </a>
+            </td>
+            <!-- 제조사 -->
+            <td><c:out value="${retailer.carMf}" /></td>
+            <!-- 제품명(취급차량) -->
+            <td><c:out value="${retailer.productName}" /></td>
+            <!-- 지역 -->
+            <td><c:out value="${retailer.area}" /></td>
+            <!-- 상세주소 -->
+            <td><c:out value="${retailer.address}" /></td>
+            <!-- 전화번호 -->
+            <td><c:out value="${retailer.telephone}" /></td>
+          </tr>
+        </c:forEach>
       </c:otherwise>
     </c:choose>
-    <c:forEach begin="${startPage}" end="${endPage}" var="i">
-      <c:choose>
-        <c:when test="${i == currentPage}">
-          <a href="#" class="current">${i}</a>
-        </c:when>
-        <c:otherwise>
-          <a href="list.do?pageNum=${i}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">${i}</a>
-        </c:otherwise>
-      </c:choose>
-    </c:forEach>
+  </tbody>
+</table>
+
+<!-- 4. 페이징 영역 -->
+<div class="paging">
+  <c:set var="pageBlock" value="10" />
+  <c:set var="startPage" value="${((currentPage - 1) / pageBlock) * pageBlock + 1}" />
+  <c:set var="endPage" value="${startPage + pageBlock - 1}" />
+  <c:if test="${endPage > totalPages}">
+    <c:set var="endPage" value="${totalPages}" />
+  </c:if>
+  <c:choose>
+    <c:when test="${currentPage == 1}">
+      <a href="#" class="disabled">&laquo; 이전</a>
+    </c:when>
+    <c:otherwise>
+      <a href="${pageContext.request.contextPath}/retailer/all.do?pageNum=${currentPage - 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">&laquo; 이전</a>
+    </c:otherwise>
+  </c:choose>
+  <c:forEach begin="${startPage}" end="${endPage}" var="i">
     <c:choose>
-      <c:when test="${currentPage == totalPages || totalPages == 0}">
-        <a href="#" class="disabled">다음 &raquo;</a>
+      <c:when test="${i == currentPage}">
+        <a href="#" class="current">${i}</a>
       </c:when>
       <c:otherwise>
-        <a href="list.do?pageNum=${currentPage + 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">다음 &raquo;</a>
+        <a href="${pageContext.request.contextPath}/retailer/all.do?pageNum=${i}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">${i}</a>
       </c:otherwise>
     </c:choose>
-  </div>
+  </c:forEach>
+  <c:choose>
+    <c:when test="${currentPage == totalPages || totalPages == 0}">
+      <a href="#" class="disabled">다음 &raquo;</a>
+    </c:when>
+    <c:otherwise>
+      <a href="${pageContext.request.contextPath}/retailer/all.do?pageNum=${currentPage + 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">다음 &raquo;</a>
+    </c:otherwise>
+  </c:choose>
+</div>
+
 </body>
 </html>

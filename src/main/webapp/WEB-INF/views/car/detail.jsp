@@ -78,6 +78,7 @@ a:hover { text-decoration: underline; }
       <div class="detail-row"><span class="label">효율</span> <span class="value"><c:out value="${car.ef}"/></span></div>
       <div class="detail-row"><span class="label">엔진</span> <span class="value"><c:out value="${car.engine != null ? car.engine : '-'}"/></span></div>
       <div class="detail-row"><span class="label">배터리</span> <span class="value"><c:out value="${car.battery != null ? car.battery : '-'}"/></span></div>
+      <div class="detail-row"><span class="label">제조연도</span> <span class="value"><c:out value="${car.mfDt != null ? car.mfDt : '-'}"/></span></div>
       
       <!-- 이미지 자동 출력 -->
 <div class="detail-row">

@@ -22,7 +22,7 @@ public class RetailerController implements PLog {
     private RetailerService retailerService;
 
     // 1. 전체 리테일러 목록 조회 (페이징)
-    @GetMapping("/list.do")
+    @GetMapping("/all.do")
     public String list(
         @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
@@ -44,19 +44,19 @@ public class RetailerController implements PLog {
         model.addAttribute("searchWord", searchWord);
         model.addAttribute("totalPages", totalPages);
 
-        return "retailer/list";
-    }
-
-
-
-    // 2. 전체 리테일러 목록 조회 (페이징 없이)
-    @GetMapping("/all.do")
-    public String allList(Model model) {
-        log.debug("allList() - 리테일러 전체 목록 조회");
-        List<RetailerDTO> list = retailerService.getAllRetailers();
-        model.addAttribute("retailerList", list);
         return "retailer/all";
     }
+
+
+
+//    // 2. 전체 리테일러 목록 조회 (페이징 없이)
+//    @GetMapping("/all.do")
+//    public String allList(Model model) {
+//        log.debug("allList() - 리테일러 전체 목록 조회");
+//        List<RetailerDTO> list = retailerService.getAllRetailers();
+//        model.addAttribute("retailerList", list);
+//        return "retailer/all";
+//    }
 
     // 3. 리테일러 상세 조회
     @GetMapping("/detail.do")

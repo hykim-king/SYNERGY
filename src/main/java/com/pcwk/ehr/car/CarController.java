@@ -21,19 +21,28 @@ public class CarController implements PLog {
     @Autowired
     private CarService carService;
 
-    // (1) 전체 자동차 리스트 (페이징, 파라미터 없이도 OK)
+    // (1) 전체 자동차 리스트 
+    // ( 차량 목록 페이지 -> 검색 / 페이징 기능을 지원하게 하는 컨트롤러 메서드 )
     @GetMapping("/list.do")
     public String list(
         @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+        @RequestParam(value = "searchType", required = false, defaultValue = "productName") String searchType,
+        @RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
         Model model
+        
     ) {
-        List<CarDTO> carList = carService.getCarsByPage(pageNum, pageSize);
-        System.out.println("carList size = " + carList.size()); // ★
+        List<CarDTO> carList = carService.getCarsByPageWithSearch(pageNum, pageSize, searchType, searchWord);
         model.addAttribute("carList", carList);
-        // ...
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchWord", searchWord);
+
         return "car/list";
     }
+
+    
 
     // (2) 브랜드별 자동차 리스트
     @GetMapping("/carMf.do")
