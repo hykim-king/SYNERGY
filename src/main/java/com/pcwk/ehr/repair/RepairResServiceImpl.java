@@ -1,12 +1,10 @@
 package com.pcwk.ehr.repair;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,4 +82,14 @@ public class RepairResServiceImpl implements RepairResService {
     public List<RepairResDTO> doRetrieve(DTO dto){
         return repairResMapper.doRetrieve(dto);
     }
+
+	@Override
+	public List<RepairResDTO> doRetrievePaging(DTO search) throws Exception {
+		return repairResMapper.doRetrievePaging(search);
+	}
+
+	@Override
+	public int getTotalCount(DTO dto) throws Exception {
+		return repairResMapper.getTotalCount(dto);
+	}
 }
