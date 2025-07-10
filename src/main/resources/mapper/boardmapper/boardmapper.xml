@@ -146,6 +146,24 @@
         FROM board
         WHERE board_code = #{boardCode}
     </select>
+    
+   <select id="doMyDiary" parameterType="BoardDTO" resultType="BoardDTO">
+  SELECT 
+    board_code,
+    title,
+    contents,
+    id,
+    nickname,
+    read_cnt,
+    reg_dt,
+    reg_id,
+    mod_dt,
+    mod_id
+  FROM board
+  WHERE id = #{id}
+  ORDER BY reg_dt DESC
+</select>
+   
     <!-- 단건 삭제 -->
     <delete id="doDelete" parameterType="BoardDTO">
         DELETE FROM board
