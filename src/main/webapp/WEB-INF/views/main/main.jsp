@@ -71,10 +71,12 @@
 
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
-      if (isLoggedIn) {
-        alert("환영합니다, ${sessionScope.loginUser.nickname}님!");
+  document.addEventListener("DOMContentLoaded", () => {
+	    const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
+
+	    if (isLoggedIn && !sessionStorage.getItem("welcomeShown")) {
+	      alert("환영합니다, ${sessionScope.loginUser.nickname}님!");
+	      sessionStorage.setItem("welcomeShown", "true");
       }
 
       const slides = document.querySelectorAll(".slide");
