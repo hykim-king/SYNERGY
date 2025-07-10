@@ -11,12 +11,7 @@
   <c:redirect url='${CP}/member/loginView.do' />
 </c:if>
 
-<c:if test="${sessionScope.loginUser.id ne 'admin' and sessionScope.loginUser.id ne vo.regId}">
-  <script>
-    alert("본인 또는 관리자만 수정 가능합니다.");
-    location.href = '${CP}/event/doRetrieve.do';
-  </script>
-</c:if>
+
 
 
 
@@ -139,7 +134,7 @@
 <body>
 
 <div class="form-container">
-  <h2>이벤트 수정</h2>
+  <h2>주인공은 나야나</h2>
   <form id="modForm" method="post">
     <input type="hidden" name="ecode" id="ecode" value="${vo.ecode}" />
     <input type="hidden" name="modId" value="${sessionScope.loginUser.id}" />
@@ -153,11 +148,6 @@
     </div>
 
     <div class="form-group">
-      <label for="email">이메일</label>
-      <input type="text" id="email_display" value="${vo.email}" readonly />
-    </div>
-
-    <div class="form-group">
       <label for="nickname">작성자</label>
       <input type="text" id="nickname_display" value="${vo.nickname}" readonly />
     </div>
@@ -165,11 +155,6 @@
     <div class="form-group">
       <label for="regDt">등록일</label>
       <input type="text" id="regDt" value="<fmt:formatDate value='${vo.regDt}' pattern='yyyy-MM-dd' />" readonly />
-    </div>
-
-    <div class="form-group">
-      <label for="readCnt">조회수</label>
-      <input type="text" id="readCnt" value="${vo.readCnt}" readonly />
     </div>
 
     <div class="form-group">
@@ -181,7 +166,9 @@
       <c:if test="${isEditable}">
         <input type="button" id="doUpdate" value="수정">
       </c:if>
-      <input type="button" id="doDelete" value="삭제">
+      <c:if test="${isEditable}">
+        <input type="button" id="doDelete" value="삭제">
+        </c:if>
       <input type="button" id="moveToList" value="목록">
     </div>
   </form>
