@@ -188,7 +188,7 @@
     </div>
 </main>
 
-<jsp:include page="/resource/footer.jsp" />
+<jsp:include page="/resource/adminFooter.jsp" />
 
 </body>
 </html>
