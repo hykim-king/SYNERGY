@@ -1,0 +1,50 @@
+
+  <!-- 슬라이더 관련 CSS -->
+  <style>
+    .slider {
+        width: 100%;
+        max-width: 1800px;
+        min-height: 580px;
+        margin: 2rem auto;
+        overflow: hidden;
+        border-radius: 8px;
+        background: #f4f6f8;
+    }
+
+    .slide {
+        position: static;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+
+    .slide.active {
+        display: block;
+        opacity: 1;
+    }
+
+    .slider .nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+    }
+
+    .slider .nav button {
+        background: rgba(0, 0, 0, 0.4);
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .slider .slide img {
+        margin: 0 auto;
+        width: 960px;
+        height: 500px;
+
+    }
