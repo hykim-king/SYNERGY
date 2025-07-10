@@ -13,7 +13,11 @@
  <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/drive.css">
 </head>
 <body>
-
+<div class="banner-drive" style="text-align: center; margin: 10; padding: 0;">
+  <img src="${pageContext.request.contextPath}/resource/banner/drive_form.png" 
+       alt="시승신청배너" 
+       style="width: 80%; max-width: 1000px; height: auto;  display: block; margin: 0 auto;" />
+</div>
 
   <div class="form-container">
 	<h2>🚗 시승 신청 양식</h2>
