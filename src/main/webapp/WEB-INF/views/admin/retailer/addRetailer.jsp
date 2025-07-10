@@ -86,14 +86,14 @@
 <div class="container">
     <h2>리테일러 등록</h2>
     <form action="${pageContext.request.contextPath}/admin/retailer/add.do" method="post">
-        <label for="productName">업체명</label>
+        <label for="productName">제품명</label>
         <input type="text" id="productName" name="productName" required>
 
-        <label for="retailerName">제품명</label>
-        <input type="text" id="carMf" name="carMf" required>
+        <label for="retailerName">업체명</label>
+        <input type="text" id="retailerName" name="retailerName" required>
 
         <label for="carMf">제조사</label>
-        <input type="text" id="retailerName" name="retailerName" required>
+        <input type="text" id="carMf" name="carMf" required>
 
         <label for="area">지역</label>
         <input type="text" id="area" name="area" required>
