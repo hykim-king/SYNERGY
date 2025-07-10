@@ -30,7 +30,7 @@ function logoutAndClear() {
 
     <div class="header-nav">
       <a href="${pageContext.request.contextPath}/main/main.do">
-        <img src="${pageContext.request.contextPath}/image/carpick.png" alt="CARPICK" style="height:100px; vertical-align:middle;">
+        <img src="${pageContext.request.contextPath}/resource/image/carpick.png" alt="CARPICK" style="height:100px; vertical-align:middle;">
       </a>
 
       <a href="${pageContext.request.contextPath}/car/list.do">전체 차량 모델</a>
