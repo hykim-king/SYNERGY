@@ -8,6 +8,7 @@
 <title>리테일러(정비소) 전체 목록</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
+  <%@ include file="/resource/header.jsp" %>
 
 
 <style>
@@ -202,35 +203,7 @@ tr:nth-child(even) {
 
 
 <body>
-  <!-- 네비/헤더 영역 -->
-
-  <div class="header-bar">
-    <div class="header-nav">
-<a href="${pageContext.request.contextPath}/main/main.do">
-  <img src="${pageContext.request.contextPath}/image/carpick.png" alt="CARPICK " style="height:100px;vertical-align:middle;">
-
-</a>
-      <a href="${pageContext.request.contextPath}/car/list.do">전체 차량 모델</a>
-      <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
-      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
-      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
-      <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
-      <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
-    </div>
-    <div class="header-right">
-      <c:choose>
-        <c:when test="${not empty sessionScope.loginUser}">
-          <span class="login-icon">👤</span>
-          <a href="${pageContext.request.contextPath}/member/mypage.do">${sessionScope.loginUser.nickname}님</a>
-          <a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
-        </c:when>
-        <c:otherwise>
-          <span class="login-icon">🔒</span>
-          <a href="${pageContext.request.contextPath}/member/loginView.do">로그인</a>
-        </c:otherwise>
-      </c:choose>
-    </div>
-  </div>
+ 
   <!-- 상단 타이틀 바 -->
   <div class="page-title">리테일러 전체 목록</div>
 
@@ -278,9 +251,9 @@ function handleProtectedLink(event, url) {
       <thead>
         <tr>
           <th>번호</th>
+          <th>제품명</th>
           <th>업체명</th>
           <th>제조사</th>
-          <th>제품명</th>
           <th>지역(도 /시)</th>
           <th>상세주소</th>
           <th>전화번호</th>

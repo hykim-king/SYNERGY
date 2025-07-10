@@ -28,7 +28,8 @@
         <li><strong>📅 희망 시승일:</strong> <fmt:formatDate value="${dto.driveDate}" pattern="yyyy-MM-dd"/></li>
         <li><strong>🚘 신청 브랜드:</strong> ${dto.carMf}</li>
         <li><strong>🔧 제품명:</strong> ${dto.productName}</li>
-        <li><strong>🏢 신청 업체:</strong> ${dto.retailerName}</li>
+        <li><strong>🏢 신청 업체:</strong> ${dto.retailerName}</li><br>
+        <li> 작성하신 내용 확인 후 담당자가 연락드리겠습니다. </li>
       </ul>
     </c:when>
     <c:otherwise>

@@ -230,13 +230,11 @@
     </div>
 
     <div class="button-area">
-      <c:if test="${isEditable}">
-        <input type="button" id="doUpdate" value="수정">
-      </c:if>
-      <input type="button" id="doDelete" value="삭제">
-      <input type="button" id="moveToList" value="목록">
-    </div>
-  </form>
+  <c:if test="${isEditable}">
+    <input type="button" id="doUpdate" value="수정">
+    <input type="button" id="doDelete" value="삭제">
+  </c:if>
+  <input type="button" id="moveToList" value="목록">
 </div>
 
 <!-- ✅ FOOTER -->
