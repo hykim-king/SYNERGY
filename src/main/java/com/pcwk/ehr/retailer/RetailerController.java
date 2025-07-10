@@ -30,11 +30,17 @@ public class RetailerController implements PLog {
         @RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
         Model model
     ) {
-        // 전체 건수는 'getCarCountWithSearch' 사용
         int totalCount = retailerService.getRetailersCountWithSearch(searchType, searchWord);
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
-        // 실제 데이터 목록은 'getCarsByPageWithSearch' 사용
+        // pageNum 범위 보정
+        if(totalPages > 0 && pageNum > totalPages) {
+            pageNum = totalPages;
+        }
+        if(pageNum < 1) {
+            pageNum = 1;
+        }
+
         List<RetailerDTO> retailerList = retailerService.getRetailersByPageWithSearch(pageNum, pageSize, searchType, searchWord);
 
         model.addAttribute("retailerList", retailerList);
@@ -46,6 +52,7 @@ public class RetailerController implements PLog {
 
         return "retailer/all";
     }
+
 
 
 

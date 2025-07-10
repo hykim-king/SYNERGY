@@ -330,6 +330,7 @@ function handleProtectedLink(event, url) {
         <a href="list.do?pageNum=${currentPage - 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">&laquo; 이전</a>
       </c:otherwise>
     </c:choose>
+    
     <c:forEach begin="${startPage}" end="${endPage}" var="i">
       <c:choose>
         <c:when test="${i == currentPage}">
