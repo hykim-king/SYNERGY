@@ -300,12 +300,15 @@ function handleProtectedLink(event, url) {
               <td><fmt:formatNumber value="${car.price}" type="currency" currencySymbol="₩" /></td>
               <td><c:out value="${car.fuel}" /></td>
               <td><c:out value="${car.ef}" /></td>
-              <td><c:out value="${car.engine}" /></td>
+              <td><c:out value="${czar.engine}" /></td>
               <td><c:out value="${car.battery != null ? car.battery : '-'}" /></td>
               <td><c:out value="${car.mfDt}" /></td>
               <td>
-              <img class = "car-img" src = "${pageContext.request.contextPath}/image/${car.productName}.png"
-              alt = "${car.productName}" onerror = "this.onerror = null; this.src = "${pageContext.request.contextPath}}/image/${car.productName}.png">
+               <img class="car-img"
+                   src="${pageContext.request.contextPath}${car.path}${car.modFn}"
+                   alt="${car.productName}"
+                   style="width:100px; height:auto;" />
+            </td>
           </c:forEach>
         </c:otherwise>
       </c:choose>
