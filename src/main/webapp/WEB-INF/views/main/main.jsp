@@ -144,9 +144,12 @@ main {
 document.addEventListener("DOMContentLoaded", () => {
     
      const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
-      if (isLoggedIn) {
-        alert("환영합니다, ${sessionScope.loginUser.nickname}님!");
-      }
+     if (isLoggedIn === 'true') {
+    	  if (!sessionStorage.getItem('welcomeShown')) {
+    	    alert("환영합니다, ${sessionScope.loginUser.nickname}님!");
+    	    sessionStorage.setItem('welcomeShown', 'true');
+    	  }
+    	}
   // --- 슬라이더 자동 전환 로직 ---
   const slides = document.querySelectorAll(".slide");
   const prevBtn = document.getElementById("prev");
