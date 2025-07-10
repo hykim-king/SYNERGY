@@ -1,19 +1,28 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
 <script>
-  const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
+window.isLoggedIn = ${not empty sessionScope.loginUser};
+window.userNickname = '<c:out value="${not empty sessionScope.loginUser ? sessionScope.loginUser.nickname : ''}" />';
+console.log("isLoggedIn:", window.isLoggedIn);
+console.log("userNickname:", window.userNickname);
 </script>
 
 <script>
-  function handleProtectedLink(event, url) {
-    if (!isLoggedIn) {
+function handleProtectedLink(event, url) {
+    if (!window.isLoggedIn) {  // boolean false 일 때 처리
       event.preventDefault();
       alert("로그인이 필요합니다.");
     } else {
       window.location.href = url;
     }
-  }
+}
+
+function logoutAndClear() {
+    sessionStorage.removeItem('welcomeShown'); // 환영 메시지 초기화
+    location.href = '${pageContext.request.contextPath}/member/logout.do';
+}
 </script>
 <header>
 
@@ -36,7 +45,7 @@
         <c:when test="${not empty sessionScope.loginUser}">
           <span class="login-icon">👤</span>
           <a href="${pageContext.request.contextPath}/member/mypage.do">${sessionScope.loginUser.nickname}님</a>
-          <a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
+          <a href="javascript:void(0);" onclick="logoutAndClear()">로그아웃</a>
         </c:when>
         <c:otherwise>
           <span class="login-icon">🔒</span>
