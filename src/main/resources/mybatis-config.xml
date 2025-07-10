@@ -17,11 +17,11 @@
 			type="com.pcwk.ehr.cmn.SearchDTO" />
 		<typeAlias alias="MemberDTO"
 			type="com.pcwk.ehr.member.MemberDTO" />
-
-		<typeAlias alias="BoardDTO"
-			type="com.pcwk.ehr.board.BoardDTO" />
+        <typeAlias alias="BoardDTO"
+            type="com.pcwk.ehr.board.BoardDTO" />
 		<typeAlias alias="EventDTO"
-			type="com.pcwk.ehr.event.EventDTO" />
+            type="com.pcwk.ehr.event.EventDTO" />
+		
 
 	</typeAliases>
 </configuration>

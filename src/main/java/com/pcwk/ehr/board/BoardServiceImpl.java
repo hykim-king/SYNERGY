@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.pcwk.ehr.board;
 
 import java.util.List;
@@ -16,7 +13,6 @@ import com.pcwk.ehr.mapper.BoardMapper;
 @Service
 public class BoardServiceImpl implements BoardService {
 	Logger log = LogManager.getLogger(getClass());
-
 	@Autowired
 	BoardMapper mapper;
 
@@ -42,30 +38,25 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int doSave(BoardDTO param) {
 		if (param.getId() == null || param.getId().isEmpty()) {
-	        param.setId(param.getRegId()); // 등록자와 동일하게
-	    }
-
-	    if (param.getNickname() == null || param.getNickname().isEmpty()) {
-	        param.setNickname("익명");
-	    }
-
-	    return mapper.doSave(param);
+			param.setId(param.getRegId()); // 등록자와 동일하게
+		}
+		if (param.getNickname() == null || param.getNickname().isEmpty()) {
+			param.setNickname("익명");
+		}
+		return mapper.doSave(param);
 	}
 
 	@Override
 	public BoardDTO doSelectOne(BoardDTO param) {
 		// 단건 조회 + 조회 COUNT 증가
-
 		int flag = mapper.updateReadCnt(param);
-
 		log.debug("flag:{}", flag);
-
 		return mapper.doSelectOne(param);
 	}
 
 	@Override
 	public int updateReadCnt(BoardDTO param) {
-	    return mapper.updateReadCnt(param);
+		return mapper.updateReadCnt(param);
 	}
 
 	@Override
@@ -83,7 +74,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -91,5 +81,4 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/resource/header.jsp" %>
 <!DOCTYPE html>
 
 <html>
 <head>
 <meta charset="UTF-8">
 <title>정비 신청</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/drive.css">
 </head>
 <body>
+  <div class="form-container">
 	<h2>🚗 정비 신청 양식</h2>
 	<form action="${pageContext.request.contextPath}/repair/apply.do"
 		method="post">
@@ -74,8 +78,9 @@
 			type="hidden" name="retailerCode" id="retailerCode" />
 
 		<button type="submit">정비 신청</button>
-	</form>
 
+	</form>
+</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function() {
@@ -192,3 +197,7 @@
           }
         });
 	</script>
+	
+	<%@ include file="/resource/footer.jsp" %>
+</body>
+</html>

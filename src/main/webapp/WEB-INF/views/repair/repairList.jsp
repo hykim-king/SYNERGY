@@ -1,19 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/resource/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>정비 신청 목록</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/drive.css">
     <style>
         table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
         th { background-color: #f5f5f5; }
     </style>
 </head>
 <body>
-    <h2>정비 신청 목록</h2>
+  <div class="form-container">
+    <h2>🧑‍🔧  나의 정비 신청 목록</h2>
     <table>
         <thead>
             <tr>
@@ -52,7 +56,7 @@
             </c:forEach>
         </tbody>
     </table>
-
+</div>
     <!-- 📌 업체 상세 모달 -->
     <div id="retailerModal" style="display:none; position:fixed; top:20%; left:30%; width:400px; background:#fff; border:1px solid #ccc; padding:20px; box-shadow:2px 2px 10px #999; z-index:1000;">
         <h3>🏪 업체 상세 정보</h3>
@@ -103,5 +107,6 @@
             alert("${msg}");
         </script>
     </c:if>
+    <%@ include file="/resource/footer.jsp" %>
 </body>
 </html>

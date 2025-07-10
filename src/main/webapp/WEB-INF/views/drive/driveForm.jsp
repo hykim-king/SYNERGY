@@ -10,68 +10,7 @@
 <meta charset="UTF-8">
 <title>시승 신청</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Nanum Gothic', sans-serif;
-      background-color: #f4f6f8;
-    }
-
-    .form-container {
-      max-width: 600px;
-      margin: 60px auto;
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
-
-    form label {
-      display: block;
-      font-weight: bold;
-      margin-top: 20px;
-      margin-bottom: 6px;
-    }
-
-    form input[type="text"],
-    form input[type="date"],
-    form select {
-      width: 100%;
-      padding: 10px;
-      font-size: 14px;
-      border: 1px solid #bbb;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
-
-    #retailerTable {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    #retailerTable th,
-    #retailerTable td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
-    }
-
-    form button {
-      background-color: #00274d;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 30px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    form button:hover {
-      background-color: #004080;
-    }
-  </style>
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/drive.css">
 </head>
 <body>
 
