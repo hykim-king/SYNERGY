@@ -51,25 +51,25 @@ public class BoardController {
 
 		return viewNString;
 	}
-	
+
 	@GetMapping("/myDiary.do")
 	public String myDiary(BoardDTO boardDTO, HttpSession session, Model model) {
-	    MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
 
-	    if (loginUser == null) {
-	        return "redirect:/member/loginView.do"; // 로그인 화면으로 리디렉션
-	    }
+		if (loginUser == null) {
+			return "redirect:/member/loginView.do"; // 로그인 화면으로 리디렉션
+		}
 
-	    boardDTO.setId(loginUser.getId());
+		boardDTO.setId(loginUser.getId());
 
-	    List<BoardDTO> list = boardService.doMyDiary(boardDTO);
+		List<BoardDTO> list = boardService.doMyDiary(boardDTO);
 
-	    model.addAttribute("list", list);
-	    model.addAttribute("search", boardDTO);
+		model.addAttribute("list", list);
+		model.addAttribute("search", boardDTO);
 
-	    return "board/myDiary"; // ⇒ /WEB-INF/views/board/myDiary.jsp
+		return "board/myDiary"; // ⇒ /WEB-INF/views/board/myDiary.jsp
 	}
-	
+
 	@GetMapping(value = "/doRetrieve.do")
 	public String doRetrieve(SearchDTO param, Model model) {
 		String viewName = "board/board_list";
@@ -172,22 +172,29 @@ public class BoardController {
 		log.debug("│ *doDelete()*              │");
 		log.debug("└───────────────────────────┘");
 		log.debug("1. param:{}", param);
-		String jsonString = "";
-		int flag = boardService.doDelete(param);
-		String message = "";
-		if (1 == flag) {
-			message = "게시판 글이 삭제 되었습니다.";
-		} else {
-			message = "게시판 글이 삭제 되지않았습니다.";
+
+		// 로그인 사용자 가져오기
+		MemberDTO loginUser = (MemberDTO) req.getSession().getAttribute("loginUser");
+		if (loginUser == null) {
+			return new Gson().toJson(new MessageDTO(0, "로그인이 필요합니다."));
 		}
-		// MessageDTO messageDTO = new MessageDTO(flag, message); // :흰색_확인_표시: 메시지 객체
-		// 생성
-		// String jsonString = new Gson().toJson(messageDTO); // :흰색_확인_표시: JSON 문자열로 변환
-		// log.debug("2. jsonString: {}", jsonString);
-		// return jsonString;
-		jsonString = new Gson().toJson(new MessageDTO(flag, message));
-		log.debug("2. jsonString:{}", jsonString);
-		return jsonString;
+
+		// 게시글 상세 조회
+		BoardDTO dbBoard = boardService.doSelectOne(param);
+		if (dbBoard == null) {
+			return new Gson().toJson(new MessageDTO(0, "게시글이 존재하지 않습니다."));
+		}
+
+		// 권한 체크: 본인이 작성했거나 admin
+		if (!loginUser.getId().equals(dbBoard.getRegId()) && !"admin".equals(loginUser.getId())) {
+			return new Gson().toJson(new MessageDTO(0, "삭제 권한이 없습니다."));
+		}
+
+		// 삭제 진행
+		int flag = boardService.doDelete(param);
+		String message = (flag == 1) ? "게시글이 삭제되었습니다." : "게시글 삭제 실패.";
+
+		return new Gson().toJson(new MessageDTO(flag, message));
 	}
 
 	// 화면등록 : /board/board_list
