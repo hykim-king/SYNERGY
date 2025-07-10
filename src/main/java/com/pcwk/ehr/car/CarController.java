@@ -30,18 +30,34 @@ public class CarController implements PLog {
         @RequestParam(value = "searchType", required = false, defaultValue = "productName") String searchType,
         @RequestParam(value = "searchWord", required = false, defaultValue = "") String searchWord,
         Model model
-        
     ) {
+        // 1. 전체 데이터 개수 조회 (검색 조건 반영)
+        int totalCount = carService.getCarCountWithSearch(searchType, searchWord);
+
+        // 2. 총 페이지 수 계산
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+
+        // 3. pageNum 범위 보정
+        if(totalPages > 0 && pageNum > totalPages) {
+            pageNum = totalPages;
+        }
+        if(pageNum < 1) {
+            pageNum = 1;
+        }
+
+        // 4. 보정된 pageNum으로 데이터 조회
         List<CarDTO> carList = carService.getCarsByPageWithSearch(pageNum, pageSize, searchType, searchWord);
+
+        // 5. 모델에 데이터와 페이징 정보 전달
         model.addAttribute("carList", carList);
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchWord", searchWord);
+        model.addAttribute("totalPages", totalPages);
 
         return "car/list";
     }
-
     
 
     // (2) 브랜드별 자동차 리스트

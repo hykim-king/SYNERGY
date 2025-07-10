@@ -6,7 +6,7 @@ import com.pcwk.ehr.cmn.DTO;
 
 public class EventDTO extends DTO {
 
-	private String ecode;
+	private int ecode;
 	private String email;
 	private String title;
 	private String div;
@@ -37,7 +37,7 @@ public class EventDTO extends DTO {
 	 * @param modDt
 	 * @param modId
 	 */
-	public EventDTO(String ecode, String email, String title, String div, String contents, String nickname, int readCnt,
+	public EventDTO(int ecode, String email, String title, String div, String contents, String nickname, int readCnt,
 			Date regDt, String regId, Date modDt, String modId) {
 		super();
 		this.ecode = ecode;
@@ -56,14 +56,14 @@ public class EventDTO extends DTO {
 	/**
 	 * @return the ecode
 	 */
-	public String getEcode() {
+	public int getEcode() {
 		return ecode;
 	}
 
 	/**
 	 * @param ecode the ecode to set
 	 */
-	public void setEcode(String ecode) {
+	public void setEcode(int ecode) {
 		this.ecode = ecode;
 	}
 
