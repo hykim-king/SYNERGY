@@ -84,7 +84,7 @@ a:hover { text-decoration: underline; }
 <div class="detail-row">
   <span class="label">이미지</span>
   <span class="value">
-    <img src="${pageContext.request.contextPath}/image/${car.productName}.png" alt="${car.productName}"
+    <img src="${pageContext.request.contextPath}/resource/image/${car.productName}.png" alt="${car.productName}"
          alt="${car.productName}" style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 2px 8px #eee;">
   </span>
 </div>
