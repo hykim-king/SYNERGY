@@ -150,7 +150,7 @@ tr:nth-child(even) {
     <form class="search-form" method="get" action="list.do" style="margin-bottom: 15px;">
         <select name="searchType">
             <option value="productName" <c:if test="${searchType == 'productName'}">selected</c:if>>제품명</option>
-            <option value="retailerName" <c:if test="${searchType == 'retailerName'}">selected</c:if>>리테일러명</option>
+            <option value="retailerName" <c:if test="${searchType == 'retailerName'}">selected</c:if>>업체명</option>
             <option value="carMf" <c:if test="${searchType == 'carMf'}">selected</c:if>>제조사</option>
         </select>
         <input type="text" name="searchWord" value="${fn:escapeXml(searchWord)}" placeholder="검색어 입력" />
@@ -161,9 +161,9 @@ tr:nth-child(even) {
         <thead>
             <tr>
                 <th>번호</th>
+                <th>제품명</th>       
                 <th>업체명</th>       
                 <th>제조사</th>       
-                <th>제품명</th>       
                 <th>지역</th>         
                 <th>상세 주소</th>    
                 <th>전화번호</th>     
