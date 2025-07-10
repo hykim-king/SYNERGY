@@ -78,6 +78,7 @@
                    TT1.nickname,
                    TT1.read_cnt,
                    TT1.reg_dt,
+                   TT1.reg_id,
                    TT1.mod_dt,
                    TT1.mod_id
             FROM (
