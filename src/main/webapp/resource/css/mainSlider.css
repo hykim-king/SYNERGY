@@ -1,11 +1,10 @@
-@charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
   <!-- 슬라이더 관련 CSS -->
+  <style>
     .slider {
         width: 100%;
-        max-width: 1200px;
-        min-height: 400px;
+        max-width: 1800px;
+        min-height: 580px;
         margin: 2rem auto;
         overflow: hidden;
         border-radius: 8px;
@@ -44,12 +43,8 @@
     }
 
     .slider .slide img {
-        display: block;
         margin: 0 auto;
-        width: 480px;
-        height: 260px;
-        object-fit: contain;
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        width: 960px;
+        height: 500px;
+
     }
