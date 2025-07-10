@@ -81,4 +81,9 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<BoardDTO> doMyDiary(BoardDTO inVO) {
+		return mapper.doMyDiary(inVO);
+	}
 }
