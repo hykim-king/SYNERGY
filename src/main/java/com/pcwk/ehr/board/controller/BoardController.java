@@ -110,17 +110,38 @@ public class BoardController {
 	@PostMapping(value = "/doUpdate.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String doUpdate(BoardDTO param, HttpServletRequest req) {
-		log.debug("┌───────────────────────────┐");
-		log.debug("│ *doUpdate()*              │");
-		log.debug("└───────────────────────────┘");
-		int flag = boardService.doUpdate(param);
-		String message = "";
-		if (1 == flag) {
-			message = "회원님의 글이 수정되었습니다.";
-		} else {
-			message = "회원님의 글이 수정되지 않았습니다.";
-		}
-		return new Gson().toJson(new MessageDTO(flag, message));
+	    log.debug("┌───────────────────────────┐");
+	    log.debug("│ *doUpdate()*              │");
+	    log.debug("└───────────────────────────┘");
+	    log.debug("1. 요청 param: {}", param);
+
+	    // 로그인 사용자 정보 가져오기
+	    Object loginUserObj = req.getSession().getAttribute("loginUser");
+	    if (loginUserObj == null) {
+	        return new Gson().toJson(new MessageDTO(0, "로그인이 필요합니다."));
+	    }
+
+	    // 로그인 사용자 ID
+	    String loginUserId = ((com.pcwk.ehr.member.MemberDTO) loginUserObj).getId();
+	    log.debug("2. 로그인 사용자 ID: {}", loginUserId);
+
+	    // 원본 글 조회
+	    BoardDTO original = boardService.doSelectOne(param);
+	    if (original == null) {
+	        return new Gson().toJson(new MessageDTO(0, "해당 게시글을 찾을 수 없습니다."));
+	    }
+
+	    // 권한 확인: 작성자 또는 admin만 수정 가능
+	    if (!loginUserId.equals(original.getRegId()) && !"admin".equals(loginUserId)) {
+	        return new Gson().toJson(new MessageDTO(0, "수정 권한이 없습니다."));
+	    }
+
+	    // 최종 수정자(modId) 설정
+	    param.setModId(loginUserId);
+
+	    int flag = boardService.doUpdate(param);
+	    String message = (flag == 1) ? "회원님의 글이 수정되었습니다." : "회원님의 글이 수정되지 않았습니다.";
+	    return new Gson().toJson(new MessageDTO(flag, message));
 	}
 
 	// 삭제 /board/doDelete.do doDelete(BoardDTO param) 비동기 POST JSON
@@ -153,23 +174,30 @@ public class BoardController {
 	// 등록 : /board/board_reg
 	@PostMapping(value = "/doSave.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String doSave(BoardDTO param) {
-		// 등록 /board/doSave.do doSave(BoardDTO param) 비동기 POST JSON
-		log.debug("┌───────────────────────────┐");
-		log.debug("│ *doSave()*                │");
-		log.debug("└───────────────────────────┘");
-		String jsonString = "";
-		log.debug("1. param:{}", param);
-		int flag = boardService.doSave(param);
-		String message = "";
-		if (1 == flag) {
-			message = param.getTitle() + " 글이 등록되었습니다.";
-		} else {
-			message = param.getTitle() + " 글이 등록되지 않았습니다.";
-		}
-		MessageDTO messageDTO = new MessageDTO(flag, message);
-		jsonString = new Gson().toJson(messageDTO);
-		log.debug("2. jsonString:{}", jsonString);
-		return jsonString;
+	public String doSave(BoardDTO param, HttpServletRequest req) {
+	    log.debug("┌───────────────────────────┐");
+	    log.debug("│ *doSave()*                │");
+	    log.debug("└───────────────────────────┘");
+	    log.debug("1. param:{}", param);
+
+	    // ✅ 로그인 유저 정보에서 nickname과 id 세팅
+	    com.pcwk.ehr.member.MemberDTO loginUser =
+	        (com.pcwk.ehr.member.MemberDTO) req.getSession().getAttribute("loginUser");
+
+	    if (loginUser != null) {
+	        param.setNickname(loginUser.getNickname()); // 👈 작성자 이름(닉네임)
+	        param.setId(loginUser.getId());             // 👈 작성자 ID
+	        param.setRegId(loginUser.getId());          // 👈 등록자 ID
+	    }
+
+	    int flag = boardService.doSave(param);
+
+	    String message = (flag == 1)
+	        ? param.getTitle() + " 글이 등록되었습니다."
+	        : param.getTitle() + " 글이 등록되지 않았습니다.";
+
+	    String jsonString = new Gson().toJson(new MessageDTO(flag, message));
+	    log.debug("2. jsonString:{}", jsonString);
+	    return jsonString;
 	}
 }

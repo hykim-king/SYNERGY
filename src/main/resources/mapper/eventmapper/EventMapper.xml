@@ -25,7 +25,9 @@
   UPDATE event
   SET read_cnt = NVL(read_cnt, 0) + 1
   WHERE event_code = #{ecode}
-  AND reg_id != #{regId}
+  <if test="regId != null">
+    AND reg_id != #{regId}
+  </if>
 </update>
 
 <insert id="saveAll">
@@ -121,9 +123,9 @@ CONNECT BY LEVEL <= 100
 </delete>
 
 <insert id="doSave" parameterType="EventDTO">
-  <selectKey keyProperty="ecode" resultType="String" order="BEFORE">
-    SELECT TO_CHAR(EVENT_SEQ.NEXTVAL) FROM dual
-  </selectKey>
+  <selectKey keyProperty="ecode" resultType="int" order="BEFORE">
+  SELECT EVENT_SEQ.NEXTVAL FROM dual
+</selectKey>
   INSERT INTO event (
     event_code, email, title, div, contents, nickname,
     read_cnt, reg_dt, reg_id, mod_dt, mod_id

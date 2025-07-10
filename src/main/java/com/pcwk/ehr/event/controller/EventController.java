@@ -24,116 +24,112 @@ import com.pcwk.ehr.event.EventService;
 @Controller
 @RequestMapping("/event")
 public class EventController {
+
 	final Logger log = LogManager.getLogger(getClass());
+
 	@Autowired
 	EventService eventService;
 
 	public EventController() {
-		log.debug("┌─────────────────────────────────────┐");
-		log.debug("│ EventController()                   │");
-		log.debug("└─────────────────────────────────────┘");
+		log.debug("EventController() 생성");
 	}
 
-	@GetMapping(value = "/doRetrieve.do")
-	public String doRetrieve(SearchDTO param, Model model) {
-		String viewName = "event/event_list"; // /WEB-INF/views/event/event_list.jsp
-		log.debug("┌───────────────────────────┐");
-		log.debug("│ *doRetrieve()*            │");
-		log.debug("└───────────────────────────┘");
-		// 기본값 처리
-		int pageNo = PcwkString.nvlZero(param.getPageNo(), 1);
-		int pageSize = PcwkString.nvlZero(param.getPageSize(), 10);
-		String div = PcwkString.nvlString(param.getDiv(), "10");
-		String searchDiv = PcwkString.nullToEmpty(param.getSearchDiv());
-		String searchWord = PcwkString.nullToEmpty(param.getSearchWord());
-		// 파라미터 설정
-		param.setPageNo(pageNo);
-		param.setPageSize(pageSize);
-		param.setDiv(div);
-		param.setSearchDiv(searchDiv);
-		param.setSearchWord(searchWord);
-		log.debug("SearchDTO param: {}", param);
-		// 데이터 조회
-		List<EventDTO> list = eventService.doRetrieve(param);
-		model.addAttribute("list", list);
-		// 전체 건수 처리
-		int totalCnt = 0;
-		if (list != null && !list.isEmpty()) {
-			EventDTO totalVO = list.get(0);
-			totalCnt = totalVO.getTotalCnt();
+	// 등록 화면 이동 (관리자만)
+	@GetMapping("/doSaveView.do")
+	public String doSaveView(HttpServletRequest req) {
+		String loginUserId = (String) req.getSession().getAttribute("loginUserId");
+		if (!"admin".equals(loginUserId)) {
+			return "redirect:/event/doRetrieve.do";
 		}
+		return "event/event_reg";
+	}
+
+	// 이벤트 목록 조회
+	@GetMapping("/doRetrieve.do")
+	public String doRetrieve(SearchDTO param, Model model) {
+		// 기본값 설정
+		param.setPageNo(PcwkString.nvlZero(param.getPageNo(), 1));
+		param.setPageSize(PcwkString.nvlZero(param.getPageSize(), 10));
+		param.setDiv(PcwkString.nvlString(param.getDiv(), "10"));
+		param.setSearchDiv(PcwkString.nullToEmpty(param.getSearchDiv()));
+		param.setSearchWord(PcwkString.nullToEmpty(param.getSearchWord()));
+
+		List<EventDTO> list = eventService.doRetrieve(param);
+		int totalCnt = (list != null && !list.isEmpty()) ? list.get(0).getTotalCnt() : 0;
+
+		model.addAttribute("list", list);
 		model.addAttribute("totalCnt", totalCnt);
-		return viewName;
+		model.addAttribute("divValue", param.getDiv());
+		model.addAttribute("search", param);
+		return "event/event_list";
 	}
 
-	@GetMapping(value = "/doSelectOne.do")
-	public String doSelectOne(EventDTO param, Model model) {
-		String viewName = "event/event_mod"; // /WEB-INF/views/event/event_mod.jsp
-		log.debug("1. param: {}", param);
-		EventDTO outVO = eventService.doSelectOne(param);
-		log.debug("2. outVO: {}", outVO);
-		model.addAttribute("vo", outVO); // 조회된 데이터를 "vo"라는 이름으로 JSP에 전달
-		return viewName;
+	// 단건 조회
+	@GetMapping("/doSelectOne.do")
+	public String doSelectOne(EventDTO param, Model model, HttpServletRequest req) {
+	    String loginUserId = (String) req.getSession().getAttribute("loginUserId");
+
+	    // ★ 조회자 ID 세팅 (조회수 증가 조건 충족을 위해 필수)
+	    if (loginUserId != null) {
+	        param.setRegId(loginUserId);
+	    }
+
+	    EventDTO outVO = eventService.doSelectOne(param);
+	    if (outVO == null) {
+	        model.addAttribute("errorMessage", "조회된 이벤트가 없습니다.");
+	        return "common/error";
+	    }
+
+	    model.addAttribute("vo", outVO);
+	    return "event/event_mod";
 	}
 
+	// 이벤트 수정 (관리자 또는 작성자만 가능)
 	@PostMapping(value = "/doUpdate.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String doUpdate(EventDTO param, HttpServletRequest req) {
-		log.debug("┌───────────────────────────┐");
-		log.debug("│ *doUpdate()*              │");
-		log.debug("└───────────────────────────┘");
-		log.debug("1. param: {}", param);
-		int flag = eventService.doUpdate(param);
-		String message = "";
-		if (1 == flag) {
-			message = "회원님의 이벤트가 수정되었습니다.";
-		} else {
-			message = "회원님의 이벤트가 수정되지 않았습니다.";
+		String loginUserId = (String) req.getSession().getAttribute("loginUserId");
+
+		if (loginUserId == null || (!"admin".equals(loginUserId) && !loginUserId.equals(param.getRegId()))) {
+			return new Gson().toJson(new MessageDTO(0, "수정 권한이 없습니다."));
 		}
-		String jsonString = new Gson().toJson(new MessageDTO(flag, message));
-		log.debug("2. jsonString: {}", jsonString);
-		return jsonString;
+
+		int flag = eventService.doUpdate(param);
+		String message = (flag == 1) ? "이벤트가 수정되었습니다." : "이벤트 수정 실패";
+		return new Gson().toJson(new MessageDTO(flag, message));
 	}
 
-	// 삭제 /event/doDelete.do
+	// 이벤트 삭제 (관리자만)
 	@PostMapping(value = "/doDelete.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String doDelete(EventDTO param, HttpServletRequest req) {
-		log.debug("┌───────────────────────────┐");
-		log.debug("│ *doDelete()*              │");
-		log.debug("└───────────────────────────┘");
-		log.debug("1. param: {}", param);
-		int flag = eventService.doDelete(param);
-		String message = "";
-		if (flag == 1) {
-			message = "이벤트가 삭제 되었습니다.";
-		} else {
-			message = "이벤트 삭제에 실패했습니다.";
-		}
-		MessageDTO messageDTO = new MessageDTO(flag, message);
-		String jsonString = new Gson().toJson(messageDTO);
-		log.debug("2. jsonString: {}", jsonString);
-		return jsonString;
+	    String loginUserId = (String) req.getSession().getAttribute("loginUserId");
+
+	    // 1. 관리자 권한 체크
+	    if (!"admin".equals(loginUserId)) {
+	        return new Gson().toJson(new MessageDTO(0, "삭제 권한이 없습니다."));
+	    }
+
+	    // 2. 삭제 수행
+	    int flag = eventService.doDelete(param);
+
+	    // 3. 결과 메시지 생성 및 반환
+	    String message = (flag == 1) ? "이벤트가 삭제되었습니다." : "이벤트 삭제 실패";
+	    return new Gson().toJson(new MessageDTO(flag, message));
 	}
 
-	// 등록 요청 처리 : /event/doSave.do (POST, JSON 반환)
+	// 이벤트 등록 (관리자만)
 	@PostMapping(value = "/doSave.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String doSave(EventDTO param) {
-		log.debug("┌───────────────────────────┐");
-		log.debug("│ *doSave()*                │");
-		log.debug("└───────────────────────────┘");
-		log.debug("1. param: {}", param);
-		int flag = eventService.doSave(param);
-		String message = "";
-		if (1 == flag) {
-			message = param.getTitle() + " 글이 등록되었습니다.";
-		} else {
-			message = param.getTitle() + " 글이 등록되지 않았습니다.";
+	public String doSave(EventDTO param, HttpServletRequest req) {
+		String loginUserId = (String) req.getSession().getAttribute("loginUserId");
+
+		if (!"admin".equals(loginUserId)) {
+			return new Gson().toJson(new MessageDTO(0, "관리자만 등록할 수 있습니다."));
 		}
-		MessageDTO messageDTO = new MessageDTO(flag, message);
-		String jsonString = new Gson().toJson(messageDTO);
-		log.debug("2. jsonString: {}", jsonString);
-		return jsonString;
+
+		int flag = eventService.doSave(param);
+		String message = (flag == 1) ? param.getTitle() + "Carpick글이 등록되었습니다." : param.getTitle() + " 이벤트 등록 실패";
+		return new Gson().toJson(new MessageDTO(flag, message));
 	}
 }
