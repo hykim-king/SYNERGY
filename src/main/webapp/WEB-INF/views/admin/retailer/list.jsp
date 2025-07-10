@@ -11,17 +11,16 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f7f9fc;
     margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 15px 20px;
+    padding: 0; /* 푸터 공간 확보 */
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 main {
-    padding: 20px;
+    flex: 1 0 auto;
+    padding: 20px 0;
 }
 
 table {
@@ -138,9 +137,8 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-<header>
-    <h1>관리자 리테일러 목록</h1>
-</header>
+
+<jsp:include page="/resource/adminHeader.jsp" />
 
 <main>
     <!-- 삭제/수정 결과 메시지 -->
@@ -149,13 +147,6 @@ tr:nth-child(even) {
             alert('${msg}');
         </script>
     </c:if>
-
-    <div class="btn-main">
-        <a href="${pageContext.request.contextPath}/admin/main.do">관리자 메인</a>
-        <a href="${pageContext.request.contextPath}/admin/retailer/add.do"
-            style="margin-left: 10px; background-color: #27ae60;">리테일러 등록</a>
-    </div>
-
     <form class="search-form" method="get" action="list.do" style="margin-bottom: 15px;">
         <select name="searchType">
             <option value="productName" <c:if test="${searchType == 'productName'}">selected</c:if>>제품명</option>
@@ -168,47 +159,51 @@ tr:nth-child(even) {
 
     <table>
         <thead>
-    <tr>
-        <th>번호</th>
-        <th>업체명</th>       
-        <th>제조사</th>       
-        <th>제품명</th>       
-        <th>지역</th>         
-        <th>상세 주소</th>    
-        <th>전화번호</th>     
-        <th>등록일</th>
-        <th>수정일</th>
-        <th>수정/삭제</th>
-    </tr>
-</thead>
-<tbody>
-    <c:if test="${empty retailerList}">
-        <tr>
-            <td colspan="10" style="text-align: center;">등록된 리테일러 정보가 없습니다.</td>
-        </tr>
-    </c:if>
-    <c:forEach var="retailer" items="${retailerList}" varStatus="status">
-        <tr>
-            <td>${(currentPage - 1) * pageSize + status.index + 1}</td>
-            <td><c:out value="${retailer.productName}" /></td> <!-- 업체명 -->
-            <td><c:out value="${retailer.retailerName}" /></td>        <!-- 제조사 -->
-            <td><c:out value="${retailer.carMf}" /></td>  <!-- 제품명 -->
-            <td><c:out value="${retailer.area}" /></td>         <!-- 지역 -->
-            <td><c:out value="${retailer.address}" /></td>      <!-- 상세 주소 -->
-            <td><c:out value="${retailer.telephone}" /></td>    <!-- 전화번호 -->
-            <td><fmt:formatDate value="${retailer.regDt}" pattern="yyyy-MM-dd" /></td>
-            <td><fmt:formatDate value="${retailer.modDt}" pattern="yyyy-MM-dd" /></td>
-            <td>
-                <form action="${pageContext.request.contextPath}/admin/retailer/delete.do" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-                    <input type="hidden" name="retailerCode" value="${retailer.retailerCode}" />
-                    <button type="submit" class="action-btn delete">삭제</button>
-                </form>
-                <a href="${pageContext.request.contextPath}/admin/retailer/updateView.do?retailerCode=${retailer.retailerCode}" class="action-btn">수정</a>
-            </td>
-        </tr>
-    </c:forEach>
-</tbody>
+            <tr>
+                <th>번호</th>
+                <th>업체명</th>       
+                <th>제조사</th>       
+                <th>제품명</th>       
+                <th>지역</th>         
+                <th>상세 주소</th>    
+                <th>전화번호</th>     
+                <th>등록일</th>
+                <th>수정일</th>
+                <th>수정/삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:if test="${empty retailerList}">
+                <tr>
+                    <td colspan="10" style="text-align: center;">등록된 리테일러 정보가 없습니다.</td>
+                </tr>
+            </c:if>
+            <c:forEach var="retailer" items="${retailerList}" varStatus="status">
+                <tr>
+                    <td>${(currentPage - 1) * pageSize + status.index + 1}</td>
+                    <td><c:out value="${retailer.productName}" /></td> <!-- 업체명 -->
+                    <td><c:out value="${retailer.retailerName}" /></td> <!-- 제조사 -->
+                    <td><c:out value="${retailer.carMf}" /></td>          <!-- 제품명 -->
+                    <td><c:out value="${retailer.area}" /></td>          <!-- 지역 -->
+                    <td><c:out value="${retailer.address}" /></td>       <!-- 상세 주소 -->
+                    <td><c:out value="${retailer.telephone}" /></td>     <!-- 전화번호 -->
+                    <td><fmt:formatDate value="${retailer.regDt}" pattern="yyyy-MM-dd" /></td>
+                    <td><fmt:formatDate value="${retailer.modDt}" pattern="yyyy-MM-dd" /></td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/admin/retailer/delete.do" method="post" style="display:inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                            <input type="hidden" name="retailerCode" value="${retailer.retailerCode}" />
+                            <button type="submit" class="action-btn delete">삭제</button>
+                        </form>
+                        <a href="${pageContext.request.contextPath}/admin/retailer/updateView.do?retailerCode=${retailer.retailerCode}" class="action-btn">수정</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
     </table>
+    <div class="btn-main">
+        <a href="${pageContext.request.contextPath}/admin/retailer/add.do"
+            style="margin-left: 10px; background-color: #27ae60;">리테일러 등록</a>
+    </div>
 
     <div class="paging">
         <c:set var="pageBlock" value="10" />
@@ -251,5 +246,8 @@ tr:nth-child(even) {
         </c:choose>
     </div>
 </main>
+
+<jsp:include page="/resource/adminFooter.jsp" />
+
 </body>
 </html>
