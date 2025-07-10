@@ -1,364 +1,114 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="/resource/header.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<title>메인 홈페이지</title>
-<link rel="stylesheet" href="list.css">
-<!-- ✅ 로그인 여부 자바스크립트 변수 전달 -->
-<script>
-  const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
-</script>
+  <meta charset="UTF-8" />
+  <title>메인 홈페이지</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/mainSlider.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/main.css">
 
-<!-- ✅ 로그인 보호 링크 핸들러 -->
-<script>
-function handleProtectedLink(event, url) {
-      if (!isLoggedIn) {
-        event.preventDefault();
-        alert("로그인을 시도해 주세요.");
-      } else {
-        window.location.href = url;
-      }
-    }
-    </script>
-<!-- 👇 직접 합친 CSS -->
-<style>
-body {
-    margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background-color: #f4f6f8;
-}
-
-header {
-    background-color: #00274d;
-    color: white;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-left, .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-main {
-    padding: 60px 40px;
-    text-align: center;
-}
-
-footer {
-    background-color: #ddd;
-    padding: 20px;
-    text-align: center;
-    font-size: 14px;
-}
-/* ── 네비게이션 바 ── */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.9rem 1rem;
-    background-color: #99b1c9;
-    color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.navbar__menu {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar__menu>li {
-    margin-left: 1rem;
-}
-
-.navbar__menu a, .dropdown__btn {
-    text-decoration: none;
-    color: #fff;
-    background: none;
-    border: none;
-    font: inherit;
-    cursor: pointer;
-}
-
-.navbar__item--dropdown {
-    position: relative;
-}
-
-.dropdown__content {
-    display: none;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    background-color: #fff;
-    color: #333;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem 0;
-    z-index: 1000;
-}
-
-.dropdown__content li a {
-    display: block;
-    padding: 0.5rem 1rem;
-    white-space: nowrap;
-    color: #333;
-}
-
-.navbar__item--dropdown.open .dropdown__content {
-    display: block;
-}
-
-/* 슬라이더 컨테이너 설정 */
-.slider {
-    width: 100%;
-    max-width: 1200px;
-    min-height: 400px; /* 원하는 만큼 늘리기 */
-    margin: 2rem auto;
-    overflow: hidden;
-    border-radius: 8px;
-    background: #f4f6f8;
-}
-
-.slide {
-    position: static;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out;
-}
-
-.slide.active {
-    display: block;
-    opacity: 1;
-}
-
-.slider .nav {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
-
-.slider .nav button {
-    background: rgba(0, 0, 0, 0.4);
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 50%;
-}
-/* 슬라이드 내부 이미지 공통 스타일 */
-.slider .slide img {
-    display: block;
-    margin: 0 auto;
-    width: 480px;
-    height: 260px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-</style>
-
-
-<!-- 💡 로그인 여부 확인 후 페이지 이동 제어 -->
-<script>
-      function handleProtectedLink(event, url) {
-        if (!isLoggedIn) {
-          event.preventDefault();
-          alert("로그인을 시도해 주세요.");
-        } else {
-          window.location.href = url;
-        }
-      }
-    </script>
 </head>
 
 <body>
-    <header>
-        <div class="nav-left">
-            <!-- 전체 차량 모델 드롭다운 -->
-            <div class="navbar__item--dropdown">
-                <button class="dropdown__btn"
-                    onclick="location.href='${pageContext.request.contextPath}/car/list.do'">전체
-                    차량 모델</button>
-            </div>
+  <main>
+    <section class="slider">
+      <div class="slide active">
+        <img src="${pageContext.request.contextPath}/image/2024kiaK9.png" alt="2024kiaK9">
+      </div>
+      <div class="slide">
+        <img src="${pageContext.request.contextPath}/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S">
+      </div>
+      <div class="slide">
+        <img src="${pageContext.request.contextPath}/image/2025 팰리세이드.png" alt="2025 팰리세이드">
+      </div>
+      <div class="slide">
+        <img src="${pageContext.request.contextPath}/image/2025 메르세데스-벤츠 G클래스.png" alt="2025 메르세데스-벤츠 G클래스">
+      </div>
+      <div class="slide">
+        <img src="${pageContext.request.contextPath}/image/볼보_XC40.png" alt="볼보 XC40">
+      </div>
+      <div class="slide">
+        <img src="${pageContext.request.contextPath}/image/지프_어벤저 EV.png" alt="지프 어벤저 EV">
+      </div>
+    </section>
 
-            <!-- 나머지 메뉴 -->
-            <a href="${pageContext.request.contextPath}/retailer/all.do">
-                리테일러 찾기 </a> <a href="#"
-                onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">
-                시승 신청 </a> <a href="#"
-                onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">
-                정비 신청 </a> <a
-                href="${pageContext.request.contextPath}/board/doRetrieve.do">
-                자유게시판 </a> <a
-                href="${pageContext.request.contextPath}/event/doRetrieve.do">
-                이벤트 </a>
-        </div>
+<section class="intro-section">
+  <h2>🚘 내 차를 고르는 가장 스마트한 방법, <span class="brand-name">Car Pick!</span></h2>
+  <p class="intro-text">
+    Car Pick은 자동차 선택과 시승, 정비 예약까지<br>
+    한 번에 해결할 수 있는 <strong>올인원 차량 정보 플랫폼</strong>입니다.<br>
+    다양한 국내외 브랜드 차량 정보를 확인하고,<br>
+    마음에 드는 차량을 <strong>직접 시승</strong>해보세요.
+  </p>
 
-        <div class="nav-right">
-            <c:choose>
-                <c:when test="${not empty sessionScope.loginUser}">
-                    <a href="${pageContext.request.contextPath}/member/mypage.do">👤 ${sessionScope.loginUser.nickname}님</a>
-                    <a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="${pageContext.request.contextPath}/member/loginView.do">🔐
-                        로그인</a>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </header>
+  <ul class="features">
+    <li>📍 브랜드별 차량 검색</li>
+    <li>📍 실시간 시승 가능 업체 확인</li>
+    <li>📍 시승 및 정비 신청 즉시 처리</li>
+    <li>📍 생생한 후기와 정보가 오가는 커뮤니티</li>
+    <li>📍 한 달에 한 번! 시승 고객 대상 경품 이벤트</li>
+  </ul>
 
-
-    
+  <p class="closing-text">
+    자동차는 단순히 '사는 것'이 아니라 <strong>'경험하는 것'</strong>이 중요합니다.<br>
+    Car Pick은 여러분의 자동차 생활을 <strong>더 간편하게, 더 즐겁게, 더 똑똑하게</strong> 만들어드립니다.<br><br>
+    <strong>당신의 다음 차,</strong> 어디서 고를지 고민하지 마세요.<br>
+    <strong>Car Pick에서 직접 보고, 타보고, 느껴보세요.</strong>
+  </p>
+</section>
+  </main>
 
 
-    <main>
-        <section class="slider">
-            <div class="slide active">
-                <img src="${pageContext.request.contextPath}/image/2024kiaK9.png"
-                    alt="2024kiaK9">
-            </div>
-            <div class="slide">
-                <img
-                    src="${pageContext.request.contextPath}/image/2024 테슬라 모델 S.png"
-                    alt="2024 테슬라 모델 S">
-            </div>
-            <div class="slide">
-                <img src="${pageContext.request.contextPath}/image/2025 팰리세이드.png"
-                    alt="2025 팰리세이드">
-            </div>
-            <div class="slide">
-                <img
-                    src="${pageContext.request.contextPath}/image/2025 메르세데스-벤츠 G클래스.png"
-                    alt="2025 메르세데스-벤츠 G클래스">
-            </div>
-            <div class="slide">
-                <img src="${pageContext.request.contextPath}/image/볼보_XC40.png"
-                    alt="볼보 XC40">
-            </div>
-            <div class="slide">
-                <img src="${pageContext.request.contextPath}/image/지프_어벤저 EV.png"
-                    alt="지프 어벤저 EV">
-            </div>
-            <div class="nav">
-                <button id="prev">&#10094;</button>
-                <button id="next">&#10095;</button>
-            </div>
-        </section>
 
-        <!-- 기존 환영 문구 (필요시 삭제하거나 슬라이더 아래로 이동) -->
-        <section style="text-align: center; margin-bottom: 40px">
-            <h2>환영합니다!</h2>
-            <p>당신의 프리미엄 드라이빙 경험, 지금 시작하세요.</p>
-        </section>
 
-        <!-- 차량 관리 섹션 생략 -->
-    </main>
-
-    <footer>ⓒ 2025 자동차 브랜드. All rights reserved.</footer>
-
-    <!-- 기존 js 파일 링크 제거 후, 아래처럼 삽입 -->
-    <script>
-document.addEventListener("DOMContentLoaded", () => {
-    
-     const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
       if (isLoggedIn) {
         alert("환영합니다, ${sessionScope.loginUser.nickname}님!");
       }
-  // --- 슬라이더 자동 전환 로직 ---
-  const slides = document.querySelectorAll(".slide");
-  const prevBtn = document.getElementById("prev");
-  const nextBtn = document.getElementById("next");
-  let current = 0;
-  let intervalId;
 
-  function showSlide(idx) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === idx);
-    });
-  }
+      const slides = document.querySelectorAll(".slide");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      let current = 0;
+      let intervalId;
 
-  function nextSlide() {
-    current = (current + 1) % slides.length;
-    showSlide(current);
-  }
-
-  function prevSlide() {
-    current = (current - 1 + slides.length) % slides.length;
-    showSlide(current);
-  }
-
-  // 버튼 클릭 이벤트
-  prevBtn.addEventListener("click", () => {
-    prevSlide();
-    resetInterval();
-  });
-  nextBtn.addEventListener("click", () => {
-    nextSlide();
-    resetInterval();
-  });
-
-  // 자동 슬라이드 (3초)
-  function startInterval() {
-    intervalId = setInterval(nextSlide, 3000);
-  }
-  function resetInterval() {
-    clearInterval(intervalId);
-    startInterval();
-  }
-
-  // 최초 초기화
-  showSlide(current);
-  startInterval();
-
-  // --- 드롭다운 토글 로직 ---
-  const dropdowns = document.querySelectorAll(".navbar__item--dropdown");
-  dropdowns.forEach((dropdown) => {
-    const btn = dropdown.querySelector(".dropdown__btn");
-    const content = dropdown.querySelector(".dropdown__content");
-
-    btn &&
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        dropdowns.forEach((d) => {
-          if (d !== dropdown) d.classList.remove("open");
+      function showSlide(idx) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === idx);
         });
-        dropdown.classList.toggle("open");
-      });
-  });
+      }
 
-  document.addEventListener("click", () => {
-    dropdowns.forEach((d) => d.classList.remove("open"));
-  });
-});
-</script>
+      function nextSlide() {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+      }
 
+      function prevSlide() {
+        current = (current - 1 + slides.length) % slides.length;
+        showSlide(current);
+      }
+
+
+      function startInterval() {
+        intervalId = setInterval(nextSlide, 3000);
+      }
+      function resetInterval() {
+        clearInterval(intervalId);
+        startInterval();
+      }
+
+      showSlide(current);
+      startInterval();
+    });
+  </script>
+
+  <%@ include file="/resource/footer.jsp" %>
 </body>
 </html>
