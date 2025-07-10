@@ -13,10 +13,6 @@
 
 
 <style>
-
-
-
-
 .page-title {
     background: #00274d;
     color: #fff; 
