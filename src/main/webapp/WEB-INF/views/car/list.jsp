@@ -5,9 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>관리자 차량 목록</title>
+<title>전체 차량 목록</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
+
 
 
 
@@ -90,6 +91,7 @@ tr:nth-child(even) {
     text-decoration: none;
     border-radius: 3px;
     display: inline-block;
+   
 }
 
 
@@ -209,13 +211,19 @@ function handleProtectedLink(event, url) {
   <img src="${pageContext.request.contextPath}/image/carpick.png" alt="CARPICK " style="height:100px;vertical-align:middle;">
 
 </a>
-
-      <a href="${pageContext.request.contextPath}/retailer/all.do">리테일러 찾기</a>
-      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">시승 신청</a>
-      <a href="#" onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">정비 신청</a>
-      <a href="${pageContext.request.contextPath}/board/doRetrieve.do">자유게시판</a>
-      <a href="${pageContext.request.contextPath}/event/doRetrieve.do">이벤트</a>
-    </div>
+ <a href="${pageContext.request.contextPath}/car/list.do">
+         전체 차량 모델       </a> 
+ <a href="${pageContext.request.contextPath}/retailer/all.do">
+                리테일러 찾기 </a> <a href="#"
+                onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">
+                시승 신청 </a> <a href="#"
+                onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/repair/form.do')">
+                정비 신청 </a> <a
+                href="${pageContext.request.contextPath}/board/doRetrieve.do">
+                자유게시판 </a> <a
+                href="${pageContext.request.contextPath}/event/doRetrieve.do">
+                이벤트 </a>
+        </div>
     <div class="header-right">
       <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
@@ -239,6 +247,8 @@ function handleProtectedLink(event, url) {
       <script>alert('${msg}');</script>
     </c:if>
   
+  
+  
  <div class="search-form-wrapper">
 <!-- 2. 검색 폼 -->
 <form class="search-form" method="get" action="list.do">
@@ -253,6 +263,8 @@ function handleProtectedLink(event, url) {
   </button>
 </form>
 </div>
+
+
 
 
 
@@ -342,7 +354,7 @@ function handleProtectedLink(event, url) {
     </c:choose>
   </div>
   
-  
+  <%@ include file="/resource/footer.jsp" %>
 
 </body>
 </html>

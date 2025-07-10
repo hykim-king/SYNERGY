@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.pcwk.ehr.event;
 
 import java.util.List;
@@ -15,9 +12,7 @@ import com.pcwk.ehr.mapper.EventMapper;
 
 @Service
 public class EventServiceImpl implements EventService {
-
 	Logger log = LogManager.getLogger(getClass());
-
 	@Autowired
 	EventMapper mapper;
 
@@ -48,11 +43,8 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public EventDTO doSelectOne(EventDTO param) {
 		// 단건 조회 + 조회 COUNT 증가
-
 		int flag = mapper.updateReadCnt(param);
-
 		log.debug("flag:{}", flag);
-
 		return mapper.doSelectOne(param);
 	}
 
@@ -77,7 +69,6 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -85,5 +76,4 @@ public class EventServiceImpl implements EventService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

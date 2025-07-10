@@ -209,7 +209,7 @@ footer {
             </div>
 
             <!-- 나머지 메뉴 -->
-            <a href="${pageContext.request.contextPath}/retailer/search.do">
+            <a href="${pageContext.request.contextPath}/retailer/all.do">
                 리테일러 찾기 </a> <a href="#"
                 onclick="handleProtectedLink(event, '${pageContext.request.contextPath}/drive/form.do')">
                 시승 신청 </a> <a href="#"
