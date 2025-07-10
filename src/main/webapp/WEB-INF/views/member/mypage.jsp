@@ -1,17 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="/resource/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>마이페이지</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
 <style>
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f7f9fc;
-    margin: 0;
-    padding: 0;
+/* 전체 레이아웃 */
+.layout-wrapper {
     display: flex;
+    align-items: flex-start;
     min-height: 100vh;
 }
 
@@ -22,6 +22,7 @@ body {
     color: white;
     padding: 20px;
     box-sizing: border-box;
+      height: 100vh;
 }
 
 .sidebar h3 {
@@ -119,21 +120,23 @@ input[readonly] {
 </head>
 <body>
 
+<div class="layout-wrapper"><!-- flex 부모 -->
+
     <!-- 사이드 메뉴 -->
     <div class="sidebar">
-    <h3>내 정보</h3>
-    <ul>
-        <li><a href="${pageContext.request.contextPath}/member/mypage.do">마이페이지</a></li>
-        <li>
-            <a href="#">신청 현황</a>
-            <ul class="submenu">
-                <li><a href="${pageContext.request.contextPath}/drive/list.do">시승 신청 현황</a></li>
-                <li><a href="${pageContext.request.contextPath}/repair/list.do">정비 신청 현황</a></li>
-            </ul>
-        </li>
-        <li><a href="${pageContext.request.contextPath}/board/myDiary.do">내가 쓴 글</a></li>
-    </ul>
-</div>
+        <h3>내 정보</h3>
+        <ul>
+            <li><a href="${pageContext.request.contextPath}/member/mypage.do">마이페이지</a></li>
+            <li>
+                <a href="#">신청 현황</a>
+                <ul class="submenu">
+                    <li><a href="${pageContext.request.contextPath}/drive/list.do">시승 신청 현황</a></li>
+                    <li><a href="${pageContext.request.contextPath}/repair/list.do">정비 신청 현황</a></li>
+                </ul>
+            </li>
+            <li><a href="${pageContext.request.contextPath}/board/myDiary.do">내가 쓴 글</a></li>
+        </ul>
+    </div>
 
     <!-- 메인 내용 -->
     <div class="container">
@@ -185,5 +188,7 @@ input[readonly] {
         </form>
     </div>
 
+</div><!-- /.layout-wrapper -->
+    <%@ include file="/resource/footer.jsp" %>
 </body>
 </html>
