@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,40 +10,7 @@
             font-family: Arial, sans-serif;
             background-color: #f7f9fc;
             margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-        }
-        nav {
-            background-color: #34495e;
-            padding: 10px 20px;
-        }
-        nav a {
-            color: white;
-            margin-right: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .submenu {
-            background-color: #ecf0f1;
-            padding: 10px 20px;
-            display: none;
-        }
-        .submenu a {
-            margin-right: 15px;
-            color: #34495e;
-            font-weight: normal;
-            text-decoration: none;
-        }
-        .submenu a:hover {
-            text-decoration: underline;
+            padding: 0 0 60px 0; /* footer 공간 위해 아래만 60px */
         }
         main {
             padding: 20px;
@@ -50,71 +18,12 @@
         .welcome {
             margin-bottom: 20px;
         }
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
     </style>
-    <script>
-        function toggleSubMenu(id) {
-            const submenus = document.querySelectorAll('.submenu');
-            submenus.forEach(menu => {
-                if(menu.id !== id){
-                    menu.style.display = 'none';
-                }
-            });
-            const target = document.getElementById(id);
-            if(target){
-                target.style.display = (target.style.display === 'block') ? 'none' : 'block';
-            }
-        }
-    </script>
 </head>
 <body>
-<header>
-    <h1>관리자 페이지</h1>
-</header>
-<nav>
-    <a href="javascript:void(0)" onclick="toggleSubMenu('memberSubmenu')">회원 관리</a>
-    <a href="javascript:void(0)" onclick="toggleSubMenu('carSubmenu')">차량 관리</a>
-    <a href="javascript:void(0)" onclick="toggleSubMenu('retailerSubmenu')">리테일러 관리</a>
-    <a href="${pageContext.request.contextPath}/admin/drive/list.do">시승 신청 관리</a>
-    <a href="${pageContext.request.contextPath}/admin/repair/list.do">정비 신청 관리</a>
-    <a href="#">게시판 관리</a>
-    <a href="#">이벤트 관리</a>
-    <a href="${pageContext.request.contextPath}/member/logout.do" style="float:right;">로그아웃</a>
-</nav>
 
-<!-- 회원 관리 서브 메뉴 -->
-<div id="memberSubmenu" class="submenu">
-    <a href="${pageContext.request.contextPath}/admin/member/registerView.do">회원 등록</a>
-    <a href="${pageContext.request.contextPath}/admin/member/list.do">회원 조회</a>
-</div>
-
-<!-- 차량 관리 서브 메뉴 -->
-<div id="carSubmenu" class="submenu">
-    <a href="${pageContext.request.contextPath}/admin/car/add.do">차량 등록</a>
-    <a href="${pageContext.request.contextPath}/admin/car/list.do">차량 목록</a>
-</div>
-
-<!-- 회원 관리 서브 메뉴 -->
-<div id="retailerSubmenu" class="submenu">
-    <a href="${pageContext.request.contextPath}/admin/retailer/add.do">리테일러 등록</a>
-    <a href="${pageContext.request.contextPath}/admin/retailer/list.do">리테일러 관리</a>
-</div>
-
-<!-- 로그인 직후 한 번만 뜨는 환영 메시지 alert -->
-<c:if test="${not empty sessionScope.welcomeMessage}">
-    <script>
-        alert('${sessionScope.welcomeMessage}');
-    </script>
-    <c:remove var="welcomeMessage" scope="session" />
-</c:if>
+<!-- 헤더 및 네비게이션 include -->
+<jsp:include page="/resource/adminHeader.jsp" />
 
 <main>
     <div class="welcome">
@@ -134,8 +43,8 @@
     <p>여기서 회원 관리, 차량 정보 관리 등 여러 관리 작업을 수행할 수 있습니다.</p>
 </main>
 
-<footer>
-    &copy; 2025 Your Company. All rights reserved.
-</footer>
+<!-- footer include -->
+<jsp:include page="/resource/adminFooter.jsp" />
+
 </body>
 </html>
