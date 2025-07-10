@@ -43,7 +43,7 @@ class EventServiceTest {
 
 		int seq = mapper.getEventSeq();
 
-		dto01 = new EventDTO(String.valueOf(seq), // ecode
+		dto01 = new EventDTO(seq, // int ecode
 				"test@pcwk.com", // email
 				"이벤트 제목", // title
 				"20", // div
@@ -61,6 +61,7 @@ class EventServiceTest {
 	void tearDown() throws Exception {
 		log.debug("└─────── tearDown() ───────┘");
 	}
+
 	@Disabled
 	@Test
 	void doSelectOne() {
@@ -82,6 +83,7 @@ class EventServiceTest {
 		assertNotNull(outVO);
 		assertEquals(1, outVO.getReadCnt()); // 조회자와 작성자가 다르므로 조회수 증가
 	}
+
 	@Disabled
 	@Test
 	void beans() {
