@@ -71,8 +71,9 @@
 
 
   <script>
+
     document.addEventListener("DOMContentLoaded", () => {
-  
+
       const slides = document.querySelectorAll(".slide");
       const prevBtn = document.getElementById("prev");
       const nextBtn = document.getElementById("next");
