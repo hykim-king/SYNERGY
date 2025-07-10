@@ -272,7 +272,7 @@ tr:nth-child(even) {
 		</main>
 
 		<!-- 하단 공통 푸터 -->
-		<jsp:include page="/resource/footer.jsp" />
+<jsp:include page="/resource/adminFooter.jsp" />
 	</div>
 </body>
 </html>
