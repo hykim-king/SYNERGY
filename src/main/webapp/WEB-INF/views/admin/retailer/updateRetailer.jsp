@@ -102,11 +102,11 @@ input[type="reset"]:hover {
     <form action="${pageContext.request.contextPath}/admin/retailer/update.do" method="post">
         <input type="hidden" name="retailerCode" value="${retailer.retailerCode}" />
 
-        <label for="retailerName">업체명</label>
-        <input type="text" id="retailerName" name="retailerName" value="${retailer.retailerName}" required />
-
-        <label for="productName">제품명</label>
+        <label for="retailerName">제품명</label>
         <input type="text" id="productName" name="productName" value="${retailer.productName}" required />
+
+        <label for="productName">업체명</label>
+        <input type="text" id="retailerName" name="retailerName" value="${retailer.retailerName}" required />
 
         <label for="carMf">제조사</label>
         <input type="text" id="carMf" name="carMf" value="${retailer.carMf}" required />
