@@ -43,9 +43,11 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public EventDTO doSelectOne(EventDTO param) {
 		// 단건 조회 + 조회 COUNT 증가
-		int flag = mapper.updateReadCnt(param);
-		log.debug("flag:{}", flag);
-		return mapper.doSelectOne(param);
+		String loginUserId = param.getRegId(); // 이 값이 null이면 조회수 증가 안됨
+	    int flag = mapper.updateReadCnt(param);
+	    log.debug("flag:{}", flag);
+
+	    return mapper.doSelectOne(param);
 	}
 
 	@Override

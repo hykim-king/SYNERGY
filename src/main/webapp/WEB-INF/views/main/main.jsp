@@ -36,6 +36,10 @@
         <img src="${pageContext.request.contextPath}/image/지프_어벤저 EV.png" alt="지프 어벤저 EV">
       </div>
     </section>
+    
+<div class="banner-image">
+  <img src="${pageContext.request.contextPath}/resource/banner_car_pick.png" alt="Car Pick 소개 이미지" >
+</div>
 
 <section class="intro-section">
   <h2>🚘 내 차를 고르는 가장 스마트한 방법, <span class="brand-name">Car Pick!</span></h2>

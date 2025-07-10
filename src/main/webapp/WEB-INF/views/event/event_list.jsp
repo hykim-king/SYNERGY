@@ -148,19 +148,19 @@
     <tbody>
   <c:choose>
     <c:when test="${not empty list}">
-      <c:forEach var="vo" items="${list}">
-        <tr>
-          <td>${vo.ecode}</td>
-          <td>
-            <a href="${CP}/event/doSelectOne.do?ecode=${vo.ecode}">
-              ${vo.title}
-            </a>
-          </td>
-          <td>${vo.nickname}</td>
-          <td><fmt:formatDate value="${vo.modDt}" pattern="yyyy-MM-dd" /></td>
-          <td>${vo.readCnt}</td>
-        </tr>
-      </c:forEach>
+      <c:forEach var="vo" items="${list}" varStatus="status">
+  <tr>
+    <td>${(pageSize * (pageNo - 1)) + status.index + 1}</td>
+    <td>
+      <a href="${CP}/event/doSelectOne.do?ecode=${vo.ecode}">
+        ${vo.title}
+      </a>
+    </td>
+    <td>${vo.nickname}</td>
+    <td><fmt:formatDate value="${vo.modDt}" pattern="yyyy-MM-dd" /></td>
+    <td>${vo.readCnt}</td>
+  </tr>
+</c:forEach>
     </c:when>
     <c:otherwise>
       <tr>
