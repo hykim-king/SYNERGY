@@ -71,11 +71,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
-      if (isLoggedIn) {
-        alert("환영합니다, ${sessionScope.loginUser.nickname}님!");
-      }
-
+  
       const slides = document.querySelectorAll(".slide");
       const prevBtn = document.getElementById("prev");
       const nextBtn = document.getElementById("next");
