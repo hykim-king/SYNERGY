@@ -11,69 +11,6 @@
 
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f9fc;
-    margin: 0;
-    padding: 0;
-}
-
-
-.header-bar {
-    background: #00274d;
-    color: #fff;
-    padding: 0 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 90px;
-}
-
-
-
-.header-nav {
-    display: flex;
-    gap: 50px;  
-    align-items: center;
-    height: 90px;
-}
-
-
-
-.header-nav a {
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.5rem;
-    letter-spacing: 0.01em;
-    transition: color 0.12s;
-    line-height: 60px;
-}
-
-
-.header-nav a:hover { color: #c0e7ff; }
-
-
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1rem;
-    height: 90px;
-}
-
-
-.header-right a {
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-
-
-.header-right a:hover { color: #ffe7a2; }
-.header-right .login-icon { font-size: 17px; margin-right: 3px; }
 
 
 
@@ -302,6 +239,20 @@ tr:nth-child(even) {
     <script>alert('${msg}');</script>
   </c:if>
 
+<!-- 로그인 보호 자바스크립트(필요시 사용) -->
+<script>
+function handleProtectedLink(event, url) {
+    // 로그인이 안 된 상태라면 alert
+    var isLoggedIn = '${not empty sessionScope.loginUser}' === 'true';
+    if (!isLoggedIn) {
+        event.preventDefault();
+        alert('로그인 후 이용해 주세요.');
+    } else {
+        window.location.href = url;
+    }
+}
+</script>
+
   <!-- 2. 검색 폼 -->
   <!-- 검색 form -->
 <div class="main-center-wrap">
@@ -344,9 +295,9 @@ tr:nth-child(even) {
             <c:forEach var="retailer" items="${retailerList}" varStatus="status">
               <tr>
                 <td>${(currentPage-1) * pageSize + status.index + 1}</td>
+                <td><c:out value="${retailer.productName}" /></td>
                 <td><c:out value="${retailer.retailerName}" /></td>
                 <td><c:out value="${retailer.carMf}" /></td>
-                <td><c:out value="${retailer.productName}" /></td>
                 <td><c:out value="${retailer.area}" /></td>
                 <td><c:out value="${retailer.address}" /></td>
                 <td><c:out value="${retailer.telephone}" /></td>
