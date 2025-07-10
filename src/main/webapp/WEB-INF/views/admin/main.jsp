@@ -82,7 +82,7 @@
 <nav>
     <a href="javascript:void(0)" onclick="toggleSubMenu('memberSubmenu')">회원 관리</a>
     <a href="javascript:void(0)" onclick="toggleSubMenu('carSubmenu')">차량 관리</a>
-    <a href="#">리테일러 정보 관리</a>
+    <a href="javascript:void(0)" onclick="toggleSubMenu('retailerSubmenu')">리테일러 관리</a>
     <a href="${pageContext.request.contextPath}/admin/drive/list.do">시승 신청 관리</a>
     <a href="${pageContext.request.contextPath}/admin/repair/list.do">정비 신청 관리</a>
     <a href="#">게시판 관리</a>
@@ -100,6 +100,12 @@
 <div id="carSubmenu" class="submenu">
     <a href="${pageContext.request.contextPath}/admin/car/add.do">차량 등록</a>
     <a href="${pageContext.request.contextPath}/admin/car/list.do">차량 목록</a>
+</div>
+
+<!-- 회원 관리 서브 메뉴 -->
+<div id="retailerSubmenu" class="submenu">
+    <a href="${pageContext.request.contextPath}/admin/retailer/add.do">리테일러 등록</a>
+    <a href="${pageContext.request.contextPath}/admin/retailer/list.do">리테일러 관리</a>
 </div>
 
 <!-- 로그인 직후 한 번만 뜨는 환영 메시지 alert -->
