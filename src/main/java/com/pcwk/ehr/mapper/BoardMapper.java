@@ -38,6 +38,8 @@ public interface BoardMapper extends WorkDiv<BoardDTO> {
 	 * @return List<T>
 	 */
 	List<BoardDTO> doRetrieve(SearchDTO param);
+	
+	List<BoardDTO> doMyDiary(BoardDTO inVO);
 	/**
 	 * 단건 삭제
 	 *
