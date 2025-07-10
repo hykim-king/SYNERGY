@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+.result-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.result-box {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #f6f9fc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.success-msg, .fail-msg {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #6e6d59;
+}
+
+.fail-msg {
+  color: #d00000;
+}
+
+.result-list {
+  list-style: none;
+  padding-left: 0;
+  line-height: 1.8;
+}
+
+.result-links {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.btn-link {
+  text-decoration: none;
+  color: #0057b8;
+  font-weight: bold;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  margin: 0 10px;
+  color: #888;
