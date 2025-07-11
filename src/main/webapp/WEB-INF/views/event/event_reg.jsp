@@ -7,22 +7,18 @@
 <c:set var="now" value="<%=new Date()%>" />
 <c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss" /></c:set>
 
-<%-- ✅ 1. 로그인하지 않은 사용자 차단 (로그인 페이지로 리디렉트) --%>
-<c:if test="${empty sessionScope.loginUser}">
-  <c:redirect url="${CP}/member/loginView.do" />
-</c:if>
-
-<%-- ✅ 2. 관리자 계정이 아닌 경우 접근 차단 (경고 후 메인으로 리디렉트) --%>
-<c:if test="${sessionScope.loginUser.id ne 'admin'}">
+<!-- ✅ 로그인하지 않은 경우 로그인 페이지로 리디렉트 -->
+<c:choose>
+  <c:when test="${empty sessionScope.loginUser}">
+    <c:redirect url="${CP}/member/loginView.do" />
+  </c:when>
+  <c:if test="${sessionScope.loginUser.id ne 'admin'}">
   <script>
     alert("관리자만 등록 가능합니다.");
     location.href = '${CP}/main/main.do';
   </script>
 </c:if>
-
-<c:if test="${empty sessionScope.loginUser}">
-  <c:redirect url="${CP}/member/loginView.do"/>
-</c:if>
+</c:choose>
 
 <!DOCTYPE html>
 <html>
@@ -34,6 +30,7 @@
 
   <script>
     $(document).ready(function () {
+      // 등록
       $('#doSave').click(function () {
         const title = $('#title').val().trim();
         const contents = $('#contents').val().trim();
@@ -43,6 +40,7 @@
           $('#title').focus();
           return;
         }
+
         if (contents === '') {
           alert('내용을 입력하세요.');
           $('#contents').focus();
@@ -52,14 +50,19 @@
         if (!confirm('이벤트를 등록하시겠습니까?')) return;
 
         $.post('${CP}/event/doSave.do', $('#regForm').serialize(), function (resp) {
-          const msg = JSON.parse(resp);
-          alert(msg.message);
-          if (msg.messageId === 1 || msg.flag === 1) {
-            location.href = '${CP}/event/doRetrieve.do';
+          try {
+            const msg = JSON.parse(resp);
+            alert(msg.message);
+            if (msg.flag === 1 || msg.messageId === 1) {
+              location.href = '${CP}/event/doRetrieve.do';
+            }
+          } catch (e) {
+            alert("응답 처리 중 오류 발생: " + e);
           }
         });
       });
 
+      // 목록 이동
       $('#moveToList').click(function () {
         location.href = '${CP}/event/doRetrieve.do';
       });
@@ -129,20 +132,37 @@
   </style>
 </head>
 <body>
-<c:if test="${sessionScope.loginUser.id ne 'admin'}">
-  <script>
-    alert("관리자만 등록 가능합니다.");
-    history.back();
-  </script>
-</c:if>
+
+<!-- ✅ HEADER -->
+<header>
+  <div style="display:flex; justify-content:space-between; align-items:center; background:#00264d; color:white; padding:10px 20px;">
+    <div style="display:flex; gap:15px; align-items:center;">
+      <a href="${CP}/main/main.do"><img src="${CP}/image/carpick.png" style="height:50px;" alt="CarPick"></a>
+      <a href="${CP}/car/list.do" style="color:white;">차량 전체 모델</a>
+      <a href="${CP}/retailer/all.do" style="color:white;">리테일러 찾기</a>
+      <a href="#" onclick="alert('로그인이 필요합니다.');" style="color:white;">시승 신청</a>
+      <a href="#" onclick="alert('로그인이 필요합니다.');" style="color:white;">정비 신청</a>
+      <a href="${CP}/board/doRetrieve.do" style="color:white;">자유게시판</a>
+      <a href="${CP}/event/doRetrieve.do" style="color:white;">이벤트</a>
+    </div>
+    <div>
+      <span>👤</span>
+      <span style="margin-left:5px;">${sessionScope.loginUser.nickname}님</span>
+      <a href="${CP}/member/logout.do" style="color:white; margin-left:10px;">로그아웃</a>
+    </div>
+  </div>
+</header>
+
+<!-- ✅ 등록 폼 -->
 <div class="form-container">
   <h2>이벤트 등록</h2>
-  <hr class="title-underline">
+  <hr class="title-underline" />
 
-  <form id="regForm" method="post">
+  <form id="regForm" method="post" autocomplete="off">
     <input type="hidden" name="regId" value="${sessionScope.loginUser.id}" />
     <input type="hidden" name="nickname" value="${sessionScope.loginUser.nickname}" />
     <input type="hidden" name="email" value="${sessionScope.loginUser.email}" />
+    <input type="hidden" name="div" value="이벤트" />
 
     <div class="form-group">
       <label for="title">제목</label>
@@ -154,11 +174,6 @@
       <textarea name="contents" id="contents"></textarea>
     </div>
 
-    <div class="form-group">
-      <label for="div">분류</label>
-      <input type="text" name="div" id="div" value="이벤트" readonly />
-    </div>
-
     <div class="button-area">
       <input type="button" id="doSave" value="등록" />
       <input type="button" id="moveToList" value="목록" />
@@ -166,6 +181,7 @@
   </form>
 </div>
 
+<!-- ✅ FOOTER -->
 <footer>
   ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
   본 서비스는 교육 목적으로 제작되었습니다.<br>
