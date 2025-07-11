@@ -163,7 +163,7 @@ input[readonly] {
                 <input type="text" name="nickname" id="nickname" value="${Info.nickname}">
             </div>
 
-            <div class="form-group">
+            <div class="form-group">0
                 <label for="phone">전화번호</label>
                 <input type="tel" name="phone" id="phone" value="${Info.phone}">
             </div>
