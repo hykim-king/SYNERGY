@@ -3,6 +3,7 @@ package com.pcwk.ehr.board.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +22,7 @@ import com.pcwk.ehr.board.BoardService;
 import com.pcwk.ehr.cmn.MessageDTO;
 import com.pcwk.ehr.cmn.PcwkString;
 import com.pcwk.ehr.cmn.SearchDTO;
+import com.pcwk.ehr.member.MemberDTO;
 
 @Controller
 @RequestMapping("/board")
@@ -48,6 +50,24 @@ public class BoardController {
 		log.debug("viewNString: {}", viewNString);
 
 		return viewNString;
+	}
+
+	@GetMapping("/myDiary.do")
+	public String myDiary(BoardDTO boardDTO, HttpSession session, Model model) {
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+
+		if (loginUser == null) {
+			return "redirect:/member/loginView.do"; // 로그인 화면으로 리디렉션
+		}
+
+		boardDTO.setId(loginUser.getId());
+
+		List<BoardDTO> list = boardService.doMyDiary(boardDTO);
+
+		model.addAttribute("list", list);
+		model.addAttribute("search", boardDTO);
+
+		return "board/myDiary"; // ⇒ /WEB-INF/views/board/myDiary.jsp
 	}
 
 	@GetMapping(value = "/doRetrieve.do")
@@ -110,38 +130,38 @@ public class BoardController {
 	@PostMapping(value = "/doUpdate.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String doUpdate(BoardDTO param, HttpServletRequest req) {
-	    log.debug("┌───────────────────────────┐");
-	    log.debug("│ *doUpdate()*              │");
-	    log.debug("└───────────────────────────┘");
-	    log.debug("1. 요청 param: {}", param);
+		log.debug("┌───────────────────────────┐");
+		log.debug("│ *doUpdate()*              │");
+		log.debug("└───────────────────────────┘");
+		log.debug("1. 요청 param: {}", param);
 
-	    // 로그인 사용자 정보 가져오기
-	    Object loginUserObj = req.getSession().getAttribute("loginUser");
-	    if (loginUserObj == null) {
-	        return new Gson().toJson(new MessageDTO(0, "로그인이 필요합니다."));
-	    }
+		// 로그인 사용자 정보 가져오기
+		Object loginUserObj = req.getSession().getAttribute("loginUser");
+		if (loginUserObj == null) {
+			return new Gson().toJson(new MessageDTO(0, "로그인이 필요합니다."));
+		}
 
-	    // 로그인 사용자 ID
-	    String loginUserId = ((com.pcwk.ehr.member.MemberDTO) loginUserObj).getId();
-	    log.debug("2. 로그인 사용자 ID: {}", loginUserId);
+		// 로그인 사용자 ID
+		String loginUserId = ((com.pcwk.ehr.member.MemberDTO) loginUserObj).getId();
+		log.debug("2. 로그인 사용자 ID: {}", loginUserId);
 
-	    // 원본 글 조회
-	    BoardDTO original = boardService.doSelectOne(param);
-	    if (original == null) {
-	        return new Gson().toJson(new MessageDTO(0, "해당 게시글을 찾을 수 없습니다."));
-	    }
+		// 원본 글 조회
+		BoardDTO original = boardService.doSelectOne(param);
+		if (original == null) {
+			return new Gson().toJson(new MessageDTO(0, "해당 게시글을 찾을 수 없습니다."));
+		}
 
-	    // 권한 확인: 작성자 또는 admin만 수정 가능
-	    if (!loginUserId.equals(original.getRegId()) && !"admin".equals(loginUserId)) {
-	        return new Gson().toJson(new MessageDTO(0, "수정 권한이 없습니다."));
-	    }
+		// 권한 확인: 작성자 또는 admin만 수정 가능
+		if (!loginUserId.equals(original.getRegId()) && !"admin".equals(loginUserId)) {
+			return new Gson().toJson(new MessageDTO(0, "수정 권한이 없습니다."));
+		}
 
-	    // 최종 수정자(modId) 설정
-	    param.setModId(loginUserId);
+		// 최종 수정자(modId) 설정
+		param.setModId(loginUserId);
 
-	    int flag = boardService.doUpdate(param);
-	    String message = (flag == 1) ? "회원님의 글이 수정되었습니다." : "회원님의 글이 수정되지 않았습니다.";
-	    return new Gson().toJson(new MessageDTO(flag, message));
+		int flag = boardService.doUpdate(param);
+		String message = (flag == 1) ? "회원님의 글이 수정되었습니다." : "회원님의 글이 수정되지 않았습니다.";
+		return new Gson().toJson(new MessageDTO(flag, message));
 	}
 
 	// 삭제 /board/doDelete.do doDelete(BoardDTO param) 비동기 POST JSON
@@ -152,22 +172,29 @@ public class BoardController {
 		log.debug("│ *doDelete()*              │");
 		log.debug("└───────────────────────────┘");
 		log.debug("1. param:{}", param);
-		String jsonString = "";
-		int flag = boardService.doDelete(param);
-		String message = "";
-		if (1 == flag) {
-			message = "게시판 글이 삭제 되었습니다.";
-		} else {
-			message = "게시판 글이 삭제 되지않았습니다.";
+
+		// 로그인 사용자 가져오기
+		MemberDTO loginUser = (MemberDTO) req.getSession().getAttribute("loginUser");
+		if (loginUser == null) {
+			return new Gson().toJson(new MessageDTO(0, "로그인이 필요합니다."));
 		}
-		// MessageDTO messageDTO = new MessageDTO(flag, message); // :흰색_확인_표시: 메시지 객체
-		// 생성
-		// String jsonString = new Gson().toJson(messageDTO); // :흰색_확인_표시: JSON 문자열로 변환
-		// log.debug("2. jsonString: {}", jsonString);
-		// return jsonString;
-		jsonString = new Gson().toJson(new MessageDTO(flag, message));
-		log.debug("2. jsonString:{}", jsonString);
-		return jsonString;
+
+		// 게시글 상세 조회
+		BoardDTO dbBoard = boardService.doSelectOne(param);
+		if (dbBoard == null) {
+			return new Gson().toJson(new MessageDTO(0, "게시글이 존재하지 않습니다."));
+		}
+
+		// 권한 체크: 본인이 작성했거나 admin
+		if (!loginUser.getId().equals(dbBoard.getRegId()) && !"admin".equals(loginUser.getId())) {
+			return new Gson().toJson(new MessageDTO(0, "삭제 권한이 없습니다."));
+		}
+
+		// 삭제 진행
+		int flag = boardService.doDelete(param);
+		String message = (flag == 1) ? "게시글이 삭제되었습니다." : "게시글 삭제 실패.";
+
+		return new Gson().toJson(new MessageDTO(flag, message));
 	}
 
 	// 화면등록 : /board/board_list
@@ -175,29 +202,28 @@ public class BoardController {
 	@PostMapping(value = "/doSave.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String doSave(BoardDTO param, HttpServletRequest req) {
-	    log.debug("┌───────────────────────────┐");
-	    log.debug("│ *doSave()*                │");
-	    log.debug("└───────────────────────────┘");
-	    log.debug("1. param:{}", param);
+		log.debug("┌───────────────────────────┐");
+		log.debug("│ *doSave()*                │");
+		log.debug("└───────────────────────────┘");
+		log.debug("1. param:{}", param);
 
-	    // ✅ 로그인 유저 정보에서 nickname과 id 세팅
-	    com.pcwk.ehr.member.MemberDTO loginUser =
-	        (com.pcwk.ehr.member.MemberDTO) req.getSession().getAttribute("loginUser");
+		// ✅ 로그인 유저 정보에서 nickname과 id 세팅
+		com.pcwk.ehr.member.MemberDTO loginUser = (com.pcwk.ehr.member.MemberDTO) req.getSession()
+				.getAttribute("loginUser");
 
-	    if (loginUser != null) {
-	        param.setNickname(loginUser.getNickname()); // 👈 작성자 이름(닉네임)
-	        param.setId(loginUser.getId());             // 👈 작성자 ID
-	        param.setRegId(loginUser.getId());          // 👈 등록자 ID
-	    }
+		if (loginUser != null) {
+			param.setNickname(loginUser.getNickname()); // 👈 작성자 이름(닉네임)
+			param.setId(loginUser.getId()); // 👈 작성자 ID
+			param.setRegId(loginUser.getId()); // 👈 등록자 ID
+		}
 
-	    int flag = boardService.doSave(param);
+		int flag = boardService.doSave(param);
 
-	    String message = (flag == 1)
-	        ? param.getTitle() + " 글이 등록되었습니다."
-	        : param.getTitle() + " 글이 등록되지 않았습니다.";
+		String message = (flag == 1) ? param.getTitle() + " 글이 등록되었습니다." : param.getTitle() + " 글이 등록되지 않았습니다.";
 
-	    String jsonString = new Gson().toJson(new MessageDTO(flag, message));
-	    log.debug("2. jsonString:{}", jsonString);
-	    return jsonString;
+		String jsonString = new Gson().toJson(new MessageDTO(flag, message));
+		log.debug("2. jsonString:{}", jsonString);
+		return jsonString;
 	}
+
 }

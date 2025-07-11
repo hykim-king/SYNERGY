@@ -25,7 +25,8 @@ public class LoginController implements PLog {
 	}
 
 	@GetMapping("/loginView.do")
-	public String loginView() {
+	public String loginView(HttpSession session) {
+		session.removeAttribute("message");
 		return "member/login";
 	}
 

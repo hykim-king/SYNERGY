@@ -70,4 +70,7 @@ public interface BoardService {
 	 * @return 1(성공)/0(실패)
 	 */
 	int doSave(BoardDTO param);
+
+	List<BoardDTO> doMyDiary(BoardDTO boardDTO);
+
 }

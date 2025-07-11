@@ -20,6 +20,7 @@ import com.pcwk.ehr.cmn.PcwkString;
 import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.event.EventDTO;
 import com.pcwk.ehr.event.EventService;
+import com.pcwk.ehr.member.MemberDTO;
 
 @Controller
 @RequestMapping("/event")
@@ -67,12 +68,15 @@ public class EventController {
 	// 단건 조회
 	@GetMapping("/doSelectOne.do")
 	public String doSelectOne(EventDTO param, Model model, HttpServletRequest req) {
-	    String loginUserId = (String) req.getSession().getAttribute("loginUserId");
-
-	    // ★ 조회자 ID 세팅 (조회수 증가 조건 충족을 위해 필수)
-	    if (loginUserId != null) {
-	        param.setRegId(loginUserId);
+	    // 로그인 여부 확인
+	    MemberDTO loginUser = (MemberDTO) req.getSession().getAttribute("loginUser");
+	    if (loginUser == null) {
+	        // 비로그인 사용자는 메인으로 리디렉션
+	        return "redirect:/main/main.do";
 	    }
+
+	    // 조회자 ID 세팅 (조회수 증가 조건 충족을 위해)
+	    param.setRegId(loginUser.getId());
 
 	    EventDTO outVO = eventService.doSelectOne(param);
 	    if (outVO == null) {
@@ -81,7 +85,7 @@ public class EventController {
 	    }
 
 	    model.addAttribute("vo", outVO);
-	    return "event/event_mod";
+	    return "event/event_mod"; // 상세 보기 JSP
 	}
 
 	// 이벤트 수정 (관리자 또는 작성자만 가능)
