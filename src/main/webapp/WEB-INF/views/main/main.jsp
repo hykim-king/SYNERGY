@@ -38,7 +38,7 @@
     </section>
     
 <div class="banner-image">
-  <img src="${pageContext.request.contextPath}/resource/banner_car_pick.png" alt="Car Pick 소개 이미지" >
+  <img src="${pageContext.request.contextPath}/resource/banner/banner_car_pick.png" alt="Car Pick 소개 이미지" >
 </div>
 
 <section class="intro-section">
