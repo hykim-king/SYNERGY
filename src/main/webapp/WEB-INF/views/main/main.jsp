@@ -18,7 +18,7 @@
   <main>
     <section class="slider">
       <div class="slide active">
-        <img src="${pageContext.request.contextPath}/resource/image/2024kiaK9.png" alt="2024kiaK9">
+        <img src="${pageContext.request.contextPath}/resource/image/2024 기아 K9.png" alt="2024 기아 K9">
       </div>
       <div class="slide">
         <img src="${pageContext.request.contextPath}/resource/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S">
