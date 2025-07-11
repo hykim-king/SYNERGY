@@ -89,7 +89,7 @@
                                 <td><input type="checkbox" name="ecodeList" value="${event.ecode}" /></td>
                                 <td>${event.ecode}</td>
                                 <td>
-                                    <a href="<c:url value='/event/event_detail.do?ecode=${event.ecode}'/>">
+                                    <a href="<c:url value='/admin/event/eve_detail.do?ecode=${event.ecode}'/>">
                                         ${fn:escapeXml(event.title)}
                                     </a>
                                 </td>
