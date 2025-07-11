@@ -2,23 +2,19 @@ package com.pcwk.ehr.admin.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.gson.Gson;
 import com.pcwk.ehr.board.BoardDTO;
 import com.pcwk.ehr.board.BoardService;
-import com.pcwk.ehr.cmn.MessageDTO;
 import com.pcwk.ehr.cmn.SearchDTO;
 import com.pcwk.ehr.member.MemberDTO;
 
@@ -26,106 +22,131 @@ import com.pcwk.ehr.member.MemberDTO;
 @RequestMapping("/admin/board")
 public class AdminBoardController {
 
-	final Logger LOG = LogManager.getLogger(getClass());
-
 	@Autowired
-	BoardService boardService;
+	private BoardService boardService;
 
-	// 관리자 게시판 목록
+	/**
+	 * 관리자 게시판 목록 조회
+	 */
 	@GetMapping("/boa_list.do")
-	public String boardList(SearchDTO param, HttpSession session, Model model) {
-		LOG.debug("[boardList] param: {}", param);
-
-		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-		if (loginUser == null || loginUser.getAdminRole() != 1) {
-			model.addAttribute("errorMessage", "관리자 권한이 필요합니다.");
-			return "common/error";
-		}
-
-		// 페이지 기본값 설정
-		param.setPageNo(param.getPageNo() == 0 ? 1 : param.getPageNo());
-		param.setPageSize(param.getPageSize() == 0 ? 10 : param.getPageSize());
+	public String boardList(SearchDTO param, Model model) {
+		if (param.getPageNo() == 0)
+			param.setPageNo(1);
+		if (param.getPageSize() == 0)
+			param.setPageSize(10);
+		if (param.getDiv() == null || param.getDiv().isEmpty())
+			param.setDiv("10"); // 자유게시판 기본값
 
 		List<BoardDTO> list = boardService.doRetrieve(param);
-		int totalCnt = 0;
-		if (list != null && !list.isEmpty()) {
-			totalCnt = list.get(0).getTotalCnt();
-		}
+		int totalCnt = (list != null && !list.isEmpty()) ? list.get(0).getTotalCnt() : 0;
 
 		model.addAttribute("list", list);
 		model.addAttribute("search", param);
 		model.addAttribute("totalCnt", totalCnt);
-		model.addAttribute("divValue", param.getDiv());
 
-		return "admin/board/boa_list"; // ✅ JSP 경로로 리턴
+		return "admin/board/boa_list";
 	}
 
-	// 게시글 수정 화면 진입
-	@GetMapping("/boardMod.do")
-	public String boardMod(int boardCode, HttpSession session, Model model) {
-		LOG.debug("[boardMod] boardCode: {}", boardCode);
+	/**
+	 * 게시글 등록 화면
+	 */
+	@GetMapping("/boa_reg.do")
+	public String boardReg() {
+		return "admin/board/boa_reg";
+	}
 
-		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-		if (loginUser == null || loginUser.getAdminRole() != 1) {
-			model.addAttribute("errorMessage", "관리자 권한이 필요합니다.");
-			return "common/error";
-		}
-
+	/**
+	 * 게시글 수정 화면
+	 */
+	@GetMapping("/boa_mod.do")
+	public String boardMod(@RequestParam("boardCode") int boardCode, Model model) {
 		BoardDTO param = new BoardDTO();
 		param.setBoardCode(boardCode);
-		BoardDTO board = boardService.doSelectOne(param);
 
-		if (board == null) {
-			model.addAttribute("errorMessage", "게시글을 찾을 수 없습니다.");
-			return "common/error";
+		BoardDTO board = boardService.doSelectOne(param);
+		model.addAttribute("board", board); // JSP에서 ${board.title} 사용
+
+		return "admin/board/boa_mod";
+	}
+
+	/**
+	 * 게시글 상세 조회 (읽기 전용)
+	 */
+	@GetMapping("/boa_detail.do") // JSP와 정확히 일치시켜야 함
+	public String boardDetail(@RequestParam("boardCode") int boardCode, Model model) {
+	    BoardDTO dto = new BoardDTO();
+	    dto.setBoardCode(boardCode);
+	    
+	    BoardDTO out = boardService.doSelectOne(dto);
+	    model.addAttribute("vo", out);
+
+	    return "admin/board/boa_detail"; // 이 JSP가 존재해야 합니다.
+	}
+	/**
+	 * 게시글 등록 처리
+	 */
+	@PostMapping("/save.do")
+	public String save(BoardDTO dto, HttpSession session) {
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+
+		if (loginUser != null) {
+			dto.setRegId(loginUser.getId());
+			dto.setNickname(loginUser.getNickname());
+			dto.setId(loginUser.getId());
 		}
 
-		model.addAttribute("board", board);
-		return "admin/board/boa_mod"; // 수정 화면
+		if (dto.getDiv() == null || dto.getDiv().isEmpty()) {
+			dto.setDiv("10"); // 자유게시판 기본값
+		}
+
+		boardService.doSave(dto);
+
+		return "redirect:/admin/board/boa_list.do";
 	}
 
-	// 게시글 수정 처리
-	@PostMapping("/updateBoard.do")
-	public String updateBoard(BoardDTO board, HttpSession session, Model model) {
-	    LOG.debug("[updateBoard] board: {}", board);
-
+	/**
+	 * 게시글 수정 처리
+	 */
+	@PostMapping("/update.do")
+	public String update(BoardDTO dto, HttpSession session) {
 	    MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-	    if (loginUser == null || loginUser.getAdminRole() != 1) {
-	        model.addAttribute("errorMessage", "관리자 권한이 필요합니다.");
-	        return "common/error";
-	    }
 
-	    board.setModId(loginUser.getId());
-
-	    int result = boardService.doUpdate(board);
-
-	    if (result > 0) {
-	        return "redirect:/admin/board/boa_list.do";
+	    if (loginUser != null) {
+	        dto.setModId(loginUser.getId());
+	        dto.setId(loginUser.getId()); // ★ 이 줄이 반드시 있어야 합니다
 	    } else {
-	        model.addAttribute("errorMessage", "게시글 수정에 실패했습니다.");
-	        return "common/error";
+	        // 로그인 안된 상태일 경우 기본 ID라도 넣거나 오류 처리 필요
+	        dto.setModId("admin");
+	        dto.setId("admin");
 	    }
+
+	    if (dto.getDiv() == null || dto.getDiv().trim().isEmpty()) {
+	        dto.setDiv("10");
+	    }
+
+	    boardService.doUpdate(dto);
+
+	    return "redirect:/admin/board/boa_list.do";
 	}
 
-	// 관리자 다중 삭제 처리
-	@PostMapping(value = "/deleteBoards.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String deleteBoards(@RequestBody List<Integer> codes, HttpSession session) {
-	    LOG.debug("[deleteBoards] codes: {}", codes);
+	/**
+	 * 게시글 삭제 처리 (선택 삭제)
+	 */
+	@PostMapping("/deleteBoards.do")
+	public String delete(@RequestParam(value = "boardCodeList", required = false) List<Integer> boardCodeList) {
+		if (boardCodeList != null && !boardCodeList.isEmpty()) {
+			for (int code : boardCodeList) {
+				BoardDTO dto = new BoardDTO();
+				dto.setBoardCode(code);
+				boardService.doDelete(dto);
+			}
+		}
 
-	    MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
-	    if (loginUser == null || loginUser.getAdminRole() != 1) {
-	        return new Gson().toJson(new MessageDTO(0, "관리자 권한이 필요합니다."));
-	    }
+		return "redirect:/admin/board/boa_list.do";
+	}
 
-	    int deleteCount = 0;
-	    for (int boardCode : codes) {
-	        BoardDTO param = new BoardDTO();
-	        param.setBoardCode(boardCode);
-	        deleteCount += boardService.doDelete(param);
-	    }
-
-	    String message = (deleteCount == codes.size()) ? "정상적으로 삭제되었습니다." : "일부 항목 삭제 실패.";
-	    return new Gson().toJson(new MessageDTO(deleteCount, message));
+	@PostConstruct
+	public void init() {
+		System.out.println(">>> AdminBoardController 로드 완료 <<<");
 	}
 }
