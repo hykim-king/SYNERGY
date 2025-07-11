@@ -43,6 +43,10 @@
             box-sizing: border-box;
         }
 
+        input[readonly] {
+            background-color: #e9ecef;
+        }
+
         textarea {
             height: 200px;
         }
@@ -79,29 +83,39 @@
 <div class="container">
     <h2>이벤트 등록</h2>
 
-    <form id="regForm" action="<c:url value='/admin/event/save.do'/>" method="post">
+    <form action="<c:url value='/admin/event/save.do'/>" method="post">
+
+        <!-- 제목 -->
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" id="title" name="title" required />
         </div>
 
+        <!-- 내용 -->
         <div class="form-group">
             <label for="contents">내용</label>
             <textarea id="contents" name="contents" required></textarea>
         </div>
 
+        <!-- 작성자 -->
         <div class="form-group">
             <label for="nickname">작성자</label>
-            <input type="text" id="nickname" name="nickname" value="${sessionScope.loginUser.nickname}" readonly />
+            <input type="text" id="nickname" name="nickname"
+                   value="${sessionScope.loginUser != null ? sessionScope.loginUser.nickname : ''}" readonly />
         </div>
 
-        <input type="hidden" name="regId" value="${sessionScope.loginUser.id}" />
-        <input type="hidden" name="email" value="${sessionScope.loginUser.email}" />
+        <!-- 숨은 필드 -->
+        <input type="hidden" name="regId"
+               value="${sessionScope.loginUser != null ? sessionScope.loginUser.id : ''}" />
+        <input type="hidden" name="email"
+               value="${sessionScope.loginUser != null ? sessionScope.loginUser.email : ''}" />
         <input type="hidden" name="div" value="이벤트" />
 
+        <!-- 버튼 -->
         <div class="btn-group">
             <button type="submit" class="btn">등록</button>
-            <button type="button" class="btn btn-cancel" onclick="location.href='<c:url value='/admin/event/eve_list.do'/>'">취소</button>
+            <button type="button" class="btn btn-cancel"
+                    onclick="location.href='<c:url value='/admin/event/eve_list.do'/>'">취소</button>
         </div>
     </form>
 </div>
