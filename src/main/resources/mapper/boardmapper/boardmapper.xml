@@ -52,16 +52,16 @@
     <sql id="boardWhere">
         <choose>
             <when test="searchDiv == '10'">
-                AND title LIKE #{searchWord} || '%'
+                AND title LIKE '%' || #{searchWord} || '%'
             </when>
             <when test="searchDiv == '20'">
-                AND contents LIKE #{searchWord} || '%'
+                AND contents LIKE '%' || #{searchWord} || '%'
             </when>
             <when test="searchDiv == '30'">
-                AND board_code = #{searchWord}
+                AND board_code = '%' || #{searchWord} || '%'
             </when>
             <when test="searchDiv == '40'">
-                AND (title LIKE #{searchWord} || '%' OR contents LIKE #{searchWord} || '%')
+                AND (title LIKE '%' || #{searchWord} || '%' OR contents LIKE '%' || #{searchWord} || '%')
             </when>
         </choose>
     </sql>
@@ -146,6 +146,24 @@
         FROM board
         WHERE board_code = #{boardCode}
     </select>
+    
+   <select id="doMyDiary" parameterType="BoardDTO" resultType="BoardDTO">
+  SELECT 
+    board_code,
+    title,
+    contents,
+    id,
+    nickname,
+    read_cnt,
+    reg_dt,
+    reg_id,
+    mod_dt,
+    mod_id
+  FROM board
+  WHERE id = #{id}
+  ORDER BY reg_dt DESC
+</select>
+   
     <!-- 단건 삭제 -->
     <delete id="doDelete" parameterType="BoardDTO">
         DELETE FROM board

@@ -75,19 +75,22 @@ a:hover { text-decoration: underline; }
       <div class="detail-row"><span class="label">제조년도</span> <span class="value"><c:out value="${car.mfDt}"/></span></div>
       <div class="detail-row"><span class="label">가격</span> <span class="value"><fmt:formatNumber value="${car.price}" type="currency" currencySymbol="₩"/></span></div>
       <div class="detail-row"><span class="label">연료</span> <span class="value"><c:out value="${car.fuel}"/></span></div>
-      <div class="detail-row"><span class="label">효율</span> <span class="value"><c:out value="${car.ef}"/></span></div>
+      <div class="detail-row"><span class="label">연비</span> <span class="value"><c:out value="${car.ef}"/></span></div>
       <div class="detail-row"><span class="label">엔진</span> <span class="value"><c:out value="${car.engine != null ? car.engine : '-'}"/></span></div>
       <div class="detail-row"><span class="label">배터리</span> <span class="value"><c:out value="${car.battery != null ? car.battery : '-'}"/></span></div>
       <div class="detail-row"><span class="label">제조연도</span> <span class="value"><c:out value="${car.mfDt != null ? car.mfDt : '-'}"/></span></div>
       
       <!-- 이미지 자동 출력 -->
+<!-- 이미지 자동 출력 -->
 <div class="detail-row">
   <span class="label">이미지</span>
   <span class="value">
-    <img src="${pageContext.request.contextPath}/image/${car.productName}.png" alt="${car.productName}"
-         alt="${car.productName}" style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 2px 8px #eee;">
+    <img src="${pageContext.request.contextPath}${car.path}${car.modFn}"
+         alt="${car.productName}"
+         style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 2px 8px #eee;">
   </span>
 </div>
+
       <!-- 필요한 상세 정보 더 추가 가능 -->
       <a href="list.do" class="back-btn">목록으로</a>
     </div>
