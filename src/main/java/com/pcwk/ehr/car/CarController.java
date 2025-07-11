@@ -25,6 +25,7 @@ public class CarController implements PLog {
     // ( 차량 목록 페이지 -> 검색 / 페이징 기능을 지원하게 하는 컨트롤러 메서드 )
     @GetMapping("/list.do")
     public String list(
+    		// @RequestParam -> 파라미터 이름으로 바인딩한다
         @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
         @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
         @RequestParam(value = "searchType", required = false, defaultValue = "productName") String searchType,
@@ -38,10 +39,10 @@ public class CarController implements PLog {
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 
         // 3. pageNum 범위 보정
-        if(totalPages > 0 && pageNum > totalPages) {
+        if(totalPages > 0 && pageNum > totalPages) { 	//1페이지부터 시작
             pageNum = totalPages;
         }
-        if(pageNum < 1) {
+        if(pageNum < 1) { 	
             pageNum = 1;
         }
 
@@ -50,11 +51,11 @@ public class CarController implements PLog {
 
         // 5. 모델에 데이터와 페이징 정보 전달
         model.addAttribute("carList", carList);
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("searchType", searchType);
-        model.addAttribute("searchWord", searchWord);
-        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", pageNum);   	//현재 페이지
+        model.addAttribute("pageSize", pageSize);  		//페이지 사이즈
+        model.addAttribute("searchType", searchType);	//검색 유형
+        model.addAttribute("searchWord", searchWord);	//검색 단어
+        model.addAttribute("totalPages", totalPages);	//총 페이지
 
         return "car/list";
     }
