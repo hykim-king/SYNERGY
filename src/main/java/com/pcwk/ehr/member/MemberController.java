@@ -39,9 +39,7 @@ public class MemberController {
 	            return "member/register";
 	        }
 	    } catch (Exception e) {
-	        // 에러 메시지를 상세하게 보여주지 않고 간단히 처리
 	    	 model.addAttribute("errorMessage", "회원가입에 실패했습니다.");
-	        // 필요하면 로그로 상세 에러 기록
 	        e.printStackTrace();
 	        return "member/register";
 	    }
@@ -119,7 +117,7 @@ public class MemberController {
     // ✅ [1] 비밀번호 찾기 폼 (아이디 입력)
     @GetMapping("/passwordFind.do")
     public String passwordFindForm() {
-        return "member/passwordFind"; // JSP: /WEB-INF/views/member/passwordFind.jsp
+        return "member/passwordFind";
     }
 
     // ✅ [2] 아이디 확인 → 재설정 폼으로
@@ -128,7 +126,7 @@ public class MemberController {
         int count = memberService.isIdExists(userId);
         if (count > 0) {
             model.addAttribute("userId", userId); // reset 폼에 전달
-            return "member/passwordReset"; // JSP: /WEB-INF/views/member/passwordReset.jsp
+            return "member/passwordReset";
         } else {
             model.addAttribute("error", "존재하지 않는 아이디입니다.");
             return "member/passwordFind";

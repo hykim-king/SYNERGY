@@ -29,7 +29,7 @@ public class DriveResAdminController implements PLog {
 		try {
 			String pageNoStr = request.getParameter("pageNo");
 			if (pageNoStr != null) {
-				pageNo = Integer.parseInt(pageNoStr);
+				pageNo = Integer.parseInt(pageNoStr);//문자열을 정수로 변환
 				if (pageNo < 1)
 					pageNo = 1;
 			}
@@ -69,6 +69,6 @@ public class DriveResAdminController implements PLog {
 		model.addAttribute("searchDiv", searchDiv);
 		model.addAttribute("searchWord", searchWord);
 
-		return "admin/drive/list"; // JSP 뷰 이름
+		return "admin/drive/list";
 	}
 }

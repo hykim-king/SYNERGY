@@ -78,7 +78,6 @@ public class MemberAdminController {
 	    } catch (Exception e) {
 	        // 에러 메시지를 상세하게 보여주지 않고 간단히 처리
 	    	 model.addAttribute("errorMessage", "회원등록에 실패했습니다.");
-	        // 필요하면 로그로 상세 에러 기록
 	        e.printStackTrace();
 	        return "/admin/member/register";
 	    }
@@ -158,6 +157,6 @@ public class MemberAdminController {
             e.printStackTrace();
             return "admin/member/list";
         }
-        return "redirect:/admin/member/list.do";
+        return "redirect:/admin/member/list.do";//POST 처리 후 다른 페이지로 이동할 때 redirect를 씀
     }
 }
