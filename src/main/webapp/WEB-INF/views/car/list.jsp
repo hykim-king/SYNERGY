@@ -34,8 +34,7 @@
 
 main {
     padding: 20px 5vw;
-    max-width: 1100px;
-    margin: 0 auto;
+
 }
 
 
@@ -182,6 +181,8 @@ tr:nth-child(even) {
     object-fit: contain;
     background: #fff;
 }
+
+
 </style>
 
 <!-- 로그인 보호 자바스크립트(필요시 사용) -->
@@ -204,117 +205,117 @@ function handleProtectedLink(event, url) {
   <!-- 상단 타이틀 바 -->
   <div class="page-title">차량 전체 목록</div>
 
-  <main>
-    <!-- 1. 상태 메시지 -->
-    <c:if test="${not empty msg}">
-      <script>alert('${msg}');</script>
-    </c:if>
-  
-  
-  
- <div class="search-form-wrapper">
-<!-- 2. 검색 폼 -->
-<form class="search-form" method="get" action="list.do">
-  <select name="searchType">
-    <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>차량명</option>
-    <option value="carMf" ${searchType eq 'carMf' ? 'selected' : ''}>제조사</option>
-    <option value="cartype" ${searchType eq 'cartype' ? 'selected' : ''}>차종</option>
-  </select>
-  <input type="text" name="searchWord" value="${searchWord}" placeholder="검색어">
-  <button type="submit" class="search-btn">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-</form>
-</div>
+<main style="padding: 20px 0 20px 40px;">
+  <div style="display: flex; gap: 32px; align-items: flex-start;">
+    <aside style="flex: 0 0 220px; position: sticky; top: 100px; align-self: flex-start;">
+      <img src="${pageContext.request.contextPath}/resource/image/carbanner.png"
+           alt="carbanner"
+           style="width: 200px; border-radius: 10px; box-shadow: 0 4px 16px #e0e0e0;" />
+    </aside>
+    <div style="flex: 1;">
+      <div style="max-width: 1100px; margin-left: 130px; margin-right: 0;">
+        <!-- 상태 메시지 -->
+        <c:if test="${not empty msg}">
+          <script>alert('${msg}');</script>
+        </c:if>
+      
+        <div class="search-form-wrapper">
+          <!-- 검색 폼 -->
+          <form class="search-form" method="get" action="list.do">
+            <select name="searchType">
+              <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>차량명</option>
+              <option value="carMf" ${searchType eq 'carMf' ? 'selected' : ''}>제조사</option>
+              <option value="cartype" ${searchType eq 'cartype' ? 'selected' : ''}>차종</option>
+            </select>
+            <input type="text" name="searchWord" value="${searchWord}" placeholder="검색어">
+            <button type="submit" class="search-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+        </div>
 
-
-
-
-
-  <!-- 3. 차량 테이블 -->
-  <table>
-    <thead>
-      <tr>
-        <th>번호</th>
-        <th>차량명</th>
-        <th>제조사</th>
-        <th>차종</th>
-        <th>가격</th>
-        <th>이미지</th>
-      </tr>
-    </thead>
-    <tbody>
-      <c:choose>
-        <c:when test="${empty carList}">
-          <tr><td colspan="10">등록된 차량이 없습니다.</td></tr>
-        </c:when>
-        <c:otherwise>
-          <c:forEach var="car" items="${carList}" varStatus="status">
+        <!-- 차량 테이블 -->
+        <table>
+          <thead>
             <tr>
-              <td>${(currentPage-1) * pageSize + status.index + 1}</td>
-              <td>
-                <a href="detail.do?carCode=${car.carCode}">
-                  <c:out value="${car.productName}" />
-                </a>
-              </td>
-              <td><c:out value="${car.carMf}" /></td>
-              <td><c:out value="${car.cartype}" /></td>
-              <td><fmt:formatNumber value="${car.price}" type="currency" currencySymbol="₩" /></td>
+              <th>번호</th>
+              <th>차량명</th>
+              <th>제조사</th>
+              <th>차종</th>
+              <th>가격(만 단위) </th>
+              <th>이미지</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:choose>
+              <c:when test="${empty carList}">
+                <tr><td colspan="10">등록된 차량이 없습니다.</td></tr>
+              </c:when>
+              <c:otherwise>
+                <c:forEach var="car" items="${carList}" varStatus="status">
+                  <tr>
+                    <td>${(currentPage-1) * pageSize + status.index + 1}</td>
+                    <td>
+                      <a href="detail.do?carCode=${car.carCode}">
+                        <c:out value="${car.productName}" />
+                      </a>
+                    </td>
+                    <td><c:out value="${car.carMf}" /></td>
+                    <td><c:out value="${car.cartype}" /></td>
+                    <td><fmt:formatNumber value="${car.price}" type="currency" currencySymbol="₩" /></td>
+                    <td>
+                      <img class="car-img"
+                           src="${pageContext.request.contextPath}${car.path}${car.modFn}"
+                           alt="${car.productName}"
+                           style="width:100px; height:auto;" />
+                    </td>
+                  </tr>
+                </c:forEach>
+              </c:otherwise>
+            </c:choose>
+          </tbody>
+        </table>
 
-              <td>
-               <img class="car-img"
-                   src="${pageContext.request.contextPath}${car.path}${car.modFn}"
-                   alt="${car.productName}"
-                   style="width:100px; height:auto;" />
-            </td>
+        <!-- 페이징 영역 -->
+        <div class="paging">
+          <c:set var="pageBlock" value="10" />
+          <c:set var="startPage" value="${((currentPage - 1) / pageBlock) * pageBlock + 1}" />
+          <c:set var="endPage" value="${startPage + pageBlock - 1}" />
+          <c:if test="${endPage > totalPages}">
+            <c:set var="endPage" value="${totalPages}" />
+          </c:if>
+          <c:choose>
+            <c:when test="${currentPage == 1}">
+              <a href="#" class="disabled">&laquo; 이전</a>
+            </c:when>
+            <c:otherwise>
+              <a href="list.do?pageNum=${currentPage - 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">&laquo; 이전</a>
+            </c:otherwise>
+          </c:choose>
+          <c:forEach begin="${startPage}" end="${endPage}" var="i">
+            <c:choose>
+              <c:when test="${i == currentPage}">
+                <a href="#" class="current">${i}</a>
+              </c:when>
+              <c:otherwise>
+                <a href="list.do?pageNum=${i}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">${i}</a>
+              </c:otherwise>
+            </c:choose>
           </c:forEach>
-        </c:otherwise>
-      </c:choose>
-    </tbody>
-  </table>
-  
-
-  
-  
-  
-  <!-- 4. 페이징 영역 -->
-  <div class="paging">
-    <c:set var="pageBlock" value="10" />
-    <c:set var="startPage" value="${((currentPage - 1) / pageBlock) * pageBlock + 1}" />
-    <c:set var="endPage" value="${startPage + pageBlock - 1}" />
-    <c:if test="${endPage > totalPages}">
-      <c:set var="endPage" value="${totalPages}" />
-    </c:if>
-    <c:choose>
-      <c:when test="${currentPage == 1}">
-        <a href="#" class="disabled">&laquo; 이전</a>
-      </c:when>
-      <c:otherwise>
-        <a href="list.do?pageNum=${currentPage - 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">&laquo; 이전</a>
-      </c:otherwise>
-    </c:choose>
-    
-    <c:forEach begin="${startPage}" end="${endPage}" var="i">
-      <c:choose>
-        <c:when test="${i == currentPage}">
-          <a href="#" class="current">${i}</a>
-        </c:when>
-        <c:otherwise>
-          <a href="list.do?pageNum=${i}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">${i}</a>
-        </c:otherwise>
-      </c:choose>
-    </c:forEach>
-    <c:choose>
-      <c:when test="${currentPage == totalPages || totalPages == 0}">
-        <a href="#" class="disabled">다음 &raquo;</a>
-      </c:when>
-      <c:otherwise>
-        <a href="list.do?pageNum=${currentPage + 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">다음 &raquo;</a>
-      </c:otherwise>
-    </c:choose>
+          <c:choose>
+            <c:when test="${currentPage == totalPages || totalPages == 0}">
+              <a href="#" class="disabled">다음 &raquo;</a>
+            </c:when>
+            <c:otherwise>
+              <a href="list.do?pageNum=${currentPage + 1}&pageSize=${pageSize}&searchType=${searchType}&searchWord=${searchWord}">다음 &raquo;</a>
+            </c:otherwise>
+          </c:choose>
+        </div>
+        <%@ include file="/resource/footer.jsp" %>
+      </div> <!-- 여기가 빠졌던 div 닫힘!! -->
+    </div>
   </div>
-  
-  <%@ include file="/resource/footer.jsp" %>
+</main>
 
 </body>
 </html>
