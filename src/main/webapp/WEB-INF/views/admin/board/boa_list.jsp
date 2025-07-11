@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>관리자 게시판 목록</title>
+    <title>관리자 자유게시판 목록</title>
     <link rel="stylesheet" href="<c:url value='/resources/css/board.css'/>">
     <style>
         .container {
@@ -13,32 +13,58 @@
             margin: 60px auto;
             padding: 20px;
         }
+
         h2 {
             font-size: 1.8rem;
             margin-bottom: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
             text-align: center;
         }
-        th { background-color: #f1f1f1; }
+
+        th {
+            background-color: #f1f1f1;
+        }
+
         .btn {
             padding: 6px 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-        .btn-danger { background-color: #dc3545; color: white; }
-        .btn-edit   { background-color: #007bff; color: white; }
-        .search-group { float: right; margin-bottom: 15px; }
-        .pagination { margin-top: 20px; text-align: center; }
-        .pagination .btn { margin: 0 3px; }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .search-group {
+            float: right;
+            margin-bottom: 15px;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination .btn {
+            margin: 0 3px;
+        }
     </style>
 </head>
 <body>
@@ -46,9 +72,9 @@
 <jsp:include page="/resource/adminHeader.jsp" />
 
 <div class="container">
-    <h2>관리자 게시판 목록</h2>
+    <h2>관리자 자유게시판 목록</h2>
 
-    <!-- 검색 폼 -->
+    <!-- 검색 -->
     <div class="search-group">
         <form action="<c:url value='/admin/board/boa_list.do'/>" method="get">
             <select name="searchDiv">
@@ -56,13 +82,13 @@
                 <option value="10" <c:if test="${search.searchDiv == '10'}">selected</c:if>>제목</option>
                 <option value="20" <c:if test="${search.searchDiv == '20'}">selected</c:if>>작성자</option>
             </select>
-            <input type="text" name="searchWord" value="${search.searchWord}" placeholder="검색어 입력" />
+            <input type="text" name="searchWord" value="${fn:escapeXml(search.searchWord)}" placeholder="검색어 입력" />
             <button type="submit" class="btn">검색</button>
         </form>
     </div>
 
-    <!-- 게시판 리스트 + 삭제 버튼 -->
-    <form id="deleteForm">
+    <!-- 리스트 + 삭제 -->
+    <form id="deleteForm" action="<c:url value='/admin/board/deleteBoards.do'/>" method="post">
         <button type="button" class="btn btn-danger" onclick="deleteSelected()">선택 삭제</button>
 
         <table>
@@ -82,14 +108,22 @@
                     <c:when test="${not empty list}">
                         <c:forEach var="board" items="${list}">
                             <tr>
-                                <td><input type="checkbox" name="boardCodes" value="${board.boardCode}" /></td>
+                                <td><input type="checkbox" name="boardCodeList" value="${board.boardCode}" /></td>
                                 <td>${board.boardCode}</td>
-                                <td>${fn:escapeXml(board.title)}</td>
+                                <td>
+                                    <a href="<c:url value='/admin/board/boa_detail.do'>
+                                                <c:param name="boardCode" value="${board.boardCode}" />
+                                            </c:url>">
+                                        ${fn:escapeXml(board.title)}
+                                    </a>
+                                </td>
                                 <td>${fn:escapeXml(board.nickname)}</td>
                                 <td>${board.readCnt}</td>
                                 <td><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd" /></td>
                                 <td>
-                                    <a href="<c:url value='/admin/board/boardMod.do?boardCode=${board.boardCode}'/>" class="btn btn-edit">수정</a>
+                                    <a href="<c:url value='/admin/board/boa_mod.do'>
+                                                <c:param name="boardCode" value="${board.boardCode}" />
+                                            </c:url>" class="btn btn-edit">수정</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -102,14 +136,18 @@
         </table>
     </form>
 
-    <!-- 페이징 처리 -->
+    <!-- 페이징 -->
     <div class="pagination">
         <c:if test="${totalCnt > 0}">
             <c:set var="pageSize" value="${search.pageSize}" />
             <c:set var="pageNo" value="${search.pageNo}" />
             <c:set var="totalPage" value="${(totalCnt + pageSize - 1) / pageSize}" />
             <c:forEach begin="1" end="${totalPage}" var="page">
-                <a href="<c:url value='/admin/board/boa_list.do?pageNo=${page}&searchDiv=${search.searchDiv}&searchWord=${fn:escapeXml(search.searchWord)}'/>"
+                <a href="<c:url value='/admin/board/boa_list.do'>
+                            <c:param name="pageNo" value="${page}" />
+                            <c:param name="searchDiv" value="${search.searchDiv}" />
+                            <c:param name="searchWord" value="${search.searchWord}" />
+                         </c:url>"
                    class="${page == pageNo ? 'btn btn-danger' : 'btn'}">${page}</a>
             </c:forEach>
         </c:if>
@@ -120,43 +158,18 @@
 
 <script>
 function toggleAll(source) {
-    const checkboxes = document.getElementsByName('boardCodes');
-    for (let cb of checkboxes) {
-        cb.checked = source.checked;
-    }
+    document.querySelectorAll('input[name="boardCodeList"]').forEach(cb => cb.checked = source.checked);
 }
 
 function deleteSelected() {
-    const checked = document.querySelectorAll('input[name="boardCodes"]:checked');
-    if (checked.length === 0) {
+    const selected = document.querySelectorAll('input[name="boardCodeList"]:checked');
+    if (selected.length === 0) {
         alert("삭제할 게시글을 선택하세요.");
         return;
     }
-
-    const codes = Array.from(checked).map(cb => parseInt(cb.value));
-
-    if (!confirm("정말 삭제하시겠습니까?")) return;
-
-    fetch("<c:url value='/admin/board/deleteBoards.do'/>", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(codes)
-    })
-    .then(res => res.text())
-    .then(text => {
-        try {
-            const data = JSON.parse(text);
-            alert(data.msg || "삭제 완료");
-            if (data.msg?.includes("삭제")) location.reload();
-        } catch (e) {
-            console.error("JSON 파싱 실패", text);
-            alert("서버 응답 오류: " + text);
-        }
-    })
-    .catch(err => {
-        console.error("삭제 오류", err);
-        alert("삭제 중 오류 발생");
-    });
+    if (confirm("정말 삭제하시겠습니까?")) {
+        document.getElementById("deleteForm").submit();
+    }
 }
 </script>
 
