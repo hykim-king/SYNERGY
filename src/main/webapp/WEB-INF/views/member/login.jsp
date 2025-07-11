@@ -104,11 +104,10 @@ input[type="text"], input[type="password"] {
 </head>
 <body>
 
-<c:if test="${not empty sessionScope.message}">
+<c:if test="${not empty message}">
     <script>
-        alert('<c:out value="${sessionScope.message}" />');
+        alert('${message}');
     </script>
-    <c:remove var="message" scope="session" />
 </c:if>
 
 <div class="login-container">
