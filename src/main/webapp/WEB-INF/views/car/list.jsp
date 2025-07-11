@@ -225,7 +225,6 @@ function handleProtectedLink(event, url) {
             <select name="searchType">
               <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>차량명</option>
               <option value="carMf" ${searchType eq 'carMf' ? 'selected' : ''}>제조사</option>
-              <option value="cartype" ${searchType eq 'cartype' ? 'selected' : ''}>차종</option>
             </select>
             <input type="text" name="searchWord" value="${searchWord}" placeholder="검색어">
             <button type="submit" class="search-btn">

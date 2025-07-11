@@ -224,10 +224,8 @@
               <div class="search-form-wrapper">
                 <form class="search-form" method="get" action="${pageContext.request.contextPath}/retailer/all.do">
                   <select name="searchType">
-                    <option value="retailerName" ${searchType eq 'retailerName' ? 'selected' : ''}>업체명</option>
-                    <option value="area" ${searchType eq 'area' ? 'selected' : ''}>지역</option>
                     <option value="carMf" ${searchType eq 'carMf' ? 'selected' : ''}>제조사</option>
-                    <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>차</option>
+                    <option value="productName" ${searchType eq 'productName' ? 'selected' : ''}>제품명</option>
                   </select>
                   <input type="text" name="searchWord" value="${searchWord}" placeholder="검색어">
                   <button type="submit" class="search-btn">
@@ -243,8 +241,8 @@
                   <thead>
                     <tr>
                       <th>번호</th>
-                      <th>제품명</th>
                       <th>업체명</th>
+                      <th>제품명</th>
                       <th>제조사</th>
                       <th>지역(도 /시)</th>
                       <th>상세주소</th>
@@ -262,8 +260,8 @@
                         <c:forEach var="retailer" items="${retailerList}" varStatus="status">
                           <tr>
                             <td>${(currentPage-1) * pageSize + status.index + 1}</td>
-                            <td><c:out value="${retailer.productName}" /></td>
                             <td><c:out value="${retailer.retailerName}" /></td>
+                            <td><c:out value="${retailer.productName}" /></td>
                             <td><c:out value="${retailer.carMf}" /></td>
                             <td><c:out value="${retailer.area}" /></td>
                             <td><c:out value="${retailer.address}" /></td>

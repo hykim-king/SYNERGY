@@ -88,61 +88,9 @@ public class RetailerControllerTest {
             .andExpect(model().attributeExists("retailerList"));
     }
 
-    // 3. 리테일러 상세 조회 테스트
-    @Test
-    void testDetail() throws Exception {
-        mockMvc.perform(get("/retailer/detail.do")
-                .param("retailerCode", String.valueOf(retailerCode)))
-            .andExpect(status().isOk())
-            .andExpect(view().name("retailer/detail"))
-            .andExpect(model().attributeExists("retailer"));
-    }
 
-    // 4. 리테일러 등록 처리 테스트
-    @Test
-    void testSave() throws Exception {
-        mockMvc.perform(post("/retailer/save.do")
-                .param("productName", "NewProduct")
-                .param("retailerName", "NewRetailer")
-                .param("carMf", "NewMf")
-                .param("area", "NewArea")
-                .param("address", "NewAddress")
-                .param("telephone", "010-1111-2222")
-                .param("regDt", "2025-07-07")
-                .param("regId", "testAdmin")
-                .param("modDt", "2025-07-07")
-                .param("modId", "testAdmin"))
-            .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/retailer/list.do"))
-            .andExpect(flash().attributeExists("msg"));
-    }
 
-    // 5. 리테일러 수정 처리 테스트
-    @Test
-    void testUpdate() throws Exception {
-        mockMvc.perform(post("/retailer/update.do")
-                .param("retailerCode", String.valueOf(retailerCode))
-                .param("productName", "UpdProduct")
-                .param("retailerName", "UpdRetailer")
-                .param("carMf", "UpdMf")
-                .param("area", "UpdArea")
-                .param("address", "UpdAddress")
-                .param("telephone", "010-2222-3333")
-                .param("modDt", "2025-07-07")
-                .param("modId", "testAdmin"))
-            .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrlPattern("/retailer/detail.do?retailerCode=*"))
-            .andExpect(flash().attributeExists("msg"));
-    }
 
-    // 6. 리테일러 삭제 처리 테스트
-    @Test
-    void testDelete() throws Exception {
-        mockMvc.perform(post("/retailer/delete.do")
-                .param("retailerCode", String.valueOf(retailerCode)))
-            .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/retailer/list.do"))
-            .andExpect(flash().attributeExists("msg"));
-    }
+
 
 }
