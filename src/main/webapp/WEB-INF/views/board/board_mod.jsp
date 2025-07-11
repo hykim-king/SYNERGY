@@ -7,7 +7,6 @@
 <c:set var="now" value="<%=new Date()%>" />
 <c:set var="sysDate" value="${now}" />
 
-<!-- 수정 권한 여부: 본인 또는 admin -->
 <c:choose>
   <c:when test="${not empty vo and not empty sessionScope.loginUser}">
     <c:set var="isEditable" value="${sessionScope.loginUser.id eq vo.regId or sessionScope.loginUser.id eq 'admin'}" />
@@ -139,7 +138,7 @@
 
     <div class="form-group">
       <label for="title">제목</label>
-      <input type="text" name="title" id="title" value="${vo.title}" maxlength="200" <c:if test="${!isEditable}">readonly</c:if> />
+      <input type="text" name="title" id="title" value="<c:out value='${vo.title}'/>" maxlength="200" <c:if test="${!isEditable}">readonly</c:if> />
     </div>
 
     <div class="form-group">
@@ -159,7 +158,7 @@
 
     <div class="form-group">
       <label for="contents">내용</label>
-      <textarea id="contents" name="contents" <c:if test="${!isEditable}">readonly</c:if>>${vo.contents}</textarea>
+      <textarea id="contents" name="contents" <c:if test="${!isEditable}">readonly</c:if>><c:out value="${vo.contents}"/></textarea>
     </div>
 
     <div class="button-area">
