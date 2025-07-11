@@ -38,8 +38,8 @@
   <link rel="stylesheet" href="${CP}/resource/css/boardform1.css?date=${sysDate}">
   <link rel="stylesheet" href="${CP}/resource/css/board1.css?date=${sysDate}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  
-    <script>
+
+  <script>
     const isLoggedIn = ${not empty sessionScope.loginUser ? 'true' : 'false'};
 
     function handleProtectedLink(event, url) {
@@ -85,6 +85,7 @@
 </head>
 <body>
 
+<!-- ✅ HEADER -->
 <header>
   <div class="header-bar" style="display: flex; justify-content: space-between; align-items: center; background: #00264d; color: white; padding: 10px 20px;">
     <div class="header-nav" style="display: flex; align-items: center; gap: 15px;">
@@ -112,29 +113,31 @@
   </div>
 </header>
 
+<!-- ✅ MAIN -->
 <div class="main-container">
   <h2>이벤트 게시판</h2>
 
   <form name="eventForm" method="get">
-  <input type="hidden" name="pageNo" id="pageNo">
-  <div class="search-group">
-    <select name="searchDiv" id="searchDiv">
-      <option value="">검색 구분</option>
-      <option value="10" <c:if test="${search.searchDiv eq '10'}">selected</c:if>>제목</option>
-      <option value="20" <c:if test="${search.searchDiv eq '20'}">selected</c:if>>내용</option>
-      <option value="30" <c:if test="${search.searchDiv eq '30'}">selected</c:if>>이벤트</option>
-      <option value="40" <c:if test="${search.searchDiv eq '40'}">selected</c:if>>제목+내용</option>
-    </select>
-    <input type="text" name="searchWord" placeholder="검색어 입력" value="${search.searchWord}">
-    <button type="button" id="doRetrieve">조회</button>
-    
-    <!-- ✅ 관리자만 등록 버튼 보이게 처리 -->
-    <c:if test="${sessionScope.loginUser.id eq 'admin'}">
-      <button type="button" id="moveToReg">이벤트 등록</button>
-    </c:if>
-  </div>
-</form>
+    <input type="hidden" name="pageNo" id="pageNo" />
+    <div class="search-group">
+      <select name="searchDiv" id="searchDiv">
+        <option value="">검색 구분</option>
+        <option value="10" <c:if test="${search.searchDiv eq '10'}">selected</c:if>>제목</option>
+        <option value="20" <c:if test="${search.searchDiv eq '20'}">selected</c:if>>내용</option>
+        <option value="30" <c:if test="${search.searchDiv eq '30'}">selected</c:if>>이벤트</option>
+        <option value="40" <c:if test="${search.searchDiv eq '40'}">selected</c:if>>제목+내용</option>
+      </select>
+      <input type="text" name="searchWord" placeholder="검색어 입력" value="${search.searchWord}" />
+      <button type="button" id="doRetrieve">조회</button>
 
+      <!-- ✅ 관리자만 등록 버튼 -->
+        <c:if test="${sessionScope.loginUser.id eq 'admin'}">
+            <button type="button" id="moveToReg">이벤트 등록</button>
+        </c:if>
+    </div>
+  </form>
+
+  <!-- ✅ 목록 테이블 -->
   <table class="table">
     <thead>
       <tr>
@@ -146,38 +149,40 @@
       </tr>
     </thead>
     <tbody>
-  <c:choose>
-    <c:when test="${not empty list}">
-      <c:forEach var="vo" items="${list}" varStatus="status">
-  <tr>
-    <td>${(pageSize * (pageNo - 1)) + status.index + 1}</td>
-    <td>
-      <a href="${CP}/event/doSelectOne.do?ecode=${vo.ecode}">
-        ${vo.title}
-      </a>
-    </td>
-    <td>${vo.nickname}</td>
-    <td><fmt:formatDate value="${vo.modDt}" pattern="yyyy-MM-dd" /></td>
-    <td>${vo.readCnt}</td>
-  </tr>
-</c:forEach>
-    </c:when>
-    <c:otherwise>
-      <tr>
-        <td colspan="5">조회된 이벤트가 없습니다.</td>
-      </tr>
-    </c:otherwise>
-  </c:choose>
-</tbody>
+      <c:choose>
+        <c:when test="${not empty list}">
+          <c:forEach var="vo" items="${list}" varStatus="status">
+            <tr>
+              <td>${(pageSize * (pageNo - 1)) + status.index + 1}</td>
+              <td>
+                <a href="${CP}/event/doSelectOne.do?ecode=${vo.ecode}">
+                  <c:out value="${vo.title}" />
+                </a>
+              </td>
+              <td>${vo.nickname}</td>
+              <td><fmt:formatDate value="${vo.modDt}" pattern="yyyy-MM-dd" /></td>
+              <td>${vo.readCnt}</td>
+            </tr>
+          </c:forEach>
+        </c:when>
+        <c:otherwise>
+          <tr>
+            <td colspan="5">조회된 이벤트가 없습니다.</td>
+          </tr>
+        </c:otherwise>
+      </c:choose>
+    </tbody>
   </table>
 
+  <!-- ✅ 페이징 -->
   <div class="pagination">
     <%= pageHtml %>
   </div>
 </div>
 
+<!-- ✅ FOOTER -->
 <footer>
-  Ⓜ 2025 TEAM SYNERGY, CarPick Project.<br>
+  ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
   본 서비스는 교육 목적으로 제작되었습니다.<br>
   홍대 에이콘 아카데미 | 서울특별시 마포구 양화로 122, 3층 · 4층
 </footer>
