@@ -176,6 +176,7 @@
             title = #{title},
             div = #{div},
             contents = #{contents},
+            id = #{id},
             mod_dt = SYSDATE,
             mod_id = #{modId}
         WHERE board_code = #{boardCode}

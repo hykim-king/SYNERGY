@@ -158,7 +158,9 @@ public class BoardController {
 
 		// 최종 수정자(modId) 설정
 		param.setModId(loginUserId);
-
+		param.setId(original.getId());
+		param.setDiv(original.getDiv());
+		
 		int flag = boardService.doUpdate(param);
 		String message = (flag == 1) ? "회원님의 글이 수정되었습니다." : "회원님의 글이 수정되지 않았습니다.";
 		return new Gson().toJson(new MessageDTO(flag, message));

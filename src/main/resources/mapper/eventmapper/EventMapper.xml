@@ -76,6 +76,10 @@ CONNECT BY LEVEL <= 100
       ]]>
     </when>
   </choose>
+   <!-- ★ div 조건 추가 -->
+  <if test="div != null and div != ''">
+    AND div = #{div}
+  </if>
 </sql>
 
 <select id="doRetrieve" parameterType="SearchDTO" resultType="EventDTO">
