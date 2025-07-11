@@ -86,7 +86,11 @@
   </style>
 </head>
 <body>
-
+<div class="banner-event" style="text-align: center; margin: 10; padding: 0;">
+  <img src="${pageContext.request.contextPath}/resource/banner/event_banner.png" 
+       alt="이벤트배너" 
+       style="width: 80%; max-width: 1000px; height: auto;  display: block; margin: 0 auto;" />
+</div>
 
 <div class="main-container" style="max-width: 1000px; margin: 0 auto;">
   <h2>이벤트 게시판</h2>
