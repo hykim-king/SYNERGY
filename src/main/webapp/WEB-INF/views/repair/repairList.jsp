@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
    <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/drive.css">
     <style>
-        table { border-collapse: collapse; width: 100%; }
+        table { border-collapse: collapse; width: 100%;  font-size: 13px;}
         th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
         th { background-color: #f5f5f5; }
     </style>
