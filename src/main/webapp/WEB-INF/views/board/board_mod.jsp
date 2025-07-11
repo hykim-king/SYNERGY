@@ -5,11 +5,17 @@
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <c:set var="now" value="<%=new Date()%>" />
-<c:set var="sysDate">
-  <fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss" />
-</c:set>
+<c:set var="sysDate" value="${now}" />
+
 <!-- 수정 권한 여부: 본인 또는 admin -->
-<c:set var="isEditable" value="${sessionScope.loginUser.id eq vo.regId or sessionScope.loginUser.id eq 'admin'}" />
+<c:choose>
+  <c:when test="${not empty vo and not empty sessionScope.loginUser}">
+    <c:set var="isEditable" value="${sessionScope.loginUser.id eq vo.regId or sessionScope.loginUser.id eq 'admin'}" />
+  </c:when>
+  <c:otherwise>
+    <c:set var="isEditable" value="false" />
+  </c:otherwise>
+</c:choose>
 
 <!DOCTYPE html>
 <html>
@@ -53,7 +59,7 @@
           const msg = JSON.parse(resp);
           alert(msg.message);
           if (msg.messageId === 1) {
-            window.location.href = '${CP}/board/doRetrieve.do?div=${divValue}';
+            window.location.href = '${CP}/board/doRetrieve.do?div=${vo.div}';
           }
         });
       });
@@ -65,107 +71,35 @@
           const msg = JSON.parse(resp);
           alert(msg.message);
           if (msg.messageId === 1) {
-            window.location.href = '${CP}/board/doRetrieve.do?div=${divValue}';
+            window.location.href = '${CP}/board/doRetrieve.do?div=${vo.div}';
           }
         });
       });
 
       $('#moveToList').click(function () {
-        window.location.href = '${CP}/board/doRetrieve.do?div=${divValue}';
+        window.location.href = '${CP}/board/doRetrieve.do?div=${vo.div}';
       });
     });
   </script>
 
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .header-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #00264d;
-      color: white;
-      padding: 10px 20px;
-    }
-
-    .header-nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    .header-right a {
-      color: white;
-      margin-left: 10px;
-    }
-
-    .form-container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .form-group input[type="text"],
-    .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .form-group textarea {
-      height: 150px;
-      resize: vertical;
-    }
-
-    .button-area {
-      text-align: right;
-    }
-
-    .button-area input[type="button"] {
-      padding: 8px 20px;
-      margin-left: 10px;
-      background-color: #004080;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .button-area input[type="button"]:hover {
-      background-color: #0066cc;
-    }
-
-    footer {
-      margin-top: 60px;
-      background-color: #f4f4f4;
-      padding: 20px 10px;
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-      border-top: 1px solid #ccc;
-    }
+    body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .header-bar { display: flex; justify-content: space-between; align-items: center; background-color: #00264d; color: white; padding: 10px 20px; }
+    .header-nav a { color: white; text-decoration: none; margin: 0 10px; }
+    .header-right a { color: white; margin-left: 10px; }
+    .form-container { max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 10px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+    .form-group input[type="text"], .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    .form-group textarea { height: 150px; resize: vertical; }
+    .button-area { text-align: right; }
+    .button-area input[type="button"] { padding: 8px 20px; margin-left: 10px; background-color: #004080; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .button-area input[type="button"]:hover { background-color: #0066cc; }
+    footer { margin-top: 60px; background-color: #f4f4f4; padding: 20px 10px; text-align: center; font-size: 14px; color: #555; border-top: 1px solid #ccc; }
   </style>
 </head>
 <body>
 
-<!-- ✅ HEADER -->
 <header>
   <div class="header-bar">
     <div class="header-nav">
@@ -193,20 +127,19 @@
   </div>
 </header>
 
-<!-- ✅ 게시글 수정 폼 -->
 <div class="form-container">
   <h2>게시글 수정</h2>
   <hr class="title-underline">
 
   <form id="modForm" method="post" autocomplete="off">
     <input type="hidden" name="boardCode" id="boardCode" value="${vo.boardCode}" />
-    <input type="hidden" name="div" id="div" value="${divValue}" />
+    <input type="hidden" name="div" id="div" value="${vo.divValue}" />
     <input type="hidden" name="modId" value="${sessionScope.loginUser.id}" />
+    <input type="hidden" name="id" id="id" value="${vo.id}" />
 
     <div class="form-group">
       <label for="title">제목</label>
-      <input type="text" name="title" id="title" value="${vo.title}" maxlength="200"
-             <c:if test="${!isEditable}">readonly</c:if> />
+      <input type="text" name="title" id="title" value="${vo.title}" maxlength="200" <c:if test="${!isEditable}">readonly</c:if> />
     </div>
 
     <div class="form-group">
@@ -230,14 +163,15 @@
     </div>
 
     <div class="button-area">
-  <c:if test="${isEditable}">
-    <input type="button" id="doUpdate" value="수정">
-    <input type="button" id="doDelete" value="삭제">
-  </c:if>
-  <input type="button" id="moveToList" value="목록">
+      <c:if test="${isEditable}">
+        <input type="button" id="doUpdate" value="수정">
+        <input type="button" id="doDelete" value="삭제">
+      </c:if>
+      <input type="button" id="moveToList" value="목록">
+    </div>
+  </form>
 </div>
 
-<!-- ✅ FOOTER -->
 <footer>
   ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
   본 서비스는 교육 목적으로 제작되었습니다.<br>

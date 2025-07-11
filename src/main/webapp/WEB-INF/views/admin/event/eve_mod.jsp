@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>게시글 수정</title>
+    <title>이벤트 수정</title>
     <link rel="stylesheet" href="<c:url value='/resources/css/boardform.css'/>">
     <style>
         .container {
@@ -78,42 +78,48 @@
 </head>
 <body>
 
-<!-- 관리자 공통 헤더 -->
+<!-- ✅ 관리자 공통 헤더 -->
 <jsp:include page="/resource/adminHeader.jsp" />
 
 <div class="container">
-    <h2>게시글 수정</h2>
+    <h2>이벤트 수정</h2>
 
-   <form action="<c:url value='/admin/board/updateBoard.do'/>" method="post">
-        <!-- 게시글 코드 -->
-        <input type="hidden" name="boardCode" value="${board.boardCode}" />
+    <form action="<c:url value='/admin/event/updateEvent.do'/>" method="post">
+        <!-- 이벤트 코드 -->
+        <input type="hidden" name="ecode" value="${event.ecode}" />
 
-        <!-- 작성자 ID 전달 -->
-        <input type="hidden" name="id" value="${board.id}" />
+        <!-- 작성자 ID (수정자 기록용) -->
+        <input type="hidden" name="regId" value="${event.regId}" />
+
+        <!-- 이메일 전달 (DB 제약 대응용) -->
+        <input type="hidden" name="email" value="${event.email}" />
+
+        <!-- 구분 (이벤트 고정값) -->
+        <input type="hidden" name="div" value="이벤트" />
 
         <div class="form-group">
             <label for="title">제목</label>
-            <input type="text" name="title" id="title" value="${fn:escapeXml(board.title)}" required />
+            <input type="text" name="title" id="title" value="${fn:escapeXml(event.title)}" required />
         </div>
 
         <div class="form-group">
             <label for="nickname">작성자</label>
-            <input type="text" name="nickname" id="nickname" value="${fn:escapeXml(board.nickname)}" readonly />
+            <input type="text" name="nickname" id="nickname" value="${fn:escapeXml(event.nickname)}" readonly />
         </div>
 
         <div class="form-group">
             <label for="contents">내용</label>
-            <textarea name="contents" id="contents" required>${fn:escapeXml(board.contents)}</textarea>
+            <textarea name="contents" id="contents" required>${fn:escapeXml(event.contents)}</textarea>
         </div>
 
         <div class="btn-group">
             <button type="submit" class="btn">수정 완료</button>
-            <button type="button" class="btn btn-cancel" onclick="location.href='<c:url value="/admin/board/boa_list.do"/>'">취소</button>
+            <button type="button" class="btn btn-cancel" onclick="location.href='<c:url value="/admin/event/eve_list.do"/>'">취소</button>
         </div>
     </form>
 </div>
 
-<!-- 관리자 공통 푸터 -->
+<!-- ✅ 관리자 공통 푸터 -->
 <jsp:include page="/resource/footer.jsp" />
 
 </body>

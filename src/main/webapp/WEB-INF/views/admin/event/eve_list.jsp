@@ -1,11 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<c:set var="CP" value="${pageContext.request.contextPath}" />
+<c:set var="now" value="<%=new Date()%>" />
+<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss"/></c:set>
+
 <html>
 <head>
-    <title>관리자 게시판 목록</title>
+    <title>관리자 이벤트 목록</title>
     <link rel="stylesheet" href="<c:url value='/resources/css/board.css'/>">
     <style>
         .container {
@@ -36,6 +41,7 @@
         }
         .btn-danger { background-color: #dc3545; color: white; }
         .btn-edit   { background-color: #007bff; color: white; }
+        .btn-reg    { background-color: #28a745; color: white; float: left; margin-bottom: 15px; }
         .search-group { float: right; margin-bottom: 15px; }
         .pagination { margin-top: 20px; text-align: center; }
         .pagination .btn { margin: 0 3px; }
@@ -46,11 +52,14 @@
 <jsp:include page="/resource/adminHeader.jsp" />
 
 <div class="container">
-    <h2>관리자 게시판 목록</h2>
+    <h2>관리자 이벤트 목록</h2>
+
+    <!-- 등록 버튼 -->
+    <a href="<c:url value='/admin/event/eve_reg.do'/>" class="btn btn-reg">이벤트 등록</a>
 
     <!-- 검색 폼 -->
     <div class="search-group">
-        <form action="<c:url value='/admin/board/boa_list.do'/>" method="get">
+        <form action="<c:url value='/admin/event/eve_list.do'/>" method="get">
             <select name="searchDiv">
                 <option value="" <c:if test="${empty search.searchDiv}">selected</c:if>>--선택--</option>
                 <option value="10" <c:if test="${search.searchDiv == '10'}">selected</c:if>>제목</option>
@@ -61,7 +70,7 @@
         </form>
     </div>
 
-    <!-- 게시판 리스트 + 삭제 버튼 -->
+    <!-- 이벤트 리스트 + 삭제 버튼 -->
     <form id="deleteForm">
         <button type="button" class="btn btn-danger" onclick="deleteSelected()">선택 삭제</button>
 
@@ -80,36 +89,36 @@
             <tbody>
                 <c:choose>
                     <c:when test="${not empty list}">
-                        <c:forEach var="board" items="${list}">
+                        <c:forEach var="event" items="${list}">
                             <tr>
-                                <td><input type="checkbox" name="boardCodes" value="${board.boardCode}" /></td>
-                                <td>${board.boardCode}</td>
-                                <td>${fn:escapeXml(board.title)}</td>
-                                <td>${fn:escapeXml(board.nickname)}</td>
-                                <td>${board.readCnt}</td>
-                                <td><fmt:formatDate value="${board.regDt}" pattern="yyyy-MM-dd" /></td>
+                                <td><input type="checkbox" name="codes" value="${event.ecode}" /></td>
+                                <td>${event.ecode}</td>
+                                <td><a href="<c:url value='/event/event_detail.do?ecode=${event.ecode}'/>">${fn:escapeXml(event.title)}</a></td>
+                                <td>${fn:escapeXml(event.nickname)}</td>
+                                <td>${event.readCnt}</td>
+                                <td><fmt:formatDate value="${event.regDt}" pattern="yyyy-MM-dd" /></td>
                                 <td>
-                                    <a href="<c:url value='/admin/board/boardMod.do?boardCode=${board.boardCode}'/>" class="btn btn-edit">수정</a>
+                                    <a href="<c:url value='/admin/event/eve_mod.do?ecode=${event.ecode}'/>" class="btn btn-edit">수정</a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <tr><td colspan="7">등록된 게시글이 없습니다.</td></tr>
+                        <tr><td colspan="7">등록된 이벤트가 없습니다.</td></tr>
                     </c:otherwise>
                 </c:choose>
             </tbody>
         </table>
     </form>
 
-    <!-- 페이징 처리 -->
+    <!-- 페이징 -->
     <div class="pagination">
         <c:if test="${totalCnt > 0}">
             <c:set var="pageSize" value="${search.pageSize}" />
             <c:set var="pageNo" value="${search.pageNo}" />
             <c:set var="totalPage" value="${(totalCnt + pageSize - 1) / pageSize}" />
             <c:forEach begin="1" end="${totalPage}" var="page">
-                <a href="<c:url value='/admin/board/boa_list.do?pageNo=${page}&searchDiv=${search.searchDiv}&searchWord=${fn:escapeXml(search.searchWord)}'/>"
+                <a href="<c:url value='/admin/event/eve_list.do?pageNo=${page}&searchDiv=${search.searchDiv}&searchWord=${fn:escapeXml(search.searchWord)}'/>"
                    class="${page == pageNo ? 'btn btn-danger' : 'btn'}">${page}</a>
             </c:forEach>
         </c:if>
@@ -120,16 +129,16 @@
 
 <script>
 function toggleAll(source) {
-    const checkboxes = document.getElementsByName('boardCodes');
+    const checkboxes = document.getElementsByName('codes');
     for (let cb of checkboxes) {
         cb.checked = source.checked;
     }
 }
 
 function deleteSelected() {
-    const checked = document.querySelectorAll('input[name="boardCodes"]:checked');
+    const checked = document.querySelectorAll('input[name="codes"]:checked');
     if (checked.length === 0) {
-        alert("삭제할 게시글을 선택하세요.");
+        alert("삭제할 이벤트를 선택하세요.");
         return;
     }
 
@@ -137,7 +146,7 @@ function deleteSelected() {
 
     if (!confirm("정말 삭제하시겠습니까?")) return;
 
-    fetch("<c:url value='/admin/board/deleteBoards.do'/>", {
+    fetch("<c:url value='/admin/event/delete.do'/>", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(codes)

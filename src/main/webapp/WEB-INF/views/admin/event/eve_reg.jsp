@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<!DOCTYPE html>
 <html>
 <head>
-    <title>게시글 수정</title>
-    <link rel="stylesheet" href="<c:url value='/resources/css/boardform.css'/>">
+    <title>이벤트 등록</title>
+    <link rel="stylesheet" href="<c:url value='/resources/css/boardform.css'/>" />
     <style>
         .container {
             max-width: 800px;
@@ -43,10 +43,6 @@
             box-sizing: border-box;
         }
 
-        input[readonly] {
-            background-color: #e9ecef;
-        }
-
         textarea {
             height: 200px;
         }
@@ -78,42 +74,38 @@
 </head>
 <body>
 
-<!-- 관리자 공통 헤더 -->
 <jsp:include page="/resource/adminHeader.jsp" />
 
 <div class="container">
-    <h2>게시글 수정</h2>
+    <h2>이벤트 등록</h2>
 
-   <form action="<c:url value='/admin/board/updateBoard.do'/>" method="post">
-        <!-- 게시글 코드 -->
-        <input type="hidden" name="boardCode" value="${board.boardCode}" />
-
-        <!-- 작성자 ID 전달 -->
-        <input type="hidden" name="id" value="${board.id}" />
-
+    <form id="regForm" action="<c:url value='/admin/event/save.do'/>" method="post">
         <div class="form-group">
             <label for="title">제목</label>
-            <input type="text" name="title" id="title" value="${fn:escapeXml(board.title)}" required />
-        </div>
-
-        <div class="form-group">
-            <label for="nickname">작성자</label>
-            <input type="text" name="nickname" id="nickname" value="${fn:escapeXml(board.nickname)}" readonly />
+            <input type="text" id="title" name="title" required />
         </div>
 
         <div class="form-group">
             <label for="contents">내용</label>
-            <textarea name="contents" id="contents" required>${fn:escapeXml(board.contents)}</textarea>
+            <textarea id="contents" name="contents" required></textarea>
         </div>
 
+        <div class="form-group">
+            <label for="nickname">작성자</label>
+            <input type="text" id="nickname" name="nickname" value="${sessionScope.loginUser.nickname}" readonly />
+        </div>
+
+        <input type="hidden" name="regId" value="${sessionScope.loginUser.id}" />
+        <input type="hidden" name="email" value="${sessionScope.loginUser.email}" />
+        <input type="hidden" name="div" value="이벤트" />
+
         <div class="btn-group">
-            <button type="submit" class="btn">수정 완료</button>
-            <button type="button" class="btn btn-cancel" onclick="location.href='<c:url value="/admin/board/boa_list.do"/>'">취소</button>
+            <button type="submit" class="btn">등록</button>
+            <button type="button" class="btn btn-cancel" onclick="location.href='<c:url value='/admin/event/eve_list.do'/>'">취소</button>
         </div>
     </form>
 </div>
 
-<!-- 관리자 공통 푸터 -->
 <jsp:include page="/resource/footer.jsp" />
 
 </body>
