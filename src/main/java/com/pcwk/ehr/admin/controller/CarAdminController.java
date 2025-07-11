@@ -89,13 +89,12 @@ public class CarAdminController implements PLog {
 
 	    CarDTO car = carService.getCarById(carCode);
 	    if (car == null) {
-	        // 차량 정보가 없으면 목록으로 리다이렉트하면서 메시지 띄우도록 처리해도 됩니다.
 	        model.addAttribute("msg", "해당 차량 정보를 찾을 수 없습니다.");
 	        return "redirect:/admin/car/list.do";
 	    }
 
 	    model.addAttribute("car", car);
-	    return "/admin/car/updateCar"; // 수정 페이지 JSP 경로 (파일명 맞게 변경하세요)
+	    return "/admin/car/updateCar"; 
 	}
 
 	// (4) 자동차 정보 수정 처리
@@ -115,6 +114,7 @@ public class CarAdminController implements PLog {
 	}
 
 	// (5) 자동차 정보 삭제 처리
+	//RedirectAttributes: 리다이렉트 후 일회성 메시지(Flash Message)를 보여주고 싶을 때
 	@PostMapping("/delete.do")
 	public String delete(@RequestParam("carCode") int carCode, RedirectAttributes rttr) {
 		log.debug("┌─────────────────────────────┐");

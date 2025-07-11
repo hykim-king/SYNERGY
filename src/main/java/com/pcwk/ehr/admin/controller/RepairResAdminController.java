@@ -69,7 +69,7 @@ public class RepairResAdminController implements PLog {
 		model.addAttribute("searchDiv", searchDiv);
 		model.addAttribute("searchWord", searchWord);
 
-		return "admin/repair/list"; // JSP 뷰 이름
+		return "admin/repair/list";
 	}
 }
 	

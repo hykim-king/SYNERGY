@@ -4,6 +4,8 @@
 <%@ page import="com.pcwk.ehr.cmn.SearchDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="/resource/header.jsp" %>
+
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <c:set var="now" value="<%=new Date()%>" />
@@ -35,7 +37,7 @@
 <head>
   <meta charset="UTF-8">
   <title>이벤트 게시판</title>
-  <link rel="stylesheet" href="${CP}/resource/css/boardform1.css?date=${sysDate}">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css">
   <link rel="stylesheet" href="${CP}/resource/css/board1.css?date=${sysDate}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -84,6 +86,12 @@
   </style>
 </head>
 <body>
+<div class="banner-event" style="text-align: center; margin: 10; padding: 0;">
+  <img src="${pageContext.request.contextPath}/resource/banner/event_banner.png" 
+       alt="이벤트배너" 
+       style="width: 80%; max-width: 1000px; height: auto;  display: block; margin: 0 auto;" />
+</div>
+
 
 <!-- ✅ HEADER -->
 <header>
@@ -115,6 +123,8 @@
 
 <!-- ✅ MAIN -->
 <div class="main-container">
+
+<div class="main-container" style="max-width: 1000px; margin: 0 auto;">
   <h2>이벤트 게시판</h2>
 
   <form name="eventForm" method="get">
@@ -180,12 +190,16 @@
   </div>
 </div>
 
+
 <!-- ✅ FOOTER -->
 <footer>
   ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
   본 서비스는 교육 목적으로 제작되었습니다.<br>
   홍대 에이콘 아카데미 | 서울특별시 마포구 양화로 122, 3층 · 4층
 </footer>
+
+
+    <%@ include file="/resource/footer.jsp" %>
 
 </body>
 </html>
