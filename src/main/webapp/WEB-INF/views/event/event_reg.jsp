@@ -7,7 +7,7 @@
 <c:set var="now" value="<%=new Date()%>" />
 <c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss" /></c:set>
 
-<!-- ✅ 로그인 여부 확인 -->
+<!-- ✅ 로그인 및 관리자 권한 확인 -->
 <c:choose>
   <c:when test="${empty sessionScope.loginUser}">
     <c:redirect url="${CP}/member/loginView.do" />
@@ -118,16 +118,6 @@
     .button-area input[type="button"]:hover {
       background-color: #0066cc;
     }
-
-    footer {
-      margin-top: 60px;
-      background-color: #f4f4f4;
-      padding: 20px 10px;
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-      border-top: 1px solid #ccc;
-    }
   </style>
 </head>
 <body>
@@ -160,12 +150,7 @@
   </form>
 </div>
 
-<!-- ✅ FOOTER -->
-<footer>
-  ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
-  본 서비스는 교육 목적으로 제작되었습니다.<br>
-  홍대 에이콘 아카데미 | 서울특별시 마포구 양화로 122, 3층 · 4층
-</footer>
+<%@ include file="/resource/footer.jsp" %>
 
 </body>
 </html>

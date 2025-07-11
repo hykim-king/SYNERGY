@@ -18,12 +18,12 @@
   <script>
     function doUpdate() {
       const ecode = "${vo.ecode}";
-      location.href = '${CP}/event/doUpdateView.do?ecode=' + ecode;
+      location.href = '${CP}/event/doSaveView.do?ecode=' + ecode;
     }
 
     function doDelete() {
       if (confirm("정말 삭제하시겠습니까?")) {
-        $.post("${CP}/event/doDelete.do", { ecode: "${vo.ecode}" }, function (resp) {
+        $.post("${CP}/event/doDelete.do", { ecode: "${vo.ecode}", regId: "${vo.regId}" }, function (resp) {
           const msg = JSON.parse(resp);
           alert(msg.message);
           if (msg.flag === 1) {
@@ -80,15 +80,6 @@
       background-color: #0066cc;
     }
 
-    footer {
-      margin-top: 60px;
-      background-color: #f4f4f4;
-      padding: 20px 10px;
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-      border-top: 1px solid #ccc;
-    }
   </style>
 </head>
 <body>
@@ -109,7 +100,9 @@
 
   <div class="form-group">
     <label>작성자</label>
-    <p>${vo.nickname}</p>
+    <p>
+      <c:out value="${empty vo.nickname ? vo.regId : vo.nickname}" />
+    </p>
   </div>
 
   <div class="form-group">
@@ -127,11 +120,7 @@
   </div>
 </div>
 
-<footer>
-  ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
-  본 서비스는 교육 목적으로 제작되었습니다.<br>
-  홍대 에이콘 아카데미 | 서울특별시 마포구 양화로 122, 3층 · 4층
-</footer>
+<%@ include file="/resource/footer.jsp" %>
 
 </body>
 </html>
