@@ -18,27 +18,27 @@
   <main>
     <section class="slider">
       <div class="slide active">
-        <img src="${pageContext.request.contextPath}/image/2024kiaK9.png" alt="2024kiaK9">
+        <img src="${pageContext.request.contextPath}/resource/image/2024kiaK9.png" alt="2024kiaK9">
       </div>
       <div class="slide">
-        <img src="${pageContext.request.contextPath}/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S">
+        <img src="${pageContext.request.contextPath}/resource/image/2024 테슬라 모델 S.png" alt="2024 테슬라 모델 S">
       </div>
       <div class="slide">
-        <img src="${pageContext.request.contextPath}/image/2025 팰리세이드.png" alt="2025 팰리세이드">
+        <img src="${pageContext.request.contextPath}/resource/image/2025 팰리세이드.png" alt="2025 팰리세이드">
       </div>
       <div class="slide">
-        <img src="${pageContext.request.contextPath}/image/2025 메르세데스-벤츠 G클래스.png" alt="2025 메르세데스-벤츠 G클래스">
+        <img src="${pageContext.request.contextPath}/resource/image/2025 메르세데스-벤츠 G클래스.png" alt="2025 메르세데스-벤츠 G클래스">
       </div>
       <div class="slide">
-        <img src="${pageContext.request.contextPath}/image/볼보_XC40.png" alt="볼보 XC40">
+        <img src="${pageContext.request.contextPath}/resource/image/볼보_XC40.png" alt="볼보 XC40">
       </div>
       <div class="slide">
-        <img src="${pageContext.request.contextPath}/image/지프_어벤저 EV.png" alt="지프 어벤저 EV">
+        <img src="${pageContext.request.contextPath}/resource/image/지프_어벤저 EV.png" alt="지프 어벤저 EV">
       </div>
     </section>
     
 <div class="banner-image">
-  <img src="${pageContext.request.contextPath}/resource/banner_car_pick.png" alt="Car Pick 소개 이미지" >
+  <img src="${pageContext.request.contextPath}/resource/banner/banner_car_pick.png" alt="Car Pick 소개 이미지" >
 </div>
 
 <section class="intro-section">

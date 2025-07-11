@@ -52,16 +52,16 @@
     <sql id="boardWhere">
         <choose>
             <when test="searchDiv == '10'">
-                AND title LIKE #{searchWord} || '%'
+                AND title LIKE '%' || #{searchWord} || '%'
             </when>
             <when test="searchDiv == '20'">
-                AND contents LIKE #{searchWord} || '%'
+                AND contents LIKE '%' || #{searchWord} || '%'
             </when>
             <when test="searchDiv == '30'">
-                AND board_code = #{searchWord}
+                AND board_code = '%' || #{searchWord} || '%'
             </when>
             <when test="searchDiv == '40'">
-                AND (title LIKE #{searchWord} || '%' OR contents LIKE #{searchWord} || '%')
+                AND (title LIKE '%' || #{searchWord} || '%' OR contents LIKE '%' || #{searchWord} || '%')
             </when>
         </choose>
     </sql>
