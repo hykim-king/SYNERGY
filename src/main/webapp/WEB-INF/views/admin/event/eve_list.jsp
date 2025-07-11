@@ -1,12 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<c:set var="CP" value="${pageContext.request.contextPath}" />
-<c:set var="now" value="<%=new Date()%>" />
-<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss"/></c:set>
 
 <html>
 <head>
@@ -65,13 +60,13 @@
                 <option value="10" <c:if test="${search.searchDiv == '10'}">selected</c:if>>제목</option>
                 <option value="20" <c:if test="${search.searchDiv == '20'}">selected</c:if>>작성자</option>
             </select>
-            <input type="text" name="searchWord" value="${search.searchWord}" placeholder="검색어 입력" />
+            <input type="text" name="searchWord" value="${fn:escapeXml(search.searchWord)}" placeholder="검색어 입력" />
             <button type="submit" class="btn">검색</button>
         </form>
     </div>
 
     <!-- 이벤트 리스트 + 삭제 버튼 -->
-    <form id="deleteForm">
+    <form id="deleteForm" action="<c:url value='/admin/event/delete.do'/>" method="post">
         <button type="button" class="btn btn-danger" onclick="deleteSelected()">선택 삭제</button>
 
         <table>
@@ -91,9 +86,13 @@
                     <c:when test="${not empty list}">
                         <c:forEach var="event" items="${list}">
                             <tr>
-                                <td><input type="checkbox" name="codes" value="${event.ecode}" /></td>
+                                <td><input type="checkbox" name="ecodeList" value="${event.ecode}" /></td>
                                 <td>${event.ecode}</td>
-                                <td><a href="<c:url value='/event/event_detail.do?ecode=${event.ecode}'/>">${fn:escapeXml(event.title)}</a></td>
+                                <td>
+                                    <a href="<c:url value='/event/event_detail.do?ecode=${event.ecode}'/>">
+                                        ${fn:escapeXml(event.title)}
+                                    </a>
+                                </td>
                                 <td>${fn:escapeXml(event.nickname)}</td>
                                 <td>${event.readCnt}</td>
                                 <td><fmt:formatDate value="${event.regDt}" pattern="yyyy-MM-dd" /></td>
@@ -129,43 +128,20 @@
 
 <script>
 function toggleAll(source) {
-    const checkboxes = document.getElementsByName('codes');
-    for (let cb of checkboxes) {
-        cb.checked = source.checked;
-    }
+    const checkboxes = document.querySelectorAll('input[name="ecodeList"]');
+    checkboxes.forEach(cb => cb.checked = source.checked);
 }
 
 function deleteSelected() {
-    const checked = document.querySelectorAll('input[name="codes"]:checked');
-    if (checked.length === 0) {
+    const selected = document.querySelectorAll('input[name="ecodeList"]:checked');
+    if (selected.length === 0) {
         alert("삭제할 이벤트를 선택하세요.");
         return;
     }
 
-    const codes = Array.from(checked).map(cb => parseInt(cb.value));
-
-    if (!confirm("정말 삭제하시겠습니까?")) return;
-
-    fetch("<c:url value='/admin/event/delete.do'/>", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(codes)
-    })
-    .then(res => res.text())
-    .then(text => {
-        try {
-            const data = JSON.parse(text);
-            alert(data.msg || "삭제 완료");
-            if (data.msg?.includes("삭제")) location.reload();
-        } catch (e) {
-            console.error("JSON 파싱 실패", text);
-            alert("서버 응답 오류: " + text);
-        }
-    })
-    .catch(err => {
-        console.error("삭제 오류", err);
-        alert("삭제 중 오류 발생");
-    });
+    if (confirm("정말 삭제하시겠습니까?")) {
+        document.getElementById("deleteForm").submit();
+    }
 }
 </script>
 

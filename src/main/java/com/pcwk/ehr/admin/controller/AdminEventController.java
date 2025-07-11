@@ -1,6 +1,5 @@
 package com.pcwk.ehr.admin.controller;
 
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,106 +22,111 @@ import com.pcwk.ehr.member.MemberDTO;
 @RequestMapping("/admin/event")
 public class AdminEventController {
 
-    @Autowired
-    EventService eventService;
+	@Autowired
+	private EventService eventService;
 
-    // 이벤트 목록
-    @GetMapping("/eve_list.do")
-    public String eventList(SearchDTO param, Model model, HttpSession session) {
-        param.setDiv("이벤트"); // 🔹 반드시 세팅
-        
-        if (param.getPageNo() == 0) param.setPageNo(1);
-        if (param.getPageSize() == 0) param.setPageSize(10);
+	/**
+	 * 관리자 이벤트 목록 화면
+	 */
+	@GetMapping("/eve_list.do")
+	public String eventList(SearchDTO param, Model model) {
+		param.setDiv("이벤트");
 
-        List<EventDTO> list = eventService.doRetrieve(param);
-        int totalCnt = list.isEmpty() ? 0 : list.get(0).getTotalCnt();
+		// 기본 페이지 정보 설정
+		if (param.getPageNo() == 0)
+			param.setPageNo(1);
+		if (param.getPageSize() == 0)
+			param.setPageSize(10);
 
-        model.addAttribute("list", list);
-        model.addAttribute("search", param);
-        model.addAttribute("totalCnt", totalCnt);
+		List<EventDTO> list = eventService.doRetrieve(param);
+		int totalCnt = (list != null && !list.isEmpty()) ? list.get(0).getTotalCnt() : 0;
 
-        return "admin/event/eve_list";
-    }
+		model.addAttribute("list", list);
+		model.addAttribute("search", param);
+		model.addAttribute("totalCnt", totalCnt);
 
-    // 이벤트 등록 화면
-    @GetMapping("/eve_reg.do")
-    public String eventReg() {
-        return "admin/event/eve_reg";
-    }
+		return "admin/event/eve_list";
+	}
 
-    // 이벤트 등록 처리
-    @PostMapping("/save.do")
-    public String save(EventDTO dto, HttpSession session) {
-        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+	/**
+	 * 이벤트 등록 화면
+	 */
+	@GetMapping("/eve_reg.do")
+	public String eventReg() {
+		return "admin/event/eve_reg";
+	}
 
-        if (loginUser != null) {
-            dto.setRegId(loginUser.getId());
-            dto.setEmail(loginUser.getEmail());
-            dto.setNickname(loginUser.getNickname());
-        } else {
-            // 비로그인 시 기본값
-            dto.setRegId("anonymous");
-            dto.setEmail("anonymous@example.com");
-            dto.setNickname("익명");
-        }
+	/**
+	 * 이벤트 등록 처리
+	 */
+	@PostMapping("/save.do")
+	public String save(EventDTO dto, HttpSession session) {
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
 
-        dto.setDiv("이벤트");
+		if (loginUser != null) {
+			dto.setRegId(loginUser.getId());
+			dto.setEmail(loginUser.getEmail());
+			dto.setNickname(loginUser.getNickname());
+		}
 
-        int result = eventService.doSave(dto);
+		dto.setDiv("이벤트");
+		eventService.doSave(dto);
 
-        // 등록 성공 시 관리자 목록 페이지로 리디렉션
-        return "redirect:/admin/event/eve_list.do";
-    }
+		return "redirect:/admin/event/eve_list.do";
+	}
 
-    // 이벤트 수정 화면
-    @GetMapping("/eve_mod.do")
-    public String eventMod(int ecode, Model model) {
-        EventDTO param = new EventDTO();
-        param.setEcode(ecode);
-        EventDTO out = eventService.doSelectOne(param);
-        model.addAttribute("event", out);
+	/**
+	 * 이벤트 수정 화면
+	 */
+	@GetMapping("/eve_mod.do")
+	public String eventMod(@RequestParam("ecode") int ecode, Model model) {
+		EventDTO param = new EventDTO();
+		param.setEcode(ecode);
 
-        return "admin/event/eve_mod";
-    }
+		EventDTO out = eventService.doSelectOne(param);
+		model.addAttribute("event", out);
 
-    // 이벤트 수정 처리
-    @PostMapping("/update.do")
-    public String update(EventDTO dto, HttpSession session) {
-        MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+		return "admin/event/eve_mod";
+	}
 
-        if (loginUser != null) {
-            dto.setModId(loginUser.getId());
-        } else {
-            dto.setModId("anonymous");
-        }
+	/**
+	 * 이벤트 수정 처리
+	 */
+	@PostMapping("/update.do")
+	public String update(EventDTO dto, HttpSession session) {
+		MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
 
-        // 기본값 설정
-        if (dto.getDiv() == null || dto.getDiv().isEmpty()) {
-            dto.setDiv("이벤트");
-        }
+		if (loginUser != null) {
+			dto.setModId(loginUser.getId());
+		}
 
-        int result = eventService.doUpdate(dto);
+		if (dto.getDiv() == null || dto.getDiv().trim().isEmpty()) {
+			dto.setDiv("이벤트");
+		}
 
-        // 수정 후 목록 페이지로 이동
-        return "redirect:/admin/event/eve_list.do";
-    }
-    // 이벤트 삭제 처리
-    @PostMapping("/delete.do")
-    public String delete(@RequestParam(value = "ecodeList", required = false) List<Integer> ecodeList) {
-        if (ecodeList != null) {
-            for (int code : ecodeList) {
-                EventDTO dto = new EventDTO();
-                dto.setEcode(code);
-                eventService.doDelete(dto);
-            }
-        }
+		eventService.doUpdate(dto);
 
-        // 삭제 후 이벤트 목록 페이지로 리다이렉트
-        return "redirect:/admin/event/eve_list.do";
-    }
+		return "redirect:/admin/event/eve_list.do";
+	}
 
-    @PostConstruct
-    public void init() {
-        System.out.println(">>> AdminEventController (권한 없이 등록 가능) 로드 완료 <<<");
-    }
+	/**
+	 * 이벤트 삭제 처리 (선택 삭제)
+	 */
+	@PostMapping("/delete.do")
+	public String delete(@RequestParam(value = "ecodeList", required = false) List<Integer> ecodeList) {
+		if (ecodeList != null && !ecodeList.isEmpty()) {
+			for (int code : ecodeList) {
+				EventDTO dto = new EventDTO();
+				dto.setEcode(code);
+				eventService.doDelete(dto);
+			}
+		}
+
+		return "redirect:/admin/event/eve_list.do";
+	}
+
+	@PostConstruct
+	public void init() {
+		System.out.println(">>> AdminEventController 로드 완료 <<<");
+	}
 }

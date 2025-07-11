@@ -13,6 +13,27 @@
   <meta charset="UTF-8">
   <title>이벤트 상세</title>
   <link rel="stylesheet" href="${CP}/resource/css/boardform1.css?date=${sysDate}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script>
+    function doUpdate() {
+      const ecode = "${vo.ecode}";
+      location.href = '${CP}/event/doSaveView.do?ecode=' + ecode;
+    }
+
+    function doDelete() {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        $.post("${CP}/event/doDelete.do", { ecode: "${vo.ecode}", regId: "${vo.regId}" }, function (resp) {
+          const msg = JSON.parse(resp);
+          alert(msg.message);
+          if (msg.flag === 1) {
+            location.href = "${CP}/event/doRetrieve.do";
+          }
+        });
+      }
+    }
+  </script>
+
   <style>
     .form-container {
       max-width: 800px;
@@ -52,21 +73,13 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin: 0 5px;
     }
 
     .button-area button:hover {
       background-color: #0066cc;
     }
 
-    footer {
-      margin-top: 60px;
-      background-color: #f4f4f4;
-      padding: 20px 10px;
-      text-align: center;
-      font-size: 14px;
-      color: #555;
-      border-top: 1px solid #ccc;
-    }
   </style>
 </head>
 <body>
@@ -87,7 +100,9 @@
 
   <div class="form-group">
     <label>작성자</label>
-    <p>${vo.nickname}</p>
+    <p>
+      <c:out value="${empty vo.nickname ? vo.regId : vo.nickname}" />
+    </p>
   </div>
 
   <div class="form-group">
@@ -95,25 +110,17 @@
     <p><fmt:formatDate value="${vo.regDt}" pattern="yyyy-MM-dd" /></p>
   </div>
 
- <c:if test="${sessionScope.loginUser.id eq 'admin'}">
   <div class="button-area">
     <button onclick="location.href='${CP}/event/doRetrieve.do'">목록</button>
-    <button onclick="doUpdate()">수정</button>
-    <button onclick="doDelete()">삭제</button>
+
+    <c:if test="${sessionScope.loginUser.id eq 'admin'}">
+      <button onclick="doUpdate()">수정</button>
+      <button onclick="doDelete()">삭제</button>
+    </c:if>
   </div>
-</c:if>
-<c:if test="${sessionScope.loginUser.id ne 'admin'}">
-  <div class="button-area">
-    <button onclick="location.href='${CP}/event/doRetrieve.do'">목록</button>
-  </div>
-</c:if>
 </div>
 
-<footer>
-  ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
-  본 서비스는 교육 목적으로 제작되었습니다.<br>
-  홍대 에이콘 아카데미 | 서울특별시 마포구 양화로 122, 3층 · 4층
-</footer>
+<%@ include file="/resource/footer.jsp" %>
 
 </body>
 </html>

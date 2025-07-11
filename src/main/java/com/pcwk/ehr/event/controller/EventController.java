@@ -59,7 +59,7 @@ public class EventController {
 	public String doRetrieve(SearchDTO param, Model model) {
 		param.setPageNo(PcwkString.nvlZero(param.getPageNo(), 1));
 		param.setPageSize(PcwkString.nvlZero(param.getPageSize(), 10));
-		param.setDiv(PcwkString.nvlString(param.getDiv(), "10"));
+		param.setDiv(PcwkString.nvlString(param.getDiv(), "이벤트")); // ✅ 수정
 		param.setSearchDiv(PcwkString.nullToEmpty(param.getSearchDiv()));
 		param.setSearchWord(PcwkString.nullToEmpty(param.getSearchWord()));
 
@@ -77,14 +77,23 @@ public class EventController {
 	// 단건 조회 (관리자는 수정화면, 일반회원은 상세화면)
 	@GetMapping("/doSelectOne.do")
 	public String doSelectOne(EventDTO param, Model model, HttpServletRequest req) {
-	    // 조회수 증가 (선택적)
+	    MemberDTO loginUser = (MemberDTO) req.getSession().getAttribute("loginUser");
+
+	    // 조회수 증가
 	    eventService.updateReadCnt(param);
 
 	    EventDTO outVO = eventService.doSelectOne(param);
 	    if (outVO == null) return "redirect:/event/doRetrieve.do";
 
 	    model.addAttribute("vo", outVO);
-	    return "event/event_mod";
+
+	    // 읽기 전용 페이지로 이동
+	    String viewOnly = req.getParameter("viewOnly");
+	    if ("true".equals(viewOnly) || loginUser == null || !"admin".equals(loginUser.getId())) {
+	        return "event/event_mod"; // 읽기 전용 뷰
+	    }
+
+	    return "event/event_mod"; // 수정 가능 뷰
 	}
 
 	// 이벤트 등록 (관리자만)
