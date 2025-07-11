@@ -78,48 +78,47 @@
 </head>
 <body>
 
-<!-- ✅ 관리자 공통 헤더 -->
 <jsp:include page="/resource/adminHeader.jsp" />
 
 <div class="container">
     <h2>이벤트 수정</h2>
 
-    <form action="<c:url value='/admin/event/updateEvent.do'/>" method="post">
-        <!-- 이벤트 코드 -->
+    <form action="<c:url value='/admin/event/update.do'/>" method="post">
+        <!-- 필수 hidden 필드 -->
         <input type="hidden" name="ecode" value="${event.ecode}" />
-
-        <!-- 작성자 ID (수정자 기록용) -->
-        <input type="hidden" name="regId" value="${event.regId}" />
-
-        <!-- 이메일 전달 (DB 제약 대응용) -->
-        <input type="hidden" name="email" value="${event.email}" />
-
-        <!-- 구분 (이벤트 고정값) -->
+        <input type="hidden" name="regId" value="${fn:escapeXml(event.regId)}" />
+        <input type="hidden" name="email" value="${fn:escapeXml(event.email)}" />
         <input type="hidden" name="div" value="이벤트" />
 
+        <!-- 제목 -->
         <div class="form-group">
             <label for="title">제목</label>
-            <input type="text" name="title" id="title" value="${fn:escapeXml(event.title)}" required />
+            <input type="text" name="title" id="title"
+                   value="${fn:escapeXml(event.title)}" required />
         </div>
 
+        <!-- 작성자 -->
         <div class="form-group">
             <label for="nickname">작성자</label>
-            <input type="text" name="nickname" id="nickname" value="${fn:escapeXml(event.nickname)}" readonly />
+            <input type="text" name="nickname" id="nickname"
+                   value="${fn:escapeXml(event.nickname)}" readonly />
         </div>
 
+        <!-- 내용 -->
         <div class="form-group">
             <label for="contents">내용</label>
             <textarea name="contents" id="contents" required>${fn:escapeXml(event.contents)}</textarea>
         </div>
 
+        <!-- 버튼 영역 -->
         <div class="btn-group">
             <button type="submit" class="btn">수정 완료</button>
-            <button type="button" class="btn btn-cancel" onclick="location.href='<c:url value="/admin/event/eve_list.do"/>'">취소</button>
+            <button type="button" class="btn btn-cancel"
+                    onclick="location.href='<c:url value="/admin/event/eve_list.do"/>'">취소</button>
         </div>
     </form>
 </div>
 
-<!-- ✅ 관리자 공통 푸터 -->
 <jsp:include page="/resource/footer.jsp" />
 
 </body>

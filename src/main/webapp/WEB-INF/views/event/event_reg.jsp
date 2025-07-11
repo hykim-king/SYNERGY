@@ -7,17 +7,17 @@
 <c:set var="now" value="<%=new Date()%>" />
 <c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss" /></c:set>
 
-<!-- ✅ 로그인하지 않은 경우 로그인 페이지로 리디렉트 -->
+<!-- ✅ 로그인 여부 확인 -->
 <c:choose>
   <c:when test="${empty sessionScope.loginUser}">
     <c:redirect url="${CP}/member/loginView.do" />
   </c:when>
-  <c:if test="${sessionScope.loginUser.id ne 'admin'}">
-  <script>
-    alert("관리자만 등록 가능합니다.");
-    location.href = '${CP}/main/main.do';
-  </script>
-</c:if>
+  <c:when test="${sessionScope.loginUser.id ne 'admin'}">
+    <script>
+      alert("관리자만 접근 가능합니다.");
+      location.href = '${CP}/main/main.do';
+    </script>
+  </c:when>
 </c:choose>
 
 <!DOCTYPE html>
@@ -30,7 +30,6 @@
 
   <script>
     $(document).ready(function () {
-      // 등록
       $('#doSave').click(function () {
         const title = $('#title').val().trim();
         const contents = $('#contents').val().trim();
@@ -57,12 +56,11 @@
               location.href = '${CP}/event/doRetrieve.do';
             }
           } catch (e) {
-            alert("응답 처리 중 오류 발생: " + e);
+            alert("오류 발생: " + e);
           }
         });
       });
 
-      // 목록 이동
       $('#moveToList').click(function () {
         location.href = '${CP}/event/doRetrieve.do';
       });
@@ -104,16 +102,17 @@
 
     .button-area {
       text-align: right;
+      margin-top: 20px;
     }
 
     .button-area input[type="button"] {
       padding: 8px 20px;
-      margin-left: 10px;
       background-color: #004080;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-left: 10px;
     }
 
     .button-area input[type="button"]:hover {
@@ -132,26 +131,6 @@
   </style>
 </head>
 <body>
-
-<!-- ✅ HEADER -->
-<header>
-  <div style="display:flex; justify-content:space-between; align-items:center; background:#00264d; color:white; padding:10px 20px;">
-    <div style="display:flex; gap:15px; align-items:center;">
-      <a href="${CP}/main/main.do"><img src="${CP}/image/carpick.png" style="height:50px;" alt="CarPick"></a>
-      <a href="${CP}/car/list.do" style="color:white;">차량 전체 모델</a>
-      <a href="${CP}/retailer/all.do" style="color:white;">리테일러 찾기</a>
-      <a href="#" onclick="alert('로그인이 필요합니다.');" style="color:white;">시승 신청</a>
-      <a href="#" onclick="alert('로그인이 필요합니다.');" style="color:white;">정비 신청</a>
-      <a href="${CP}/board/doRetrieve.do" style="color:white;">자유게시판</a>
-      <a href="${CP}/event/doRetrieve.do" style="color:white;">이벤트</a>
-    </div>
-    <div>
-      <span>👤</span>
-      <span style="margin-left:5px;">${sessionScope.loginUser.nickname}님</span>
-      <a href="${CP}/member/logout.do" style="color:white; margin-left:10px;">로그아웃</a>
-    </div>
-  </div>
-</header>
 
 <!-- ✅ 등록 폼 -->
 <div class="form-container">

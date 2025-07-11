@@ -93,37 +93,6 @@
 </div>
 
 
-<!-- ✅ HEADER -->
-<header>
-  <div class="header-bar" style="display: flex; justify-content: space-between; align-items: center; background: #00264d; color: white; padding: 10px 20px;">
-    <div class="header-nav" style="display: flex; align-items: center; gap: 15px;">
-      <a href="${CP}/main/main.do"><img src="${CP}/image/carpick.png" alt="CARPICK" style="height: 50px;"></a>
-      <a href="${CP}/car/list.do" style="color:white;">차량 전체 모델</a>
-      <a href="${CP}/retailer/all.do" style="color:white;">리테일러 찾기</a>
-      <a href="#" onclick="handleProtectedLink(event, '${CP}/drive/form.do')" style="color:white;">시승 신청</a>
-      <a href="#" onclick="handleProtectedLink(event, '${CP}/repair/form.do')" style="color:white;">정비 신청</a>
-      <a href="${CP}/board/doRetrieve.do" style="color:white;">자유게시판</a>
-      <a href="${CP}/event/doRetrieve.do" style="color:white;">이벤트</a>
-    </div>
-    <div class="header-right">
-      <c:choose>
-        <c:when test="${not empty sessionScope.loginUser}">
-          <span>👤</span>
-          <a href="${CP}/member/mypage.do" style="color:white;">${sessionScope.loginUser.nickname}님</a>
-          <a href="${CP}/member/logout.do" style="color:white; margin-left:10px;">로그아웃</a>
-        </c:when>
-        <c:otherwise>
-          <span>🔒</span>
-          <a href="${CP}/member/loginView.do" style="color:white; margin-left: 5px;">로그인</a>
-        </c:otherwise>
-      </c:choose>
-    </div>
-  </div>
-</header>
-
-<!-- ✅ MAIN -->
-<div class="main-container">
-
 <div class="main-container" style="max-width: 1000px; margin: 0 auto;">
   <h2>이벤트 게시판</h2>
 
@@ -189,15 +158,6 @@
     <%= pageHtml %>
   </div>
 </div>
-
-
-<!-- ✅ FOOTER -->
-<footer>
-  ⓒ 2025 TEAM SYNERGY, CarPick Project.<br>
-  본 서비스는 교육 목적으로 제작되었습니다.<br>
-  홍대 에이콘 아카데미 | 서울특별시 마포구 양화로 122, 3층 · 4층
-</footer>
-
 
     <%@ include file="/resource/footer.jsp" %>
 
