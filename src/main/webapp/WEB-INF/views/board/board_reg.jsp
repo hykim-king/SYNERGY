@@ -5,9 +5,7 @@
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <c:set var="now" value="<%=new Date()%>" />
-<c:set var="sysDate">
-  <fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss" />
-</c:set>
+<c:set var="sysDate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd_HH:mm:ss" /></c:set>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +30,6 @@
     $(document).ready(function () {
       $('#doSave').click(function () {
         const title = $('#title').val().trim();
-        const regId = $('#regId').val().trim();
         const contents = $('#contents').val().trim();
 
         if (title === '') {
@@ -40,11 +37,7 @@
           $('#title').focus();
           return;
         }
-        if (regId === '') {
-          alert('작성자를 입력하세요.');
-          $('#regId').focus();
-          return;
-        }
+
         if (contents === '') {
           alert('내용을 입력하세요.');
           $('#contents').focus();
@@ -57,13 +50,13 @@
           const msg = JSON.parse(resp);
           alert(msg.message);
           if (msg.messageId === 1) {
-            window.location.href = '${CP}/board/doRetrieve.do?div=10';
+            window.location.href = '${CP}/board/doRetrieve.do?div=${board_div}';
           }
         });
       });
 
       $('#moveToList').click(function () {
-        window.location.href = '${CP}/board/doRetrieve.do?div=10';
+        window.location.href = '${CP}/board/doRetrieve.do?div=${board_div}';
       });
     });
   </script>
@@ -191,16 +184,14 @@
   <hr class="title-underline">
 
   <form id="regForm" method="post" autocomplete="off">
-    <input type="hidden" name="div" id="div" value="10">
+    <input type="hidden" name="div" id="div" value="${board_div}" />
+    <input type="hidden" name="id" value="${sessionScope.loginUser.id}" />
+    <input type="hidden" name="regId" value="${sessionScope.loginUser.id}" />
+    <input type="hidden" name="nickname" value="${sessionScope.loginUser.nickname}" />
 
     <div class="form-group">
       <label for="title">제목</label>
       <input type="text" name="title" id="title" maxlength="200" placeholder="제목">
-    </div>
-
-    <div class="form-group">
-      <label for="regId">작성자</label>
-      <input type="text" name="regId" id="regId" maxlength="20" placeholder="작성자">
     </div>
 
     <div class="form-group">

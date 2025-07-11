@@ -227,5 +227,35 @@ public class BoardController {
 		log.debug("2. jsonString:{}", jsonString);
 		return jsonString;
 	}
+	
+	/**
+	 * 게시글 상세 조회 화면
+	 * GET /board/detail.do?boardCode=xxx
+	 */
+	@GetMapping("/detail.do")
+	public String doDetail(@RequestParam("boardCode") int boardCode, Model model) {
+	    log.debug("┌──────────────────────────────┐");
+	    log.debug("│ *doDetail()*                 │");
+	    log.debug("└──────────────────────────────┘");
+	    log.debug("1. boardCode: {}", boardCode);
+
+	    BoardDTO inDTO = new BoardDTO();
+	    inDTO.setBoardCode(boardCode);
+
+	    // 조회수 증가 먼저
+	    boardService.updateReadCnt(inDTO);
+
+	    // 게시글 상세 조회
+	    BoardDTO outDTO = boardService.doSelectOne(inDTO);
+
+	    if (outDTO == null) {
+	        model.addAttribute("message", "해당 게시글을 찾을 수 없습니다.");
+	        return "board/board_detail"; // 실패해도 동일 뷰로
+	    }
+
+	    model.addAttribute("board", outDTO); // board_detail.jsp에서 사용
+
+	    return "board/board_detail"; // /WEB-INF/views/board/board_detail.jsp
+	}
 
 }
