@@ -46,8 +46,8 @@ Tools
 <img src ="src/main/webapp/resource/readme/SYNERGY_ERD.png" alt="SYNERGY_ERD" width="600">
 
 * 회원가입/로그인
-<img src ="src/main/webapp/resource/readme/회원가입.png" alt="회원가입" width="600">
-<img src ="src/main/webapp/resource/readme/로그인.png" alt="로그인" width="600">
+<img src ="src/main/webapp/resource/readme/logname.png" alt="회원가입" width="600">
+<img src ="src/main/webapp/resource/readme/login.png" alt="로그인" width="600">
 
 * 차량 신청 및 조회
 <img src ="src/main/webapp/resource/readme/조회.png" alt="조회" width="600">
