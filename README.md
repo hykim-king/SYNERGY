@@ -46,17 +46,16 @@ Tools
 <img src ="src/main/webapp/resource/readme/SYNERGY_ERD.png" alt="SYNERGY_ERD" width="600">
 
 * 회원가입/로그인
-<img src ="src/main/webapp/resource/readme/회원가입.png" alt="SYNERGY_ERD" width="600">
-<img src ="src/main/webapp/resource/readme/회원가입.png" alt="SYNERGY_ERD" width="600">
-<img src ="src/main/webapp/resource/readme/로그인.png" alt="SYNERGY_ERD" width="600">
+<img src ="src/main/webapp/resource/readme/회원가입.png" alt="회원가입" width="600">
+<img src ="src/main/webapp/resource/readme/로그인.png" alt="로그인" width="600">
 
 * 차량 신청 및 조회
-<img src ="src/main/webapp/resource/readme/조회.png" alt="SYNERGY_ERD" width="600">
-<img src ="src/main/webapp/resource/readme/신청.png" alt="SYNERGY_ERD" width="600">
+<img src ="src/main/webapp/resource/readme/조회.png" alt="조회" width="600">
+<img src ="src/main/webapp/resource/readme/신청.png" alt="신청" width="600">
 
 * 마이페이지/이벤트/자유게시판
-<img src ="src/main/webapp/resource/readme/마이페이지.png" alt="SYNERGY_ERD" width="600">
-<img src ="src/main/webapp/resource/readme/이벤트.png" alt="SYNERGY_ERD" width="600">
-<img src ="src/main/webapp/resource/readme/자유게시판.png" alt="SYNERGY_ERD" width="600">
+<img src ="src/main/webapp/resource/readme/마이페이지.png" alt="마이페이지" width="600">
+<img src ="src/main/webapp/resource/readme/이벤트.png" alt="이벤트" width="600">
+<img src ="src/main/webapp/resource/readme/자유게시판.png" alt="자유게시판" width="600">
 
 
