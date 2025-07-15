@@ -4,4 +4,4 @@
 
 # SYNERGY
 ## 📝SYNERGY_ERD 설계서
-<img src ="src/main/webapp/resource/readme/SYNERGY_ERD.jpg" alt="SYNERGY_ERD" width="600">
+<img src ="src/main/webapp/resource/readme/SYNERGY_ERD.png" alt="SYNERGY_ERD" width="600">
