@@ -59,3 +59,5 @@ Tools
 <img src ="src/main/webapp/resource/readme/자유게시판.png" alt="자유게시판" width="600">
 
 
+## 🖥️ WEB 소개 영상
+https://youtu.be/YwntbXkUEH0
