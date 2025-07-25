@@ -3,8 +3,6 @@ package com.pcwk.ehr.member;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.pcwk.ehr.member.MemberDTO;
-
 public interface MemberService {
 
 	int doSave(MemberDTO param) throws SQLException;
